@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c7megwifxrf4g" path="res://scenes/debug/debug.gd" id="1_kfclf"]
 
 [node name="Debug" type="CanvasLayer" unique_id=1599672822]
+visible = false
 script = ExtResource("1_kfclf")
 
 [node name="Background" type="ColorRect" parent="." unique_id=2102687449]

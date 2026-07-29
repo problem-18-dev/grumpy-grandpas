@@ -8,7 +8,9 @@ const DEFAULT_HEALTH := 100
 @export_group("Properties")
 @export var max_health := DEFAULT_HEALTH
 
-var _health := max_health
+var _dead := false
+
+@onready var _health := max_health
 
 
 func add_health(amount: int) -> void:
@@ -17,8 +19,12 @@ func add_health(amount: int) -> void:
 
 
 func take_health(amount: int) -> void:
+	if _dead:
+		return
+
 	_health -= amount
 	_health = maxi(0, _health)
 
 	if _health <= 0:
+		_dead = true
 		died.emit()

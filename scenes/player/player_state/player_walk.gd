@@ -1,7 +1,11 @@
 extends PlayerState
 
+@export_group("Properties")
+@export var movement_speed := 100.0
 
-func _physics_update(_delta: float) -> void:
+
+func _physics_update(delta: float) -> void:
+	_apply_gravity(delta)
 	_handle_movement()
 	player.move_and_slide()
 	_check_floor()
@@ -19,4 +23,4 @@ func _handle_movement() -> void:
 		finished.emit(PlayerState.IDLE)
 		return
 
-	player.velocity.x = player.movement_speed * direction
+	player.velocity.x = movement_speed * direction

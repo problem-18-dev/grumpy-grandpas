@@ -14,7 +14,6 @@ func _ready() -> void:
 
 	for state: State in find_children("*", "State"):
 		state.finished.connect(transition_to_state)
-		state.finished.connect(_on_state_finished_debug)
 
 	_state.enter()
 
@@ -39,13 +38,11 @@ func transition_to_state(state: String, data := { }) -> void:
 	_state = new_state
 	_state.enter(data)
 
-
-func _on_state_finished_debug(state: String, data := { }) -> void:
 	if not debug_enabled:
 		return
 
 	if data.size() > 0:
-		Debug.log("Player state changed to %s with %s" % [state, data])
+		Debug.log("%s state changed to %s with %s" % [owner.name, state, data])
 		return
 
-	Debug.log("Player state changed to %s" % state)
+	Debug.log("%s state changed to %s" % [owner.name, state])

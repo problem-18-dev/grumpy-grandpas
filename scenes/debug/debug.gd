@@ -12,12 +12,16 @@ const MAX_LOGS := 8
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		hide()
+		return
 
-	if not enabled:
-		queue_free()
+	if enabled and OS.is_debug_build():
+		show()
 
 
 func log(text: Variant) -> void:
+	if not enabled:
+		return
+
 	if content.get_child_count() > MAX_LOGS:
 		content.get_child(0).queue_free()
 

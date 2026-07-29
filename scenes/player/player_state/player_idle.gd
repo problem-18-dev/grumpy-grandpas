@@ -5,7 +5,8 @@ func enter(_data := { }) -> void:
 	player.velocity = Vector2.ZERO
 
 
-func _physics_update(_delta: float) -> void:
+func _physics_update(delta: float) -> void:
+	_apply_gravity(delta)
 	_handle_movement()
 	player.move_and_slide()
 	_check_floor()

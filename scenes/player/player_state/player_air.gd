@@ -1,5 +1,10 @@
 extends PlayerState
 
+@export_group("Properties")
+@export var jump_force := -350.0
+@export var jump_backwards_force := -400.0
+@export var jump_backwards_velocity := 25.0
+
 
 func enter(data := { }) -> void:
 	if data.has("jump"):
@@ -13,11 +18,11 @@ func _physics_update(delta: float) -> void:
 
 
 func _jump() -> void:
-	player.velocity.y = player.jump_force
+	player.velocity.y = jump_force
 
 
 func _handle_landing() -> void:
 	if not player.is_on_floor():
 		return
 
-	finished.emit(PlayerState.WALK)
+	finished.emit(PlayerState.IDLE)

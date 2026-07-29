@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bygd8nvt570om" path="res://scenes/player/player.gd" id="1_8afob"]
 [ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="2_dovo2"]
 [ext_resource type="PackedScene" uid="uid://o6nlyis18n62" path="res://scenes/core/state_machine/state_machine.tscn" id="3_gmlin"]
-[ext_resource type="PackedScene" uid="uid://bweymkygntx8t" path="res://scenes/components/hitbox_component.tscn" id="3_qek5x"]
+[ext_resource type="PackedScene" uid="uid://bweymkygntx8t" path="res://scenes/components/hurtbox_component.tscn" id="3_qek5x"]
 [ext_resource type="Script" uid="uid://bffp4r33c22r2" path="res://scenes/player/player_state/player_idle.gd" id="4_lvxji"]
 [ext_resource type="Script" uid="uid://dmnq07wos3jc2" path="res://scenes/player/player_state/player_walk.gd" id="5_p47bc"]
 [ext_resource type="Script" uid="uid://cnc8c7xcxascg" path="res://scenes/player/player_state/player_air.gd" id="6_75vfm"]
@@ -17,8 +17,7 @@ height = 32.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1829503951]
 collision_mask = 2
-floor_stop_on_slope = false
-floor_max_angle = 1.3089969
+floor_max_angle = 1.134464
 script = ExtResource("1_8afob")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1621448688]
@@ -29,9 +28,9 @@ texture = ExtResource("2_dovo2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1830283869]
 shape = SubResource("CapsuleShape2D_1xhu4")
 
-[node name="HitboxComponent" parent="." unique_id=923971495 instance=ExtResource("3_qek5x")]
+[node name="HurtboxComponent" parent="." unique_id=923971495 instance=ExtResource("3_qek5x")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1229987194]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1229987194]
 shape = SubResource("CapsuleShape2D_5gtgg")
 debug_color = Color(0, 1, 0, 0.392)
 
@@ -49,6 +48,3 @@ script = ExtResource("5_p47bc")
 
 [node name="Air" type="Node" parent="StateMachine" unique_id=332589610]
 script = ExtResource("6_75vfm")
-
-[connection signal="hit" from="HitboxComponent" to="." method="_on_hitbox_component_hit"]
-[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
