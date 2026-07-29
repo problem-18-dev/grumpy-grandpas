@@ -1,0 +1,9 @@
+[gd_resource type="Theme" format=3 uid="uid://dtngddcpoh66q"]
+
+[ext_resource type="FontFile" uid="uid://ca5gt02cu4ggg" path="res://gui/font/CrackerWinter-VGLPl.ttf" id="1_uqwjj"]
+
+[resource]
+default_font = ExtResource("1_uqwjj")
+default_font_size = 16
+DebugLabel/base_type = &"Label"
+DebugLabel/font_sizes/font_size = 8

@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://c1qslyb0l0dep"]
+
+[ext_resource type="Script" uid="uid://c7megwifxrf4g" path="res://scenes/debug/debug.gd" id="1_kfclf"]
+
+[node name="Debug" type="CanvasLayer" unique_id=1599672822]
+script = ExtResource("1_kfclf")
+
+[node name="Background" type="ColorRect" parent="." unique_id=2102687449]
+offset_right = 228.0
+offset_bottom = 121.0
+color = Color(0, 0, 0, 0.19607843)
+
+[node name="Margin" type="MarginContainer" parent="Background" unique_id=1611097665]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Content" type="VBoxContainer" parent="Background/Margin" unique_id=497979014]
+layout_mode = 2

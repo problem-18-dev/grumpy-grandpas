@@ -37,18 +37,6 @@
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": [
 				{
-					"details": "Slide on gentle slopes",
-					"done": false
-				},
-				{
-					"details": "Health component",
-					"done": false
-				},
-				{
-					"details": "Hitbox component",
-					"done": false
-				},
-				{
 					"details": "Weapon pivot",
 					"done": false
 				},
@@ -57,12 +45,24 @@
 					"done": false
 				},
 				{
+					"details": "Slide on gentle slopes",
+					"done": true
+				},
+				{
+					"details": "Health component",
+					"done": true
+				},
+				{
+					"details": "Hitbox component",
+					"done": true
+				},
+				{
 					"details": "Jumping",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Moving",
-					"done": false
+					"done": true
 				}
 			]
 		},

@@ -1,22 +1,27 @@
+class_name Player
 extends CharacterBody2D
 
-@export_group("Movement")
-@export var movement_speed := 150.0
+const LEFT := -1
+const RIGHT := 1
+
+@export_group("States")
+@export_subgroup("Idle")
+@export_subgroup("Walk")
+@export var movement_speed := 100.0
+@export_subgroup("Air")
+@export var jump_force := -350.0
+@export var jump_backwards_force := -400.0
+@export var jump_backwards_velocity := 25.0
+
+var last_movement_direction: int
+
+@onready var hitbox: HitboxComponent = $HitboxComponent
+@onready var health: HealthComponent = $HealthComponent
 
 
-func _physics_process(delta: float) -> void:
-	_apply_gravity(delta)
-	_handle_movement()
-	move_and_slide()
+func _on_health_component_died() -> void:
+	pass
 
 
-func _handle_movement() -> void:
-	var direction := Input.get_axis("move_left", "move_right")
-	velocity.x = movement_speed * direction
-
-
-func _apply_gravity(delta: float) -> void:
-	if is_on_floor():
-		return
-
-	velocity.y += get_gravity().y * delta
+func _on_hitbox_component_hit() -> void:
+	pass

@@ -1,17 +1,25 @@
 [gd_scene format=3 uid="uid://cd2ib37t0cgmf"]
 
-[ext_resource type="PackedScene" uid="uid://bmag23mf230r3" path="res://scenes/player/player.tscn" id="1_377w7"]
+[ext_resource type="Script" uid="uid://dpjstawxawa7x" path="res://scenes/levels/level.gd" id="1_377w7"]
+[ext_resource type="PackedScene" uid="uid://bmag23mf230r3" path="res://scenes/player/player.tscn" id="2_bovvr"]
+[ext_resource type="PackedScene" uid="uid://c1qslyb0l0dep" path="res://scenes/debug/debug.tscn" id="3_b2cq8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1xhu4"]
-size = Vector2(294, 20)
+size = Vector2(408, 56)
 
 [node name="Level" type="Node2D" unique_id=909882963]
+script = ExtResource("1_377w7")
 
-[node name="Player" parent="." unique_id=1829503951 instance=ExtResource("1_377w7")]
-position = Vector2(289, 137)
+[node name="Debug" parent="." unique_id=1599672822 instance=ExtResource("3_b2cq8")]
+visible = false
 
-[node name="Platform" type="StaticBody2D" parent="." unique_id=1971611697]
-position = Vector2(288, 202)
+[node name="Player" parent="." unique_id=1829503951 instance=ExtResource("2_bovvr")]
+position = Vector2(274, 84)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform" unique_id=1379576631]
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=993178235]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=393367526]
+position = Vector2(274, 228)
 shape = SubResource("RectangleShape2D_1xhu4")
