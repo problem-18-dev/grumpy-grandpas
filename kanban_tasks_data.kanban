@@ -1,0 +1,129 @@
+{
+	"categories": [
+		{
+			"uuid": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"title": "Task",
+			"color": "569eff"
+		}
+	],
+	"stages": [
+		{
+			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
+			"title": "Todo",
+			"tasks": [
+				"093fd4eb-0925-4110-b4f0-e7123d22f5d3",
+				"a0584d7d-098c-4ac6-ba13-e01d957e2080",
+				"5b49fd0c-0333-43d4-8b34-972f5db4e18d",
+				"6bdd385b-a2ca-4a3f-986c-341da014d23d"
+			]
+		},
+		{
+			"uuid": "40497cc6-13fd-4ee0-8c8a-501f1679fe85",
+			"title": "Doing",
+			"tasks": []
+		},
+		{
+			"uuid": "a3265bdc-f5e5-4b73-85c5-a4a50d7111f0",
+			"title": "Done",
+			"tasks": []
+		}
+	],
+	"tasks": [
+		{
+			"uuid": "093fd4eb-0925-4110-b4f0-e7123d22f5d3",
+			"title": "[Feat] Grandpa character",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": [
+				{
+					"details": "Slide on gentle slopes",
+					"done": false
+				},
+				{
+					"details": "Health component",
+					"done": false
+				},
+				{
+					"details": "Hitbox component",
+					"done": false
+				},
+				{
+					"details": "Weapon pivot",
+					"done": false
+				},
+				{
+					"details": "Simple weapon control",
+					"done": false
+				},
+				{
+					"details": "Jumping",
+					"done": false
+				},
+				{
+					"details": "Moving",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "a0584d7d-098c-4ac6-ba13-e01d957e2080",
+			"title": "[Feat] Destrucible terrain",
+			"description": "Polygons??",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": [
+				{
+					"details": "Simple plane",
+					"done": false
+				},
+				{
+					"details": "One color",
+					"done": false
+				},
+				{
+					"details": "Destructible",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "5b49fd0c-0333-43d4-8b34-972f5db4e18d",
+			"title": "[Feat] Water death zone",
+			"description": "Always surrounds the level, player dies upon impact/entrance.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "6bdd385b-a2ca-4a3f-986c-341da014d23d",
+			"title": "[Feat] Weapon basics",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": [
+				{
+					"details": "Weapon resource",
+					"done": false
+				},
+				{
+					"details": "Hitscan",
+					"done": false
+				},
+				{
+					"details": "Projectile",
+					"done": false
+				}
+			]
+		}
+	],
+	"layout": {
+		"columns": [
+			[
+				"28fdaf0a-1c07-487b-8aff-f42619c35efc"
+			],
+			[
+				"40497cc6-13fd-4ee0-8c8a-501f1679fe85"
+			],
+			[
+				"a3265bdc-f5e5-4b73-85c5-a4a50d7111f0"
+			]
+		]
+	}
+}
