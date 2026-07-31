@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WeaponResource" format=3 uid="uid://27pu8wn0fth2"]
+
+[ext_resource type="Script" uid="uid://cuupga2bwhed" path="res://resources/weapon_resource/weapon_resource.gd" id="1_quguc"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bwwrd"]
+load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+
+[resource]
+script = ExtResource("1_quguc")
+name = "Revolver"
+texture = SubResource("CompressedTexture2D_bwwrd")
+metadata/_custom_type_script = "uid://cuupga2bwhed"

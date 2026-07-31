@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bygd8nvt570om" path="res://scenes/player/player.gd" id="1_8afob"]
 [ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="2_dovo2"]
+[ext_resource type="PackedScene" uid="uid://b5lt7b36vsg8j" path="res://scenes/weapon_holder/weapon_holder.tscn" id="3_5gtgg"]
 [ext_resource type="PackedScene" uid="uid://o6nlyis18n62" path="res://scenes/core/state_machine/state_machine.tscn" id="3_gmlin"]
 [ext_resource type="PackedScene" uid="uid://bweymkygntx8t" path="res://scenes/components/hurtbox_component.tscn" id="3_qek5x"]
 [ext_resource type="Script" uid="uid://bffp4r33c22r2" path="res://scenes/player/player_state/player_idle.gd" id="4_lvxji"]
@@ -28,6 +29,8 @@ texture = ExtResource("2_dovo2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1830283869]
 shape = SubResource("CapsuleShape2D_1xhu4")
 
+[node name="WeaponHolder" parent="." unique_id=1646053950 instance=ExtResource("3_5gtgg")]
+
 [node name="HurtboxComponent" parent="." unique_id=923971495 instance=ExtResource("3_qek5x")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1229987194]
@@ -38,7 +41,6 @@ debug_color = Color(0, 1, 0, 0.392)
 
 [node name="StateMachine" parent="." unique_id=1355297057 node_paths=PackedStringArray("initial_state") instance=ExtResource("3_gmlin")]
 initial_state = NodePath("Idle")
-debug_enabled = true
 
 [node name="Idle" type="Node" parent="StateMachine" unique_id=2031766278]
 script = ExtResource("4_lvxji")
@@ -48,3 +50,36 @@ script = ExtResource("5_p47bc")
 
 [node name="Air" type="Node" parent="StateMachine" unique_id=332589610]
 script = ExtResource("6_75vfm")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1501925695]
+
+[node name="PanelContainer" type="PanelContainer" parent="HUD" unique_id=572316717]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -104.0
+offset_top = 16.0
+offset_right = -12.0
+offset_bottom = 80.0
+grow_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/PanelContainer" unique_id=579425452]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/PanelContainer/MarginContainer" unique_id=1224496083]
+layout_mode = 2
+
+[node name="RevolverButton" type="Button" parent="HUD/PanelContainer/MarginContainer/VBoxContainer" unique_id=1848583204]
+layout_mode = 2
+text = "Revolver"
+
+[node name="ShotgunButton" type="Button" parent="HUD/PanelContainer/MarginContainer/VBoxContainer" unique_id=1647020665]
+layout_mode = 2
+text = "Shotgun"
+
+[connection signal="pressed" from="HUD/PanelContainer/MarginContainer/VBoxContainer/RevolverButton" to="." method="_on_revolver_button_pressed"]
+[connection signal="pressed" from="HUD/PanelContainer/MarginContainer/VBoxContainer/ShotgunButton" to="." method="_on_shotgun_button_pressed"]

@@ -4,6 +4,10 @@ extends PlayerState
 @export var movement_speed := 100.0
 
 
+func enter(_data := { }) -> void:
+	player.unequip_weapon()
+
+
 func _physics_update(delta: float) -> void:
 	_apply_gravity(delta)
 	_handle_movement()

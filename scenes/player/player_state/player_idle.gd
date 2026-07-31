@@ -3,6 +3,7 @@ extends PlayerState
 
 func enter(_data := { }) -> void:
 	player.velocity = Vector2.ZERO
+	player.reequip_weapon()
 
 
 func _physics_update(delta: float) -> void:
