@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Debug="*uid://c1qslyb0l0dep"
+GameConfig="*uid://ci8bmyjrh77n6"
 
 [display]
 

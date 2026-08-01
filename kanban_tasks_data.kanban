@@ -13,20 +13,23 @@
 			"tasks": [
 				"a0584d7d-098c-4ac6-ba13-e01d957e2080",
 				"5b49fd0c-0333-43d4-8b34-972f5db4e18d",
-				"6bdd385b-a2ca-4a3f-986c-341da014d23d"
+				"6bdd385b-a2ca-4a3f-986c-341da014d23d",
+				"ce398483-8ebd-4b11-b56c-ffce71da46c3"
 			]
 		},
 		{
 			"uuid": "40497cc6-13fd-4ee0-8c8a-501f1679fe85",
 			"title": "Doing",
 			"tasks": [
-				"093fd4eb-0925-4110-b4f0-e7123d22f5d3"
+				"1375e5b2-0583-465e-8165-4e2941988567"
 			]
 		},
 		{
 			"uuid": "a3265bdc-f5e5-4b73-85c5-a4a50d7111f0",
 			"title": "Done",
-			"tasks": []
+			"tasks": [
+				"093fd4eb-0925-4110-b4f0-e7123d22f5d3"
+			]
 		}
 	],
 	"tasks": [
@@ -42,7 +45,7 @@
 				},
 				{
 					"details": "Simple weapon control",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Slide on gentle slopes",
@@ -112,6 +115,20 @@
 					"done": false
 				}
 			]
+		},
+		{
+			"uuid": "1375e5b2-0583-465e-8165-4e2941988567",
+			"title": "[Feat] Hitscan weapon",
+			"description": "A hitscan weapon should work with raycasts, it should immediately process a shot when the player shoots on input.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "ce398483-8ebd-4b11-b56c-ffce71da46c3",
+			"title": "[Feat] Projectile weapon",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
 		}
 	],
 	"layout": {

@@ -3,11 +3,11 @@ extends CharacterBody2D
 
 const LEFT_DIRECTION := -1
 const RIGHT_DIRECTION := 1
-const REVOLVER_WEAPON = preload("uid://27pu8wn0fth2")
-const SHOTGUN_WEAPON = preload("uid://dc3cdaiwvnxvi")
+const REVOLVER = preload("uid://dx1m0w6av86ds")
+const SHOTGUN = preload("uid://bswdgh0ektx48")
 
 var _last_direction := RIGHT_DIRECTION
-var _weapon_to_equip := REVOLVER_WEAPON
+var _weapon_to_equip := REVOLVER
 
 @onready var weapon_holder: WeaponHolder = $WeaponHolder
 @onready var sprite: Sprite2D = $Sprite2D
