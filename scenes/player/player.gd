@@ -1,9 +1,12 @@
 class_name Player
 extends CharacterBody2D
 
+const LEFT_DIRECTION := -1
+const RIGHT_DIRECTION := 1
 const REVOLVER_WEAPON = preload("uid://27pu8wn0fth2")
 const SHOTGUN_WEAPON = preload("uid://dc3cdaiwvnxvi")
 
+var _last_direction := RIGHT_DIRECTION
 var _weapon_to_equip := REVOLVER_WEAPON
 
 @onready var weapon_holder: WeaponHolder = $WeaponHolder
@@ -11,11 +14,11 @@ var _weapon_to_equip := REVOLVER_WEAPON
 
 
 func _physics_process(_delta: float) -> void:
-	_flip()
+	_flip_sprite()
 
 
 func equip_weapon(weapon_resource: WeaponResource) -> void:
-	weapon_holder.equip_weapon(weapon_resource)
+	weapon_holder.equip_weapon(weapon_resource, _last_direction)
 
 
 func unequip_weapon() -> void:
@@ -26,19 +29,16 @@ func reequip_weapon() -> void:
 	equip_weapon(_weapon_to_equip)
 
 
-func _flip() -> void:
+func get_direction() -> float:
+	return Input.get_axis("move_left", "move_right")
+
+
+func register_last_direction(new_last_direction: float) -> void:
+	_last_direction = LEFT_DIRECTION if new_last_direction < 0 else RIGHT_DIRECTION
+
+
+func _flip_sprite() -> void:
+	if is_zero_approx(velocity.x):
+		return
+
 	sprite.flip_h = velocity.x < 0
-
-
-func _on_revolver_button_pressed() -> void:
-	_weapon_to_equip = REVOLVER_WEAPON
-
-	if weapon_holder.is_equipped():
-		equip_weapon(_weapon_to_equip)
-
-
-func _on_shotgun_button_pressed() -> void:
-	_weapon_to_equip = SHOTGUN_WEAPON
-
-	if weapon_holder.is_equipped():
-		equip_weapon(_weapon_to_equip)

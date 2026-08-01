@@ -21,10 +21,11 @@ func _key_input(event: InputEvent) -> void:
 
 
 func _handle_movement() -> void:
-	var direction := Input.get_axis("move_left", "move_right")
+	var direction := player.get_direction()
 
 	if is_zero_approx(direction):
 		finished.emit(PlayerState.IDLE)
 		return
 
+	player.register_last_direction(direction)
 	player.velocity.x = movement_speed * direction

@@ -19,7 +19,7 @@ func _key_input(event: InputEvent) -> void:
 
 
 func _handle_movement() -> void:
-	var direction := Input.get_axis("move_left", "move_right")
+	var direction := player.get_direction()
 
 	if not is_zero_approx(direction):
 		finished.emit(PlayerState.WALK)

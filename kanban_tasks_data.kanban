@@ -38,7 +38,7 @@
 			"steps": [
 				{
 					"details": "Weapon pivot",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Simple weapon control",

@@ -6,16 +6,3 @@
 script = ExtResource("1_cn8i4")
 
 [node name="WeaponPivot" type="Node2D" parent="." unique_id=1782424905]
-
-[node name="Label" type="Label" parent="." unique_id=1946441118]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -16.0
-offset_top = -40.0
-offset_right = 24.0
-offset_bottom = -22.0
-grow_horizontal = 2
-grow_vertical = 2

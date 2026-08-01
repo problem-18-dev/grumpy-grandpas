@@ -14,6 +14,14 @@ func _ready() -> void:
 	projectile_start_marker.position = weapon_resource.start_position
 
 
+func flip(should_flip := false) -> void:
+	if not should_flip:
+		return
+
+	sprite.flip_v = true
+	projectile_start_marker.position.x = -projectile_start_marker.position.x
+
+
 func shoot() -> void:
 	# Spawn projectile at projectile start marker
 	# Projectile's entity decides what to do with itself

@@ -50,36 +50,3 @@ script = ExtResource("5_p47bc")
 
 [node name="Air" type="Node" parent="StateMachine" unique_id=332589610]
 script = ExtResource("6_75vfm")
-
-[node name="HUD" type="CanvasLayer" parent="." unique_id=1501925695]
-
-[node name="PanelContainer" type="PanelContainer" parent="HUD" unique_id=572316717]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -104.0
-offset_top = 16.0
-offset_right = -12.0
-offset_bottom = 80.0
-grow_horizontal = 0
-
-[node name="MarginContainer" type="MarginContainer" parent="HUD/PanelContainer" unique_id=579425452]
-layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD/PanelContainer/MarginContainer" unique_id=1224496083]
-layout_mode = 2
-
-[node name="RevolverButton" type="Button" parent="HUD/PanelContainer/MarginContainer/VBoxContainer" unique_id=1848583204]
-layout_mode = 2
-text = "Revolver"
-
-[node name="ShotgunButton" type="Button" parent="HUD/PanelContainer/MarginContainer/VBoxContainer" unique_id=1647020665]
-layout_mode = 2
-text = "Shotgun"
-
-[connection signal="pressed" from="HUD/PanelContainer/MarginContainer/VBoxContainer/RevolverButton" to="." method="_on_revolver_button_pressed"]
-[connection signal="pressed" from="HUD/PanelContainer/MarginContainer/VBoxContainer/ShotgunButton" to="." method="_on_shotgun_button_pressed"]
