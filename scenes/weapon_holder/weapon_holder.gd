@@ -30,12 +30,12 @@ func equip_weapon(weapon_resource: WeaponResource, player_direction: float) -> v
 
 	# Spawn weapon
 	var weapon: Weapon
-
 	weapon = _instantiate_weapon(weapon_resource)
 	weapon.prepare(weapon_resource)
 	weapon_pivot.add_child(weapon)
 	_equipped_weapon = weapon
 
+	# Flip weapon based on player's direction
 	var should_flip := player_direction == Player.LEFT_DIRECTION
 	_flip(should_flip)
 	_equipped_weapon.flip(should_flip)
@@ -44,7 +44,6 @@ func equip_weapon(weapon_resource: WeaponResource, player_direction: float) -> v
 	set_process_unhandled_key_input(true)
 
 
-## Removes weapon (from cache)
 func remove_weapon() -> void:
 	if not _equipped_weapon:
 		return

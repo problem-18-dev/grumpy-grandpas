@@ -14,4 +14,5 @@ func _ready() -> void:
 
 
 func hit(amount: int) -> void:
+	Debug.log("Hit by %s" % amount)
 	hurt.emit(amount)

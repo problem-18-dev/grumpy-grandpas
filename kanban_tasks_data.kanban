@@ -71,7 +71,7 @@
 		},
 		{
 			"uuid": "a0584d7d-098c-4ac6-ba13-e01d957e2080",
-			"title": "[Feat] Destrucible terrain",
+			"title": "[Feat] Destructible terrain",
 			"description": "Polygons??",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": [

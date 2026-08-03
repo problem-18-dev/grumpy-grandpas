@@ -22,7 +22,7 @@ func hit_targets(damage: int, damage_falloff_curve: Curve) -> void:
 
 	for target in _targets_to_hit:
 		var distance_to_target := global_position.distance_to(target.global_position)
-		var distance_ratio := 1.0 - float(distance_to_target / _collision_shape.shape.radius)
+		var distance_ratio := float(distance_to_target / _collision_shape.shape.radius)
 		var calculated_damage := roundi(damage * damage_falloff_curve.sample(distance_ratio))
 		target.hit(calculated_damage)
 

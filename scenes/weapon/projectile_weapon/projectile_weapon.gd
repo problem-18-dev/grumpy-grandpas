@@ -30,13 +30,17 @@ func _ready() -> void:
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if not _is_enabled:
+		return
+
 	if event.is_action_pressed("shoot") and not _is_charging:
 		_start_charging()
 
 	if event.is_action_released("shoot"):
-		if _is_charging:
-			_stop_charging()
+		if not _is_charging:
+			return
 
+		_stop_charging()
 		shoot()
 
 
@@ -47,6 +51,7 @@ func prepare(hitscan_weapon_resource: ProjectileWeaponResource) -> void:
 func shoot() -> void:
 	assert(resource.projectile_resource, "Attempting to shoot projectile without projectile scene")
 
+	weapon_shot.emit()
 	charge_sprite.hide()
 
 	# Prepare projectile
@@ -91,6 +96,12 @@ func _stop_charging() -> void:
 
 func _calculate_force() -> float:
 	return lerpf(resource.min_force, resource.max_force, 1.0 - _charge_time_left)
+
+
+func _enable() -> void:
+	_is_enabled = true
+	weapon_crosshair.enable()
+	weapon_ready.emit()
 
 
 func _on_charge_timer_timeout() -> void:
