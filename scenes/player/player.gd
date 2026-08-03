@@ -5,9 +5,10 @@ const LEFT_DIRECTION := -1
 const RIGHT_DIRECTION := 1
 const REVOLVER = preload("uid://dx1m0w6av86ds")
 const SHOTGUN = preload("uid://bswdgh0ektx48")
+const ROCKET_LAUNCHER = preload("uid://c4jjtdxl0q3k3")
 
 var _last_direction := RIGHT_DIRECTION
-var _weapon_to_equip := REVOLVER
+var _weapon_to_equip := ROCKET_LAUNCHER
 
 @onready var weapon_holder: WeaponHolder = $WeaponHolder
 @onready var sprite: Sprite2D = $Sprite2D

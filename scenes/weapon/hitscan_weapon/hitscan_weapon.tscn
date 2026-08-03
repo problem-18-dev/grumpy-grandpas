@@ -3,6 +3,7 @@
 [ext_resource type="Resource" uid="uid://bswdgh0ektx48" path="res://resources/weapon_resource/shotgun.tres" id="2_bbni1"]
 [ext_resource type="Script" uid="uid://dha6yc6frgkta" path="res://scenes/weapon/hitscan_weapon/hitscan_weapon.gd" id="2_c5o7a"]
 [ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="3_bbni1"]
+[ext_resource type="PackedScene" uid="uid://dtyiwvrh6enql" path="res://scenes/weapon_crosshair/weapon_crosshair.tscn" id="4_m8n6t"]
 
 [sub_resource type="Animation" id="Animation_m8n6t"]
 length = 0.001
@@ -18,34 +19,10 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CrosshairSprite:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("HitscanRayCast:enabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="Animation" id="Animation_bbni1"]
 resource_name = "equip"
-length = 0.16999999999999998
+length = 0.15
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -58,29 +35,19 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.5235988, 0.0]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CrosshairSprite:visible")
+tracks/1/path = NodePath("WeaponCrosshair")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.0009999999, 0.17),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("HitscanRayCast:enabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
+"times": PackedFloat32Array(0.15),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"enable"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m8n6t"]
@@ -98,20 +65,10 @@ metadata/_edit_group_ = true
 scale = Vector2(0.3, 0.1)
 texture = ExtResource("3_bbni1")
 
-[node name="HitscanRayCast" type="RayCast2D" parent="." unique_id=123971305]
-enabled = false
-target_position = Vector2(50, 0)
-collision_mask = 6
-collide_with_areas = true
+[node name="WeaponCrosshair" parent="." unique_id=1621916684 instance=ExtResource("4_m8n6t")]
+modulate = Color(1, 0.54901963, 0.7411765, 0)
 
 [node name="MuzzleOffsetMarker" type="Marker2D" parent="." unique_id=1563139049]
-
-[node name="CrosshairSprite" type="Sprite2D" parent="." unique_id=741485620]
-visible = false
-modulate = Color(1, 0.5493597, 0.7420947, 1)
-position = Vector2(50, 0)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_bbni1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1282977607]
 libraries/ = SubResource("AnimationLibrary_m8n6t")

@@ -5,8 +5,7 @@ extends Weapon
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var muzzle_offset_marker: Marker2D = $MuzzleOffsetMarker
-@onready var crosshair_sprite: Sprite2D = $CrosshairSprite
-@onready var hitscan_ray_cast: RayCast2D = $HitscanRayCast
+@onready var weapon_crosshair: WeaponCrosshair = $WeaponCrosshair
 
 
 func _ready() -> void:
@@ -14,17 +13,13 @@ func _ready() -> void:
 		return
 
 	sprite.texture = resource.texture
-	hitscan_ray_cast.target_position.x = resource.max_range
 	muzzle_offset_marker.position = resource.muzzle_offset
-	hitscan_ray_cast.position = muzzle_offset_marker.position
-	hitscan_ray_cast.force_update_transform()
-
-	crosshair_sprite.hide()
-	hitscan_ray_cast.enabled = false
+	weapon_crosshair.setup(resource.crosshair_distance)
 
 
-func _physics_process(_delta: float) -> void:
-	_render_crosshair()
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("shoot"):
+		shoot()
 
 
 func prepare(hitscan_weapon_resource: HitscanWeaponResource) -> void:
@@ -32,24 +27,11 @@ func prepare(hitscan_weapon_resource: HitscanWeaponResource) -> void:
 
 
 func shoot() -> void:
-	if hitscan_ray_cast.is_colliding():
-		var collider := hitscan_ray_cast.get_collider()
-		if collider.is_in_group("players"):
-			Debug.log("Player hit!")
-		else:
-			Debug.log("World hit!")
+	# Create a world space query starting from muzzle offset to max range
+	pass
 
 
 func flip(should_flip: bool) -> void:
 	sprite.flip_h = should_flip
-
-
-func _render_crosshair() -> void:
-	if not hitscan_ray_cast.enabled:
-		return
-
-	if hitscan_ray_cast.is_colliding():
-		crosshair_sprite.position = to_local(hitscan_ray_cast.get_collision_point())
-		return
-
-	crosshair_sprite.position = position + Vector2(resource.max_range, 0)
+	sprite.flip_v = should_flip
+	weapon_crosshair.flip_v = should_flip

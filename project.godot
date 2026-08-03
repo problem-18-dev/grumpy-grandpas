@@ -19,7 +19,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 Debug="*uid://c1qslyb0l0dep"
-GameConfig="*uid://ci8bmyjrh77n6"
 
 [display]
 
@@ -77,6 +76,7 @@ jump={
 2d_physics/layer_2="world"
 2d_physics/layer_3="hurtbox"
 2d_physics/layer_4="hitbox"
+2d_physics/layer_5="projectile"
 
 [physics]
 
@@ -84,6 +84,7 @@ jump={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

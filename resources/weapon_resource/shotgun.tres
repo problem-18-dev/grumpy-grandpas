@@ -5,7 +5,9 @@
 
 [resource]
 script = ExtResource("1_yq80j")
-max_range = 50.0
-type = 1
+max_range = 75.0
+name = "Shotgun"
 texture = ExtResource("2_3mgjh")
+crosshair_distance = 75.0
+damage = 80.0
 metadata/_custom_type_script = "uid://c8teyaijtqeex"

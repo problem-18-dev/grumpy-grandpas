@@ -5,6 +5,9 @@
 
 [resource]
 script = ExtResource("1_rt5p3")
+name = "Revolver"
 texture = ExtResource("2_e5bgj")
 muzzle_offset = Vector2(20, 0)
+crosshair_distance = 200.0
+damage = 75.0
 metadata/_custom_type_script = "uid://c8teyaijtqeex"

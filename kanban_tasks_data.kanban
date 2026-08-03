@@ -12,23 +12,23 @@
 			"title": "Todo",
 			"tasks": [
 				"a0584d7d-098c-4ac6-ba13-e01d957e2080",
-				"5b49fd0c-0333-43d4-8b34-972f5db4e18d",
-				"6bdd385b-a2ca-4a3f-986c-341da014d23d",
-				"ce398483-8ebd-4b11-b56c-ffce71da46c3"
+				"5b49fd0c-0333-43d4-8b34-972f5db4e18d"
 			]
 		},
 		{
 			"uuid": "40497cc6-13fd-4ee0-8c8a-501f1679fe85",
 			"title": "Doing",
-			"tasks": [
-				"1375e5b2-0583-465e-8165-4e2941988567"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "a3265bdc-f5e5-4b73-85c5-a4a50d7111f0",
 			"title": "Done",
 			"tasks": [
-				"093fd4eb-0925-4110-b4f0-e7123d22f5d3"
+				"093fd4eb-0925-4110-b4f0-e7123d22f5d3",
+				"1375e5b2-0583-465e-8165-4e2941988567",
+				"6bdd385b-a2ca-4a3f-986c-341da014d23d",
+				"dd356d01-32f2-4219-89c0-be022d48abbc",
+				"ce398483-8ebd-4b11-b56c-ffce71da46c3"
 			]
 		}
 	],
@@ -104,15 +104,15 @@
 			"steps": [
 				{
 					"details": "Weapon resource",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Hitscan",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Projectile",
-					"done": false
+					"done": true
 				}
 			]
 		},
@@ -126,6 +126,13 @@
 		{
 			"uuid": "ce398483-8ebd-4b11-b56c-ffce71da46c3",
 			"title": "[Feat] Projectile weapon",
+			"description": "A projectile weapon is similar to hitscan. The biggest difference is that it can charge how strong the projectile flies out. Each projectile weapon has a min and max charge.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "dd356d01-32f2-4219-89c0-be022d48abbc",
+			"title": "[Feat] Projectile bullet",
 			"description": "",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []

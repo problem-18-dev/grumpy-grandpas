@@ -4,11 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="2_dovo2"]
 [ext_resource type="PackedScene" uid="uid://b5lt7b36vsg8j" path="res://scenes/weapon_holder/weapon_holder.tscn" id="3_5gtgg"]
 [ext_resource type="PackedScene" uid="uid://o6nlyis18n62" path="res://scenes/core/state_machine/state_machine.tscn" id="3_gmlin"]
-[ext_resource type="PackedScene" uid="uid://bweymkygntx8t" path="res://scenes/components/hurtbox_component.tscn" id="3_qek5x"]
+[ext_resource type="PackedScene" uid="uid://bweymkygntx8t" path="res://scenes/components/hurtbox_component/hurtbox_component.tscn" id="3_qek5x"]
 [ext_resource type="Script" uid="uid://bffp4r33c22r2" path="res://scenes/player/player_state/player_idle.gd" id="4_lvxji"]
 [ext_resource type="Script" uid="uid://dmnq07wos3jc2" path="res://scenes/player/player_state/player_walk.gd" id="5_p47bc"]
 [ext_resource type="Script" uid="uid://cnc8c7xcxascg" path="res://scenes/player/player_state/player_air.gd" id="6_75vfm"]
-[ext_resource type="PackedScene" uid="uid://bdmwi2dhvl8q1" path="res://scenes/components/health_component.tscn" id="7_0owmy"]
+[ext_resource type="PackedScene" uid="uid://bdmwi2dhvl8q1" path="res://scenes/components/health_component/health_component.tscn" id="7_0owmy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1xhu4"]
 

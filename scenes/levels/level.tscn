@@ -11,7 +11,6 @@ size = Vector2(408, 56)
 script = ExtResource("1_377w7")
 
 [node name="Debug" parent="." unique_id=1599672822 instance=ExtResource("3_b2cq8")]
-visible = false
 
 [node name="Player" parent="." unique_id=1829503951 instance=ExtResource("2_bovvr")]
 position = Vector2(274, 84)
@@ -23,3 +22,5 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=393367526]
 position = Vector2(274, 228)
 shape = SubResource("RectangleShape2D_1xhu4")
+
+[node name="Projectiles" type="Node2D" parent="." unique_id=656412160 groups=["projectiles"]]

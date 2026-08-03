@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c8af6ylft6mlg"]
+
+[ext_resource type="Script" uid="uid://drr5v7tq2p7wp" path="res://scenes/components/hitbox_component/hitbox_component.gd" id="1_52o3e"]
+
+[node name="HitboxComponent" type="Area2D" unique_id=1991768270]
+collision_layer = 8
+collision_mask = 4
+monitorable = false
+script = ExtResource("1_52o3e")
+damage = null
+damage_falloff_ratio = null
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

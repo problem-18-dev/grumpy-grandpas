@@ -4,6 +4,7 @@ extends Node2D
 const MINIMUM_ROTATION := -PI / 2
 const MAXIMUM_ROTATION := PI / 3
 const HITSCAN_WEAPON = preload("uid://cc45g8xgg4lyo")
+const PROJECTILE_WEAPON = preload("uid://cupft37g0c1yp")
 
 @export_group("Properties")
 @export var rotation_speed := 60.0
@@ -19,15 +20,6 @@ func _physics_process(delta: float) -> void:
 	_register_aim_angle(delta)
 
 
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("shoot"):
-		_shoot()
-
-
-func _shoot() -> void:
-	_equipped_weapon.shoot()
-
-
 func is_equipped() -> bool:
 	return _equipped_weapon != null
 
@@ -39,9 +31,7 @@ func equip_weapon(weapon_resource: WeaponResource, player_direction: float) -> v
 	# Spawn weapon
 	var weapon: Weapon
 
-	if weapon_resource is HitscanWeaponResource:
-		weapon = HITSCAN_WEAPON.instantiate()
-
+	weapon = _instantiate_weapon(weapon_resource)
 	weapon.prepare(weapon_resource)
 	weapon_pivot.add_child(weapon)
 	_equipped_weapon = weapon
@@ -64,6 +54,13 @@ func remove_weapon() -> void:
 
 	set_physics_process(false)
 	set_process_unhandled_key_input(false)
+
+
+func _instantiate_weapon(weapon_resource: WeaponResource) -> Weapon:
+	if weapon_resource is HitscanWeaponResource:
+		return HITSCAN_WEAPON.instantiate()
+
+	return PROJECTILE_WEAPON.instantiate()
 
 
 func _flip(should_flip: bool) -> void:

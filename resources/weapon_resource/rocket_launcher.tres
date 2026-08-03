@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ProjectileWeaponResource" format=3 uid="uid://c4jjtdxl0q3k3"]
+
+[ext_resource type="Script" uid="uid://pp6wnjxndi6r" path="res://resources/weapon_resource/projectile_weapon_resource.gd" id="1_0q7i4"]
+[ext_resource type="Resource" uid="uid://brymaul5h4b5a" path="res://resources/projectile_resource/rocket.tres" id="1_47jwv"]
+[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="2_xn5pd"]
+
+[resource]
+script = ExtResource("1_0q7i4")
+max_force = 1000.0
+projectile_resource = ExtResource("1_47jwv")
+name = "Rocket Launcher"
+texture = ExtResource("2_xn5pd")
+muzzle_offset = Vector2(24, 0)
+damage = 90.0
+metadata/_custom_type_script = "uid://pp6wnjxndi6r"
