@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CatalogueResource" format=3 uid="uid://b4umg781jsip2"]
+
+[ext_resource type="Script" uid="uid://y30kphuaasrn" path="res://resources/catalogue_resource/catalogue_resource.gd" id="1_jhw3t"]
+[ext_resource type="Script" uid="uid://cuupga2bwhed" path="res://resources/weapon_resource/weapon_resource.gd" id="2_8qqlo"]
+[ext_resource type="Resource" uid="uid://bswdgh0ektx48" path="res://resources/weapon_resource/hitscan_weapons/shotgun.tres" id="3_st5hl"]
+[ext_resource type="Resource" uid="uid://dx1m0w6av86ds" path="res://resources/weapon_resource/hitscan_weapons/revolver.tres" id="4_swub2"]
+[ext_resource type="Resource" uid="uid://c4jjtdxl0q3k3" path="res://resources/weapon_resource/projectile_weapons/rocket_launcher.tres" id="5_w4fom"]
+
+[resource]
+script = ExtResource("1_jhw3t")
+weapons = Array[ExtResource("2_8qqlo")]([ExtResource("3_st5hl"), ExtResource("4_swub2"), ExtResource("5_w4fom")])
+metadata/_custom_type_script = "uid://y30kphuaasrn"

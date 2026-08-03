@@ -3,15 +3,18 @@ extends CharacterBody2D
 
 const LEFT_DIRECTION := -1
 const RIGHT_DIRECTION := 1
-const REVOLVER = preload("uid://dx1m0w6av86ds")
-const SHOTGUN = preload("uid://bswdgh0ektx48")
-const ROCKET_LAUNCHER = preload("uid://c4jjtdxl0q3k3")
+const DEFAULT_WEAPON = preload("uid://c4jjtdxl0q3k3")
 
 var _last_direction := RIGHT_DIRECTION
-var _weapon_to_equip := ROCKET_LAUNCHER
+var _weapon_to_equip: WeaponResource = DEFAULT_WEAPON
 
 @onready var weapon_holder: WeaponHolder = $WeaponHolder
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var player_hud: PlayerHUD = $PlayerHUD
+
+
+func _ready() -> void:
+	player_hud.close()
 
 
 func _physics_process(_delta: float) -> void:
@@ -43,3 +46,8 @@ func _flip_sprite() -> void:
 		return
 
 	sprite.flip_h = velocity.x < 0
+
+
+func _on_player_hud_weapon_selected(weapon_to_equip: WeaponResource) -> void:
+	_weapon_to_equip = weapon_to_equip
+	reequip_weapon()

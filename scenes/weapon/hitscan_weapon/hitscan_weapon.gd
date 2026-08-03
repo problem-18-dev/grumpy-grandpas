@@ -16,7 +16,6 @@ func _ready() -> void:
 	sprite.texture = resource.texture
 	muzzle_offset_marker.position = resource.muzzle_offset
 	hitscan_ray_cast.target_position = Vector2(resource.weapon_range, 0)
-	weapon_crosshair.setup(resource.crosshair_distance)
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -33,7 +32,8 @@ func prepare(hitscan_weapon_resource: HitscanWeaponResource) -> void:
 
 func shoot() -> void:
 	hitscan_ray_cast.force_raycast_update()
-	weapon_shot.emit()
+
+	_disable()
 
 	if not hitscan_ray_cast.is_colliding():
 		return
@@ -43,14 +43,12 @@ func shoot() -> void:
 	if collider is HurtboxComponent:
 		var distance_to_target := global_position.distance_to(collider.global_position)
 		var damage_ratio := distance_to_target / resource.weapon_range
-		var calculated_damage := roundi(resource.damage * resource.damage_falloff_curve.sample(
-				damage_ratio
-			))
+		var damage_falloff := resource.damage_falloff_curve.sample(damage_ratio)
+		var calculated_damage := roundi(resource.damage * damage_falloff)
 		collider.hit(calculated_damage)
 		return
 
-	# Only other collision can be the world
-	Debug.log("World hit by %s" % resource.name)
+	# TODO: Only other collision can be the world
 
 
 func flip(should_flip: bool) -> void:
@@ -61,5 +59,12 @@ func flip(should_flip: bool) -> void:
 
 func _enable() -> void:
 	_is_enabled = true
+	weapon_crosshair.setup(resource.crosshair_distance)
 	weapon_crosshair.enable()
 	weapon_ready.emit()
+
+
+func _disable() -> void:
+	_is_enabled = false
+	weapon_crosshair.disable()
+	weapon_shot.emit()

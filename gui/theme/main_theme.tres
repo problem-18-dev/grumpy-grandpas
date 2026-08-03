@@ -7,3 +7,5 @@ default_font = ExtResource("1_uqwjj")
 default_font_size = 16
 DebugLabel/base_type = &"Label"
 DebugLabel/font_sizes/font_size = 8
+InventoryWeaponButton/base_type = &"Button"
+InventoryWeaponButton/font_sizes/font_size = 12

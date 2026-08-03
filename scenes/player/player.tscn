@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dmnq07wos3jc2" path="res://scenes/player/player_state/player_walk.gd" id="5_p47bc"]
 [ext_resource type="Script" uid="uid://cnc8c7xcxascg" path="res://scenes/player/player_state/player_air.gd" id="6_75vfm"]
 [ext_resource type="PackedScene" uid="uid://bdmwi2dhvl8q1" path="res://scenes/components/health_component/health_component.tscn" id="7_0owmy"]
+[ext_resource type="PackedScene" uid="uid://bkrmhl1oip2je" path="res://scenes/player/player_hud/hud.tscn" id="10_h17s1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1xhu4"]
 
@@ -31,7 +32,8 @@ shape = SubResource("CapsuleShape2D_1xhu4")
 
 [node name="WeaponHolder" parent="." unique_id=1646053950 instance=ExtResource("3_5gtgg")]
 
-[node name="HurtboxComponent" parent="." unique_id=923971495 instance=ExtResource("3_qek5x")]
+[node name="HurtboxComponent" parent="." unique_id=923971495 node_paths=PackedStringArray("health_component") instance=ExtResource("3_qek5x")]
+health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1229987194]
 shape = SubResource("CapsuleShape2D_5gtgg")
@@ -50,3 +52,7 @@ script = ExtResource("5_p47bc")
 
 [node name="Air" type="Node" parent="StateMachine" unique_id=332589610]
 script = ExtResource("6_75vfm")
+
+[node name="PlayerHUD" parent="." unique_id=864953640 instance=ExtResource("10_h17s1")]
+
+[connection signal="weapon_selected" from="PlayerHUD" to="." method="_on_player_hud_weapon_selected"]

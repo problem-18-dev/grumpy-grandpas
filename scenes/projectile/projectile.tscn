@@ -1,16 +1,12 @@
 [gd_scene format=3 uid="uid://csa3ig7aroxsa"]
 
 [ext_resource type="Script" uid="uid://vh6un5fax3ox" path="res://scenes/projectile/projectile.gd" id="1_2dulq"]
-[ext_resource type="PackedScene" uid="uid://c8af6ylft6mlg" path="res://scenes/components/hitbox_component/hitbox_component.tscn" id="1_t8015"]
 [ext_resource type="Resource" uid="uid://brymaul5h4b5a" path="res://resources/projectile_resource/rocket.tres" id="2_lw0th"]
 [ext_resource type="Texture2D" uid="uid://c5s0wwqdt0u8v" path="res://scenes/projectile/rocket.png" id="3_tldn6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tldn6"]
-radius = 4.0
-height = 20.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_tldn6"]
-radius = 64.0
+radius = 8.0
+height = 16.0
 
 [node name="Projectile" type="CharacterBody2D" unique_id=371139237]
 collision_layer = 16
@@ -23,11 +19,5 @@ scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_tldn6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1157895186]
-rotation = -1.5707964
+rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_tldn6")
-
-[node name="HitboxComponent" parent="." unique_id=1991768270 instance=ExtResource("1_t8015")]
-
-[node name="HitboxShape" type="CollisionShape2D" parent="HitboxComponent" unique_id=896105883]
-shape = SubResource("CircleShape2D_tldn6")
-debug_color = Color(0.996, 0.804, 0, 0.392)

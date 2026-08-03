@@ -2,9 +2,12 @@
 class_name HurtboxComponent
 extends Area2D
 
+signal hurt(amount: int)
+
 const HURTBOX_COLOR := Color(0.0, 1.0, 0.0, 0.392)
 
-signal hurt(amount: int)
+@export_group("Health")
+@export var health_component: HealthComponent
 
 
 func _ready() -> void:
@@ -16,3 +19,6 @@ func _ready() -> void:
 func hit(amount: int) -> void:
 	Debug.log("Hit by %s" % amount)
 	hurt.emit(amount)
+
+	if health_component:
+		health_component.take_health(amount)

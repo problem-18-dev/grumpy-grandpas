@@ -3,7 +3,6 @@ class_name ProjectileWeapon
 extends Weapon
 
 const PROJECTILE = preload("uid://csa3ig7aroxsa")
-const CHARGE_TIME := 1.0
 
 @export var resource: ProjectileWeaponResource
 
@@ -24,7 +23,6 @@ func _ready() -> void:
 
 	sprite.texture = resource.texture
 	muzzle_offset_marker.position = resource.muzzle_offset
-	weapon_crosshair.setup(resource.crosshair_distance)
 	charge_sprite.hide()
 	charge_sprite.position = resource.muzzle_offset
 
@@ -36,10 +34,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot") and not _is_charging:
 		_start_charging()
 
-	if event.is_action_released("shoot"):
-		if not _is_charging:
-			return
-
+	if event.is_action_released("shoot") and _is_charging:
 		_stop_charging()
 		shoot()
 
@@ -51,7 +46,8 @@ func prepare(hitscan_weapon_resource: ProjectileWeaponResource) -> void:
 func shoot() -> void:
 	assert(resource.projectile_resource, "Attempting to shoot projectile without projectile scene")
 
-	weapon_shot.emit()
+	# Enable later, can stay enabled for testing
+	#_disable()
 	charge_sprite.hide()
 
 	# Prepare projectile
@@ -78,8 +74,8 @@ func _start_charging() -> void:
 	charge_sprite.show()
 
 	_charge_tween = create_tween()
-	_charge_tween.tween_property(charge_sprite, "scale:x", 1.0, CHARGE_TIME)
-	charge_timer.start(CHARGE_TIME)
+	_charge_tween.tween_property(charge_sprite, "scale:x", 1.0, resource.charge_time)
+	charge_timer.start(resource.charge_time)
 
 	_is_charging = true
 
@@ -95,14 +91,26 @@ func _stop_charging() -> void:
 
 
 func _calculate_force() -> float:
-	return lerpf(resource.min_force, resource.max_force, 1.0 - _charge_time_left)
+	return lerpf(
+		resource.min_force,
+		resource.max_force,
+		inverse_lerp(resource.charge_time, 0, _charge_time_left),
+	)
 
 
 func _enable() -> void:
 	_is_enabled = true
+	weapon_crosshair.setup(resource.crosshair_distance)
 	weapon_crosshair.enable()
 	weapon_ready.emit()
 
 
+func _disable() -> void:
+	_is_enabled = false
+	weapon_crosshair.disable()
+	weapon_shot.emit()
+
+
 func _on_charge_timer_timeout() -> void:
 	_stop_charging()
+	shoot()

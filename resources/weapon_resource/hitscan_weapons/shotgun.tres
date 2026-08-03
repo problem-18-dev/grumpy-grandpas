@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="HitscanWeaponResource" format=3 uid="uid://bswdgh0ektx48"]
 
-[ext_resource type="Script" uid="uid://c8teyaijtqeex" path="res://resources/weapon_resource/hitscan_weapon_resource.gd" id="1_yq80j"]
+[ext_resource type="Script" uid="uid://c8teyaijtqeex" path="res://resources/weapon_resource/hitscan_weapons/hitscan_weapon_resource.gd" id="1_yq80j"]
 [ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="2_3mgjh"]
 
 [sub_resource type="Curve" id="Curve_3mgjh"]

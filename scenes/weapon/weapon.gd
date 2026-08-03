@@ -2,9 +2,12 @@
 class_name Weapon
 extends Node2D
 
+@warning_ignore("unused_signal")
 signal weapon_ready
+@warning_ignore("unused_signal")
 signal weapon_shot
 
+@warning_ignore("unused_private_class_variable")
 var _is_enabled := false
 
 

@@ -7,7 +7,7 @@ extends Resource
 @export var collision_shape: Shape2D
 @export var should_bounce: bool
 @export_group("Range")
-@export var range_shape: CircleShape2D
+@export var range_radius := 35.0
 @export_group("Damage")
 @export var damage := 100
 @export var damage_falloff_curve: Curve

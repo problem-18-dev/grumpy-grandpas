@@ -2,7 +2,7 @@
 class_name HitboxComponent
 extends Area2D
 
-const HITBOX_COLOR := Color(0.996, 0.804, 0.0, 0.392)
+const HITBOX_COLOR := Color(1.0, 0.8, 0.0, 0.4)
 
 var _targets_to_hit: Array[HurtboxComponent]
 var _collision_shape: CollisionShape2D

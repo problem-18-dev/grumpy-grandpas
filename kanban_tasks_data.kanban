@@ -28,7 +28,8 @@
 				"1375e5b2-0583-465e-8165-4e2941988567",
 				"6bdd385b-a2ca-4a3f-986c-341da014d23d",
 				"dd356d01-32f2-4219-89c0-be022d48abbc",
-				"ce398483-8ebd-4b11-b56c-ffce71da46c3"
+				"ce398483-8ebd-4b11-b56c-ffce71da46c3",
+				"920e78aa-2f76-4a08-bb68-353fc02799fc"
 			]
 		}
 	],
@@ -136,6 +137,30 @@
 			"description": "",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
+		},
+		{
+			"uuid": "920e78aa-2f76-4a08-bb68-353fc02799fc",
+			"title": "[Feat] Basic inventory",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": [
+				{
+					"details": "Simple UI ",
+					"done": true
+				},
+				{
+					"details": "Weapon scroll",
+					"done": true
+				},
+				{
+					"details": "Title per weapon",
+					"done": true
+				},
+				{
+					"details": "Pressing button equips the weapon",
+					"done": true
+				}
+			]
 		}
 	],
 	"layout": {

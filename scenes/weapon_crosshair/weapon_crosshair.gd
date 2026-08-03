@@ -1,4 +1,3 @@
-@tool
 class_name WeaponCrosshair
 extends Sprite2D
 
@@ -6,11 +5,8 @@ extends Sprite2D
 @export var fade_duration := 0.15
 
 
-func _ready() -> void:
-	modulate.a = 0.0
-
-
 func setup(x_offset: float) -> void:
+	modulate.a = 0.0
 	position = Vector2(x_offset, 0)
 
 

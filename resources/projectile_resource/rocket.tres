@@ -4,20 +4,19 @@
 [ext_resource type="Texture2D" uid="uid://c5s0wwqdt0u8v" path="res://scenes/projectile/rocket.png" id="2_jxn76"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tldn6"]
-radius = 12.45
+radius = 8.0
+height = 16.0
 
 [sub_resource type="Curve" id="Curve_jxn76"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.35, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.25), 0.0, 0.0, 0, 0]
 point_count = 3
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_tldn6"]
-radius = 64.0
 
 [resource]
 script = ExtResource("1_bkuvr")
 name = "Rocket"
 texture = ExtResource("2_jxn76")
 collision_shape = SubResource("CapsuleShape2D_tldn6")
-range_shape = SubResource("CircleShape2D_tldn6")
+range_radius = 64.0
+damage = 40
 damage_falloff_curve = SubResource("Curve_jxn76")
 metadata/_custom_type_script = "uid://d4gc80blia3ku"
