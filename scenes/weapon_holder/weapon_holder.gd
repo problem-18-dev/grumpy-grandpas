@@ -2,9 +2,7 @@ class_name WeaponHolder
 extends Node2D
 
 const MINIMUM_ROTATION := -PI / 2
-const MAXIMUM_ROTATION := PI / 3
-const HITSCAN_WEAPON = preload("uid://cc45g8xgg4lyo")
-const PROJECTILE_WEAPON = preload("uid://cupft37g0c1yp")
+const MAXIMUM_ROTATION := PI / 2
 
 @export_group("Properties")
 @export var rotation_speed := 60.0
@@ -29,8 +27,8 @@ func equip_weapon(weapon_resource: WeaponResource, player_direction: float) -> v
 		remove_weapon()
 
 	# Spawn weapon
-	var weapon: Weapon
-	weapon = _instantiate_weapon(weapon_resource)
+	assert(weapon_resource.weapon_scene, "Weapon resource has no weapon scene")
+	var weapon: Weapon = load(weapon_resource.weapon_scene).instantiate()
 	weapon.prepare(weapon_resource)
 	weapon_pivot.add_child(weapon)
 	_equipped_weapon = weapon
@@ -53,13 +51,6 @@ func remove_weapon() -> void:
 
 	set_physics_process(false)
 	set_process_unhandled_key_input(false)
-
-
-func _instantiate_weapon(weapon_resource: WeaponResource) -> Weapon:
-	if weapon_resource is HitscanWeaponResource:
-		return HITSCAN_WEAPON.instantiate()
-
-	return PROJECTILE_WEAPON.instantiate()
 
 
 func _flip(should_flip: bool) -> void:

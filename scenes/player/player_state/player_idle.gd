@@ -17,6 +17,9 @@ func _key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump"):
 		finished.emit(PlayerState.AIR, { "jump": true })
 
+	if event.is_action_pressed("inventory"):
+		player.toggle_inventory()
+
 
 func _handle_movement() -> void:
 	var direction := player.get_direction()

@@ -2,7 +2,7 @@ class_name HitscanWeaponResource
 extends WeaponResource
 
 const DEFAULT_RANGE := 300.0
-const DEFAULT_DAMAGE := 25.0
+const DEFAULT_DAMAGE := 25
 
 @export_group("Range")
 @export var weapon_range := DEFAULT_RANGE

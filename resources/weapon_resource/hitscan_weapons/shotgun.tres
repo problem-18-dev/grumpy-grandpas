@@ -15,4 +15,5 @@ damage_falloff_curve = SubResource("Curve_3mgjh")
 name = "Shotgun"
 texture = ExtResource("2_3mgjh")
 crosshair_distance = 75.0
+weapon_scene = "uid://cc45g8xgg4lyo"
 metadata/_custom_type_script = "uid://c8teyaijtqeex"

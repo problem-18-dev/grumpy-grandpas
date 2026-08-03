@@ -11,5 +11,5 @@ projectile_resource = ExtResource("1_47jwv")
 name = "Rocket Launcher"
 texture = ExtResource("2_xn5pd")
 muzzle_offset = Vector2(24, 0)
-damage = 90.0
+weapon_scene = "uid://cupft37g0c1yp"
 metadata/_custom_type_script = "uid://pp6wnjxndi6r"

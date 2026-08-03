@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://crokm4it7fa58" path="res://scenes/weapon/projectile_weapon/projectile_weapon.gd" id="1_36w1u"]
 [ext_resource type="PackedScene" uid="uid://dtyiwvrh6enql" path="res://scenes/weapon_crosshair/weapon_crosshair.tscn" id="2_36w1u"]
-[ext_resource type="Resource" uid="uid://c4jjtdxl0q3k3" path="res://resources/weapon_resource/projectile_weapons/rocket_launcher.tres" id="2_oqn6d"]
 [ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="3_afadl"]
 [ext_resource type="Texture2D" uid="uid://cm24glhqd6vrd" path="res://scenes/weapon/projectile_weapon/charge_texture.png" id="4_57x6w"]
 
@@ -47,7 +46,7 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"_enable"
+"method": &"enable"
 }]
 }
 
@@ -59,7 +58,6 @@ _data = {
 
 [node name="ProjectileWeapon" type="Node2D" unique_id=160514180]
 script = ExtResource("1_36w1u")
-resource = ExtResource("2_oqn6d")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1557535622]

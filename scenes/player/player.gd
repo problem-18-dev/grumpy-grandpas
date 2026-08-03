@@ -1,12 +1,13 @@
 class_name Player
 extends CharacterBody2D
 
+const WEAPONS_CATALOGUE = preload("uid://b4umg781jsip2")
 const LEFT_DIRECTION := -1
 const RIGHT_DIRECTION := 1
-const DEFAULT_WEAPON = preload("uid://c4jjtdxl0q3k3")
+const DEFAULT_WEAPON := WEAPONS_CATALOGUE.default_weapon
 
+var _equipped_weapon: WeaponResource = DEFAULT_WEAPON
 var _last_direction := RIGHT_DIRECTION
-var _weapon_to_equip: WeaponResource = DEFAULT_WEAPON
 
 @onready var weapon_holder: WeaponHolder = $WeaponHolder
 @onready var sprite: Sprite2D = $Sprite2D
@@ -30,7 +31,7 @@ func unequip_weapon() -> void:
 
 
 func reequip_weapon() -> void:
-	equip_weapon(_weapon_to_equip)
+	equip_weapon(_equipped_weapon)
 
 
 func get_direction() -> float:
@@ -41,6 +42,14 @@ func register_last_direction(new_last_direction: float) -> void:
 	_last_direction = LEFT_DIRECTION if new_last_direction < 0 else RIGHT_DIRECTION
 
 
+func toggle_inventory() -> void:
+	if player_hud.visible:
+		player_hud.close()
+		return
+
+	player_hud.open(_equipped_weapon)
+
+
 func _flip_sprite() -> void:
 	if is_zero_approx(velocity.x):
 		return
@@ -48,6 +57,8 @@ func _flip_sprite() -> void:
 	sprite.flip_h = velocity.x < 0
 
 
-func _on_player_hud_weapon_selected(weapon_to_equip: WeaponResource) -> void:
-	_weapon_to_equip = weapon_to_equip
+func _on_player_hud_weapon_selected(equipped_weapon: WeaponResource) -> void:
+	_equipped_weapon = equipped_weapon
+
+	#TODO: Player shouldn't be able to equip weapon while moving
 	reequip_weapon()
