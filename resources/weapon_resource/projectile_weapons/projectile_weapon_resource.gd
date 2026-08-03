@@ -1,8 +1,8 @@
 class_name ProjectileWeaponResource
 extends WeaponResource
 
-const MINIMUM_FORCE := 100.0
-const MAXIMUM_FORCE := 400.0
+const MINIMUM_FORCE := 200.0
+const MAXIMUM_FORCE := 1000.0
 
 @export_group("Charge")
 @export var min_force := MINIMUM_FORCE

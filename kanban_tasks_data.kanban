@@ -12,7 +12,11 @@
 			"title": "Todo",
 			"tasks": [
 				"a0584d7d-098c-4ac6-ba13-e01d957e2080",
-				"5b49fd0c-0333-43d4-8b34-972f5db4e18d"
+				"5b49fd0c-0333-43d4-8b34-972f5db4e18d",
+				"d82f9c2e-2210-4268-8e56-e5160622d775",
+				"3ece640c-c1db-4d71-9230-6cada86ffa19",
+				"6a54daf8-a9e0-48d6-a8fb-addde2535cc9",
+				"ba1e0c1e-3604-45e0-9027-60476ffe97b2"
 			]
 		},
 		{
@@ -27,6 +31,7 @@
 				"093fd4eb-0925-4110-b4f0-e7123d22f5d3",
 				"1375e5b2-0583-465e-8165-4e2941988567",
 				"6bdd385b-a2ca-4a3f-986c-341da014d23d",
+				"679feae5-93e6-4d73-abf0-3467a26ac33c",
 				"dd356d01-32f2-4219-89c0-be022d48abbc",
 				"ce398483-8ebd-4b11-b56c-ffce71da46c3",
 				"920e78aa-2f76-4a08-bb68-353fc02799fc"
@@ -161,6 +166,41 @@
 					"done": true
 				}
 			]
+		},
+		{
+			"uuid": "679feae5-93e6-4d73-abf0-3467a26ac33c",
+			"title": "[Feat] Grenade weapon",
+			"description": "A grenade weapon is a projectile, the only difference from the rocket is that it can bounce. A grenade has a lifetime.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "d82f9c2e-2210-4268-8e56-e5160622d775",
+			"title": "[Feat] Tools functionality",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "3ece640c-c1db-4d71-9230-6cada86ffa19",
+			"title": "[Feat] Jetpack tool",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "6a54daf8-a9e0-48d6-a8fb-addde2535cc9",
+			"title": "[Feat] Grappling hook tool",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "ba1e0c1e-3604-45e0-9027-60476ffe97b2",
+			"title": "[Feat] Weapon balancing",
+			"description": "Towards the end of development, take a few hours to balance the damage, range and availabilty of weapons.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
 		}
 	],
 	"layout": {

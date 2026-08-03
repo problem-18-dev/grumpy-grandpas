@@ -1,13 +1,20 @@
 class_name ProjectileResource
 extends Resource
 
+const DEFAULT_BOUNCE_DIVIDER := 1.75
+const DEFAULT_LIFE_TIME := 10.0
+const DEFAULT_RANGE_RADIUS := 35.0
+
 @export var name := "Projectile"
 @export_group("Properties")
 @export var texture: Texture2D
 @export var collision_shape: Shape2D
-@export var should_bounce: bool
+@export_group("Bounce")
+@export var bounce_enabled: bool
+@export var bounce_velocity_divider := DEFAULT_BOUNCE_DIVIDER
+@export_group("Lifetime")
+@export var life_time := DEFAULT_LIFE_TIME
 @export_group("Range")
-@export var range_radius := 35.0
+@export var range_radius := DEFAULT_RANGE_RADIUS
 @export_group("Damage")
-@export var damage := 100
-@export var damage_falloff_curve: Curve
+@export var damage: DamageResource

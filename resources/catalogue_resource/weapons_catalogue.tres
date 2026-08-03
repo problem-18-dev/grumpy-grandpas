@@ -5,9 +5,10 @@
 [ext_resource type="Resource" uid="uid://bswdgh0ektx48" path="res://resources/weapon_resource/hitscan_weapons/shotgun.tres" id="3_st5hl"]
 [ext_resource type="Resource" uid="uid://dx1m0w6av86ds" path="res://resources/weapon_resource/hitscan_weapons/revolver.tres" id="4_swub2"]
 [ext_resource type="Resource" uid="uid://c4jjtdxl0q3k3" path="res://resources/weapon_resource/projectile_weapons/rocket_launcher.tres" id="5_w4fom"]
+[ext_resource type="Resource" uid="uid://b7ajnb4kraktd" path="res://resources/weapon_resource/projectile_weapons/grenade_launcher.tres" id="6_swub2"]
 
 [resource]
 script = ExtResource("1_jhw3t")
-weapons = Array[ExtResource("2_8qqlo")]([ExtResource("3_st5hl"), ExtResource("4_swub2"), ExtResource("5_w4fom")])
+weapons = Array[ExtResource("2_8qqlo")]([ExtResource("3_st5hl"), ExtResource("4_swub2"), ExtResource("5_w4fom"), ExtResource("6_swub2")])
 default_weapon = ExtResource("4_swub2")
 metadata/_custom_type_script = "uid://y30kphuaasrn"

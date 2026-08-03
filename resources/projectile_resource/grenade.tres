@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ProjectileResource" format=3 uid="uid://c0v8vjr33360s"]
+
+[ext_resource type="Script" uid="uid://d4gc80blia3ku" path="res://resources/projectile_resource/projectile_resource.gd" id="1_hsf44"]
+[ext_resource type="Resource" uid="uid://b284v1amg8bms" path="res://resources/damage_resource/grenade_damage.tres" id="1_p75as"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lav5m"]
+radius = 6.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p75as"]
+load_path = "res://.godot/imported/rocket.png-79893a6a213dcc8e9a4ae14a59bc55ac.ctex"
+
+[resource]
+script = ExtResource("1_hsf44")
+name = "Grenade"
+texture = SubResource("CompressedTexture2D_p75as")
+collision_shape = SubResource("CircleShape2D_lav5m")
+bounce_enabled = true
+life_time = 5.0
+range_radius = 40.0
+damage = ExtResource("1_p75as")
+metadata/_custom_type_script = "uid://d4gc80blia3ku"

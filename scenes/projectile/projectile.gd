@@ -10,6 +10,7 @@ var _is_fired := false
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var life_time_timer: Timer = $LifeTimeTimer
 
 
 func _ready() -> void:
@@ -38,6 +39,7 @@ func fire(start_position: Vector2, angle_in_rad: float, force: float) -> void:
 	global_position = start_position
 	rotation = angle_in_rad
 	velocity = Vector2.RIGHT.rotated(angle_in_rad) * force
+	life_time_timer.start(resource.life_time)
 	_is_fired = true
 
 
@@ -66,9 +68,10 @@ func _hit_targets() -> void:
 	for collision in collisions:
 		var collider: HurtboxComponent = collision.collider
 		var distance_to_target := global_position.distance_to(collider.global_position)
-		var distance_ratio := distance_to_target / resource.range_radius
-		var damage_falloff := resource.damage_falloff_curve.sample(distance_ratio)
-		var calculated_damage := roundi(resource.damage * damage_falloff)
+		var calculated_damage := resource.damage.calculate_damage(
+			distance_to_target,
+			resource.range_radius,
+		)
 		collider.hit(calculated_damage)
 
 
@@ -80,8 +83,9 @@ func _handle_collision(collision: KinematicCollision2D) -> void:
 	if not collision:
 		return
 
-	if resource.should_bounce:
+	if resource.bounce_enabled:
 		velocity = velocity.bounce(collision.get_normal())
+		velocity /= resource.bounce_velocity_divider
 		return
 
 	_explode()
@@ -89,3 +93,7 @@ func _handle_collision(collision: KinematicCollision2D) -> void:
 
 func _handle_rotation() -> void:
 	rotation = velocity.angle()
+
+
+func _on_life_time_timer_timeout() -> void:
+	_explode()

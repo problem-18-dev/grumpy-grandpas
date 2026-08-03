@@ -44,13 +44,13 @@ func shoot() -> void:
 	var projectile: Projectile = PROJECTILE.instantiate()
 	projectile.prepare(_resource.projectile_resource)
 
-	# Fire projectile
-	var force := _calculate_force()
-	projectile.fire(muzzle_offset_marker.global_position, global_rotation, force)
-
 	# Add to level
 	var projectiles_container := get_tree().get_first_node_in_group("projectiles")
 	projectiles_container.add_child(projectile)
+
+	# Fire projectile
+	var force := _calculate_force()
+	projectile.fire(muzzle_offset_marker.global_position, global_rotation, force)
 
 
 func _start_charging() -> void:

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="DamageResource" format=3 uid="uid://c2rbvwsln4f2h"]
+
+[ext_resource type="Script" uid="uid://nykqtti0wwvp" path="res://resources/damage_resource/damage_resource.gd" id="1_1d7ja"]
+
+[sub_resource type="Curve" id="Curve_1d7ja"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.39999998, 1), 0.0, 0.0, 0, 0, Vector2(0.79999995, 0.39999998), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+metadata/_snap_count = 50
+
+[resource]
+script = ExtResource("1_1d7ja")
+damage_falloff_curve = SubResource("Curve_1d7ja")
+metadata/_custom_type_script = "uid://nykqtti0wwvp"

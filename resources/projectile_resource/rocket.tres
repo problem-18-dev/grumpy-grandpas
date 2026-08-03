@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="ProjectileResource" format=3 uid="uid://brymaul5h4b5a"]
 
+[ext_resource type="Script" uid="uid://nykqtti0wwvp" path="res://resources/damage_resource/damage_resource.gd" id="1_2lqe6"]
 [ext_resource type="Script" uid="uid://d4gc80blia3ku" path="res://resources/projectile_resource/projectile_resource.gd" id="1_bkuvr"]
 [ext_resource type="Texture2D" uid="uid://c5s0wwqdt0u8v" path="res://scenes/projectile/rocket.png" id="2_jxn76"]
 
@@ -7,16 +8,23 @@
 radius = 8.0
 height = 16.0
 
-[sub_resource type="Curve" id="Curve_jxn76"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.35, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.25), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_2lqe6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.39999998, 1), 0.0, 0.0, 0, 0, Vector2(0.79999995, 0.39999998), 0.0, 0.0, 0, 0]
 point_count = 3
+metadata/_snap_enabled = true
+metadata/_snap_count = 50
+
+[sub_resource type="Resource" id="Resource_rw44o"]
+script = ExtResource("1_2lqe6")
+damage_falloff_curve = SubResource("Curve_2lqe6")
+metadata/_custom_type_script = "uid://nykqtti0wwvp"
 
 [resource]
 script = ExtResource("1_bkuvr")
 name = "Rocket"
 texture = ExtResource("2_jxn76")
 collision_shape = SubResource("CapsuleShape2D_tldn6")
+life_time = 7.5
 range_radius = 64.0
-damage = 40
-damage_falloff_curve = SubResource("Curve_jxn76")
+damage = SubResource("Resource_rw44o")
 metadata/_custom_type_script = "uid://d4gc80blia3ku"

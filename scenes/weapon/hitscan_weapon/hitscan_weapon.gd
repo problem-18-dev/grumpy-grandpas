@@ -36,9 +36,10 @@ func shoot() -> void:
 	if collider is HurtboxComponent:
 		var collision_point := hitscan_ray_cast.get_collision_point()
 		var distance_to_target := hitscan_ray_cast.global_position.distance_to(collision_point)
-		var damage_ratio := distance_to_target / _resource.weapon_range
-		var damage_falloff := _resource.damage_falloff_curve.sample(damage_ratio)
-		var calculated_damage := roundi(_resource.damage * damage_falloff)
+		var calculated_damage := _resource.damage.calculate_damage(
+			distance_to_target,
+			_resource.weapon_range,
+		)
 		collider.hit(calculated_damage)
 		return
 
