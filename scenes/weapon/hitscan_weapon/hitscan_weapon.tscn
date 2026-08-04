@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://cc45g8xgg4lyo"]
 
-[ext_resource type="Resource" uid="uid://bswdgh0ektx48" path="res://resources/weapon_resource/hitscan_weapons/shotgun.tres" id="2_bbni1"]
 [ext_resource type="Script" uid="uid://dha6yc6frgkta" path="res://scenes/weapon/hitscan_weapon/hitscan_weapon.gd" id="2_c5o7a"]
 [ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="3_bbni1"]
 [ext_resource type="PackedScene" uid="uid://dtyiwvrh6enql" path="res://scenes/weapon_crosshair/weapon_crosshair.tscn" id="4_m8n6t"]
@@ -58,7 +57,6 @@ _data = {
 
 [node name="HitscanWeapon" type="Node2D" unique_id=1920489024]
 script = ExtResource("2_c5o7a")
-resource = ExtResource("2_bbni1")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1059637923]

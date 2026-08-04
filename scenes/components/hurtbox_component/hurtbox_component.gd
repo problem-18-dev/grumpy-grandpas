@@ -26,7 +26,7 @@ func hit(amount: int) -> void:
 
 
 func knockback(knockback_force: float, knockback_angle: float) -> void:
-	if not knockback_force or not knockback_angle:
+	if knockback_force == null or knockback_angle == null:
 		push_warning("Knockback force or angle is missing, skipping knockback")
 		return
 

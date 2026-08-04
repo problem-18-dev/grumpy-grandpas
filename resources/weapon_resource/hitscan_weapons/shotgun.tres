@@ -5,15 +5,15 @@
 [ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="2_3mgjh"]
 [ext_resource type="Script" uid="uid://bd6lxv2h53b83" path="res://resources/weapon_attributes/knockback_resource/knockback_resource.gd" id="2_6e447"]
 
-[sub_resource type="Curve" id="Curve_urvlt"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.2, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 0.3), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 4
+[sub_resource type="Curve" id="Curve_tnynk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.2, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
+point_count = 3
 metadata/_snap_enabled = true
 
 [sub_resource type="Resource" id="Resource_urvlt"]
 script = ExtResource("2_6e447")
-knockback_force = 250.0
-knockback_force_falloff_curve = SubResource("Curve_urvlt")
+base_force = 300.0
+falloff_curve = SubResource("Curve_tnynk")
 metadata/_custom_type_script = "uid://bd6lxv2h53b83"
 
 [resource]

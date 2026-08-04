@@ -1,10 +1,14 @@
 extends PlayerState
 
 @export_group("Properties")
-@export var knockback_drag := 0.15
+@export var knockback_weight := 200.0
+@export var upward_force := 0.5
+
+var _finished := false
 
 
 func enter(data := { }) -> void:
+	_finished = false
 	player.unequip_weapon()
 
 	if not data.has("force") or not data.has("angle"):
@@ -14,10 +18,22 @@ func enter(data := { }) -> void:
 
 	var angle: float = data.get("angle")
 	var force: float = data.get("force")
-	player.velocity = Vector2.from_angle(angle) * force
+	var direction := Vector2.from_angle(angle)
+	direction.y -= upward_force
+	player.velocity += direction.normalized() * force
 
 
 func _physics_update(delta: float) -> void:
-	_apply_gravity(delta)
-	player.velocity.x -= knockback_drag
+	if _finished:
+		return
+
+	if not player.is_on_floor():
+		_apply_gravity(delta)
+	else:
+		player.velocity.x = move_toward(player.velocity.x, 0, knockback_weight * delta)
+
 	player.move_and_slide()
+
+	if is_zero_approx(player.velocity.length()):
+		finished.emit(PlayerState.INACTIVE)
+		_finished = true

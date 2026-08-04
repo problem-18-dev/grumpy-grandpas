@@ -7,6 +7,7 @@
 [resource]
 script = ExtResource("1_0q7i4")
 min_force = 250.0
+charge_time = 1.75
 projectile_resource = ExtResource("1_47jwv")
 name = "Rocket Launcher"
 texture = ExtResource("2_xn5pd")

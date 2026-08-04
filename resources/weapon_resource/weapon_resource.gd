@@ -10,6 +10,5 @@ const DEFAULT_CROSSHAIR_DISTANCE := 100.0
 @export var muzzle_offset: Vector2
 @export_group("Crosshair")
 @export var crosshair_distance := DEFAULT_CROSSHAIR_DISTANCE
-
 @export_group("Scenes")
 @export_file("*.tscn") var weapon_scene: String

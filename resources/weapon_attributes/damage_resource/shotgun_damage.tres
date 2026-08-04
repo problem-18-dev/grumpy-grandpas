@@ -2,11 +2,14 @@
 
 [ext_resource type="Script" uid="uid://nykqtti0wwvp" path="res://resources/weapon_attributes/damage_resource/damage_resource.gd" id="1_oeqv2"]
 
-[sub_resource type="Curve" id="Curve_ola2h"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.25, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 0.25), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_oeqv2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.2, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
 point_count = 4
+metadata/_snap_enabled = true
 
 [resource]
 script = ExtResource("1_oeqv2")
-damage_falloff_curve = SubResource("Curve_ola2h")
+max_range = 100.0
+base_damage = 60
+falloff_curve = SubResource("Curve_oeqv2")
 metadata/_custom_type_script = "uid://nykqtti0wwvp"

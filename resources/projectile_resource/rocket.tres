@@ -9,28 +9,26 @@
 radius = 8.0
 height = 16.0
 
-[sub_resource type="Curve" id="Curve_2lqe6"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.39999998, 1), 0.0, 0.0, 0, 0, Vector2(0.79999995, 0.39999998), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_3gpky"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
 point_count = 3
 metadata/_snap_enabled = true
-metadata/_snap_count = 50
 
 [sub_resource type="Resource" id="Resource_rw44o"]
 script = ExtResource("1_2lqe6")
-damage_falloff_curve = SubResource("Curve_2lqe6")
+max_range = 65.0
+falloff_curve = SubResource("Curve_3gpky")
 metadata/_custom_type_script = "uid://nykqtti0wwvp"
 
-[sub_resource type="Curve" id="Curve_d4w6o"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(0.75, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 0.3), 0.0, 0.0, 0, 0]
-point_count = 4
+[sub_resource type="Curve" id="Curve_rw44o"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.60181, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.4), 0.0, 0.0, 0, 0]
+point_count = 3
 metadata/_snap_enabled = true
-metadata/_snap_count = 20
 
 [sub_resource type="Resource" id="Resource_urvlt"]
 script = ExtResource("2_rw44o")
-knockback_radius = 72.0
-knockback_force = 275.0
-knockback_force_falloff_curve = SubResource("Curve_d4w6o")
+max_range = 75.0
+falloff_curve = SubResource("Curve_rw44o")
 metadata/_custom_type_script = "uid://bd6lxv2h53b83"
 
 [resource]
@@ -39,7 +37,6 @@ name = "Rocket"
 texture = ExtResource("2_jxn76")
 collision_shape = SubResource("CapsuleShape2D_tldn6")
 life_time = 7.5
-range_radius = 64.0
 carve_radius = 48.0
 damage = SubResource("Resource_rw44o")
 knockback = SubResource("Resource_urvlt")

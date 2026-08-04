@@ -2,19 +2,19 @@ class_name DamageResource
 extends Resource
 
 const DEFAULT_DAMAGE := 50
+const DEFAULT_RANGE := 300.0
 
-
+@export_group("Range")
+@export var max_range := DEFAULT_RANGE
 @export_group("Damage")
-@export var damage := DEFAULT_DAMAGE
-@export var damage_falloff_curve: Curve
+@export var base_damage := DEFAULT_DAMAGE
+@export var falloff_curve: Curve
 
 
-func calculate_damage(distance: float, damage_range: float) -> int:
-	if not damage_falloff_curve:
-		push_warning("No damage falloff curve given for %s" % resource_path)
-		return damage
+## Calculates damage based on distance to target
+func calculate(distance_to_target: float) -> int:
+	assert(falloff_curve, "Trying to calculate damage without falloff curve")
 
-	var damage_ratio := distance / damage_range
-	var damage_falloff := damage_falloff_curve.sample(damage_ratio)
-	var calculated_damage := roundi(damage * damage_falloff)
-	return calculated_damage
+	var damage_ratio := distance_to_target / max_range
+	var damage_sample := falloff_curve.sample(damage_ratio)
+	return roundi(damage_sample * base_damage)

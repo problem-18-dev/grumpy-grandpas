@@ -11,7 +11,7 @@ func _ready() -> void:
 	_resource = weapon_resource as HitscanWeaponResource
 	weapon_crosshair.position = Vector2(_resource.crosshair_distance, 0)
 	hitscan_ray_cast.position = _resource.muzzle_offset
-	hitscan_ray_cast.target_position = Vector2(_resource.weapon_range, 0)
+	hitscan_ray_cast.target_position = Vector2(_resource.damage.max_range, 0)
 	hitscan_ray_cast.force_update_transform()
 
 
@@ -36,20 +36,15 @@ func shoot() -> void:
 	if collider is HurtboxComponent:
 		var collision_point := hitscan_ray_cast.get_collision_point()
 		var distance_to_target := hitscan_ray_cast.global_position.distance_to(collision_point)
-		var calculated_damage := _resource.damage.calculate_damage(
-			distance_to_target,
-			_resource.weapon_range,
-		)
-		collider.hit(calculated_damage)
 
-		var calculated_knockback := _resource.knockback.calculate_hitscan_knockback(
+		var damage := _resource.damage.calculate(distance_to_target)
+		collider.hit(damage)
+
+		var knockback := _resource.knockback.calculate_for_hitscan(
 			distance_to_target,
-			_resource.weapon_range,
+			_resource.damage.max_range,
 		)
-		collider.knockback(
-			calculated_knockback,
-			-global_position.angle_to(collider.global_position),
-		)
+		collider.knockback(knockback, global_position.angle_to_point(collider.global_position))
 		return
 
 	# TODO: Only other collision can be the world

@@ -44,23 +44,19 @@ func fire(start_position: Vector2, angle_in_rad: float, force: float) -> void:
 
 
 func _explode() -> void:
-	_hit_targets()
+	_damage_targets()
+	_knockback_targets()
 	_carve_terrain()
 	queue_free()
 
 
-func _hit_targets() -> void:
-	var space_state := get_world_2d().direct_space_state
-	var shape_query := PhysicsShapeQueryParameters2D.new()
-	shape_query.collision_mask = HURTBOX_COLLISION_MASK
-	shape_query.collide_with_areas = true
-	shape_query.collide_with_bodies = false
-	shape_query.transform = Transform2D(0, global_position)
-
+func _damage_targets() -> void:
+	var shape_query := Utils.create_shape_query(HURTBOX_COLLISION_MASK, global_position)
 	var shape := CircleShape2D.new()
-	shape.radius = resource.range_radius
+	shape.radius = resource.damage.max_range
 	shape_query.shape = shape
 
+	var space_state := get_world_2d().direct_space_state
 	var collisions := space_state.intersect_shape(shape_query)
 
 	if collisions.is_empty():
@@ -69,19 +65,26 @@ func _hit_targets() -> void:
 	for collision in collisions:
 		var collider: HurtboxComponent = collision.collider
 		var distance_to_target := global_position.distance_to(collider.global_position)
-		var calculated_damage := resource.damage.calculate_damage(
-			distance_to_target,
-			resource.range_radius,
-		)
-		collider.hit(calculated_damage)
 
-		var calculated_knockback := resource.knockback.calculate_projectile_knockback(
-			distance_to_target
-		)
-		collider.knockback(
-			calculated_knockback,
-			-global_position.angle_to(collider.global_position),
-		)
+		var damage := resource.damage.calculate(distance_to_target)
+		collider.hit(damage)
+
+
+func _knockback_targets() -> void:
+	var shape_query := Utils.create_shape_query(HURTBOX_COLLISION_MASK, global_position)
+	var shape := CircleShape2D.new()
+	shape.radius = resource.knockback.max_range
+	shape_query.shape = shape
+
+	var space_state := get_world_2d().direct_space_state
+	var collisions := space_state.intersect_shape(shape_query)
+
+	for collision in collisions:
+		var collider: HurtboxComponent = collision.collider
+		var distance_to_target := global_position.distance_to(collider.global_position)
+
+		var knockback := resource.knockback.calculate(distance_to_target)
+		collider.knockback(knockback, global_position.angle_to_point(collider.global_position))
 
 
 func _carve_terrain() -> void:

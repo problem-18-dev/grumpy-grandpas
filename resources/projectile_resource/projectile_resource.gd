@@ -15,8 +15,6 @@ const DEFAULT_CARVE_RADIUS := 45.0
 @export var bounce_velocity_divider := DEFAULT_BOUNCE_DIVIDER
 @export_group("Lifetime")
 @export var life_time := DEFAULT_LIFE_TIME
-@export_group("Range")
-@export var range_radius := DEFAULT_RANGE_RADIUS
 @export_group("Carving")
 @export var carve_radius := DEFAULT_CARVE_RADIUS
 @export_group("Damage")
