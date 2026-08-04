@@ -1,8 +1,9 @@
 [gd_resource type="Resource" script_class="ProjectileResource" format=3 uid="uid://brymaul5h4b5a"]
 
-[ext_resource type="Script" uid="uid://nykqtti0wwvp" path="res://resources/damage_resource/damage_resource.gd" id="1_2lqe6"]
+[ext_resource type="Script" uid="uid://nykqtti0wwvp" path="res://resources/weapon_attributes/damage_resource/damage_resource.gd" id="1_2lqe6"]
 [ext_resource type="Script" uid="uid://d4gc80blia3ku" path="res://resources/projectile_resource/projectile_resource.gd" id="1_bkuvr"]
 [ext_resource type="Texture2D" uid="uid://c5s0wwqdt0u8v" path="res://scenes/projectile/rocket.png" id="2_jxn76"]
+[ext_resource type="Script" uid="uid://bd6lxv2h53b83" path="res://resources/weapon_attributes/knockback_resource/knockback_resource.gd" id="2_rw44o"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tldn6"]
 radius = 8.0
@@ -19,6 +20,19 @@ script = ExtResource("1_2lqe6")
 damage_falloff_curve = SubResource("Curve_2lqe6")
 metadata/_custom_type_script = "uid://nykqtti0wwvp"
 
+[sub_resource type="Curve" id="Curve_d4w6o"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(0.75, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 0.3), 0.0, 0.0, 0, 0]
+point_count = 4
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[sub_resource type="Resource" id="Resource_urvlt"]
+script = ExtResource("2_rw44o")
+knockback_radius = 72.0
+knockback_force = 275.0
+knockback_force_falloff_curve = SubResource("Curve_d4w6o")
+metadata/_custom_type_script = "uid://bd6lxv2h53b83"
+
 [resource]
 script = ExtResource("1_bkuvr")
 name = "Rocket"
@@ -28,4 +42,5 @@ life_time = 7.5
 range_radius = 64.0
 carve_radius = 48.0
 damage = SubResource("Resource_rw44o")
+knockback = SubResource("Resource_urvlt")
 metadata/_custom_type_script = "uid://d4gc80blia3ku"

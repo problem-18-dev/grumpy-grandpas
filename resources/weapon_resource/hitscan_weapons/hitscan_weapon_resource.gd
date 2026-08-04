@@ -7,3 +7,5 @@ const DEFAULT_RANGE := 300.0
 @export var weapon_range := DEFAULT_RANGE
 @export_group("Damage")
 @export var damage: DamageResource
+@export_group("Knockback")
+@export var knockback: KnockbackResource

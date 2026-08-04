@@ -76,5 +76,23 @@ follow_target = NodePath("..")
 tween_resource = SubResource("Resource_fm80t")
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
+[node name="HurtLabel" type="Label" parent="." unique_id=292881716]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -24.0
+offset_right = 8.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_font_sizes/font_size = 8
+text = "-22"
+
+[connection signal="hurt" from="HurtboxComponent" to="." method="_on_hurtbox_component_hurt"]
 [connection signal="knockbacked" from="HurtboxComponent" to="." method="_on_hurtbox_component_knockbacked"]
 [connection signal="weapon_selected" from="PlayerHUD" to="." method="_on_player_hud_weapon_selected"]

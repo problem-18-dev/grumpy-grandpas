@@ -13,6 +13,7 @@ var _last_direction := RIGHT_DIRECTION
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var player_hud: PlayerHUD = $PlayerHUD
 @onready var state_machine: StateMachine = $StateMachine
+@onready var hurt_label: Label = $HurtLabel
 
 
 func _ready() -> void:
@@ -67,3 +68,13 @@ func _on_player_hud_weapon_selected(equipped_weapon: WeaponResource) -> void:
 
 func _on_hurtbox_component_knockbacked(force: float, angle: float) -> void:
 	state_machine.transition_to_state(PlayerState.KNOCKBACK, { "force": force, "angle": angle })
+
+
+func _on_hurtbox_component_hurt(amount: int) -> void:
+	var label_to_tween := hurt_label.duplicate()
+	label_to_tween.text = "-%s" % amount
+	label_to_tween.show()
+	add_child(label_to_tween)
+	var tween := create_tween()
+	tween.tween_property(label_to_tween, "position", label_to_tween.position + Vector2.UP * 16, 1.0)
+	tween.tween_callback(label_to_tween.queue_free)

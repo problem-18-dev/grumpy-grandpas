@@ -74,7 +74,14 @@ func _hit_targets() -> void:
 			resource.range_radius,
 		)
 		collider.hit(calculated_damage)
-		collider.knockback(calculated_damage, -global_position.angle_to(collider.global_position))
+
+		var calculated_knockback := resource.knockback.calculate_projectile_knockback(
+			distance_to_target
+		)
+		collider.knockback(
+			calculated_knockback,
+			-global_position.angle_to(collider.global_position),
+		)
 
 
 func _carve_terrain() -> void:

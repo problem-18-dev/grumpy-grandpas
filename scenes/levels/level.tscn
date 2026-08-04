@@ -20,6 +20,12 @@ script = ExtResource("1_377w7")
 [node name="Player" parent="Players" unique_id=1829503951 instance=ExtResource("4_urvlt")]
 position = Vector2(328, 120)
 
+[node name="StateMachine" parent="Players/Player" index="5" unique_id=1355297057 node_paths=PackedStringArray("initial_state")]
+initial_state = NodePath("Inactive")
+
+[node name="PhantomCamera2D" parent="Players/Player" index="7" unique_id=1921072496]
+position = Vector2(328, 120)
+
 [node name="Player2" parent="Players" unique_id=510938991 instance=ExtResource("4_urvlt")]
 position = Vector2(200, 168)
 
@@ -33,3 +39,5 @@ process_priority = 300
 process_physics_priority = 300
 script = ExtResource("7_mbbpy")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[editable path="Players/Player"]

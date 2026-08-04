@@ -3,6 +3,7 @@ extends Resource
 
 const DEFAULT_DAMAGE := 50
 
+
 @export_group("Damage")
 @export var damage := DEFAULT_DAMAGE
 @export var damage_falloff_curve: Curve
