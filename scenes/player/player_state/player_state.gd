@@ -1,9 +1,11 @@
 class_name PlayerState
 extends State
 
-const IDLE = "Idle"
-const WALK = "Walk"
-const AIR = "Air"
+const IDLE := "Idle"
+const WALK := "Walk"
+const AIR := "Air"
+const INACTIVE := "Inactive"
+const KNOCKBACK := "Knockback"
 
 var player: Player
 

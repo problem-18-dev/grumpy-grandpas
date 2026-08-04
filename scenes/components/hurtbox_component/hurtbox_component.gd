@@ -3,6 +3,7 @@ class_name HurtboxComponent
 extends Area2D
 
 signal hurt(amount: int)
+signal knockbacked(force: float, angle: float)
 
 const HURTBOX_COLOR := Color(0.0, 1.0, 0.0, 0.392)
 
@@ -22,3 +23,11 @@ func hit(amount: int) -> void:
 
 	if health_component:
 		health_component.take_health(amount)
+
+
+func knockback(knockback_force: float, knockback_angle: float) -> void:
+	if not knockback_force or not knockback_angle:
+		push_warning("Knockback force or angle is missing, skipping knockback")
+		return
+
+	knockbacked.emit(knockback_force, knockback_angle)

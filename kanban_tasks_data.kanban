@@ -11,11 +11,20 @@
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
 			"tasks": [
+				"e2d83811-fc76-4de2-97fe-10a54dda99c3",
+				"785fc13f-6ad5-4b18-84a0-e4348ba2f868",
+				"fc171676-5554-423d-b507-eb84752f5017",
+				"033b469a-886c-4aaf-b345-1aa28f0bec93",
 				"5b49fd0c-0333-43d4-8b34-972f5db4e18d",
 				"d82f9c2e-2210-4268-8e56-e5160622d775",
 				"3ece640c-c1db-4d71-9230-6cada86ffa19",
 				"6a54daf8-a9e0-48d6-a8fb-addde2535cc9",
-				"ba1e0c1e-3604-45e0-9027-60476ffe97b2"
+				"9500c87d-d388-4493-bc4c-3c88e5816da9",
+				"fb2bb30a-987e-41e0-8f7f-1fb6367d0f9d",
+				"f3161987-5907-425b-98a9-d52d7f41bff4",
+				"15fc6cf1-914b-4f5a-bde3-0d38139c66a5",
+				"ba1e0c1e-3604-45e0-9027-60476ffe97b2",
+				"71c0fc7c-366d-42bc-a8de-1fc50d936357"
 			]
 		},
 		{
@@ -199,6 +208,129 @@
 			"uuid": "ba1e0c1e-3604-45e0-9027-60476ffe97b2",
 			"title": "[Feat] Weapon balancing",
 			"description": "Towards the end of development, take a few hours to balance the damage, range and availabilty of weapons.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "033b469a-886c-4aaf-b345-1aa28f0bec93",
+			"title": "[Feat] Dynamic camera",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": [
+				{
+					"details": "Follows player when valid",
+					"done": false
+				},
+				{
+					"details": "Follows projectile when shot",
+					"done": false
+				},
+				{
+					"details": "Changes camera on turn change",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "9500c87d-d388-4493-bc4c-3c88e5816da9",
+			"title": "[Feat] Collectible items",
+			"description": "A collectible item can be a chest or a toolbox.\nA chest unlocks a weapon for the team.\nA toolbox unlocks a tool for the team.\n\nA collectible is picked up by simply walking over it as a player.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "fc171676-5554-423d-b507-eb84752f5017",
+			"title": "[Feat] Player manager",
+			"description": "The player manager should spawn players on the level, it should only know about who to spawn. It decides where and when a player spawns, it keeps track of which players are dead.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": [
+				{
+					"details": "Spawns players",
+					"done": false
+				},
+				{
+					"details": "Spawn is at random location of level",
+					"done": false
+				},
+				{
+					"details": "Handles player camera priority",
+					"done": false
+				},
+				{
+					"details": "Coordinates players per team",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "785fc13f-6ad5-4b18-84a0-e4348ba2f868",
+			"title": "[Feat] Team system",
+			"description": "The team system/manager should be responsible for assignments of teams, balancing them, and communicating this to the player manager. Whenever a player from team A unlocks a weapon, all players of team A can use that weapon.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": [
+				{
+					"details": ">3 players per team",
+					"done": false
+				},
+				{
+					"details": "Keeps tracks of what the team has unlocked",
+					"done": false
+				},
+				{
+					"details": "Notifies player manager of players to handle",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "e2d83811-fc76-4de2-97fe-10a54dda99c3",
+			"title": "[Feat] Player knockback",
+			"description": "A player should be knocked back based on the weapon they have been hit with. A weapon should define its knockback strength, have a falloff curve, and a knockback range.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": [
+				{
+					"details": "Knockback is kept per resource\n",
+					"done": false
+				},
+				{
+					"details": "Knockback strength is kept per resource",
+					"done": false
+				},
+				{
+					"details": "Knockback on hurt",
+					"done": false
+				},
+				{
+					"details": "Knockback is optional on hurtbox",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "15fc6cf1-914b-4f5a-bde3-0d38139c66a5",
+			"title": "[Feat] Camera when collectible spawns",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "fb2bb30a-987e-41e0-8f7f-1fb6367d0f9d",
+			"title": "[Feat] Chest collectible",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "f3161987-5907-425b-98a9-d52d7f41bff4",
+			"title": "[Feat] Toolbox collectible",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "71c0fc7c-366d-42bc-a8de-1fc50d936357",
+			"title": "[Feat] Camera shake",
+			"description": "",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
 		}

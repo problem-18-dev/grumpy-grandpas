@@ -12,6 +12,7 @@ var _last_direction := RIGHT_DIRECTION
 @onready var weapon_holder: WeaponHolder = $WeaponHolder
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var player_hud: PlayerHUD = $PlayerHUD
+@onready var state_machine: StateMachine = $StateMachine
 
 
 func _ready() -> void:
@@ -62,3 +63,7 @@ func _on_player_hud_weapon_selected(equipped_weapon: WeaponResource) -> void:
 
 	#TODO: Player shouldn't be able to equip weapon while moving
 	reequip_weapon()
+
+
+func _on_hurtbox_component_knockbacked(force: float, angle: float) -> void:
+	state_machine.transition_to_state(PlayerState.KNOCKBACK, { "force": force, "angle": angle })

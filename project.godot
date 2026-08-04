@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 
 Debug="*uid://c1qslyb0l0dep"
 PhantomCameraManager="*uid://duq6jhf6unyis"
+EventSystem="*uid://h1pkojb5iw46"
+
+[debug]
+
+gdscript/warnings/unused_signal=0
 
 [display]
 

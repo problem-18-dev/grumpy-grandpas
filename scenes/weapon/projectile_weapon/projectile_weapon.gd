@@ -36,7 +36,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func shoot() -> void:
 	assert(_resource.projectile_resource, "Attempting to shoot projectile without projectile scene")
 
-	# Enable later, can stay enabled for testing
+	# TODO: Enable later, can stay enabled for testing
 	#_disable()
 	charge_sprite.hide()
 

@@ -2,9 +2,6 @@
 class_name Weapon
 extends Node2D
 
-signal weapon_ready
-signal weapon_shot
-
 @export var weapon_resource: WeaponResource
 
 var _is_enabled := false
@@ -39,10 +36,8 @@ func flip(should_flip: bool) -> void:
 func enable() -> void:
 	_is_enabled = true
 	weapon_crosshair.enable()
-	weapon_ready.emit()
 
 
 func _disable() -> void:
 	_is_enabled = false
 	weapon_crosshair.disable()
-	weapon_shot.emit()
