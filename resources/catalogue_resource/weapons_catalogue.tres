@@ -10,5 +10,5 @@
 [resource]
 script = ExtResource("1_jhw3t")
 weapons = Array[ExtResource("2_8qqlo")]([ExtResource("3_st5hl"), ExtResource("4_swub2"), ExtResource("5_w4fom"), ExtResource("6_swub2")])
-default_weapon = ExtResource("4_swub2")
+default_weapon = ExtResource("5_w4fom")
 metadata/_custom_type_script = "uid://y30kphuaasrn"

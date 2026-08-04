@@ -45,6 +45,7 @@ func fire(start_position: Vector2, angle_in_rad: float, force: float) -> void:
 
 func _explode() -> void:
 	_hit_targets()
+	_carve_terrain()
 	queue_free()
 
 
@@ -73,6 +74,15 @@ func _hit_targets() -> void:
 			resource.range_radius,
 		)
 		collider.hit(calculated_damage)
+
+
+func _carve_terrain() -> void:
+	var terrain: DestructiblePolygon2D = get_tree().get_first_node_in_group("terrain")
+	if not terrain:
+		return
+
+	var carve_polygon := DestructiblePolygon2D.build_circle_polygon(resource.carve_radius)
+	terrain.destruct(carve_polygon, global_position)
 
 
 func _handle_gravity(delta: float) -> void:

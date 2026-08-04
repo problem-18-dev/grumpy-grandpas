@@ -26,5 +26,6 @@ texture = ExtResource("2_jxn76")
 collision_shape = SubResource("CapsuleShape2D_tldn6")
 life_time = 7.5
 range_radius = 64.0
+carve_radius = 48.0
 damage = SubResource("Resource_rw44o")
 metadata/_custom_type_script = "uid://d4gc80blia3ku"

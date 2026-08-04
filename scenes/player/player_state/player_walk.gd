@@ -1,7 +1,7 @@
 extends PlayerState
 
 @export_group("Properties")
-@export var movement_speed := 100.0
+@export var movement_speed := 65.0
 
 
 func enter(_data := { }) -> void:

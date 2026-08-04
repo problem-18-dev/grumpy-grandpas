@@ -3,24 +3,25 @@
 [ext_resource type="Script" uid="uid://dpjstawxawa7x" path="res://scenes/levels/level.gd" id="1_377w7"]
 [ext_resource type="PackedScene" uid="uid://bmag23mf230r3" path="res://scenes/player/player.tscn" id="2_bovvr"]
 [ext_resource type="PackedScene" uid="uid://c1qslyb0l0dep" path="res://scenes/debug/debug.tscn" id="3_b2cq8"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1xhu4"]
-size = Vector2(408, 56)
+[ext_resource type="PackedScene" uid="uid://d0okm02wagiv7" path="res://scenes/terrain/terrain.tscn" id="4_xb4v1"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_mbbpy"]
 
 [node name="Level" type="Node2D" unique_id=909882963]
 script = ExtResource("1_377w7")
 
 [node name="Debug" parent="." unique_id=1599672822 instance=ExtResource("3_b2cq8")]
 
+[node name="Terrain" parent="." unique_id=654413745 instance=ExtResource("4_xb4v1")]
+
 [node name="Player" parent="." unique_id=1829503951 instance=ExtResource("2_bovvr")]
 position = Vector2(274, 84)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=993178235]
-collision_layer = 2
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=393367526]
-position = Vector2(274, 228)
-shape = SubResource("RectangleShape2D_1xhu4")
-
 [node name="Projectiles" type="Node2D" parent="." unique_id=656412160 groups=["projectiles"]]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2016298324]
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=1087904861]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("7_mbbpy")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"

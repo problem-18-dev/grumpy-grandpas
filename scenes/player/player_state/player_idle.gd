@@ -6,8 +6,7 @@ func enter(_data := { }) -> void:
 	player.reequip_weapon()
 
 
-func _physics_update(delta: float) -> void:
-	_apply_gravity(delta)
+func _physics_update(_delta: float) -> void:
 	_handle_movement()
 	player.move_and_slide()
 	_check_floor()
