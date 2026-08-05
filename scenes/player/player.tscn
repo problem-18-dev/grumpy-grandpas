@@ -26,7 +26,8 @@ script = ExtResource("12_gx1jg")
 
 [node name="Player" type="CharacterBody2D" unique_id=1829503951 groups=["players"]]
 collision_mask = 3
-floor_max_angle = 1.134464
+floor_max_angle = 1.3962634
+floor_snap_length = 4.0
 script = ExtResource("1_8afob")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1621448688]

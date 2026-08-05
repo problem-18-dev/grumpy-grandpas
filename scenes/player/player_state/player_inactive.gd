@@ -1,10 +1,13 @@
 extends PlayerState
 
 
-func enter(data := { }) -> void:
+func enter(_data := { }) -> void:
 	player.unequip_weapon()
+	player.velocity = Vector2.ZERO
 
 
 func _physics_update(delta: float) -> void:
-	_apply_gravity(delta)
+	if not player.is_on_floor():
+		_apply_gravity(delta)
+
 	player.move_and_slide()

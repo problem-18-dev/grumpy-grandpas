@@ -3,6 +3,7 @@ extends PlayerState
 @export_group("Properties")
 @export var knockback_weight := 200.0
 @export var upward_force := 0.5
+@export var inactive_speed := 10.0
 
 var _finished := false
 
@@ -34,6 +35,6 @@ func _physics_update(delta: float) -> void:
 
 	player.move_and_slide()
 
-	if is_zero_approx(player.velocity.length()):
+	if player.is_on_floor() and player.velocity.length() < inactive_speed:
 		finished.emit(PlayerState.INACTIVE)
 		_finished = true
