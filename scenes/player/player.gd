@@ -2,9 +2,10 @@ class_name Player
 extends CharacterBody2D
 
 const WEAPONS_CATALOGUE = preload("uid://b4umg781jsip2")
+const DEFAULT_WEAPON := WEAPONS_CATALOGUE.default_weapon
 const LEFT_DIRECTION := -1
 const RIGHT_DIRECTION := 1
-const DEFAULT_WEAPON := WEAPONS_CATALOGUE.default_weapon
+const COLLISION_SHAPE_HEIGHT := 30.0
 
 var _equipped_weapon: WeaponResource = DEFAULT_WEAPON
 var _last_direction := RIGHT_DIRECTION
@@ -50,6 +51,10 @@ func toggle_inventory() -> void:
 		return
 
 	player_hud.open(_equipped_weapon)
+
+
+func activate() -> void:
+	state_machine.transition_to_state(PlayerState.IDLE)
 
 
 func _flip_sprite() -> void:

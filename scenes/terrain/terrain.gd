@@ -142,17 +142,6 @@ func set_collidable(value):
 			polygon_2d.get_child(0).get_child(0).set_deferred("disabled", true)
 
 
-func get_polygon_limits() -> Array[float]:
-	var left_limit := 0.0
-	var right_limit := 0.0
-	for polygon_2d: Polygon2D in get_children():
-		var bounds: Rect2 = polygon_2d.get_meta("bounds")
-		left_limit = minf(bounds.position.x, left_limit)
-		right_limit = maxf(bounds.end.x, right_limit)
-
-	return [left_limit, right_limit]
-
-
 static func build_circle_polygon(radius: float, tolerance := 1.0) -> Array[Vector2]:
 	var cos_arg := clampf(1.0 - tolerance / radius, -1.0, 1.0)
 	var segments := maxi(ceili(PI / acos(cos_arg)), 3)

@@ -11,18 +11,13 @@
 [ext_resource type="PackedScene" uid="uid://bdmwi2dhvl8q1" path="res://scenes/components/health_component/health_component.tscn" id="7_0owmy"]
 [ext_resource type="Script" uid="uid://bep13uudvc7lh" path="res://scenes/player/player_state/player_inactive.gd" id="10_gx1jg"]
 [ext_resource type="PackedScene" uid="uid://bkrmhl1oip2je" path="res://scenes/player/player_hud/hud.tscn" id="10_h17s1"]
-[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="11_fm80t"]
 [ext_resource type="Script" uid="uid://c8a35l3xxakio" path="res://scenes/player/player_state/player_knockback.gd" id="11_ugbui"]
-[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="12_gx1jg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1xhu4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5gtgg"]
 radius = 12.0
 height = 32.0
-
-[sub_resource type="Resource" id="Resource_fm80t"]
-script = ExtResource("12_gx1jg")
 
 [node name="Player" type="CharacterBody2D" unique_id=1829503951 groups=["players"]]
 collision_mask = 3
@@ -50,7 +45,7 @@ debug_color = Color(0, 1, 0, 0.392)
 [node name="HealthComponent" parent="." unique_id=779439910 instance=ExtResource("7_0owmy")]
 
 [node name="StateMachine" parent="." unique_id=1355297057 node_paths=PackedStringArray("initial_state") instance=ExtResource("3_gmlin")]
-initial_state = NodePath("Idle")
+initial_state = NodePath("Inactive")
 
 [node name="Idle" type="Node" parent="StateMachine" unique_id=2031766278]
 script = ExtResource("4_lvxji")
@@ -68,14 +63,6 @@ script = ExtResource("10_gx1jg")
 script = ExtResource("11_ugbui")
 
 [node name="PlayerHUD" parent="." unique_id=864953640 instance=ExtResource("10_h17s1")]
-
-[node name="PhantomCamera2D" type="Node2D" parent="." unique_id=1921072496 node_paths=PackedStringArray("follow_target")]
-top_level = true
-script = ExtResource("11_fm80t")
-follow_mode = 2
-follow_target = NodePath("..")
-tween_resource = SubResource("Resource_fm80t")
-metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="HurtLabel" type="Label" parent="." unique_id=292881716]
 visible = false
