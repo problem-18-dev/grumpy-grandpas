@@ -18,7 +18,7 @@ func _ready() -> void:
 
 
 func hit(amount: int) -> void:
-	Debug.log("Hit by %s" % amount)
+	Debug.log("%s Hit by %s" % [owner.name, amount])
 	hurt.emit(amount)
 
 	if health_component:

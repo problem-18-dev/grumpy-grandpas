@@ -25,13 +25,18 @@ func _init() -> void:
 
 func _update_camera() -> void:
 	# Do not change targets if stalling and already following more than two.
-	if not stall_timer.is_stopped() and _targets.size() > 2:
+	if not stall_timer.is_stopped() and _targets.size() > 1:
 		return
 
 	# If only one target available, follow no matter what.
 	if _targets.size() == 1:
-		_current_target = _targets.keys()[0]
+		var new_target: Node2D = _targets.keys()[0]
+		if new_target == _current_target:
+			return
+
+		_current_target = new_target
 		follow_target = _current_target
+		_log()
 		stall_timer.start()
 		return
 
@@ -48,6 +53,11 @@ func _update_camera() -> void:
 			target_to_follow = next_target
 
 	follow_target = target_to_follow
+	_log()
+
+
+func _log() -> void:
+	Debug.log("Moving camera to %s" % follow_target.name)
 
 
 func _on_request_follow(target: Node2D, follow_priority: Priority) -> void:

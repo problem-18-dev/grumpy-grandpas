@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://cd2ib37t0cgmf"]
 
 [ext_resource type="Script" uid="uid://dpjstawxawa7x" path="res://scenes/levels/level.gd" id="1_377w7"]
-[ext_resource type="PackedScene" uid="uid://c1qslyb0l0dep" path="res://scenes/debug/debug.tscn" id="3_b2cq8"]
 [ext_resource type="Script" uid="uid://d3yln8br38f5s" path="res://scenes/managers/turn_manager/turn_manager.gd" id="4_urvlt"]
 [ext_resource type="PackedScene" uid="uid://d0okm02wagiv7" path="res://scenes/terrain/terrain.tscn" id="4_xb4v1"]
 [ext_resource type="Script" uid="uid://qp7wd878ywhm" path="res://scenes/managers/spawn_manager/spawn_manager.gd" id="5_d4w6o"]
@@ -17,9 +16,6 @@ point_count = 2
 
 [node name="Level" type="Node2D" unique_id=909882963]
 script = ExtResource("1_377w7")
-
-[node name="Debug" parent="." unique_id=1599672822 instance=ExtResource("3_b2cq8")]
-enabled = false
 
 [node name="Terrain" parent="." unique_id=654413745 instance=ExtResource("4_xb4v1")]
 
@@ -41,6 +37,10 @@ spawn_path_follow = NodePath("../PlayAreaPath/PlayAreaFollow")
 [node name="BusinessManager" type="Node2D" parent="." unique_id=1259054496]
 script = ExtResource("6_ouxo3")
 
+[node name="SettleTimer" type="Timer" parent="BusinessManager" unique_id=2083361203]
+wait_time = 0.5
+one_shot = true
+
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1800382336]
 top_level = true
 
@@ -56,3 +56,4 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 [connection signal="player_spawned" from="SpawnManager" to="." method="_on_spawn_manager_player_spawned"]
 [connection signal="players_ready" from="SpawnManager" to="." method="_on_spawn_manager_players_ready"]
 [connection signal="business_ended" from="BusinessManager" to="." method="_on_business_manager_business_ended"]
+[connection signal="timeout" from="BusinessManager/SettleTimer" to="BusinessManager" method="_on_timer_timeout"]

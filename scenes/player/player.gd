@@ -67,6 +67,7 @@ func spawn(spawn_position: Vector2, floor_normal: Vector2) -> void:
 func setup(team: TeamResource, player: PlayerResource) -> void:
 	name_label.add_theme_color_override("font_color", team.color)
 	name_label.text = player.name
+	name = player.name
 #endregion
 
 func toggle_inventory() -> void:
