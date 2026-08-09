@@ -2,11 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dpjstawxawa7x" path="res://scenes/levels/level.gd" id="1_377w7"]
 [ext_resource type="PackedScene" uid="uid://c1qslyb0l0dep" path="res://scenes/debug/debug.tscn" id="3_b2cq8"]
-[ext_resource type="Script" uid="uid://d3yln8br38f5s" path="res://scenes/managers/player_manager/player_manager.gd" id="4_urvlt"]
+[ext_resource type="Script" uid="uid://d3yln8br38f5s" path="res://scenes/managers/turn_manager/turn_manager.gd" id="4_urvlt"]
 [ext_resource type="PackedScene" uid="uid://d0okm02wagiv7" path="res://scenes/terrain/terrain.tscn" id="4_xb4v1"]
-[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="6_mbbpy"]
+[ext_resource type="Script" uid="uid://qp7wd878ywhm" path="res://scenes/managers/spawn_manager/spawn_manager.gd" id="5_d4w6o"]
+[ext_resource type="Script" uid="uid://lymj0de4rogu" path="res://scenes/managers/business_manager/business_manager.gd" id="6_ouxo3"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_mbbpy"]
-[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_ouxo3"]
+[ext_resource type="PackedScene" uid="uid://dwfdnq2y4c1w2" path="res://scenes/game_camera/game_camera.tscn" id="7_ouxo3"]
 
 [sub_resource type="Curve2D" id="Curve2D_urvlt"]
 _data = {
@@ -14,13 +15,11 @@ _data = {
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_icy5c"]
-script = ExtResource("7_ouxo3")
-
 [node name="Level" type="Node2D" unique_id=909882963]
 script = ExtResource("1_377w7")
 
 [node name="Debug" parent="." unique_id=1599672822 instance=ExtResource("3_b2cq8")]
+enabled = false
 
 [node name="Terrain" parent="." unique_id=654413745 instance=ExtResource("4_xb4v1")]
 
@@ -30,16 +29,20 @@ curve = SubResource("Curve2D_urvlt")
 [node name="PlayAreaFollow" type="PathFollow2D" parent="PlayAreaPath" unique_id=1939929917]
 position = Vector2(-136, 0)
 
-[node name="Projectiles" type="Node2D" parent="." unique_id=656412160 groups=["projectiles"]]
+[node name="Objects" type="Node2D" parent="." unique_id=656412160 groups=["explosions", "projectiles"]]
 
-[node name="PlayerManager" type="Node2D" parent="." unique_id=520769310 node_paths=PackedStringArray("play_area_follow")]
+[node name="TurnManager" type="Node2D" parent="." unique_id=520769310]
 script = ExtResource("4_urvlt")
-play_area_follow = NodePath("../PlayAreaPath/PlayAreaFollow")
+
+[node name="SpawnManager" type="Node2D" parent="." unique_id=40225150 node_paths=PackedStringArray("spawn_path_follow")]
+script = ExtResource("5_d4w6o")
+spawn_path_follow = NodePath("../PlayAreaPath/PlayAreaFollow")
+
+[node name="BusinessManager" type="Node2D" parent="." unique_id=1259054496]
+script = ExtResource("6_ouxo3")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1800382336]
 top_level = true
-position = Vector2(320, 216)
-zoom = Vector2(0.5, 0.5)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=1546512804]
 process_priority = 300
@@ -47,9 +50,9 @@ process_physics_priority = 300
 script = ExtResource("7_mbbpy")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
-[node name="PhantomCamera2D" type="Node2D" parent="." unique_id=608913756]
-position = Vector2(320, 216)
-script = ExtResource("6_mbbpy")
-zoom = Vector2(0.5, 0.5)
-tween_resource = SubResource("Resource_icy5c")
-metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+[node name="GameCamera" parent="." unique_id=190906775 instance=ExtResource("7_ouxo3")]
+
+[connection signal="child_entered_tree" from="TurnManager" to="TurnManager" method="_on_child_entered_tree"]
+[connection signal="player_spawned" from="SpawnManager" to="." method="_on_spawn_manager_player_spawned"]
+[connection signal="players_ready" from="SpawnManager" to="." method="_on_spawn_manager_players_ready"]
+[connection signal="business_ended" from="BusinessManager" to="." method="_on_business_manager_business_ended"]

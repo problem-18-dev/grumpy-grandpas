@@ -38,3 +38,4 @@ func _physics_update(delta: float) -> void:
 	if player.is_on_floor() and player.velocity.length() < inactive_speed:
 		finished.emit(PlayerState.INACTIVE)
 		_finished = true
+		EventSystem.business.busy_finished.emit(player)

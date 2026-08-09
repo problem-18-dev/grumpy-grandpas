@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="HitscanWeaponResource" format=3 uid="uid://dx1m0w6av86ds"]
 
-[ext_resource type="Resource" uid="uid://cgv44d5pek3j5" path="res://resources/weapon_attributes/damage_resource/revolver_damage.tres" id="1_oid3l"]
+[ext_resource type="Resource" uid="uid://cgv44d5pek3j5" path="res://resources/weapon_resource/weapon_attributes/damage_resource/revolver_damage.tres" id="1_oid3l"]
 [ext_resource type="Script" uid="uid://c8teyaijtqeex" path="res://resources/weapon_resource/hitscan_weapons/hitscan_weapon_resource.gd" id="1_rt5p3"]
-[ext_resource type="Script" uid="uid://bd6lxv2h53b83" path="res://resources/weapon_attributes/knockback_resource/knockback_resource.gd" id="2_0r0yc"]
+[ext_resource type="Script" uid="uid://bd6lxv2h53b83" path="res://resources/weapon_resource/weapon_attributes/knockback_resource/knockback_resource.gd" id="2_0r0yc"]
 [ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="2_e5bgj"]
 
 [sub_resource type="Curve" id="Curve_oid3l"]

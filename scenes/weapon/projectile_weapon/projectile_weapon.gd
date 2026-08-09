@@ -52,6 +52,8 @@ func shoot() -> void:
 	var force := _calculate_force()
 	projectile.fire(muzzle_offset_marker.global_position, global_rotation, force)
 
+	shot.emit()
+
 
 func _start_charging() -> void:
 	charge_sprite.scale.x = 0.0

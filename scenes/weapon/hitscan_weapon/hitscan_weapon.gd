@@ -40,11 +40,14 @@ func shoot() -> void:
 		var damage := _resource.damage.calculate(distance_to_target)
 		collider.hit(damage)
 
-		var knockback := _resource.knockback.calculate_for_hitscan(
+		var knockback_force := _resource.knockback.calculate_for_hitscan(
 			distance_to_target,
 			_resource.damage.max_range,
 		)
-		collider.knockback(knockback, global_position.angle_to_point(collider.global_position))
+		collider.knockback(knockback_force, _resource.muzzle_offset.angle_to_point(
+				collider.global_position
+			))
+		shot.emit()
 		return
 
-	# TODO: Only other collision can be the world
+# TODO: Only other collision can be the world

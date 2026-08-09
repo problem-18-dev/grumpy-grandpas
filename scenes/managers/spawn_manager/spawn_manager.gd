@@ -1,0 +1,55 @@
+class_name SpawnManager
+extends Node2D
+
+signal players_ready
+signal player_spawned(team: TeamResource, player: Player)
+
+const PLAYER := preload("uid://bmag23mf230r3")
+const RAY_LENGTH := 1000
+
+@export_group("Properties")
+@export var spawn_path_follow: PathFollow2D
+@export var spawn_attempts := 200
+
+var _spawn_points: Array[Dictionary]
+
+
+func _ready() -> void:
+	_generate_spawn_points()
+
+
+func spawn_players() -> void:
+	for team in GameManager.get_teams():
+		for player_in_team in team.get_players():
+			var player: Player = PLAYER.instantiate()
+			player_spawned.emit(team, player)
+			var spawn_data: Dictionary = _spawn_points.pop_back()
+			player.spawn(spawn_data.get("spawn_position"), spawn_data.get("spawn_normal"))
+			player.setup(team, player_in_team)
+
+	players_ready.emit()
+
+
+func _generate_spawn_points() -> void:
+	var space_state := get_world_2d().direct_space_state
+
+	for attempt in spawn_attempts:
+		spawn_path_follow.progress_ratio = float(attempt) / spawn_attempts
+		var query := PhysicsRayQueryParameters2D.create(
+			spawn_path_follow.global_position,
+			spawn_path_follow.global_position + (Vector2.DOWN * RAY_LENGTH),
+			DestructiblePolygon2D.WORLD_COLLISION_LAYER,
+		)
+
+		var collision := space_state.intersect_ray(query)
+		if not collision:
+			continue
+
+		var floor_normal: Vector2 = collision.normal
+		var max_spawn_angle := cos(deg_to_rad(Player.FLOOR_MAX_ANGLE))
+		if floor_normal.dot(Vector2.UP) < max_spawn_angle:
+			continue
+
+		_spawn_points.append({ "spawn_position": collision.position, "spawn_normal": floor_normal })
+
+	_spawn_points.shuffle()

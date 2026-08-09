@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="TeamResource" format=3 uid="uid://qihimwpg1bn7"]
+
+[ext_resource type="Script" uid="uid://05fqs75xukhe" path="res://resources/team_resource/team_resource.gd" id="1_v6ulp"]
+[ext_resource type="Script" uid="uid://ccrc8sl42duol" path="res://resources/player_resource/player_resource.gd" id="1_wf6gw"]
+
+[sub_resource type="Resource" id="Resource_kod0i"]
+script = ExtResource("1_wf6gw")
+name = "Szymon"
+metadata/_custom_type_script = "uid://ccrc8sl42duol"
+
+[resource]
+script = ExtResource("1_v6ulp")
+name = "Team Blue"
+color = Color(0.32757595, 0.6947892, 1, 1)
+players = Array[ExtResource("1_wf6gw")]([SubResource("Resource_kod0i")])
+metadata/_custom_type_script = "uid://05fqs75xukhe"

@@ -1,6 +1,8 @@
 class_name WeaponHolder
 extends Node2D
 
+signal fired
+
 const MINIMUM_ROTATION := -PI / 2
 const MAXIMUM_ROTATION := PI / 2
 
@@ -29,6 +31,7 @@ func equip_weapon(weapon_resource: WeaponResource, player_direction: float) -> v
 	# Spawn weapon
 	assert(weapon_resource.weapon_scene, "Weapon resource has no weapon scene")
 	var weapon: Weapon = load(weapon_resource.weapon_scene).instantiate()
+	weapon.shot.connect(fired.emit)
 	weapon.prepare(weapon_resource)
 	weapon_pivot.add_child(weapon)
 	_equipped_weapon = weapon

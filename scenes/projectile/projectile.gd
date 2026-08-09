@@ -2,6 +2,7 @@
 class_name Projectile
 extends CharacterBody2D
 
+const EXPLOSION = preload("uid://dchrvlerl7kne")
 const HURTBOX_COLLISION_MASK := 4
 
 @export var resource: ProjectileResource
@@ -36,6 +37,9 @@ func prepare(projectile_resource: ProjectileResource) -> void:
 
 
 func fire(start_position: Vector2, angle_in_rad: float, force: float) -> void:
+	EventSystem.business.busy_started.emit(self)
+	EventSystem.camera.request_follow.emit(self, GameCamera.Priority.MID)
+
 	global_position = start_position
 	rotation = angle_in_rad
 	velocity = Vector2.RIGHT.rotated(angle_in_rad) * force
@@ -46,7 +50,9 @@ func fire(start_position: Vector2, angle_in_rad: float, force: float) -> void:
 func _explode() -> void:
 	_damage_targets()
 	_knockback_targets()
-	_carve_terrain()
+	EventSystem.business.busy_finished.emit(self)
+	EventSystem.camera.revoke_follow.emit(self)
+	_spawn_explosion()
 	queue_free()
 
 
@@ -85,6 +91,14 @@ func _knockback_targets() -> void:
 
 		var knockback := resource.knockback.calculate(distance_to_target)
 		collider.knockback(knockback, global_position.angle_to_point(collider.global_position))
+
+
+func _spawn_explosion() -> void:
+	var explosion: Explosion = EXPLOSION.instantiate()
+	var explosions := get_tree().get_first_node_in_group("explosions")
+	explosions.add_child(explosion)
+	explosion.global_position = global_position
+	explosion.carve_terrain(resource.carve_radius)
 
 
 func _carve_terrain() -> void:

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dchrvlerl7kne"]
+
+[ext_resource type="Script" uid="uid://dy150m30is53o" path="res://scenes/explosion/explosion.gd" id="1_plwnx"]
+
+[node name="Explosion" type="Node2D" unique_id=96602040]
+script = ExtResource("1_plwnx")
+
+[node name="Timer" type="Timer" parent="." unique_id=349980183]
+wait_time = 3.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

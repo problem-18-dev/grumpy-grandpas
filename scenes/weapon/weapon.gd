@@ -2,6 +2,8 @@
 class_name Weapon
 extends Node2D
 
+signal shot
+
 @export var weapon_resource: WeaponResource
 
 var _is_enabled := false
