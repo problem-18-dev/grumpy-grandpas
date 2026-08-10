@@ -37,7 +37,7 @@ func prepare(projectile_resource: ProjectileResource) -> void:
 
 
 func fire(start_position: Vector2, angle_in_rad: float, force: float) -> void:
-	EventSystem.business.busy_started.emit(self)
+	EventSystem.busy.busy_started.emit(self)
 	EventSystem.camera.request_follow.emit(self, GameCamera.Priority.MID)
 
 	global_position = start_position
@@ -47,11 +47,15 @@ func fire(start_position: Vector2, angle_in_rad: float, force: float) -> void:
 	_is_fired = true
 
 
+func cleanup() -> void:
+	EventSystem.busy.busy_finished.emit(self)
+	EventSystem.camera.revoke_follow.emit(self)
+
+
 func _explode() -> void:
 	_damage_targets()
 	_knockback_targets()
-	EventSystem.business.busy_finished.emit(self)
-	EventSystem.camera.revoke_follow.emit(self)
+	cleanup()
 	_spawn_explosion()
 	queue_free()
 

@@ -4,9 +4,10 @@
 [ext_resource type="Script" uid="uid://d3yln8br38f5s" path="res://scenes/managers/turn_manager/turn_manager.gd" id="4_urvlt"]
 [ext_resource type="PackedScene" uid="uid://d0okm02wagiv7" path="res://scenes/terrain/terrain.tscn" id="4_xb4v1"]
 [ext_resource type="Script" uid="uid://qp7wd878ywhm" path="res://scenes/managers/spawn_manager/spawn_manager.gd" id="5_d4w6o"]
-[ext_resource type="Script" uid="uid://lymj0de4rogu" path="res://scenes/managers/business_manager/business_manager.gd" id="6_ouxo3"]
+[ext_resource type="PackedScene" uid="uid://c6rdv182qtrpo" path="res://scenes/managers/busy_manager/busy_manager.tscn" id="5_mbbpy"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_mbbpy"]
 [ext_resource type="PackedScene" uid="uid://dwfdnq2y4c1w2" path="res://scenes/game_camera/game_camera.tscn" id="7_ouxo3"]
+[ext_resource type="PackedScene" uid="uid://bedwmp6j28trh" path="res://scenes/death_zone/death_zone.tscn" id="8_ouxo3"]
 
 [sub_resource type="Curve2D" id="Curve2D_urvlt"]
 _data = {
@@ -34,12 +35,7 @@ script = ExtResource("4_urvlt")
 script = ExtResource("5_d4w6o")
 spawn_path_follow = NodePath("../PlayAreaPath/PlayAreaFollow")
 
-[node name="BusinessManager" type="Node2D" parent="." unique_id=1259054496]
-script = ExtResource("6_ouxo3")
-
-[node name="SettleTimer" type="Timer" parent="BusinessManager" unique_id=2083361203]
-wait_time = 0.5
-one_shot = true
+[node name="BusyManager" parent="." unique_id=952442597 instance=ExtResource("5_mbbpy")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1800382336]
 top_level = true
@@ -52,8 +48,35 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="GameCamera" parent="." unique_id=190906775 instance=ExtResource("7_ouxo3")]
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1994097302]
+
+[node name="AnnouncementLabel" type="Label" parent="CanvasLayer" unique_id=1875063560]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.5
+offset_top = -110.0
+offset_right = 72.5
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DeathZone" parent="." unique_id=1360078976 instance=ExtResource("8_ouxo3")]
+position = Vector2(320, 512)
+
+[node name="DeathZone2" parent="." unique_id=95766237 instance=ExtResource("8_ouxo3")]
+position = Vector2(-704, 88)
+rotation = 1.5707964
+
+[node name="DeathZone3" parent="." unique_id=2078057051 instance=ExtResource("8_ouxo3")]
+position = Vector2(1408, 120)
+rotation = 4.712389
+
 [connection signal="child_entered_tree" from="TurnManager" to="TurnManager" method="_on_child_entered_tree"]
+[connection signal="match_ended" from="TurnManager" to="." method="_on_turn_manager_match_ended"]
+[connection signal="turn_ended" from="TurnManager" to="." method="_on_turn_manager_turn_ended"]
 [connection signal="player_spawned" from="SpawnManager" to="." method="_on_spawn_manager_player_spawned"]
 [connection signal="players_ready" from="SpawnManager" to="." method="_on_spawn_manager_players_ready"]
-[connection signal="business_ended" from="BusinessManager" to="." method="_on_business_manager_business_ended"]
-[connection signal="timeout" from="BusinessManager/SettleTimer" to="BusinessManager" method="_on_timer_timeout"]
+[connection signal="busy_ended" from="BusyManager" to="." method="_on_busy_manager_busy_ended"]

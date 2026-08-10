@@ -1,6 +1,7 @@
 class_name Player
 extends CharacterBody2D
 
+signal marked_for_death(player: Player)
 signal died(player: Player)
 
 const WEAPONS_CATALOGUE = preload("uid://b4umg781jsip2")
@@ -58,6 +59,17 @@ func deactivate() -> void:
 	state_machine.transition_to_state(PlayerState.INACTIVE)
 
 
+func die() -> void:
+	state_machine.transition_to_state(PlayerState.DEAD)
+
+
+func cleanup() -> void:
+	EventSystem.busy.busy_finished.emit(self)
+	EventSystem.camera.revoke_follow.emit(self)
+	# TODO: Should notify the level managers appropriately
+	queue_free()
+
+
 func spawn(spawn_position: Vector2, floor_normal: Vector2) -> void:
 	var shape: CapsuleShape2D = collision_shape_2d.shape
 	var floor_offset := spawn_position + (floor_normal * shape.radius)
@@ -93,17 +105,9 @@ func _on_hurtbox_component_knockbacked(force: float, angle: float) -> void:
 	state_machine.transition_to_state(PlayerState.KNOCKBACK, { "force": force, "angle": angle })
 
 
-func _on_hurtbox_component_hurt(_amount: int) -> void:
-	EventSystem.business.busy_started.emit(self)
-
-
-# TODO: Implement special death state
-func _on_health_component_died() -> void:
-	died.emit(self)
-	EventSystem.business.busy_finished.emit(self)
-	EventSystem.camera.revoke_follow.emit(self)
-	queue_free()
-
-
 func _on_weapon_holder_fired() -> void:
 	deactivate()
+
+
+func _on_health_component_died() -> void:
+	marked_for_death.emit(self)

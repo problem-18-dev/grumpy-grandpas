@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://bep13uudvc7lh" path="res://scenes/player/player_state/player_inactive.gd" id="10_gx1jg"]
 [ext_resource type="PackedScene" uid="uid://bkrmhl1oip2je" path="res://scenes/player/player_hud/hud.tscn" id="10_h17s1"]
 [ext_resource type="Script" uid="uid://c8a35l3xxakio" path="res://scenes/player/player_state/player_knockback.gd" id="11_ugbui"]
+[ext_resource type="Script" uid="uid://n6aq4lhmi1g5" path="res://scenes/player/player_state/player_dead.gd" id="12_gx1jg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1xhu4"]
 
@@ -43,6 +44,7 @@ shape = SubResource("CapsuleShape2D_5gtgg")
 debug_color = Color(0, 1, 0, 0.392)
 
 [node name="HealthComponent" parent="." unique_id=779439910 instance=ExtResource("7_0owmy")]
+max_health = 5
 
 [node name="StateMachine" parent="." unique_id=1355297057 node_paths=PackedStringArray("initial_state") instance=ExtResource("3_gmlin")]
 initial_state = NodePath("Inactive")
@@ -61,6 +63,9 @@ script = ExtResource("10_gx1jg")
 
 [node name="Knockback" type="Node" parent="StateMachine" unique_id=2050965284]
 script = ExtResource("11_ugbui")
+
+[node name="Dead" type="Node" parent="StateMachine" unique_id=760627324]
+script = ExtResource("12_gx1jg")
 
 [node name="PlayerHUD" parent="." unique_id=864953640 instance=ExtResource("10_h17s1")]
 
@@ -81,7 +86,6 @@ theme_type_variation = &"PlayerNameLabel"
 text = "Test"
 
 [connection signal="fired" from="WeaponHolder" to="." method="_on_weapon_holder_fired"]
-[connection signal="hurt" from="HurtboxComponent" to="." method="_on_hurtbox_component_hurt"]
 [connection signal="knockbacked" from="HurtboxComponent" to="." method="_on_hurtbox_component_knockbacked"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="weapon_selected" from="PlayerHUD" to="." method="_on_player_hud_weapon_selected"]

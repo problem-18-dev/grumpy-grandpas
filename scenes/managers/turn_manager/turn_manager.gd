@@ -8,32 +8,44 @@ signal match_ended(winner: TeamResource)
 var _teams: Array[Team] = []
 var _active_team: Team
 var _active_player: Player
+var _players_marked_for_death: Array[Player]
 
 
 func start() -> void:
 	assert(not _teams.is_empty(), "No teams to start with.")
 
-	_begin_turn()
+	_start_turn()
 
 
 func assign_player(team_resource: TeamResource, player: Player) -> void:
 	add_child(player)
-	player.died.connect(_on_player_died)
+	player.marked_for_death.connect(_on_players_marked_for_death)
 
 	_get_or_create_team(team_resource).add(player)
 
 
-func end_turn() -> void:
+func cleanup() -> void:
 	if is_instance_valid(_active_player):
 		_active_player.deactivate()
 
+	for player in _players_marked_for_death:
+		if not is_instance_valid(player):
+			continue
+
+		player.die()
+		await player.died
+
+	_players_marked_for_death = []
+
+
+func next_turn() -> void:
 	turn_ended.emit(_active_player)
 
 	_next_team()
-	_begin_turn()
+	_start_turn()
 
 
-func _begin_turn() -> void:
+func _start_turn() -> void:
 	if _teams.size() > 1:
 		_active_team = _current_team()
 		_active_player = _active_team.current_player()
@@ -67,9 +79,11 @@ func _get_or_create_team(team_resource: TeamResource) -> Team:
 	return new_team
 
 
-func _on_player_died(player: Player) -> void:
+func _on_players_marked_for_death(player: Player) -> void:
 	if player == _active_player:
 		_active_player = null
+
+	_players_marked_for_death.append(player)
 
 	for team in _teams:
 		team.kill(player)

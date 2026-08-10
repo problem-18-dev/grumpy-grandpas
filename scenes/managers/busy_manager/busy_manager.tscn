@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://c6rdv182qtrpo"]
+
+[ext_resource type="Script" uid="uid://lymj0de4rogu" path="res://scenes/managers/busy_manager/busy_manager.gd" id="1_21r03"]
+
+[node name="BusyManager" type="Node2D" unique_id=952442597]
+script = ExtResource("1_21r03")
+
+[node name="SettleTimer" type="Timer" parent="." unique_id=1227406159]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="SettleTimer" to="." method="_on_settle_timer_timeout"]

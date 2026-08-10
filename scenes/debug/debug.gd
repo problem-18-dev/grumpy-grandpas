@@ -23,7 +23,9 @@ func log(text: Variant) -> void:
 		return
 
 	if content.get_child_count() > MAX_LOGS:
-		content.get_child(0).queue_free()
+		var child := content.get_child(0)
+		content.remove_child(child)
+		child.queue_free()
 
 	var label := Label.new()
 	label.theme_type_variation = "DebugLabel"

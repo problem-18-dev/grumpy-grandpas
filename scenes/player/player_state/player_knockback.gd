@@ -9,6 +9,7 @@ var _finished := false
 
 
 func enter(data := { }) -> void:
+	EventSystem.busy.busy_started.emit(player)
 	_finished = false
 	player.unequip_weapon()
 
@@ -36,6 +37,9 @@ func _physics_update(delta: float) -> void:
 	player.move_and_slide()
 
 	if player.is_on_floor() and player.velocity.length() < inactive_speed:
-		finished.emit(PlayerState.INACTIVE)
-		_finished = true
-		EventSystem.business.busy_finished.emit(player)
+		_finish()
+
+
+func _finish() -> void:
+	finished.emit(PlayerState.INACTIVE)
+	_finished = true

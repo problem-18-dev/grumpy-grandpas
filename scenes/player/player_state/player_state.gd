@@ -6,6 +6,7 @@ const WALK := "Walk"
 const AIR := "Air"
 const INACTIVE := "Inactive"
 const KNOCKBACK := "Knockback"
+const DEAD := "Dead"
 
 var player: Player
 

@@ -24,7 +24,7 @@ func _init() -> void:
 
 
 func _update_camera() -> void:
-	# Do not change targets if stalling and already following more than two.
+	# Do not change targets if stalling and already following more than one.
 	if not stall_timer.is_stopped() and _targets.size() > 1:
 		return
 

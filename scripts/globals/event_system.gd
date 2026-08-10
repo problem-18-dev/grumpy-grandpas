@@ -1,7 +1,7 @@
 extends Node
 
 var camera := Camera.new()
-var business := Business.new()
+var busy := Busy.new()
 
 
 class Camera:
@@ -9,6 +9,6 @@ class Camera:
 	signal revoke_follow(target: Node2D)
 
 
-class Business:
+class Busy:
 	signal busy_started(node: Node2D)
 	signal busy_finished(node: Node2D)

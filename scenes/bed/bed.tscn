@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dt41u72nlmr4c"]
+
+[ext_resource type="Script" uid="uid://baju0uw2koovy" path="res://scenes/bed/bed.gd" id="1_5prx0"]
+[ext_resource type="Texture2D" uid="uid://c5s0wwqdt0u8v" path="res://scenes/projectile/rocket.png" id="1_ekpqq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1pbo4"]
+size = Vector2(12, 10)
+
+[node name="Bed" type="CharacterBody2D" unique_id=1129934612]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_5prx0")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1522154316]
+rotation = -1.5707964
+scale = Vector2(0.75, 1.3)
+texture = ExtResource("1_ekpqq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2071442676]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_1pbo4")
