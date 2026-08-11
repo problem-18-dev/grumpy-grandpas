@@ -1,7 +1,7 @@
 class_name DamageResource
 extends Resource
 
-const DEFAULT_DAMAGE := 50
+const DEFAULT_DAMAGE := 48
 const DEFAULT_RANGE := 300.0
 
 @export_group("Range")

@@ -24,21 +24,8 @@ func assign_player(team_resource: TeamResource, player: Player) -> void:
 	_get_or_create_team(team_resource).add(player)
 
 
-func cleanup() -> void:
-	if is_instance_valid(_active_player):
-		_active_player.deactivate()
-
-	for player in _players_marked_for_death:
-		if not is_instance_valid(player):
-			continue
-
-		player.die()
-		await player.died
-
-	_players_marked_for_death = []
-
-
 func next_turn() -> void:
+	await _cleanup()
 	turn_ended.emit(_active_player)
 
 	_next_team()
@@ -55,6 +42,20 @@ func _start_turn() -> void:
 
 	var winner := _current_team().resource if not _teams.is_empty() else null
 	match_ended.emit(winner)
+
+
+func _cleanup() -> void:
+	if is_instance_valid(_active_player):
+		_active_player.deactivate()
+
+	for player in _players_marked_for_death:
+		if not is_instance_valid(player):
+			continue
+
+		player.die()
+		await player.died
+
+	_players_marked_for_death = []
 
 
 func _next_team() -> void:

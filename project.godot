@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 EventSystem="*uid://bua75md0s3twb"
 GameManager="*uid://dqdpyitl02jn0"
 PhantomCameraManager="*uid://duq6jhf6unyis"
+Utils="*uid://dbq3stovb548p"
 Debug="*uid://c1qslyb0l0dep"
 
 [debug]

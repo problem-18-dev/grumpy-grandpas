@@ -1,35 +1,12 @@
 [gd_resource type="Resource" script_class="ProjectileResource" format=3 uid="uid://brymaul5h4b5a"]
 
-[ext_resource type="Script" uid="uid://nykqtti0wwvp" path="res://resources/weapon_resource/weapon_attributes/damage_resource/damage_resource.gd" id="1_2lqe6"]
+[ext_resource type="Resource" uid="uid://b6h6omya6ajsc" path="res://resources/explosion_resource/rocket_explosion.tres" id="1_2lqe6"]
 [ext_resource type="Script" uid="uid://d4gc80blia3ku" path="res://resources/projectile_resource/projectile_resource.gd" id="1_bkuvr"]
 [ext_resource type="Texture2D" uid="uid://c5s0wwqdt0u8v" path="res://scenes/projectile/rocket.png" id="2_jxn76"]
-[ext_resource type="Script" uid="uid://bd6lxv2h53b83" path="res://resources/weapon_resource/weapon_attributes/knockback_resource/knockback_resource.gd" id="2_rw44o"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tldn6"]
 radius = 8.0
 height = 16.0
-
-[sub_resource type="Curve" id="Curve_3gpky"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
-point_count = 3
-metadata/_snap_enabled = true
-
-[sub_resource type="Resource" id="Resource_rw44o"]
-script = ExtResource("1_2lqe6")
-max_range = 65.0
-falloff_curve = SubResource("Curve_3gpky")
-metadata/_custom_type_script = "uid://nykqtti0wwvp"
-
-[sub_resource type="Curve" id="Curve_rw44o"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.60181, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.4), 0.0, 0.0, 0, 0]
-point_count = 3
-metadata/_snap_enabled = true
-
-[sub_resource type="Resource" id="Resource_urvlt"]
-script = ExtResource("2_rw44o")
-max_range = 75.0
-falloff_curve = SubResource("Curve_rw44o")
-metadata/_custom_type_script = "uid://bd6lxv2h53b83"
 
 [resource]
 script = ExtResource("1_bkuvr")
@@ -37,7 +14,5 @@ name = "Rocket"
 texture = ExtResource("2_jxn76")
 collision_shape = SubResource("CapsuleShape2D_tldn6")
 life_time = 7.5
-carve_radius = 48.0
-damage = SubResource("Resource_rw44o")
-knockback = SubResource("Resource_urvlt")
+explosion = ExtResource("1_2lqe6")
 metadata/_custom_type_script = "uid://d4gc80blia3ku"

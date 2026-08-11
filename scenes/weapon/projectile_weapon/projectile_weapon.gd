@@ -36,8 +36,6 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func shoot() -> void:
 	assert(_resource.projectile_resource, "Attempting to shoot projectile without projectile scene")
 
-	shot.emit()
-
 	# TODO: Enable later, can stay enabled for testing
 	#_disable()
 	charge_sprite.hide()
@@ -53,6 +51,8 @@ func shoot() -> void:
 	# Fire projectile
 	var force := _calculate_force()
 	projectile.fire(muzzle_offset_marker.global_position, global_rotation, force)
+
+	shot.emit()
 
 
 func _start_charging() -> void:

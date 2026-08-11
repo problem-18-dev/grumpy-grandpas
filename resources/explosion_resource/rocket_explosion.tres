@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ExplosionResource" format=3 uid="uid://b6h6omya6ajsc"]
+
+[ext_resource type="Resource" uid="uid://c2rbvwsln4f2h" path="res://resources/weapon_resource/weapon_attributes/damage_resource/rocket_damage.tres" id="1_x7mmj"]
+[ext_resource type="Script" uid="uid://ctxmasbulp1qm" path="res://resources/explosion_resource/explosion_resource.gd" id="1_yvaho"]
+[ext_resource type="Resource" uid="uid://hh5jvack251e" path="res://resources/weapon_resource/weapon_attributes/knockback_resource/rocket_knockback.tres" id="2_a6eqi"]
+
+[resource]
+script = ExtResource("1_yvaho")
+carve_radius = 64.0
+damage = ExtResource("1_x7mmj")
+knockback = ExtResource("2_a6eqi")
+metadata/_custom_type_script = "uid://ctxmasbulp1qm"

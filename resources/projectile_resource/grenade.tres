@@ -1,23 +1,10 @@
 [gd_resource type="Resource" script_class="ProjectileResource" format=3 uid="uid://c0v8vjr33360s"]
 
 [ext_resource type="Script" uid="uid://d4gc80blia3ku" path="res://resources/projectile_resource/projectile_resource.gd" id="1_hsf44"]
-[ext_resource type="Resource" uid="uid://b284v1amg8bms" path="res://resources/weapon_resource/weapon_attributes/damage_resource/grenade_damage.tres" id="1_p75as"]
-[ext_resource type="Script" uid="uid://bd6lxv2h53b83" path="res://resources/weapon_resource/weapon_attributes/knockback_resource/knockback_resource.gd" id="2_f8b3h"]
+[ext_resource type="Resource" uid="uid://bhr2ogpl4fnch" path="res://resources/explosion_resource/grenade_explosion.tres" id="1_p75as"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lav5m"]
 radius = 6.0
-
-[sub_resource type="Curve" id="Curve_f8b3h"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
-point_count = 3
-metadata/_snap_enabled = true
-
-[sub_resource type="Resource" id="Resource_urvlt"]
-script = ExtResource("2_f8b3h")
-max_range = 60.0
-base_force = 125.0
-falloff_curve = SubResource("Curve_f8b3h")
-metadata/_custom_type_script = "uid://bd6lxv2h53b83"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p75as"]
 load_path = "res://.godot/imported/rocket.png-79893a6a213dcc8e9a4ae14a59bc55ac.ctex"
@@ -29,6 +16,5 @@ texture = SubResource("CompressedTexture2D_p75as")
 collision_shape = SubResource("CircleShape2D_lav5m")
 bounce_enabled = true
 life_time = 5.0
-damage = ExtResource("1_p75as")
-knockback = SubResource("Resource_urvlt")
+explosion = ExtResource("1_p75as")
 metadata/_custom_type_script = "uid://d4gc80blia3ku"

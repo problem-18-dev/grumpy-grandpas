@@ -18,13 +18,15 @@ func _ready() -> void:
 func reset() -> void:
 	_has_settled = false
 	_busy_nodes.clear()
+	settle_timer.stop()
 
 
 func _on_busy_started(node: Node2D) -> void:
 	if _busy_nodes.has(node):
 		return
 
-	if _busy_nodes.is_empty():
+	# If no busy nodes, settling hasn't triggered and hasn't settled, only then do we announce.
+	if _busy_nodes.is_empty() and settle_timer.is_stopped() and not _has_settled:
 		busy_started.emit()
 
 	_busy_nodes.append(node)
@@ -44,5 +46,5 @@ func _on_settle_timer_timeout() -> void:
 	if not _busy_nodes.is_empty():
 		return
 
-	busy_ended.emit()
 	_has_settled = true
+	busy_ended.emit()

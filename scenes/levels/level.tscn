@@ -15,6 +15,8 @@ _data = {
 }
 point_count = 2
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1xhu4"]
+
 [node name="Level" type="Node2D" unique_id=909882963]
 script = ExtResource("1_377w7")
 
@@ -66,13 +68,18 @@ grow_vertical = 2
 [node name="DeathZone" parent="." unique_id=1360078976 instance=ExtResource("8_ouxo3")]
 position = Vector2(320, 512)
 
-[node name="DeathZone2" parent="." unique_id=95766237 instance=ExtResource("8_ouxo3")]
-position = Vector2(-704, 88)
-rotation = 1.5707964
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathZone" unique_id=1097086512]
+shape = SubResource("WorldBoundaryShape2D_1xhu4")
 
-[node name="DeathZone3" parent="." unique_id=2078057051 instance=ExtResource("8_ouxo3")]
-position = Vector2(1408, 120)
-rotation = 4.712389
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="DeathZone" unique_id=884480188]
+position = Vector2(-1152, -368)
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_1xhu4")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="DeathZone" unique_id=2108284348]
+position = Vector2(1216, -280)
+rotation = -1.5707964
+shape = SubResource("WorldBoundaryShape2D_1xhu4")
 
 [connection signal="child_entered_tree" from="TurnManager" to="TurnManager" method="_on_child_entered_tree"]
 [connection signal="match_ended" from="TurnManager" to="." method="_on_turn_manager_match_ended"]

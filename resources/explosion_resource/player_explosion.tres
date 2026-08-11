@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="ExplosionResource" format=3 uid="uid://d0al511wp4v17"]
+
+[ext_resource type="Script" uid="uid://nykqtti0wwvp" path="res://resources/weapon_resource/weapon_attributes/damage_resource/damage_resource.gd" id="1_c2mxm"]
+[ext_resource type="Script" uid="uid://ctxmasbulp1qm" path="res://resources/explosion_resource/explosion_resource.gd" id="1_gigpm"]
+[ext_resource type="Script" uid="uid://bd6lxv2h53b83" path="res://resources/weapon_resource/weapon_attributes/knockback_resource/knockback_resource.gd" id="2_q7x7r"]
+
+[sub_resource type="Curve" id="Curve_c2mxm"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="Resource" id="Resource_gigpm"]
+script = ExtResource("1_c2mxm")
+max_range = 48.0
+base_damage = 25
+falloff_curve = SubResource("Curve_c2mxm")
+metadata/_custom_type_script = "uid://nykqtti0wwvp"
+
+[sub_resource type="Curve" id="Curve_tuunm"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="Resource" id="Resource_c2mxm"]
+script = ExtResource("2_q7x7r")
+max_range = 56.0
+falloff_curve = SubResource("Curve_tuunm")
+metadata/_custom_type_script = "uid://bd6lxv2h53b83"
+
+[resource]
+script = ExtResource("1_gigpm")
+damage = SubResource("Resource_gigpm")
+knockback = SubResource("Resource_c2mxm")
+metadata/_custom_type_script = "uid://ctxmasbulp1qm"

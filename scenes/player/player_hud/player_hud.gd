@@ -44,5 +44,5 @@ func _update_buttons(equipped_weapon: WeaponResource) -> void:
 
 
 func _on_button_pressed(weapon: WeaponResource) -> void:
-	weapon_selected.emit(weapon)
 	close()
+	weapon_selected.emit(weapon)

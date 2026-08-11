@@ -19,7 +19,6 @@ func _on_spawn_manager_player_spawned(team: TeamResource, player: Player) -> voi
 
 
 func _on_busy_manager_busy_ended() -> void:
-	await turn_manager.cleanup()
 	turn_manager.next_turn()
 
 

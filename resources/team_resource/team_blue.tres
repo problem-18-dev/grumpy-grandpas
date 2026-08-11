@@ -8,9 +8,14 @@ script = ExtResource("1_wf6gw")
 name = "Szymon"
 metadata/_custom_type_script = "uid://ccrc8sl42duol"
 
+[sub_resource type="Resource" id="Resource_ts7x6"]
+script = ExtResource("1_wf6gw")
+name = "Teddy"
+metadata/_custom_type_script = "uid://ccrc8sl42duol"
+
 [resource]
 script = ExtResource("1_v6ulp")
 name = "Team Blue"
 color = Color(0.32757595, 0.6947892, 1, 1)
-players = Array[ExtResource("1_wf6gw")]([SubResource("Resource_kod0i")])
+players = Array[ExtResource("1_wf6gw")]([SubResource("Resource_kod0i"), SubResource("Resource_ts7x6")])
 metadata/_custom_type_script = "uid://05fqs75xukhe"

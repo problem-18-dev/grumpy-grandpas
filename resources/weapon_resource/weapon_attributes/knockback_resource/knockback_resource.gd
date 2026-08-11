@@ -1,7 +1,7 @@
 class_name KnockbackResource
 extends Resource
 
-const DEFAULT_KNOCKBACK_RANGE := 45.0
+const DEFAULT_KNOCKBACK_RANGE := 48.0
 const DEFAULT_KNOCKBACK_FORCE := 150.0
 
 @export_group("Range")

@@ -63,13 +63,6 @@ func die() -> void:
 	state_machine.transition_to_state(PlayerState.DEAD)
 
 
-func cleanup() -> void:
-	EventSystem.busy.busy_finished.emit(self)
-	EventSystem.camera.revoke_follow.emit(self)
-	# TODO: Should notify the level managers appropriately
-	queue_free()
-
-
 func spawn(spawn_position: Vector2, floor_normal: Vector2) -> void:
 	var shape: CapsuleShape2D = collision_shape_2d.shape
 	var floor_offset := spawn_position + (floor_normal * shape.radius)

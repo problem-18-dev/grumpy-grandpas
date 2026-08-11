@@ -41,5 +41,6 @@ func _physics_update(delta: float) -> void:
 
 
 func _finish() -> void:
-	finished.emit(PlayerState.INACTIVE)
 	_finished = true
+	EventSystem.busy.busy_finished.emit(player)
+	finished.emit(PlayerState.INACTIVE)
