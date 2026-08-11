@@ -18,6 +18,7 @@ const ZOOM := { Zoom.NEAR: 1.2, Zoom.NORMAL: 1.0, Zoom.FAR: 0.9 }
 const ZOOM_TWEEN_DURATION := 0.5
 
 var _targets: Dictionary[Node2D, Dictionary]
+var _current_zoom := Zoom.NORMAL
 var _zoom_tween: Tween
 
 @onready var stall_timer: Timer = $StallTimer
@@ -33,46 +34,68 @@ func _init() -> void:
 
 
 func _update_camera() -> void:
+	# Nothing registered, keep following whatever we had until a new target arrives.
+	if _targets.is_empty():
+		return
+
 	# Do not change targets if stalling and already following more than one.
 	if not stall_timer.is_stopped() and _targets.size() > 1:
+		_pull_zoom()
 		return
 
 	# If only one target available, follow no matter what.
 	if _targets.size() == 1:
 		var new_target: Node2D = _targets.keys()[0]
-		if new_target == follow_target:
-			return
+		if new_target != follow_target:
+			follow_target = new_target
+			_log()
+			stall_timer.start()
 
-		follow_target = new_target
-		var new_zoom: Zoom = _targets[new_target].get("zoom")
-		_adjust_zoom(new_zoom)
-
-		_log()
-		stall_timer.start()
+		_pull_zoom()
 		return
 
-	if not is_instance_valid(follow_target):
-		return
+	# Current target may have been revoked, in which case anything still registered beats it.
+	var highest_priority_target: Node2D = follow_target if _targets.has(follow_target) else null
 
 	# Change target to follow based on priority, doesn't change if no higher priority
-	for next_target in _targets.keys():
-		var current := _targets[follow_target]
-		var next := _targets[next_target]
+	for next_target in _targets:
+		if not highest_priority_target:
+			highest_priority_target = next_target
+			continue
 
-		if next.get("priority") > current.get("priority"):
-			follow_target = next_target
-			var new_zoom = next.get("zoom")
-			_adjust_zoom(new_zoom)
+		if _priority_of(next_target) > _priority_of(highest_priority_target):
+			highest_priority_target = next_target
 
-	_log()
+	if highest_priority_target != follow_target:
+		follow_target = highest_priority_target
+		_log()
+
+	_pull_zoom()
+
+
+## Zoom always follows whoever we are currently following, so it cannot drift out of sync.
+func _pull_zoom() -> void:
+	if not _targets.has(follow_target):
+		return
+
+	_adjust_zoom(_targets[follow_target].get("zoom"))
 
 
 func _adjust_zoom(new_zoom: Zoom) -> void:
+	if new_zoom == _current_zoom:
+		return
+
+	_current_zoom = new_zoom
+
 	if _zoom_tween and _zoom_tween.is_running():
 		_zoom_tween.kill()
 
 	_zoom_tween = create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	_zoom_tween.tween_property(self, "zoom", Vector2.ONE * ZOOM[new_zoom], ZOOM_TWEEN_DURATION)
+
+
+func _priority_of(target: Node2D) -> Priority:
+	return _targets[target].get("priority")
 
 
 func _log() -> void:

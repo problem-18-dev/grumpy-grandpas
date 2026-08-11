@@ -9,12 +9,7 @@ const HURTBOX_COLLISION_MASK := 4
 @onready var timer: Timer = $Timer
 
 
-func _ready() -> void:
-	if not explosion_resource:
-		return
-
-
-func prepare(resource) -> void:
+func prepare(resource: ExplosionResource) -> void:
 	explosion_resource = resource
 
 
@@ -22,6 +17,8 @@ func explode(explode_position: Vector2) -> void:
 	global_position = explode_position
 	EventSystem.busy.busy_started.emit(self)
 	EventSystem.camera.request_follow.emit(self, GameCamera.Priority.MID)
+	timer.start()
+
 	_damage_targets()
 	_knockback_targets()
 	_carve_terrain()
