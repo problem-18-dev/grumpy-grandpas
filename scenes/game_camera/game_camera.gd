@@ -21,8 +21,8 @@ var _targets: Dictionary[Node2D, Dictionary]
 var _current_zoom := Zoom.NORMAL
 var _zoom_tween: Tween
 
-@onready var stall_timer: Timer = $StallTimer
 @onready var update_timer: Timer = $UpdateTimer
+@onready var stall_timer: Timer = $StallTimer
 
 
 func _init() -> void:
@@ -38,23 +38,16 @@ func _update_camera() -> void:
 	if _targets.is_empty():
 		return
 
-	# Do not change targets if stalling and already following more than one.
-	if not stall_timer.is_stopped() and _targets.size() > 1:
-		_pull_zoom()
-		return
-
 	# If only one target available, follow no matter what.
 	if _targets.size() == 1:
 		var new_target: Node2D = _targets.keys()[0]
 		if new_target != follow_target:
 			follow_target = new_target
 			_log()
-			stall_timer.start()
 
-		_pull_zoom()
+		_update_zoom()
 		return
 
-	# Current target may have been revoked, in which case anything still registered beats it.
 	var highest_priority_target: Node2D = follow_target if _targets.has(follow_target) else null
 
 	# Change target to follow based on priority, doesn't change if no higher priority
@@ -70,15 +63,16 @@ func _update_camera() -> void:
 		follow_target = highest_priority_target
 		_log()
 
-	_pull_zoom()
+	_update_zoom()
 
 
 ## Zoom always follows whoever we are currently following, so it cannot drift out of sync.
-func _pull_zoom() -> void:
+func _update_zoom() -> void:
 	if not _targets.has(follow_target):
 		return
 
-	_adjust_zoom(_targets[follow_target].get("zoom"))
+	var new_zoom: Zoom = _targets[follow_target].get("zoom")
+	_adjust_zoom(new_zoom)
 
 
 func _adjust_zoom(new_zoom: Zoom) -> void:
@@ -96,6 +90,11 @@ func _adjust_zoom(new_zoom: Zoom) -> void:
 
 func _priority_of(target: Node2D) -> Priority:
 	return _targets[target].get("priority")
+
+
+func _start_stall() -> void:
+	stall_timer.start()
+	update_timer.stop()
 
 
 func _log() -> void:
@@ -118,3 +117,7 @@ func _on_revoke_follow(target: Node2D) -> void:
 
 func _on_update_timer_timeout() -> void:
 	_update_camera()
+
+
+func _on_stall_timer_timeout() -> void:
+	update_timer.start()

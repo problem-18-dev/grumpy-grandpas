@@ -2,7 +2,7 @@ extends PlayerState
 
 @export_group("Properties")
 @export var knockback_weight := 200.0
-@export var upward_force := 0.5
+@export var upward_force := 1.0
 @export var inactive_speed := 10.0
 
 var _finished := false

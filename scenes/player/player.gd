@@ -19,6 +19,7 @@ var _last_direction := RIGHT_DIRECTION
 @onready var state_machine: StateMachine = $StateMachine
 @onready var player_hud: PlayerHUD = $PlayerHUD
 @onready var name_label: Label = $NameLabel
+@onready var hurtbox: HurtboxComponent = $HurtboxComponent
 
 
 func _ready() -> void:

@@ -20,9 +20,10 @@ process_callback = 0
 wait_time = 0.25
 autostart = true
 
-[node name="StallTimer" type="Timer" parent="." unique_id=272307713]
+[node name="StallTimer" type="Timer" parent="." unique_id=825747645]
 process_callback = 0
 wait_time = 3.0
 one_shot = true
 
 [connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]
+[connection signal="timeout" from="StallTimer" to="." method="_on_stall_timer_timeout"]

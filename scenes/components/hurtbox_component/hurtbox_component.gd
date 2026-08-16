@@ -7,17 +7,25 @@ signal knockbacked(force: float, angle: float)
 
 const HURTBOX_COLOR := Color(0.0, 1.0, 0.0, 0.392)
 
+@export_group("Properties")
+@export var enabled := true
 @export_group("Health")
 @export var health_component: HealthComponent
 
 
 func _ready() -> void:
+	if not enabled:
+		return
+
 	var children := find_children("*", "CollisionShape2D")
 	for child: CollisionShape2D in children:
 		child.debug_color = HURTBOX_COLOR
 
 
 func hit(amount: int) -> void:
+	if not enabled:
+		return
+
 	Debug.log("%s Hit by %s" % [owner.name, amount])
 	hurt.emit(amount)
 
@@ -26,6 +34,9 @@ func hit(amount: int) -> void:
 
 
 func knockback(knockback_force: float, knockback_angle: float) -> void:
+	if not enabled:
+		return
+
 	if knockback_force == null or knockback_angle == null:
 		push_warning("Knockback force or angle is missing, skipping knockback")
 		return
