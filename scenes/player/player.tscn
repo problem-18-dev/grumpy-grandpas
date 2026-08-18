@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bkrmhl1oip2je" path="res://scenes/player/player_hud/hud.tscn" id="10_h17s1"]
 [ext_resource type="Script" uid="uid://c8a35l3xxakio" path="res://scenes/player/player_state/player_knockback.gd" id="11_ugbui"]
 [ext_resource type="Script" uid="uid://n6aq4lhmi1g5" path="res://scenes/player/player_state/player_dead.gd" id="12_gx1jg"]
+[ext_resource type="Script" uid="uid://bea0lrgqy0cag" path="res://scenes/player/player_state/player_grapple_hook.gd" id="13_ugbui"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1xhu4"]
 
@@ -67,6 +68,9 @@ script = ExtResource("11_ugbui")
 
 [node name="Dead" type="Node" parent="StateMachine" unique_id=760627324]
 script = ExtResource("12_gx1jg")
+
+[node name="GrappleHook" type="Node" parent="StateMachine" unique_id=455664359]
+script = ExtResource("13_ugbui")
 
 [node name="PlayerHUD" parent="." unique_id=864953640 instance=ExtResource("10_h17s1")]
 

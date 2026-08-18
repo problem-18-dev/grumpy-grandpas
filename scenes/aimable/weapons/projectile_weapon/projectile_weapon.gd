@@ -9,6 +9,7 @@ var _charge_tween: Tween
 var _charge_time_left: float
 var _resource: ProjectileWeaponResource
 
+@onready var muzzle_offset_marker: Marker2D = $MuzzleOffsetMarker
 @onready var charge_sprite: Sprite2D = $ChargeSprite
 @onready var charge_timer: Timer = $ChargeTimer
 
@@ -16,6 +17,7 @@ var _resource: ProjectileWeaponResource
 func _ready() -> void:
 	super()
 	_resource = aimable_resource as ProjectileWeaponResource
+	muzzle_offset_marker.position = _resource.muzzle_offset
 	charge_sprite.hide()
 	charge_sprite.position = _resource.muzzle_offset
 	crosshair.position = Vector2(_resource.crosshair_distance, 0)

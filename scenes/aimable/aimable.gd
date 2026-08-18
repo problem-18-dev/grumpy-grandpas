@@ -2,7 +2,7 @@
 class_name Aimable
 extends Node2D
 
-signal shot
+signal shot(ends_turn: bool, data: Dictionary)
 
 @export var aimable_resource: AimableResource
 
@@ -10,7 +10,6 @@ var _is_enabled := false
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var crosshair: Crosshair = $Crosshair
-@onready var muzzle_offset_marker: Marker2D = $MuzzleOffsetMarker
 
 
 func _ready() -> void:
@@ -18,7 +17,6 @@ func _ready() -> void:
 		return
 
 	sprite.texture = aimable_resource.texture
-	muzzle_offset_marker.position = aimable_resource.muzzle_offset
 
 
 func prepare(new_aimable_resource: AimableResource) -> void:

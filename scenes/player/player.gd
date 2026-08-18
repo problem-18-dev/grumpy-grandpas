@@ -99,7 +99,14 @@ func _on_hurtbox_component_knockbacked(force: float, angle: float) -> void:
 	state_machine.transition_to_state(PlayerState.KNOCKBACK, { "force": force, "angle": angle })
 
 
-func _on_aimable_holder_fired() -> void:
+func _on_aimable_holder_fired(ends_turn: bool, data: Dictionary) -> void:
+	assert(ends_turn != null, "Aimable holder didn't provide turn end boolean.")
+
+	if data.has("state"):
+		var new_state: String = data.get("state")
+		state_machine.transition_to_state(new_state, data)
+		return
+
 	deactivate()
 
 
