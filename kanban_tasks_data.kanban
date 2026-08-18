@@ -11,7 +11,6 @@
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
 			"tasks": [
-				"d82f9c2e-2210-4268-8e56-e5160622d775",
 				"3ece640c-c1db-4d71-9230-6cada86ffa19",
 				"6a54daf8-a9e0-48d6-a8fb-addde2535cc9",
 				"9500c87d-d388-4493-bc4c-3c88e5816da9",
@@ -25,7 +24,9 @@
 		{
 			"uuid": "40497cc6-13fd-4ee0-8c8a-501f1679fe85",
 			"title": "Doing",
-			"tasks": []
+			"tasks": [
+				"d82f9c2e-2210-4268-8e56-e5160622d775"
+			]
 		},
 		{
 			"uuid": "a3265bdc-f5e5-4b73-85c5-a4a50d7111f0",

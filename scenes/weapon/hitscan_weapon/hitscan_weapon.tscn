@@ -63,7 +63,7 @@ metadata/_edit_group_ = true
 scale = Vector2(0.3, 0.1)
 texture = ExtResource("3_bbni1")
 
-[node name="WeaponCrosshair" parent="." unique_id=1621916684 instance=ExtResource("4_m8n6t")]
+[node name="Crosshair" parent="." unique_id=1621916684 instance=ExtResource("4_m8n6t")]
 modulate = Color(1, 0.54901963, 0.7411765, 0)
 
 [node name="HitscanRayCast" type="RayCast2D" parent="." unique_id=678515810]

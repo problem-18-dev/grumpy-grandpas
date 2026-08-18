@@ -1,6 +1,6 @@
 @tool
 class_name ProjectileWeapon
-extends Weapon
+extends Aimable
 
 const PROJECTILE = preload("uid://csa3ig7aroxsa")
 
@@ -15,10 +15,10 @@ var _resource: ProjectileWeaponResource
 
 func _ready() -> void:
 	super()
-	_resource = weapon_resource as ProjectileWeaponResource
+	_resource = aimable_resource as ProjectileWeaponResource
 	charge_sprite.hide()
 	charge_sprite.position = _resource.muzzle_offset
-	weapon_crosshair.position = Vector2(_resource.crosshair_distance, 0)
+	crosshair.position = Vector2(_resource.crosshair_distance, 0)
 
 
 func _unhandled_key_input(event: InputEvent) -> void:

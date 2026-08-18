@@ -1,5 +1,5 @@
 class_name HitscanWeaponResource
-extends WeaponResource
+extends AimableResource
 
 @export_group("Damage")
 @export var damage: DamageResource

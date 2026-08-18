@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b5lt7b36vsg8j"]
+
+[ext_resource type="Script" uid="uid://ctx3c882tgqrs" path="res://scenes/aimable_holder/aimable_holder.gd" id="1_cn8i4"]
+
+[node name="AimableHolder" type="Node2D" unique_id=1646053950]
+script = ExtResource("1_cn8i4")
+rotation_speed = null
+
+[node name="AimablePivot" type="Node2D" parent="." unique_id=1782424905]

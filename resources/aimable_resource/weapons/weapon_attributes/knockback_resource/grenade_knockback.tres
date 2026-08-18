@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="KnockbackResource" format=3 uid="uid://cfdnpy0dfdllc"]
 
-[ext_resource type="Script" uid="uid://bd6lxv2h53b83" path="res://resources/weapon_resource/weapon_attributes/knockback_resource/knockback_resource.gd" id="1_ghg50"]
+[ext_resource type="Script" uid="uid://bd6lxv2h53b83" path="res://resources/aimable_resource/weapons/weapon_attributes/knockback_resource/knockback_resource.gd" id="1_ghg50"]
 
 [sub_resource type="Curve" id="Curve_f8b3h"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]

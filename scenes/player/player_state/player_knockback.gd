@@ -11,7 +11,7 @@ var _finished := false
 func enter(data := { }) -> void:
 	EventSystem.busy.busy_started.emit(player)
 	_finished = false
-	player.unequip_weapon()
+	player.unequip_aimable()
 
 	if not data.has("force") or not data.has("angle"):
 		push_error("Entered knockback state without force or angle")

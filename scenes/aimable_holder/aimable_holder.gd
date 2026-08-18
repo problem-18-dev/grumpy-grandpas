@@ -1,4 +1,4 @@
-class_name WeaponHolder
+class_name AimableHolder
 extends Node2D
 
 signal fired
@@ -11,9 +11,9 @@ const MAXIMUM_ROTATION := PI / 2
 
 var _is_flipped := false
 var _aim_angle := 0.0
-var _equipped_weapon: Weapon
+var _equipped_aimable: Aimable
 
-@onready var weapon_pivot: Node2D = $WeaponPivot
+@onready var aimable_pivot: Node2D = $AimablePivot
 
 
 func _physics_process(delta: float) -> void:
@@ -21,36 +21,36 @@ func _physics_process(delta: float) -> void:
 
 
 func is_equipped() -> bool:
-	return _equipped_weapon != null
+	return _equipped_aimable != null
 
 
-func equip_weapon(weapon_resource: WeaponResource, player_direction: float) -> void:
-	if _equipped_weapon:
-		remove_weapon()
+func equip_aimable(aimable_resource: AimableResource, player_direction: float) -> void:
+	if _equipped_aimable:
+		remove_aimable()
 
-	# Spawn weapon
-	assert(weapon_resource.weapon_scene, "Weapon resource has no weapon scene")
-	var weapon: Weapon = load(weapon_resource.weapon_scene).instantiate()
-	weapon.shot.connect(fired.emit)
-	weapon.prepare(weapon_resource)
-	weapon_pivot.add_child(weapon)
-	_equipped_weapon = weapon
+	# Spawn aimable
+	assert(aimable_resource.scene, "Aimble resource has no scene")
+	var aimable: Aimable = load(aimable_resource.scene).instantiate()
+	aimable.shot.connect(fired.emit)
+	aimable.prepare(aimable_resource)
+	aimable_pivot.add_child(aimable)
+	_equipped_aimable = aimable
 
-	# Flip weapon based on player's direction
+	# Flip aimable based on player's direction
 	var should_flip := player_direction == Player.LEFT_DIRECTION
 	_flip(should_flip)
-	_equipped_weapon.flip(should_flip)
+	_equipped_aimable.flip(should_flip)
 
 	set_physics_process(true)
 	set_process_unhandled_key_input(true)
 
 
-func remove_weapon() -> void:
-	if not _equipped_weapon:
+func remove_aimable() -> void:
+	if not _equipped_aimable:
 		return
 
-	_equipped_weapon.queue_free()
-	_equipped_weapon = null
+	_equipped_aimable.queue_free()
+	_equipped_aimable = null
 
 	set_physics_process(false)
 	set_process_unhandled_key_input(false)
@@ -58,7 +58,7 @@ func remove_weapon() -> void:
 
 func _flip(should_flip: bool) -> void:
 	_is_flipped = should_flip
-	_rotate_weapon()
+	_rotate_aimable()
 
 
 func _register_aim_angle(delta: float) -> void:
@@ -70,12 +70,12 @@ func _register_aim_angle(delta: float) -> void:
 	_aim_angle += deg_to_rad(rotation_speed) * direction * delta
 	_aim_angle = clampf(_aim_angle, MINIMUM_ROTATION, MAXIMUM_ROTATION)
 
-	_rotate_weapon()
+	_rotate_aimable()
 
 
-func _rotate_weapon() -> void:
+func _rotate_aimable() -> void:
 	if _is_flipped:
-		weapon_pivot.rotation = PI - _aim_angle
+		aimable_pivot.rotation = PI - _aim_angle
 		return
 
-	weapon_pivot.rotation = 0 + _aim_angle
+	aimable_pivot.rotation = 0 + _aim_angle

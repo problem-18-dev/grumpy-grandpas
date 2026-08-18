@@ -1,28 +1,28 @@
 @abstract
-class_name Weapon
+class_name Aimable
 extends Node2D
 
 signal shot
 
-@export var weapon_resource: WeaponResource
+@export var aimable_resource: AimableResource
 
 var _is_enabled := false
 
 @onready var sprite: Sprite2D = $Sprite2D
-@onready var weapon_crosshair: WeaponCrosshair = $WeaponCrosshair
+@onready var crosshair: Crosshair = $Crosshair
 @onready var muzzle_offset_marker: Marker2D = $MuzzleOffsetMarker
 
 
 func _ready() -> void:
-	if not weapon_resource:
+	if not aimable_resource:
 		return
 
-	sprite.texture = weapon_resource.texture
-	muzzle_offset_marker.position = weapon_resource.muzzle_offset
+	sprite.texture = aimable_resource.texture
+	muzzle_offset_marker.position = aimable_resource.muzzle_offset
 
 
-func prepare(new_weapon_resource: WeaponResource) -> void:
-	weapon_resource = new_weapon_resource
+func prepare(new_aimable_resource: AimableResource) -> void:
+	aimable_resource = new_aimable_resource
 
 
 func shoot() -> void:
@@ -32,14 +32,14 @@ func shoot() -> void:
 func flip(should_flip: bool) -> void:
 	sprite.flip_h = should_flip
 	sprite.flip_v = should_flip
-	weapon_crosshair.flip_v = should_flip
+	crosshair.flip_v = should_flip
 
 
 func enable() -> void:
 	_is_enabled = true
-	weapon_crosshair.enable()
+	crosshair.enable()
 
 
 func _disable() -> void:
 	_is_enabled = false
-	weapon_crosshair.disable()
+	crosshair.disable()

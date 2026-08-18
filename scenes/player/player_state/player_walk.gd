@@ -5,7 +5,7 @@ extends PlayerState
 
 
 func enter(_data := { }) -> void:
-	player.unequip_weapon()
+	player.unequip_aimable()
 
 
 func _physics_update(delta: float) -> void:

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ProjectileWeaponResource" format=3 uid="uid://b7ajnb4kraktd"]
+
+[ext_resource type="Resource" uid="uid://c0v8vjr33360s" path="res://resources/projectile_resource/grenade.tres" id="1_nedrb"]
+[ext_resource type="Script" uid="uid://pp6wnjxndi6r" path="res://resources/aimable_resource/weapons/projectile_weapons/projectile_weapon_resource.gd" id="2_808hy"]
+[ext_resource type="Texture2D" uid="uid://c5s0wwqdt0u8v" path="res://scenes/projectile/rocket.png" id="3_6omh8"]
+
+[resource]
+script = ExtResource("2_808hy")
+max_force = 750.0
+charge_time = 1.5
+projectile_resource = ExtResource("1_nedrb")
+name = "Grenade Launcher"
+scene = "uid://cupft37g0c1yp"
+texture = ExtResource("3_6omh8")
+muzzle_offset = Vector2(16, 0)
+metadata/_custom_type_script = "uid://pp6wnjxndi6r"

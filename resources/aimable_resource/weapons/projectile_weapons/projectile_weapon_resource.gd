@@ -1,5 +1,5 @@
 class_name ProjectileWeaponResource
-extends WeaponResource
+extends AimableResource
 
 const MINIMUM_FORCE := 200.0
 const MAXIMUM_FORCE := 1000.0

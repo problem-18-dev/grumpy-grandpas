@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GrappleHookResource" format=3 uid="uid://c3pppa4dayl"]
+
+[ext_resource type="Script" uid="uid://b5msh0ehbjbla" path="res://resources/aimable_resource/tools/grapple_hook_resource.gd" id="1_s55ta"]
+[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="2_iek8l"]
+
+[resource]
+script = ExtResource("1_s55ta")
+name = "Grapple hook"
+texture = ExtResource("2_iek8l")
+ends_turn = false
+metadata/_custom_type_script = "uid://b5msh0ehbjbla"

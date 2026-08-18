@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="ExplosionResource" format=3 uid="uid://bhr2ogpl4fnch"]
 
 [ext_resource type="Script" uid="uid://ctxmasbulp1qm" path="res://resources/explosion_resource/explosion_resource.gd" id="1_71r0b"]
-[ext_resource type="Resource" uid="uid://b284v1amg8bms" path="res://resources/weapon_resource/weapon_attributes/damage_resource/grenade_damage.tres" id="1_n7qf5"]
-[ext_resource type="Resource" uid="uid://cfdnpy0dfdllc" path="res://resources/weapon_resource/weapon_attributes/knockback_resource/grenade_knockback.tres" id="2_dbcrp"]
+[ext_resource type="Resource" uid="uid://b284v1amg8bms" path="res://resources/aimable_resource/weapons/weapon_attributes/damage_resource/grenade_damage.tres" id="1_n7qf5"]
+[ext_resource type="Resource" uid="uid://cfdnpy0dfdllc" path="res://resources/aimable_resource/weapons/weapon_attributes/knockback_resource/grenade_knockback.tres" id="2_dbcrp"]
 
 [resource]
 script = ExtResource("1_71r0b")

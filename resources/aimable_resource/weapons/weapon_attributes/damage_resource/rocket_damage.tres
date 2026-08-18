@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="DamageResource" format=3 uid="uid://c2rbvwsln4f2h"]
 
-[ext_resource type="Script" uid="uid://nykqtti0wwvp" path="res://resources/weapon_resource/weapon_attributes/damage_resource/damage_resource.gd" id="1_1d7ja"]
+[ext_resource type="Script" uid="uid://nykqtti0wwvp" path="res://resources/aimable_resource/weapons/weapon_attributes/damage_resource/damage_resource.gd" id="1_1d7ja"]
 
 [sub_resource type="Curve" id="Curve_3gpky"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
