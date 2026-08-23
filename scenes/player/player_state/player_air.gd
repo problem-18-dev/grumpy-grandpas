@@ -7,7 +7,7 @@ extends PlayerState
 
 
 func enter(data := { }) -> void:
-	player.unequip_weapon()
+	player.unequip_aimable()
 
 	if data.has("jump"):
 		_jump()

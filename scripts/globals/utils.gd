@@ -21,6 +21,13 @@ func create_explosion(explosion_resource: ExplosionResource, explode_position: V
 	var explosion := EXPLOSION.instantiate()
 	explosion.prepare(explosion_resource)
 
-	var explosions := get_tree().get_first_node_in_group("explosions")
-	explosions.add_child(explosion)
+	var objects := get_objects_container()
+	objects.add_child(explosion)
+
 	explosion.explode(explode_position)
+
+
+func get_objects_container() -> Node2D:
+	var objects := get_tree().get_first_node_in_group("objects")
+	assert(objects, "Attempting to use objects container, but it doesn't exist.")
+	return objects

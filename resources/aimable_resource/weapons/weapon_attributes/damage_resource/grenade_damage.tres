@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="DamageResource" format=3 uid="uid://b284v1amg8bms"]
+
+[ext_resource type="Script" uid="uid://nykqtti0wwvp" path="res://resources/aimable_resource/weapons/weapon_attributes/damage_resource/damage_resource.gd" id="1_1sluk"]
+
+[sub_resource type="Curve" id="Curve_1sluk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.3, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[resource]
+script = ExtResource("1_1sluk")
+max_range = 48.0
+base_damage = 40
+falloff_curve = SubResource("Curve_1sluk")
+metadata/_custom_type_script = "uid://nykqtti0wwvp"

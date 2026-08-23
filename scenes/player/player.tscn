@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bygd8nvt570om" path="res://scenes/player/player.gd" id="1_8afob"]
 [ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="2_dovo2"]
-[ext_resource type="PackedScene" uid="uid://b5lt7b36vsg8j" path="res://scenes/weapon_holder/weapon_holder.tscn" id="3_5gtgg"]
+[ext_resource type="PackedScene" uid="uid://b5lt7b36vsg8j" path="res://scenes/aimable_holder/aimable_holder.tscn" id="3_5gtgg"]
 [ext_resource type="PackedScene" uid="uid://o6nlyis18n62" path="res://scenes/core/state_machine/state_machine.tscn" id="3_gmlin"]
 [ext_resource type="PackedScene" uid="uid://bweymkygntx8t" path="res://scenes/components/hurtbox_component/hurtbox_component.tscn" id="3_qek5x"]
 [ext_resource type="Script" uid="uid://bffp4r33c22r2" path="res://scenes/player/player_state/player_idle.gd" id="4_lvxji"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bkrmhl1oip2je" path="res://scenes/player/player_hud/hud.tscn" id="10_h17s1"]
 [ext_resource type="Script" uid="uid://c8a35l3xxakio" path="res://scenes/player/player_state/player_knockback.gd" id="11_ugbui"]
 [ext_resource type="Script" uid="uid://n6aq4lhmi1g5" path="res://scenes/player/player_state/player_dead.gd" id="12_gx1jg"]
+[ext_resource type="Script" uid="uid://bea0lrgqy0cag" path="res://scenes/player/player_state/player_grapple_hook.gd" id="13_ugbui"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1xhu4"]
 
@@ -34,7 +35,7 @@ texture = ExtResource("2_dovo2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1830283869]
 shape = SubResource("CapsuleShape2D_1xhu4")
 
-[node name="WeaponHolder" parent="." unique_id=1646053950 instance=ExtResource("3_5gtgg")]
+[node name="AimableHolder" parent="." unique_id=1646053950 instance=ExtResource("3_5gtgg")]
 
 [node name="HurtboxComponent" parent="." unique_id=923971495 node_paths=PackedStringArray("health_component") instance=ExtResource("3_qek5x")]
 health_component = NodePath("../HealthComponent")
@@ -67,6 +68,9 @@ script = ExtResource("11_ugbui")
 [node name="Dead" type="Node" parent="StateMachine" unique_id=760627324]
 script = ExtResource("12_gx1jg")
 
+[node name="GrappleHook" type="Node" parent="StateMachine" unique_id=455664359]
+script = ExtResource("13_ugbui")
+
 [node name="PlayerHUD" parent="." unique_id=864953640 instance=ExtResource("10_h17s1")]
 
 [node name="NameLabel" type="Label" parent="." unique_id=1121474135]
@@ -85,7 +89,7 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_type_variation = &"PlayerNameLabel"
 text = "Test"
 
-[connection signal="fired" from="WeaponHolder" to="." method="_on_weapon_holder_fired"]
+[connection signal="fired" from="AimableHolder" to="." method="_on_aimable_holder_fired"]
 [connection signal="knockbacked" from="HurtboxComponent" to="." method="_on_hurtbox_component_knockbacked"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
-[connection signal="weapon_selected" from="PlayerHUD" to="." method="_on_player_hud_weapon_selected"]
+[connection signal="aimable_selected" from="PlayerHUD" to="." method="_on_player_hud_aimable_selected"]

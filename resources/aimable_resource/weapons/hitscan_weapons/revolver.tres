@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="HitscanWeaponResource" format=3 uid="uid://dx1m0w6av86ds"]
+
+[ext_resource type="Resource" uid="uid://cgv44d5pek3j5" path="res://resources/aimable_resource/weapons/weapon_attributes/damage_resource/revolver_damage.tres" id="1_sbwkc"]
+[ext_resource type="Script" uid="uid://bd6lxv2h53b83" path="res://resources/aimable_resource/weapons/weapon_attributes/knockback_resource/knockback_resource.gd" id="2_m2ymo"]
+[ext_resource type="Script" uid="uid://c8teyaijtqeex" path="res://resources/aimable_resource/weapons/hitscan_weapons/hitscan_weapon_resource.gd" id="3_q27wl"]
+[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="4_bnhag"]
+
+[sub_resource type="Curve" id="Curve_oid3l"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Resource" id="Resource_urvlt"]
+script = ExtResource("2_m2ymo")
+base_force = 175.0
+falloff_curve = SubResource("Curve_oid3l")
+metadata/_custom_type_script = "uid://bd6lxv2h53b83"
+
+[resource]
+script = ExtResource("3_q27wl")
+damage = ExtResource("1_sbwkc")
+knockback = SubResource("Resource_urvlt")
+name = "Revolver"
+scene = "uid://cc45g8xgg4lyo"
+texture = ExtResource("4_bnhag")
+muzzle_offset = Vector2(20, 0)
+crosshair_distance = 200.0
+metadata/_custom_type_script = "uid://c8teyaijtqeex"

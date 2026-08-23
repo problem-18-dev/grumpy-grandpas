@@ -28,7 +28,7 @@ curve = SubResource("Curve2D_urvlt")
 [node name="PlayAreaFollow" type="PathFollow2D" parent="PlayAreaPath" unique_id=1939929917]
 position = Vector2(-136, 0)
 
-[node name="Objects" type="Node2D" parent="." unique_id=656412160 groups=["explosions", "projectiles"]]
+[node name="Objects" type="Node2D" parent="." unique_id=656412160 groups=["objects"]]
 
 [node name="TurnManager" type="Node2D" parent="." unique_id=520769310]
 script = ExtResource("4_urvlt")

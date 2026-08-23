@@ -1,4 +1,4 @@
-class_name WeaponCrosshair
+class_name Crosshair
 extends Sprite2D
 
 @export_group("Properties")

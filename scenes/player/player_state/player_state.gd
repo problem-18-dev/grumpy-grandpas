@@ -7,6 +7,7 @@ const AIR := "Air"
 const INACTIVE := "Inactive"
 const KNOCKBACK := "Knockback"
 const DEAD := "Dead"
+const GRAPPLE_HOOK := "GrappleHook"
 
 var player: Player
 

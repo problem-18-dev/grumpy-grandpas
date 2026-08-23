@@ -1,0 +1,43 @@
+@abstract
+class_name Aimable
+extends Node2D
+
+signal shot(ends_turn: bool, player_state: String, state_data: Dictionary)
+
+@export var aimable_resource: AimableResource
+
+var _is_enabled := false
+
+@onready var sprite: Sprite2D = $Sprite2D
+@onready var crosshair: Crosshair = $Crosshair
+
+
+func _ready() -> void:
+	if not aimable_resource:
+		return
+
+	sprite.texture = aimable_resource.texture
+
+
+func prepare(new_aimable_resource: AimableResource) -> void:
+	aimable_resource = new_aimable_resource
+
+
+func shoot() -> void:
+	pass
+
+
+func flip(should_flip: bool) -> void:
+	sprite.flip_h = should_flip
+	sprite.flip_v = should_flip
+	crosshair.flip_v = should_flip
+
+
+func enable() -> void:
+	_is_enabled = true
+	crosshair.enable()
+
+
+func _disable() -> void:
+	_is_enabled = false
+	crosshair.disable()

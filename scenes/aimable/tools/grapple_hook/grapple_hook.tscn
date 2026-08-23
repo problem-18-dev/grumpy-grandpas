@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://dhlbbn1yfaxa0"]
+
+[ext_resource type="Script" uid="uid://d0tyxq3o5byds" path="res://scenes/aimable/tools/grapple_hook/grapple_hook.gd" id="1_jdytw"]
+[ext_resource type="Resource" uid="uid://c3pppa4dayl" path="res://resources/aimable_resource/tools/grapple_hook.tres" id="2_h61cf"]
+[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="2_md1it"]
+[ext_resource type="PackedScene" uid="uid://dtyiwvrh6enql" path="res://scenes/weapon_crosshair/weapon_crosshair.tscn" id="3_h61cf"]
+
+[sub_resource type="Animation" id="Animation_md1it"]
+resource_name = "equip"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.19607843), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.15),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"enable"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h61cf"]
+_data = {
+&"equip": SubResource("Animation_md1it")
+}
+
+[node name="GrappleHook" type="Node2D" unique_id=538153281]
+script = ExtResource("1_jdytw")
+aimable_resource = ExtResource("2_h61cf")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1817799488]
+modulate = Color(1, 1, 1, 0.19607842)
+scale = Vector2(0.3, 0.1)
+texture = ExtResource("2_md1it")
+
+[node name="Crosshair" parent="." unique_id=1621916684 instance=ExtResource("3_h61cf")]
+modulate = Color(1, 0.54901963, 0.7411765, 0)
+
+[node name="HitscanRayCast" type="RayCast2D" parent="." unique_id=1531578433]
+target_position = Vector2(50, 0)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1893984493]
+libraries/ = SubResource("AnimationLibrary_h61cf")
+autoplay = &"equip"
