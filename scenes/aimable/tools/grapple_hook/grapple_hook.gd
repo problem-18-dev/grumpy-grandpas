@@ -12,7 +12,6 @@ func _ready() -> void:
 	super()
 
 	_resource = aimable_resource
-	crosshair.position = Vector2(_resource.crosshair_distance, 0)
 	hitscan_ray_cast.position = _resource.muzzle_offset
 	hitscan_ray_cast.target_position = Vector2.RIGHT * _resource.crosshair_distance
 
@@ -34,13 +33,13 @@ func shoot() -> void:
 
 	var collider := hitscan_ray_cast.get_collider()
 
-	# Can only be world
-	if collider:
-		var collision_point := hitscan_ray_cast.get_collision_point()
-		var collision_normal := hitscan_ray_cast.get_collision_normal()
-		var hook := _attach_hook(collision_point, collision_normal)
-		_disable()
-		shot.emit(false, PlayerState.GRAPPLE_HOOK, { "hook": hook })
+	if not collider:
+		return
+
+	var collision_point := hitscan_ray_cast.get_collision_point()
+	var collision_normal := hitscan_ray_cast.get_collision_normal()
+	var hook := _attach_hook(collision_point, collision_normal)
+	used.emit(PlayerState.GRAPPLE_HOOK, { "hook": hook })
 
 
 func _attach_hook(point: Vector2, normal: Vector2) -> Hook:

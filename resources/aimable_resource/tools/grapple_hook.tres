@@ -5,7 +5,6 @@
 
 [resource]
 script = ExtResource("1_s55ta")
-name = "Grapple hook"
 scene = "uid://dhlbbn1yfaxa0"
 texture = ExtResource("2_iek8l")
 ends_turn = false

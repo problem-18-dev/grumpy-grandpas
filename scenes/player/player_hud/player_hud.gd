@@ -1,12 +1,12 @@
 class_name PlayerHUD
 extends CanvasLayer
 
-signal aimable_selected(aimable: AimableResource)
+signal item_selected(item: ItemResource)
 
-const AIMABLE_CATALGOUE = preload("uid://b4umg781jsip2")
-const INVENTORY_AIMABLE_BUTTON_VARIANT := "InventoryAimableButton"
+const ITEM_CATALOGUE = preload("uid://b4umg781jsip2")
+const INVENTORY_ITEM_BUTTON_VARIANT := "InventoryItemButton"
 
-var _buttons: Dictionary[AimableResource, Button]
+var _buttons: Dictionary[ItemResource, Button]
 
 @onready var weapons_grid: GridContainer = %WeaponsGrid
 @onready var tools_grid: GridContainer = %ToolsGrid
@@ -18,8 +18,8 @@ func _ready() -> void:
 	_spawn_tool_buttons()
 
 
-func open(equipped_aimable: AimableResource) -> void:
-	_update_buttons(equipped_aimable)
+func open(equipped_item: ItemResource) -> void:
+	_update_buttons(equipped_item)
 	show()
 
 
@@ -28,11 +28,11 @@ func close() -> void:
 
 
 func _spawn_weapon_buttons() -> void:
-	var weapons := AIMABLE_CATALGOUE.weapons
+	var weapons := ITEM_CATALOGUE.weapons
 
 	for weapon in weapons:
 		var button := Button.new()
-		button.theme_type_variation = INVENTORY_AIMABLE_BUTTON_VARIANT
+		button.theme_type_variation = INVENTORY_ITEM_BUTTON_VARIANT
 		button.pressed.connect(_on_button_pressed.bind(weapon))
 		button.text = weapon.name
 		weapons_grid.add_child(button)
@@ -40,24 +40,24 @@ func _spawn_weapon_buttons() -> void:
 
 
 func _spawn_tool_buttons() -> void:
-	var tools := AIMABLE_CATALGOUE.tools
+	var tools := ITEM_CATALOGUE.tools
 
 	for tool in tools:
 		var button := Button.new()
-		button.theme_type_variation = INVENTORY_AIMABLE_BUTTON_VARIANT
+		button.theme_type_variation = INVENTORY_ITEM_BUTTON_VARIANT
 		button.pressed.connect(_on_button_pressed.bind(tool))
 		button.text = tool.name
 		tools_grid.add_child(button)
 		_buttons[tool] = button
 
 
-func _update_buttons(equipped_aimable: AimableResource) -> void:
+func _update_buttons(equipped_item: ItemResource) -> void:
 	for button in _buttons.values():
 		button.disabled = false
 
-	_buttons[equipped_aimable].disabled = true
+	_buttons[equipped_item].disabled = true
 
 
-func _on_button_pressed(aimable: AimableResource) -> void:
+func _on_button_pressed(item: ItemResource) -> void:
 	close()
-	aimable_selected.emit(aimable)
+	item_selected.emit(item)

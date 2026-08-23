@@ -1,7 +1,8 @@
 class_name AimableHolder
 extends Node2D
 
-signal fired(ends_turn: bool, player_state: String, state_data: Dictionary)
+signal aimable_fired
+signal aimable_used(player_state: String, state_data: Dictionary)
 
 const MINIMUM_ROTATION := -PI / 2
 const MAXIMUM_ROTATION := PI / 2
@@ -35,7 +36,8 @@ func equip_aimable(aimable_resource: AimableResource, player_direction: float) -
 	# Spawn aimable
 	assert(aimable_resource.scene, "Aimble resource has no scene")
 	var aimable: Aimable = load(aimable_resource.scene).instantiate()
-	aimable.shot.connect(_on_aimable_shot)
+	aimable.used.connect(_on_aimable_used)
+	aimable.fired.connect(aimable_fired.emit)
 	aimable.prepare(aimable_resource)
 	aimable_pivot.add_child(aimable)
 	_equipped_aimable = aimable
@@ -45,6 +47,7 @@ func equip_aimable(aimable_resource: AimableResource, player_direction: float) -
 	_flip(should_flip)
 	_equipped_aimable.flip(should_flip)
 
+	# Initialize
 	_enabled = true
 	set_physics_process(true)
 	set_process_unhandled_key_input(true)
@@ -61,12 +64,16 @@ func remove_aimable() -> void:
 	set_process_unhandled_key_input(false)
 
 
+## Enable aiming and the equipped aimable
 func enable() -> void:
 	_enabled = true
+	_equipped_aimable.enable()
 
 
+## Disable aiming and the equipped aimable
 func disable() -> void:
 	_enabled = false
+	_equipped_aimable.disable()
 
 
 func register_aim_angle(delta: float) -> void:
@@ -94,8 +101,6 @@ func _rotate_aimable() -> void:
 	aimable_pivot.rotation = 0 + _aim_angle
 
 
-func _on_aimable_shot(ends_turn: bool, player_state: String, state_data: Dictionary) -> void:
-	if not ends_turn:
-		disable()
-
-	fired.emit(ends_turn, player_state, state_data)
+func _on_aimable_used(player_state: String, state_data: Dictionary) -> void:
+	disable()
+	aimable_used.emit(player_state, state_data)

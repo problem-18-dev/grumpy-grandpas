@@ -4,10 +4,10 @@ extends Aimable
 
 const PROJECTILE = preload("uid://csa3ig7aroxsa")
 
+var _resource: ProjectileWeaponResource
 var _is_charging := false
 var _charge_tween: Tween
 var _charge_time_left: float
-var _resource: ProjectileWeaponResource
 
 @onready var muzzle_offset_marker: Marker2D = $MuzzleOffsetMarker
 @onready var charge_sprite: Sprite2D = $ChargeSprite
@@ -16,11 +16,13 @@ var _resource: ProjectileWeaponResource
 
 func _ready() -> void:
 	super()
+
 	_resource = aimable_resource as ProjectileWeaponResource
+	assert(_resource.projectile_resource, "Using projectile weapon without projectile resource")
+
 	muzzle_offset_marker.position = _resource.muzzle_offset
 	charge_sprite.hide()
 	charge_sprite.position = _resource.muzzle_offset
-	crosshair.position = Vector2(_resource.crosshair_distance, 0)
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -38,9 +40,6 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 
 func shoot() -> void:
-	assert(_resource.projectile_resource, "Attempting to shoot projectile without projectile scene")
-
-	_disable()
 	charge_sprite.hide()
 
 	# Prepare projectile
@@ -55,7 +54,7 @@ func shoot() -> void:
 	var force := _calculate_force()
 	projectile.fire(muzzle_offset_marker.global_position, global_rotation, force)
 
-	shot.emit(_resource.ends_turn, "", { })
+	fired.emit()
 
 
 func _start_charging() -> void:

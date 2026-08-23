@@ -27,4 +27,8 @@ func _handle_landing() -> void:
 	if not player.is_on_floor():
 		return
 
+	if not is_zero_approx(player.get_direction()):
+		finished.emit(PlayerState.WALK)
+		return
+
 	finished.emit(PlayerState.IDLE)

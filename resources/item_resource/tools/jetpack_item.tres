@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://dg268oqi3o2lj"]
+
+[ext_resource type="Script" uid="uid://cp1j8tubsspi2" path="res://resources/item_resource/item_resource.gd" id="1_s8r8h"]
+[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="1_vntyk"]
+
+[resource]
+script = ExtResource("1_s8r8h")
+name = "Jetpack"
+icon = ExtResource("1_vntyk")
+set_player_state_on_equip = true
+player_state = "Jetpack"
+metadata/_custom_type_script = "uid://cp1j8tubsspi2"

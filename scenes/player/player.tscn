@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://c8a35l3xxakio" path="res://scenes/player/player_state/player_knockback.gd" id="11_ugbui"]
 [ext_resource type="Script" uid="uid://n6aq4lhmi1g5" path="res://scenes/player/player_state/player_dead.gd" id="12_gx1jg"]
 [ext_resource type="Script" uid="uid://bea0lrgqy0cag" path="res://scenes/player/player_state/player_grapple_hook.gd" id="13_ugbui"]
+[ext_resource type="Script" uid="uid://drtsbr2w8ifar" path="res://scenes/player/player_state/player_jetpack.gd" id="14_fcs02"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1xhu4"]
 
@@ -71,6 +72,9 @@ script = ExtResource("12_gx1jg")
 [node name="GrappleHook" type="Node" parent="StateMachine" unique_id=455664359]
 script = ExtResource("13_ugbui")
 
+[node name="Jetpack" type="Node" parent="StateMachine" unique_id=1454097151]
+script = ExtResource("14_fcs02")
+
 [node name="PlayerHUD" parent="." unique_id=864953640 instance=ExtResource("10_h17s1")]
 
 [node name="NameLabel" type="Label" parent="." unique_id=1121474135]
@@ -89,7 +93,8 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_type_variation = &"PlayerNameLabel"
 text = "Test"
 
-[connection signal="fired" from="AimableHolder" to="." method="_on_aimable_holder_fired"]
+[connection signal="aimable_fired" from="AimableHolder" to="." method="_on_aimable_holder_aimable_fired"]
+[connection signal="aimable_used" from="AimableHolder" to="." method="_on_aimable_holder_aimable_used"]
 [connection signal="knockbacked" from="HurtboxComponent" to="." method="_on_hurtbox_component_knockbacked"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
-[connection signal="aimable_selected" from="PlayerHUD" to="." method="_on_player_hud_aimable_selected"]
+[connection signal="item_selected" from="PlayerHUD" to="." method="_on_player_hud_item_selected"]

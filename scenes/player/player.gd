@@ -5,12 +5,11 @@ signal marked_for_death(player: Player)
 signal died(player: Player)
 
 const WEAPONS_CATALOGUE = preload("uid://b4umg781jsip2")
-const DEFAULT_WEAPON := WEAPONS_CATALOGUE.default_weapon
 const LEFT_DIRECTION := -1
 const RIGHT_DIRECTION := 1
 const FLOOR_MAX_ANGLE := 80
 
-var _equipped_aimable: AimableResource = DEFAULT_WEAPON
+var _equipped_item: ItemResource = WEAPONS_CATALOGUE.default_weapon
 var _last_direction := RIGHT_DIRECTION
 
 @onready var sprite: Sprite2D = $Sprite2D
@@ -39,7 +38,7 @@ func unequip_aimable() -> void:
 
 
 func reequip_aimable() -> void:
-	equip_aimable(_equipped_aimable)
+	equip_aimable(_equipped_item.aimable_resource)
 #endregion
 
 #region Direction
@@ -81,7 +80,7 @@ func toggle_inventory() -> void:
 		player_hud.close()
 		return
 
-	player_hud.open(_equipped_aimable)
+	player_hud.open(_equipped_item)
 
 
 func _flip_sprite() -> void:
@@ -95,20 +94,28 @@ func _on_hurtbox_component_knockbacked(force: float, angle: float) -> void:
 	state_machine.transition_to_state(PlayerState.KNOCKBACK, { "force": force, "angle": angle })
 
 
-func _on_aimable_holder_fired(ends_turn: bool, player_state: String, state_data: Dictionary) -> void:
-	if ends_turn:
-		deactivate()
-		return
-
-	if player_state:
-		state_machine.transition_to_state(player_state, state_data)
-		return
-
-
 func _on_health_component_died() -> void:
 	marked_for_death.emit(self)
 
 
-func _on_player_hud_aimable_selected(aimable: AimableResource) -> void:
-	_equipped_aimable = aimable
-	reequip_aimable()
+func _on_player_hud_item_selected(item: ItemResource) -> void:
+	_equipped_item = item
+
+	var new_player_state := PlayerState.IDLE
+
+	if item.aimable_resource:
+		reequip_aimable()
+
+	if item.set_player_state_on_equip:
+		new_player_state = item.player_state
+
+	state_machine.transition_to_state(new_player_state)
+
+
+# TODO: Decrease ammo if more than 1 remaining, for now just disable player
+func _on_aimable_holder_aimable_fired() -> void:
+	deactivate()
+
+
+func _on_aimable_holder_aimable_used(player_state: String, state_data: Dictionary) -> void:
+	state_machine.transition_to_state(player_state, state_data)

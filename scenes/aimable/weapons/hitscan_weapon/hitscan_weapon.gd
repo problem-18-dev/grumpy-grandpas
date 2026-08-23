@@ -1,3 +1,4 @@
+@tool
 class_name HitscanWeapon
 extends Aimable
 
@@ -8,8 +9,8 @@ var _resource: HitscanWeaponResource
 
 func _ready() -> void:
 	super()
+
 	_resource = aimable_resource as HitscanWeaponResource
-	crosshair.position = Vector2(_resource.crosshair_distance, 0)
 	hitscan_ray_cast.position = _resource.muzzle_offset
 	hitscan_ray_cast.target_position = Vector2(_resource.damage.max_range, 0)
 	hitscan_ray_cast.force_update_transform()
@@ -27,7 +28,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func shoot() -> void:
 	hitscan_ray_cast.force_raycast_update()
 
-	_disable()
+	fired.emit()
 
 	if not hitscan_ray_cast.is_colliding():
 		return
@@ -48,6 +49,3 @@ func shoot() -> void:
 		var from := hitscan_ray_cast.global_position
 		var to: Vector2 = collider.global_position
 		collider.knockback(knockback_force, from.angle_to_point(to))
-		shot.emit(_resource.ends_turn, "", { })
-		return
-# TODO: Only other collision can be the world

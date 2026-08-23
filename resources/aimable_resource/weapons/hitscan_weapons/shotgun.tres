@@ -20,7 +20,6 @@ metadata/_custom_type_script = "uid://bd6lxv2h53b83"
 script = ExtResource("3_hudle")
 damage = ExtResource("1_bsdyn")
 knockback = SubResource("Resource_urvlt")
-name = "Shotgun"
 scene = "uid://cc45g8xgg4lyo"
 texture = ExtResource("4_iomhp")
 crosshair_distance = 75.0
