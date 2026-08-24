@@ -8,6 +8,6 @@
 script = ExtResource("1_el7jw")
 name = "Revolver"
 icon = ExtResource("2_sl410")
-is_aimable = true
+unlocked = false
 aimable_resource = ExtResource("1_krd8y")
 metadata/_custom_type_script = "uid://cp1j8tubsspi2"

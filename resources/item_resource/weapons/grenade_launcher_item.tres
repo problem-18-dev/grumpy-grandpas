@@ -8,6 +8,5 @@
 script = ExtResource("1_1e7vt")
 name = "Grenade"
 icon = ExtResource("1_p02ti")
-is_aimable = true
 aimable_resource = ExtResource("1_25dtg")
 metadata/_custom_type_script = "uid://cp1j8tubsspi2"

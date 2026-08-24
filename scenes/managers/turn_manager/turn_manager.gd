@@ -5,6 +5,8 @@ signal turn_started(player: Player)
 signal turn_ended(player: Player)
 signal match_ended(winner: TeamResource)
 
+const PLAYER := preload("uid://bmag23mf230r3")
+
 var _teams: Array[Team] = []
 var _active_team: Team
 var _active_player: Player
@@ -17,11 +19,22 @@ func start() -> void:
 	_start_turn()
 
 
-func assign_player(team_resource: TeamResource, player: Player) -> void:
-	add_child(player)
-	player.marked_for_death.connect(_on_players_marked_for_death)
+func spawn_players(spawn_points: Array[Dictionary]) -> void:
+	for team in GameManager.get_teams():
+		for player_in_team in team.get_players():
+			var player: Player = PLAYER.instantiate()
+			add_child(player)
 
-	_get_or_create_team(team_resource).add(player)
+			var spawn_data: Dictionary = spawn_points.pop_back()
+			player.spawn(spawn_data.get("spawn_position"), spawn_data.get("spawn_normal"))
+			player.setup(team, player_in_team)
+
+			player.marked_for_death.connect(_on_player_marked_for_death)
+			player.requested_catalogue.connect(_on_player_requested_catalogue)
+
+			_get_or_create_team(team).add_player(player)
+
+	start()
 
 
 func next_turn() -> void:
@@ -80,18 +93,23 @@ func _get_or_create_team(team_resource: TeamResource) -> Team:
 	return new_team
 
 
-func _on_players_marked_for_death(player: Player) -> void:
+func _on_player_marked_for_death(player: Player) -> void:
 	if player == _active_player:
 		_active_player = null
 
 	_players_marked_for_death.append(player)
 
 	for team in _teams:
-		team.kill(player)
+		team.kill_player(player)
 
 		if team.has_lost():
 			_teams.erase(team)
 			break
+
+
+func _on_player_requested_catalogue(player: Player) -> void:
+	var locked_items := _current_team().get_locked_items()
+	player.open_inventory(locked_items)
 
 
 class Team:
@@ -104,7 +122,8 @@ class Team:
 		resource = team_resource
 
 
-	func add(player: Player) -> void:
+	#region Players
+	func add_player(player: Player) -> void:
 		_players.append(player)
 
 
@@ -116,10 +135,21 @@ class Team:
 		return _players.is_empty()
 
 
-	func kill(player: Player) -> void:
+	func kill_player(player: Player) -> void:
 		_players.erase(player)
 
 
 	func next_player(after: Player) -> void:
 		if _players.front() == after:
 			_players.push_back(_players.pop_front())
+	#endregion
+
+
+	#region Catalogue
+	func get_locked_items() -> Array[ItemResource]:
+		return resource.locked_items
+
+
+	func unlock_item(item: ItemResource) -> void:
+		resource.unlock_item(item)
+#endregion

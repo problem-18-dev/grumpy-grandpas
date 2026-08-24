@@ -2,14 +2,15 @@ class_name Player
 extends CharacterBody2D
 
 signal marked_for_death(player: Player)
+signal requested_catalogue(player: Player)
 signal died(player: Player)
 
-const WEAPONS_CATALOGUE = preload("uid://b4umg781jsip2")
+const CATALOGUE = preload("uid://gr6x0tlr2xog")
 const LEFT_DIRECTION := -1
 const RIGHT_DIRECTION := 1
 const FLOOR_MAX_ANGLE := 80
 
-var _equipped_item: ItemResource = WEAPONS_CATALOGUE.default_weapon
+var _equipped_item: ItemResource = CATALOGUE.default_weapon
 var _last_direction := RIGHT_DIRECTION
 
 @onready var sprite: Sprite2D = $Sprite2D
@@ -22,7 +23,7 @@ var _last_direction := RIGHT_DIRECTION
 
 
 func _ready() -> void:
-	toggle_inventory()
+	player_hud.close()
 
 
 func _physics_process(_delta: float) -> void:
@@ -80,7 +81,11 @@ func toggle_inventory() -> void:
 		player_hud.close()
 		return
 
-	player_hud.open(_equipped_item)
+	requested_catalogue.emit(self)
+
+
+func open_inventory(locked_items: Array[ItemResource]) -> void:
+	player_hud.open(locked_items, _equipped_item)
 
 
 func _flip_sprite() -> void:

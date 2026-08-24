@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ccrc8sl42duol" path="res://resources/player_resource/player_resource.gd" id="1_fpj4e"]
 [ext_resource type="Script" uid="uid://05fqs75xukhe" path="res://resources/team_resource/team_resource.gd" id="1_g4vb3"]
+[ext_resource type="Script" uid="uid://cp1j8tubsspi2" path="res://resources/item_resource/item_resource.gd" id="2_flae0"]
 
 [sub_resource type="Resource" id="Resource_f8b3h"]
 script = ExtResource("1_fpj4e")
@@ -16,6 +17,5 @@ metadata/_custom_type_script = "uid://ccrc8sl42duol"
 [resource]
 script = ExtResource("1_g4vb3")
 name = "Team Red"
-color = null
 players = Array[ExtResource("1_fpj4e")]([SubResource("Resource_f8b3h"), SubResource("Resource_wf6gw")])
 metadata/_custom_type_script = "uid://05fqs75xukhe"

@@ -1,10 +1,6 @@
 class_name SpawnManager
 extends Node2D
 
-signal players_ready
-signal player_spawned(team: TeamResource, player: Player)
-
-const PLAYER := preload("uid://bmag23mf230r3")
 const RAY_LENGTH := 1000
 
 @export_group("Properties")
@@ -14,23 +10,7 @@ const RAY_LENGTH := 1000
 var _spawn_points: Array[Dictionary]
 
 
-func _ready() -> void:
-	_generate_spawn_points()
-
-
-func spawn_players() -> void:
-	for team in GameManager.get_teams():
-		for player_in_team in team.get_players():
-			var player: Player = PLAYER.instantiate()
-			player_spawned.emit(team, player)
-			var spawn_data: Dictionary = _spawn_points.pop_back()
-			player.spawn(spawn_data.get("spawn_position"), spawn_data.get("spawn_normal"))
-			player.setup(team, player_in_team)
-
-	players_ready.emit()
-
-
-func _generate_spawn_points() -> void:
+func generate_spawn_points() -> Array[Dictionary]:
 	var space_state := get_world_2d().direct_space_state
 
 	for attempt in spawn_attempts:
@@ -53,3 +33,4 @@ func _generate_spawn_points() -> void:
 		_spawn_points.append({ "spawn_position": collision.position, "spawn_normal": floor_normal })
 
 	_spawn_points.shuffle()
+	return _spawn_points

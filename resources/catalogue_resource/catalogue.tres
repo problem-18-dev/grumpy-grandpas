@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CatalogueResource" format=3 uid="uid://gr6x0tlr2xog"]
+
+[ext_resource type="Resource" uid="uid://dch3vudrx8fmx" path="res://resources/item_resource/weapons/rocket_launcher_item.tres" id="1_lhskn"]
+[ext_resource type="Script" uid="uid://y30kphuaasrn" path="res://resources/catalogue_resource/catalogue_resource.gd" id="2_0rwuq"]
+[ext_resource type="Script" uid="uid://cp1j8tubsspi2" path="res://resources/item_resource/item_resource.gd" id="3_b6j7a"]
+[ext_resource type="Resource" uid="uid://dg268oqi3o2lj" path="res://resources/item_resource/tools/jetpack_item.tres" id="4_pghbo"]
+[ext_resource type="Resource" uid="uid://dqfxlci8foo4" path="res://resources/item_resource/tools/grapple_hook_item.tres" id="5_6ivch"]
+[ext_resource type="Resource" uid="uid://brvicij4gfiih" path="res://resources/item_resource/weapons/grenade_launcher_item.tres" id="6_nkv3i"]
+[ext_resource type="Resource" uid="uid://dy5rkwn75f8ov" path="res://resources/item_resource/weapons/revolver_item.tres" id="7_48k0a"]
+[ext_resource type="Resource" uid="uid://drlv87ogkip0u" path="res://resources/item_resource/weapons/shotgun_item.tres" id="8_vrqn4"]
+
+[resource]
+script = ExtResource("2_0rwuq")
+locked_items = Array[ExtResource("3_b6j7a")]([ExtResource("7_48k0a")])
+weapons = Array[ExtResource("3_b6j7a")]([ExtResource("6_nkv3i"), ExtResource("1_lhskn"), ExtResource("8_vrqn4"), ExtResource("7_48k0a")])
+default_weapon = ExtResource("1_lhskn")
+tools = Array[ExtResource("3_b6j7a")]([ExtResource("5_6ivch"), ExtResource("4_pghbo")])
+metadata/_custom_type_script = "uid://y30kphuaasrn"

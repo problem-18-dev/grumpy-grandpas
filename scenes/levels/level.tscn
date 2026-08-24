@@ -84,6 +84,4 @@ shape = SubResource("WorldBoundaryShape2D_1xhu4")
 [connection signal="child_entered_tree" from="TurnManager" to="TurnManager" method="_on_child_entered_tree"]
 [connection signal="match_ended" from="TurnManager" to="." method="_on_turn_manager_match_ended"]
 [connection signal="turn_ended" from="TurnManager" to="." method="_on_turn_manager_turn_ended"]
-[connection signal="player_spawned" from="SpawnManager" to="." method="_on_spawn_manager_player_spawned"]
-[connection signal="players_ready" from="SpawnManager" to="." method="_on_spawn_manager_players_ready"]
 [connection signal="busy_ended" from="BusyManager" to="." method="_on_busy_manager_busy_ended"]

@@ -7,15 +7,8 @@ extends Node2D
 
 
 func _ready() -> void:
-	spawn_manager.spawn_players()
-
-
-func _on_spawn_manager_players_ready() -> void:
-	turn_manager.start()
-
-
-func _on_spawn_manager_player_spawned(team: TeamResource, player: Player) -> void:
-	turn_manager.assign_player(team, player)
+	var spawn_points := spawn_manager.generate_spawn_points()
+	turn_manager.spawn_players(spawn_points)
 
 
 func _on_busy_manager_busy_ended() -> void:
