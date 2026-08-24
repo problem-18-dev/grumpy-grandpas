@@ -16,21 +16,22 @@
 				"f3161987-5907-425b-98a9-d52d7f41bff4",
 				"15fc6cf1-914b-4f5a-bde3-0d38139c66a5",
 				"ba1e0c1e-3604-45e0-9027-60476ffe97b2",
-				"71c0fc7c-366d-42bc-a8de-1fc50d936357"
+				"71c0fc7c-366d-42bc-a8de-1fc50d936357",
+				"2c2bd4e1-f866-4701-ab48-c4516839e8dd",
+				"52969ca5-8f03-4501-a318-b2bc0ea11e38"
 			]
 		},
 		{
 			"uuid": "40497cc6-13fd-4ee0-8c8a-501f1679fe85",
 			"title": "Doing",
-			"tasks": [
-				"3ece640c-c1db-4d71-9230-6cada86ffa19"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "a3265bdc-f5e5-4b73-85c5-a4a50d7111f0",
 			"title": "Done",
 			"tasks": [
 				"093fd4eb-0925-4110-b4f0-e7123d22f5d3",
+				"3ece640c-c1db-4d71-9230-6cada86ffa19",
 				"d82f9c2e-2210-4268-8e56-e5160622d775",
 				"1375e5b2-0583-465e-8165-4e2941988567",
 				"6a54daf8-a9e0-48d6-a8fb-addde2535cc9",
@@ -237,7 +238,7 @@
 		{
 			"uuid": "9500c87d-d388-4493-bc4c-3c88e5816da9",
 			"title": "[Feat] Collectible items",
-			"description": "A collectible item can be a chest or a toolbox.\nA chest unlocks a weapon for the team.\nA toolbox unlocks a tool for the team.\n\nA collectible is picked up by simply walking over it as a player.",
+			"description": "A collectible item can be a chest or a toolbox.\nA chest unlocks a weapon for the team.\nA toolbox unlocks a tool for the team.\n\nCollectibles spawn inbetween turns, by chance. They cannot spawn on top of a player.\n\nA collectible is picked up by simply walking over it as a player.",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
 		},
@@ -319,14 +320,14 @@
 		{
 			"uuid": "fb2bb30a-987e-41e0-8f7f-1fb6367d0f9d",
 			"title": "[Feat] Chest collectible",
-			"description": "",
+			"description": "A chest unlocks a weapon that hasn't been unlocked yet.\nRocker launcher is always available.",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
 		},
 		{
 			"uuid": "f3161987-5907-425b-98a9-d52d7f41bff4",
 			"title": "[Feat] Toolbox collectible",
-			"description": "",
+			"description": "A toolbox unlocks a tool that hasn't been unlocked yet.\n\nJetpack is always available.",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
 		},
@@ -348,6 +349,20 @@
 			"uuid": "1021925b-870c-41b4-9db2-6ac202acebce",
 			"title": "[Feat] Separate explosion from projectile",
 			"description": "It's become clear that explosions can occur outside of projectiles, and should thus be independent and more customizable. A player's death causes an explosion, but it's not relevant to a projectile.\n\nAn explosion should have the same attributes as it currently has on a projectile.\n- Damage (range & amount)\n- Knockback (range & force)\n\nThis should also make it easier for the camera to know what to track and how important it is.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "52969ca5-8f03-4501-a318-b2bc0ea11e38",
+			"title": "[Bug] Turn doesn't end if nothing busy happened",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "2c2bd4e1-f866-4701-ab48-c4516839e8dd",
+			"title": "[Feat] Add jetpack timer & fuel",
+			"description": "",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
 		}
