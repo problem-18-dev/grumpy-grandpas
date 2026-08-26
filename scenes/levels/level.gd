@@ -1,21 +1,35 @@
 extends Node2D
 
-@onready var turn_manager: TurnManager = $TurnManager
-@onready var spawn_manager: SpawnManager = $SpawnManager
+@onready var spawn_generator: SpawnGenerator = $SpawnGenerator
+@onready var match_manager: MatchManager = $MatchManager
 @onready var busy_manager: BusyManager = $BusyManager
+@onready var pickuppable_manager: PickuppableManager = $PickuppableManager
 @onready var announcement_label: Label = $CanvasLayer/AnnouncementLabel
 
 
 func _ready() -> void:
-	var spawn_points := spawn_manager.generate_spawn_points()
-	turn_manager.spawn_players(spawn_points)
+	_spawn_players()
+
+
+func _spawn_players() -> void:
+	var spawn_points := spawn_generator.generate_spawn_points()
+	match_manager.initiate_match(spawn_points)
+
+
+func _next_turn() -> void:
+	await pickuppable_manager.attempt_spawn()
+	match_manager.next_turn()
 
 
 func _on_busy_manager_busy_ended() -> void:
-	turn_manager.next_turn()
+	_next_turn()
 
 
-func _on_turn_manager_match_ended(winner: TeamResource) -> void:
+func _on_pickuppable_manager_picked_up(by: Player, type: PickuppableResource.Type) -> void:
+	match_manager.unlock_item(by, type)
+
+
+func _on_match_manager_match_ended(winner: TeamResource) -> void:
 	if winner:
 		announcement_label.text = "%s has won the game!" % winner.name
 		return
@@ -23,5 +37,5 @@ func _on_turn_manager_match_ended(winner: TeamResource) -> void:
 	announcement_label.text = "It's a tie!"
 
 
-func _on_turn_manager_turn_ended(_player: Player) -> void:
+func _on_match_manager_turn_ended() -> void:
 	busy_manager.reset()

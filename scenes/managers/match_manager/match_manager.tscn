@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cmrioaepcqauw"]
+
+[ext_resource type="Script" uid="uid://d3yln8br38f5s" path="res://scenes/managers/match_manager/match_manager.gd" id="1_0ywio"]
+[ext_resource type="Script" uid="uid://c7r0cing6s0w4" path="res://scenes/managers/players_manager/players_manager.gd" id="2_8xq02"]
+
+[node name="MatchManager" type="Node2D" unique_id=299448507 node_paths=PackedStringArray("players_manager")]
+script = ExtResource("1_0ywio")
+players_manager = NodePath("PlayersManager")
+
+[node name="PlayersManager" type="Node2D" parent="." unique_id=769507593]
+script = ExtResource("2_8xq02")
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

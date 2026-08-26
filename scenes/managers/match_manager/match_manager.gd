@@ -1,0 +1,47 @@
+class_name MatchManager
+extends Node2D
+
+signal turn_started(player: Player)
+signal turn_ended
+signal match_ended(winner: TeamResource)
+
+@export var players_manager: PlayersManager
+
+
+func initiate_match(spawn_points: Array[Dictionary]) -> void:
+	players_manager.spawn_players(spawn_points)
+	_start_match()
+
+
+func next_turn() -> void:
+	await players_manager.kill_marked_players()
+	turn_ended.emit()
+
+	players_manager.next_team()
+	_start_turn()
+
+
+func unlock_item(by: Player, type: PickuppableResource.Type) -> void:
+	match type:
+		PickuppableResource.Type.WEAPON:
+			players_manager.unlock_weapon()
+		PickuppableResource.Type.TOOL:
+			players_manager.unlock_tool()
+		PickuppableResource.Type.HEALTH:
+			players_manager.heal_player(by)
+		_:
+			push_error("Unknown pickuppable type")
+
+
+func _start_match() -> void:
+	_start_turn()
+
+
+func _start_turn() -> void:
+	if players_manager.teams.size() > 1:
+		var active_player := players_manager.activate_player()
+		turn_started.emit(active_player)
+		return
+
+	var winner := players_manager.get_winner()
+	match_ended.emit(winner)

@@ -1,19 +1,23 @@
 [gd_scene format=3 uid="uid://cd2ib37t0cgmf"]
 
 [ext_resource type="Script" uid="uid://dpjstawxawa7x" path="res://scenes/levels/level.gd" id="1_377w7"]
-[ext_resource type="Script" uid="uid://d3yln8br38f5s" path="res://scenes/managers/turn_manager/turn_manager.gd" id="4_urvlt"]
+[ext_resource type="PackedScene" uid="uid://cmrioaepcqauw" path="res://scenes/managers/match_manager/match_manager.tscn" id="3_xfk5q"]
 [ext_resource type="PackedScene" uid="uid://d0okm02wagiv7" path="res://scenes/terrain/terrain.tscn" id="4_xb4v1"]
-[ext_resource type="Script" uid="uid://qp7wd878ywhm" path="res://scenes/managers/spawn_manager/spawn_manager.gd" id="5_d4w6o"]
+[ext_resource type="Script" uid="uid://qp7wd878ywhm" path="res://scenes/managers/spawn_generator/spawn_generator.gd" id="5_d4w6o"]
 [ext_resource type="PackedScene" uid="uid://c6rdv182qtrpo" path="res://scenes/managers/busy_manager/busy_manager.tscn" id="5_mbbpy"]
+[ext_resource type="Script" uid="uid://cfhootipnhms2" path="res://scenes/managers/pickuppable_manager/pickuppable_manager.gd" id="6_icy5c"]
+[ext_resource type="Script" uid="uid://djft4707qktxi" path="res://resources/pickuppable_resource/pickuppable_resource.gd" id="7_7pb6i"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_mbbpy"]
 [ext_resource type="PackedScene" uid="uid://dwfdnq2y4c1w2" path="res://scenes/game_camera/game_camera.tscn" id="7_ouxo3"]
 [ext_resource type="PackedScene" uid="uid://bedwmp6j28trh" path="res://scenes/death_zone/death_zone.tscn" id="8_ouxo3"]
+[ext_resource type="Resource" uid="uid://cigipvuxrk2eo" path="res://resources/pickuppable_resource/crate.tres" id="8_xfk5q"]
+[ext_resource type="Resource" uid="uid://bc62j8ns7bj8t" path="res://resources/pickuppable_resource/toolbox.tres" id="9_xfk5q"]
 
 [sub_resource type="Curve2D" id="Curve2D_urvlt"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -136, 0, 0, 0, 0, 0, 832, 0)
+"points": PackedVector2Array(0, 0, 0, 0, -104, 0, 0, 0, 0, 0, 112, -72, 0, 0, 0, 0, 416, -72, 0, 0, 0, 0, 808, 0, 0, 0, 0, 0, 240, 136)
 }
-point_count = 2
+point_count = 5
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1xhu4"]
 
@@ -22,22 +26,45 @@ script = ExtResource("1_377w7")
 
 [node name="Terrain" parent="." unique_id=654413745 instance=ExtResource("4_xb4v1")]
 
-[node name="PlayAreaPath" type="Path2D" parent="." unique_id=579392240]
+[node name="SpawnPath" type="Path2D" parent="." unique_id=579392240]
 curve = SubResource("Curve2D_urvlt")
 
-[node name="PlayAreaFollow" type="PathFollow2D" parent="PlayAreaPath" unique_id=1939929917]
-position = Vector2(-136, 0)
+[node name="SpawnFollow" type="PathFollow2D" parent="SpawnPath" unique_id=1939929917]
+position = Vector2(-104, 0)
+rotation = -0.32175055
 
 [node name="Objects" type="Node2D" parent="." unique_id=656412160 groups=["objects"]]
 
-[node name="TurnManager" type="Node2D" parent="." unique_id=520769310]
-script = ExtResource("4_urvlt")
+[node name="MatchManager" parent="." unique_id=299448507 instance=ExtResource("3_xfk5q")]
 
-[node name="SpawnManager" type="Node2D" parent="." unique_id=40225150 node_paths=PackedStringArray("spawn_path_follow")]
+[node name="SpawnGenerator" type="Node2D" parent="." unique_id=40225150 node_paths=PackedStringArray("spawn_path_follow")]
 script = ExtResource("5_d4w6o")
-spawn_path_follow = NodePath("../PlayAreaPath/PlayAreaFollow")
+spawn_path_follow = NodePath("../SpawnPath/SpawnFollow")
+spawn_attempts = 160
 
 [node name="BusyManager" parent="." unique_id=952442597 instance=ExtResource("5_mbbpy")]
+
+[node name="PickuppableManager" type="Node2D" parent="." unique_id=359604408 node_paths=PackedStringArray("spawn_follow")]
+script = ExtResource("6_icy5c")
+spawn_chance = 1.0
+spawn_follow = NodePath("../SpawnPath/SpawnFollow")
+spawn_resources = Array[ExtResource("7_7pb6i")]([ExtResource("8_xfk5q"), ExtResource("9_xfk5q")])
+
+[node name="DeathZone" parent="." unique_id=1360078976 instance=ExtResource("8_ouxo3")]
+position = Vector2(320, 512)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathZone" unique_id=1097086512]
+shape = SubResource("WorldBoundaryShape2D_1xhu4")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="DeathZone" unique_id=884480188]
+position = Vector2(-1152, -368)
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_1xhu4")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="DeathZone" unique_id=2108284348]
+position = Vector2(1216, -280)
+rotation = -1.5707964
+shape = SubResource("WorldBoundaryShape2D_1xhu4")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1800382336]
 top_level = true
@@ -65,23 +92,7 @@ offset_bottom = -92.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DeathZone" parent="." unique_id=1360078976 instance=ExtResource("8_ouxo3")]
-position = Vector2(320, 512)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathZone" unique_id=1097086512]
-shape = SubResource("WorldBoundaryShape2D_1xhu4")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="DeathZone" unique_id=884480188]
-position = Vector2(-1152, -368)
-rotation = 1.5707964
-shape = SubResource("WorldBoundaryShape2D_1xhu4")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="DeathZone" unique_id=2108284348]
-position = Vector2(1216, -280)
-rotation = -1.5707964
-shape = SubResource("WorldBoundaryShape2D_1xhu4")
-
-[connection signal="child_entered_tree" from="TurnManager" to="TurnManager" method="_on_child_entered_tree"]
-[connection signal="match_ended" from="TurnManager" to="." method="_on_turn_manager_match_ended"]
-[connection signal="turn_ended" from="TurnManager" to="." method="_on_turn_manager_turn_ended"]
+[connection signal="match_ended" from="MatchManager" to="." method="_on_match_manager_match_ended"]
+[connection signal="turn_ended" from="MatchManager" to="." method="_on_match_manager_turn_ended"]
 [connection signal="busy_ended" from="BusyManager" to="." method="_on_busy_manager_busy_ended"]
+[connection signal="picked_up" from="PickuppableManager" to="." method="_on_pickuppable_manager_picked_up"]

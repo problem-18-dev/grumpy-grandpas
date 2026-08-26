@@ -20,6 +20,7 @@ var _last_direction := RIGHT_DIRECTION
 @onready var player_hud: PlayerHUD = $PlayerHUD
 @onready var name_label: Label = $NameLabel
 @onready var hurtbox: HurtboxComponent = $HurtboxComponent
+@onready var health: HealthComponent = $HealthComponent
 
 
 func _ready() -> void:
@@ -86,6 +87,11 @@ func toggle_inventory() -> void:
 
 func open_inventory(locked_items: Array[ItemResource]) -> void:
 	player_hud.open(locked_items, _equipped_item)
+
+
+# TODO: Make healing dynamic (value on pickuppable)
+func heal() -> void:
+	health.add_health(25)
 
 
 func _flip_sprite() -> void:

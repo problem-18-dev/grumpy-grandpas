@@ -1,16 +1,18 @@
-class_name SpawnManager
+class_name SpawnGenerator
 extends Node2D
 
 const RAY_LENGTH := 1000
 
 @export_group("Properties")
 @export var spawn_path_follow: PathFollow2D
-@export var spawn_attempts := 200
+@export_range(16, 200) var spawn_attempts := 200
 
 var _spawn_points: Array[Dictionary]
 
 
 func generate_spawn_points() -> Array[Dictionary]:
+	assert(spawn_path_follow, "No path follow provided.")
+
 	var space_state := get_world_2d().direct_space_state
 
 	for attempt in spawn_attempts:

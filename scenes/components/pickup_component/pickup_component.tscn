@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://qgyb80iok8p7"]
+
+[ext_resource type="Script" uid="uid://b3rfxl73jw333" path="res://scenes/components/pickup_component/pickup_component.gd" id="1_uf0nk"]
+
+[node name="PickupComponent" type="Area2D" unique_id=1903898418]
+collision_layer = 0
+input_pickable = false
+monitorable = false
+script = ExtResource("1_uf0nk")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -40,6 +40,10 @@ func _update_camera() -> void:
 
 	# If only one target available, follow no matter what.
 	if _targets.size() == 1:
+		if not is_instance_valid(_targets.keys()[0]):
+			_update_zoom()
+			return
+
 		var new_target: Node2D = _targets.keys()[0]
 		if new_target != follow_target:
 			follow_target = new_target

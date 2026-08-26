@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://3i8oy7ede3he"]
+
+[ext_resource type="Script" uid="uid://ccuk382ttutx7" path="res://scenes/pickuppables/pickuppable.gd" id="1_17fu7"]
+[ext_resource type="Resource" uid="uid://cigipvuxrk2eo" path="res://resources/pickuppable_resource/crate.tres" id="2_pgtal"]
+[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="3_utuim"]
+[ext_resource type="PackedScene" uid="uid://qgyb80iok8p7" path="res://scenes/components/pickup_component/pickup_component.tscn" id="4_d8i2i"]
+[ext_resource type="Theme" uid="uid://dtngddcpoh66q" path="res://gui/theme/main_theme.tres" id="5_pgtal"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0m844"]
+size = Vector2(32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1xhu4"]
+radius = 24.0
+
+[node name="Crate" type="CharacterBody2D" unique_id=411517931]
+collision_layer = 0
+collision_mask = 2
+floor_max_angle = 1.3962634
+script = ExtResource("1_17fu7")
+resource = ExtResource("2_pgtal")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=305610539]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_utuim")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1133471873]
+shape = SubResource("RectangleShape2D_0m844")
+
+[node name="PickupComponent" parent="." unique_id=1903898418 instance=ExtResource("4_d8i2i")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupComponent" unique_id=999639438]
+shape = SubResource("CircleShape2D_1xhu4")
+
+[node name="SpawnTimer" type="Timer" parent="." unique_id=362873926]
+wait_time = 3.0
+one_shot = true
+
+[node name="Label" type="Label" parent="." unique_id=1733715552]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -9.0
+offset_right = 20.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_pgtal")
+theme_type_variation = &"PlayerNameLabel"
+theme_override_font_sizes/font_size = 4
+text = "Crate"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="picked_up" from="PickupComponent" to="." method="_on_pickup_component_picked_up"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

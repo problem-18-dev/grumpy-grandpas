@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PickuppableResource" format=3 uid="uid://cigipvuxrk2eo"]
+
+[ext_resource type="Script" uid="uid://djft4707qktxi" path="res://resources/pickuppable_resource/pickuppable_resource.gd" id="1_pqhft"]
+[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="2_fr2wx"]
+
+[resource]
+script = ExtResource("1_pqhft")
+name = "Crate"
+texture = ExtResource("2_fr2wx")
+metadata/_custom_type_script = "uid://djft4707qktxi"

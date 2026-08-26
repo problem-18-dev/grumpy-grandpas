@@ -30,18 +30,15 @@ func close() -> void:
 
 func _update_locked_items(new_locked_items: Array[ItemResource]) -> void:
 	if new_locked_items.is_empty():
-		for button in _item_buttons.values():
-			_unlock_button(button)
+		_unlock_all()
 		return
 
 	for item: ItemResource in _item_buttons.keys():
-		var button := _item_buttons[item]
-
 		if not new_locked_items.has(item):
-			_unlock_button(button)
+			_unlock_button(item)
 			continue
 
-		_lock_button(button)
+		_lock_button(item)
 
 
 func _spawn_weapon_buttons() -> void:
@@ -72,14 +69,22 @@ func _disable_equipped_item_button(equipped_item: ItemResource) -> void:
 	_item_buttons[equipped_item].disabled = true
 
 
-func _unlock_button(button: Button) -> void:
+func _unlock_all() -> void:
+	for item in _item_buttons.keys():
+		_unlock_button(item)
+
+
+func _unlock_button(item: ItemResource) -> void:
+	var button := _item_buttons[item]
 	button.disabled = false
+	button.text = item.name
 
 
 ## TODO: Implement special locked state
-func _lock_button(button: Button) -> void:
+func _lock_button(item: ItemResource) -> void:
+	var button := _item_buttons[item]
 	button.disabled = true
-	button.text = button.text + " (locked)"
+	button.text = item.name + " (locked)"
 
 
 func _on_button_pressed(item: ItemResource) -> void:
