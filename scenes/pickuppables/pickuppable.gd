@@ -29,7 +29,9 @@ func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 
-	velocity.y += get_gravity().y * delta
+	if not is_on_floor():
+		velocity.y += get_gravity().y * delta
+
 	move_and_slide()
 
 
@@ -38,7 +40,7 @@ func setup(new_resource: PickuppableResource) -> void:
 
 
 func spawn(spawn_position: Vector2) -> void:
-	EventSystem.camera.request_follow.emit(self, GameCamera.Priority.HIGH, GameCamera.Zoom.NEAR)
+	EventSystem.camera.request_follow.emit(self, GameCamera.Priority.MID, GameCamera.Zoom.NEAR)
 	spawn_timer.start()
 
 	var shape: RectangleShape2D = collision_shape.shape

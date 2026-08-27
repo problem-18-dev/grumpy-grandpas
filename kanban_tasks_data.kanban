@@ -11,14 +11,12 @@
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
 			"tasks": [
-				"9500c87d-d388-4493-bc4c-3c88e5816da9",
-				"fb2bb30a-987e-41e0-8f7f-1fb6367d0f9d",
-				"f3161987-5907-425b-98a9-d52d7f41bff4",
-				"15fc6cf1-914b-4f5a-bde3-0d38139c66a5",
+				"2c2bd4e1-f866-4701-ab48-c4516839e8dd",
 				"ba1e0c1e-3604-45e0-9027-60476ffe97b2",
 				"71c0fc7c-366d-42bc-a8de-1fc50d936357",
-				"2c2bd4e1-f866-4701-ab48-c4516839e8dd",
-				"52969ca5-8f03-4501-a318-b2bc0ea11e38"
+				"52969ca5-8f03-4501-a318-b2bc0ea11e38",
+				"0e178333-7561-4505-a3bf-84b6535ba514",
+				"a010f024-f396-4744-b892-d0f87bb8453a"
 			]
 		},
 		{
@@ -33,7 +31,12 @@
 				"093fd4eb-0925-4110-b4f0-e7123d22f5d3",
 				"3ece640c-c1db-4d71-9230-6cada86ffa19",
 				"d82f9c2e-2210-4268-8e56-e5160622d775",
+				"fd658690-f9be-40be-a833-ded5a72ec2de",
+				"15fc6cf1-914b-4f5a-bde3-0d38139c66a5",
+				"9500c87d-d388-4493-bc4c-3c88e5816da9",
 				"1375e5b2-0583-465e-8165-4e2941988567",
+				"f3161987-5907-425b-98a9-d52d7f41bff4",
+				"fb2bb30a-987e-41e0-8f7f-1fb6367d0f9d",
 				"6a54daf8-a9e0-48d6-a8fb-addde2535cc9",
 				"5b49fd0c-0333-43d4-8b34-972f5db4e18d",
 				"1021925b-870c-41b4-9db2-6ac202acebce",
@@ -362,6 +365,27 @@
 		{
 			"uuid": "2c2bd4e1-f866-4701-ab48-c4516839e8dd",
 			"title": "[Feat] Add jetpack timer & fuel",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "0e178333-7561-4505-a3bf-84b6535ba514",
+			"title": "[Bug] Sometimes two players are activated",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "a010f024-f396-4744-b892-d0f87bb8453a",
+			"title": "[Bug] Camera doesn't always properly switch",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "fd658690-f9be-40be-a833-ded5a72ec2de",
+			"title": "[Bug] Pickuppable slides down slopes",
 			"description": "",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
