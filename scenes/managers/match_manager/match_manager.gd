@@ -1,8 +1,7 @@
 class_name MatchManager
 extends Node2D
 
-signal turn_started(player: Player)
-signal turn_ended
+signal turn_finished
 signal match_ended(winner: TeamResource)
 
 @export var players_manager: PlayersManager
@@ -14,11 +13,13 @@ func initiate_match(spawn_points: Array[Dictionary]) -> void:
 
 
 func next_turn() -> void:
-	await players_manager.kill_marked_players()
-	turn_ended.emit()
-
 	players_manager.next_team()
 	_start_turn()
+
+
+func finish_turn() -> void:
+	await players_manager.kill_marked_players()
+	turn_finished.emit()
 
 
 func unlock_item(by: Player, type: PickuppableResource.Type) -> void:
@@ -39,8 +40,7 @@ func _start_match() -> void:
 
 func _start_turn() -> void:
 	if players_manager.teams.size() > 1:
-		var active_player := players_manager.activate_player()
-		turn_started.emit(active_player)
+		players_manager.activate_player()
 		return
 
 	var winner := players_manager.get_winner()

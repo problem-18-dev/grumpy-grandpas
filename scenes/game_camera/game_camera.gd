@@ -46,8 +46,7 @@ func _update_camera() -> void:
 
 		var new_target: Node2D = _targets.keys()[0]
 		if new_target != follow_target:
-			follow_target = new_target
-			_log()
+			_change_target(new_target)
 
 		_update_zoom()
 		return
@@ -64,8 +63,7 @@ func _update_camera() -> void:
 			highest_priority_target = next_target
 
 	if highest_priority_target != follow_target:
-		follow_target = highest_priority_target
-		_log()
+		_change_target(highest_priority_target)
 
 	_update_zoom()
 
@@ -90,6 +88,12 @@ func _adjust_zoom(new_zoom: Zoom) -> void:
 
 	_zoom_tween = create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	_zoom_tween.tween_property(self, "zoom", Vector2.ONE * ZOOM[new_zoom], ZOOM_TWEEN_DURATION)
+
+
+func _change_target(new_target: Node2D) -> void:
+	follow_target = new_target
+	_start_stall()
+	_log()
 
 
 func _priority_of(target: Node2D) -> Priority:

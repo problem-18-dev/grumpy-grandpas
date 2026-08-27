@@ -40,7 +40,7 @@ func setup(new_resource: PickuppableResource) -> void:
 
 
 func spawn(spawn_position: Vector2) -> void:
-	EventSystem.camera.request_follow.emit(self, GameCamera.Priority.MID, GameCamera.Zoom.NEAR)
+	EventSystem.camera.request_follow.emit(self, GameCamera.Priority.HIGH, GameCamera.Zoom.NEAR)
 	spawn_timer.start()
 
 	var shape: RectangleShape2D = collision_shape.shape

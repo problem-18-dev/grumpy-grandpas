@@ -16,13 +16,14 @@ func _spawn_players() -> void:
 	match_manager.initiate_match(spawn_points)
 
 
+func _end_turn() -> void:
+	match_manager.finish_turn()
+
+
 func _next_turn() -> void:
+	busy_manager.reset()
 	await pickuppable_manager.attempt_spawn()
 	match_manager.next_turn()
-
-
-func _on_busy_manager_busy_ended() -> void:
-	_next_turn()
 
 
 func _on_pickuppable_manager_picked_up(by: Player, type: PickuppableResource.Type) -> void:
@@ -37,5 +38,9 @@ func _on_match_manager_match_ended(winner: TeamResource) -> void:
 	announcement_label.text = "It's a tie!"
 
 
-func _on_match_manager_turn_ended() -> void:
-	busy_manager.reset()
+func _on_match_manager_turn_finished() -> void:
+	_next_turn()
+
+
+func _on_busy_manager_busy_ended() -> void:
+	_end_turn()

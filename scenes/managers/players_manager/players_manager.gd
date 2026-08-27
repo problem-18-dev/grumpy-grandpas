@@ -25,11 +25,11 @@ func spawn_players(spawn_points: Array[Dictionary]) -> void:
 			get_or_create_team(team).add_player(player)
 
 
-func activate_player() -> Player:
+func activate_player() -> void:
 	active_team = current_team()
 	active_player = active_team.current_player()
 	active_player.activate()
-	return active_player
+	Debug.log("Activating %s" % active_player.name)
 
 
 func heal_player(player_to_heal: Player) -> void:
@@ -51,7 +51,7 @@ func kill_marked_players() -> void:
 
 
 func next_team() -> void:
-	if current_team() != active_team:
+	if active_team != current_team():
 		return
 
 	active_team.next_player(active_player)
@@ -63,9 +63,8 @@ func current_team() -> TeamResource:
 
 
 func get_or_create_team(team_resource: TeamResource) -> TeamResource:
-	for team in teams:
-		if team == team_resource:
-			return team
+	if teams.has(team_resource):
+		return team_resource
 
 	teams.append(team_resource)
 	return team_resource

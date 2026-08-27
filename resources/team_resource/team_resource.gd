@@ -25,8 +25,10 @@ func kill_player(player: Player) -> void:
 
 
 func next_player(after: Player) -> void:
-	if _active_players.front() == after:
-		_active_players.push_back(_active_players.pop_front())
+	if _active_players.front() != after:
+		return
+
+	_active_players.push_back(_active_players.pop_front())
 
 
 func has_lost() -> bool:

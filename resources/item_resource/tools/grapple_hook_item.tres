@@ -8,6 +8,5 @@
 script = ExtResource("1_q0q3h")
 name = "Grapple Hook"
 icon = ExtResource("2_jjhyi")
-is_aimable = true
 aimable_resource = ExtResource("1_3isqd")
 metadata/_custom_type_script = "uid://cp1j8tubsspi2"

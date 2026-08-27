@@ -93,6 +93,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [connection signal="match_ended" from="MatchManager" to="." method="_on_match_manager_match_ended"]
-[connection signal="turn_ended" from="MatchManager" to="." method="_on_match_manager_turn_ended"]
+[connection signal="turn_finished" from="MatchManager" to="." method="_on_match_manager_turn_finished"]
 [connection signal="busy_ended" from="BusyManager" to="." method="_on_busy_manager_busy_ended"]
 [connection signal="picked_up" from="PickuppableManager" to="." method="_on_pickuppable_manager_picked_up"]

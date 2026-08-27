@@ -15,7 +15,7 @@ radius = 24.0
 [node name="Crate" type="CharacterBody2D" unique_id=411517931]
 collision_layer = 0
 collision_mask = 2
-floor_max_angle = 1.3962634
+floor_max_angle = 80.0
 script = ExtResource("1_17fu7")
 resource = ExtResource("2_pgtal")
 
