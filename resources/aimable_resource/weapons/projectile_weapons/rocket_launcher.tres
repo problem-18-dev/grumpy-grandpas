@@ -9,7 +9,6 @@ script = ExtResource("2_crfpw")
 min_force = 250.0
 charge_time = 1.75
 projectile_resource = ExtResource("1_1n6u7")
-name = "Rocket Launcher"
 scene = "uid://cupft37g0c1yp"
 texture = ExtResource("3_2bg5f")
 muzzle_offset = Vector2(24, 0)

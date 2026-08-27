@@ -12,6 +12,8 @@ const FLOOR_MAX_ANGLE := 80
 
 var _equipped_item: ItemResource = CATALOGUE.default_weapon
 var _last_direction := RIGHT_DIRECTION
+var _ammo_remaining := 0
+var _inventory_locked := false
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
@@ -25,6 +27,7 @@ var _last_direction := RIGHT_DIRECTION
 
 func _ready() -> void:
 	player_hud.close()
+	_set_ammo(CATALOGUE.default_weapon.aimable_resource.ammo)
 
 
 func _physics_process(_delta: float) -> void:
@@ -78,7 +81,7 @@ func setup(team: TeamResource, player: PlayerResource) -> void:
 #endregion
 
 func toggle_inventory() -> void:
-	if player_hud.visible:
+	if player_hud.visible or _inventory_locked:
 		player_hud.close()
 		return
 
@@ -101,6 +104,10 @@ func _flip_sprite() -> void:
 	sprite.flip_h = velocity.x < 0
 
 
+func _set_ammo(amount: int) -> void:
+	_ammo_remaining = amount
+
+
 func _on_hurtbox_component_knockbacked(force: float, angle: float) -> void:
 	state_machine.transition_to_state(PlayerState.KNOCKBACK, { "force": force, "angle": angle })
 
@@ -116,6 +123,7 @@ func _on_player_hud_item_selected(item: ItemResource) -> void:
 
 	if item.aimable_resource:
 		reequip_aimable()
+		_set_ammo(item.aimable_resource.ammo)
 
 	if item.set_player_state_on_equip:
 		new_player_state = item.player_state
@@ -123,10 +131,19 @@ func _on_player_hud_item_selected(item: ItemResource) -> void:
 	state_machine.transition_to_state(new_player_state)
 
 
-# TODO: Decrease ammo if more than 1 remaining, for now just disable player
-func _on_aimable_holder_aimable_fired() -> void:
-	deactivate()
-
-
 func _on_aimable_holder_aimable_used(player_state: String, state_data: Dictionary) -> void:
 	state_machine.transition_to_state(player_state, state_data)
+
+
+# TODO: Weapon holder being busy would work better here, more control over firing collisions
+func _on_aimable_holder_aimable_fired() -> void:
+	_ammo_remaining -= 1
+	Debug.log("Ammo remaining: %s" % _ammo_remaining)
+
+	if _ammo_remaining > 0:
+		EventSystem.busy.busy_started.emit(self)
+		_inventory_locked = true
+		return
+
+	EventSystem.busy.busy_finished.emit(self)
+	deactivate()

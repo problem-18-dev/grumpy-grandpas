@@ -9,4 +9,5 @@ scene = "uid://dhlbbn1yfaxa0"
 texture = ExtResource("2_iek8l")
 muzzle_offset = Vector2(19, 0)
 crosshair_distance = 150.0
+uses_ammo = false
 metadata/_custom_type_script = "uid://b5msh0ehbjbla"

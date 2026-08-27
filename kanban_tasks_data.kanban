@@ -11,6 +11,7 @@
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
 			"tasks": [
+				"577303c7-5a7d-4726-8073-a8a9d924e8af",
 				"2c2bd4e1-f866-4701-ab48-c4516839e8dd",
 				"71c0fc7c-366d-42bc-a8de-1fc50d936357",
 				"0e178333-7561-4505-a3bf-84b6535ba514",
@@ -22,7 +23,9 @@
 		{
 			"uuid": "40497cc6-13fd-4ee0-8c8a-501f1679fe85",
 			"title": "Doing",
-			"tasks": []
+			"tasks": [
+				"b46728ea-8587-4e8b-9176-9ed8ea0c82a6"
+			]
 		},
 		{
 			"uuid": "a3265bdc-f5e5-4b73-85c5-a4a50d7111f0",
@@ -387,6 +390,20 @@
 			"uuid": "fd658690-f9be-40be-a833-ded5a72ec2de",
 			"title": "[Bug] Pickuppable slides down slopes",
 			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "b46728ea-8587-4e8b-9176-9ed8ea0c82a6",
+			"title": "[Feat] Weapon ammo",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "577303c7-5a7d-4726-8073-a8a9d924e8af",
+			"title": "[Feat] Improve timings between turns",
+			"description": "Current times to wait between turns are inconsistent.\nEvery turn end should last at least 3 seconds to let the player process, even if nothing happened.",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
 		}

@@ -22,5 +22,6 @@ damage = ExtResource("1_bsdyn")
 knockback = SubResource("Resource_urvlt")
 scene = "uid://cc45g8xgg4lyo"
 texture = ExtResource("4_iomhp")
+ammo = 2
 crosshair_distance = 75.0
 metadata/_custom_type_script = "uid://c8teyaijtqeex"

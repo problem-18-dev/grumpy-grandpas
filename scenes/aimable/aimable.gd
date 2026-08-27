@@ -2,9 +2,9 @@
 class_name Aimable
 extends Node2D
 
-## Emits when the weapon or tool should use ammo
+## Emits when the aimable should use ammo
 signal fired
-## Emits when the weapon or tool has been used and should adjust player state
+## Emits when the aimable has been used and should adjust player state
 signal used(player_state: String, state_data: Dictionary)
 
 @export var aimable_resource: AimableResource
