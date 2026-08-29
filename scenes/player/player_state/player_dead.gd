@@ -9,7 +9,6 @@ const PLAYER_EXPLOSION = preload("uid://d0al511wp4v17")
 
 
 func enter(_data := { }) -> void:
-	EventSystem.camera.request_follow.emit(player, GameCamera.Priority.HIGH, GameCamera.Zoom.NEAR)
 	_die()
 
 
@@ -50,5 +49,4 @@ func _disable_player() -> void:
 
 func _cleanup() -> void:
 	await get_tree().create_timer(post_death_timer).timeout
-	EventSystem.camera.revoke_follow.emit(player)
 	player.died.emit(player)

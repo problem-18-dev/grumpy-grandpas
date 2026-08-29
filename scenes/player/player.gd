@@ -97,6 +97,11 @@ func heal() -> void:
 	health.add_health(25)
 
 
+func _reset() -> void:
+	_ammo_remaining = 0
+	_inventory_locked = false
+
+
 func _flip_sprite() -> void:
 	if is_zero_approx(velocity.x):
 		return
@@ -145,5 +150,6 @@ func _on_aimable_holder_aimable_fired() -> void:
 		_inventory_locked = true
 		return
 
-	EventSystem.busy.busy_finished.emit(self)
+	_reset()
 	deactivate()
+	EventSystem.busy.busy_finished.emit(self)

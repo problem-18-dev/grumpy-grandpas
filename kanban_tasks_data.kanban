@@ -11,21 +11,22 @@
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
 			"tasks": [
-				"577303c7-5a7d-4726-8073-a8a9d924e8af",
+				"f6e1cbe8-7ea2-47c6-a2d4-c7f96e1f6d48",
+				"5488e8f4-13ab-4b5b-a3b4-e3f6ef15302f",
 				"2c2bd4e1-f866-4701-ab48-c4516839e8dd",
 				"71c0fc7c-366d-42bc-a8de-1fc50d936357",
+				"6a4ae222-d31a-4f6a-9ef4-81460922f2f0",
+				"577303c7-5a7d-4726-8073-a8a9d924e8af",
+				"68bbfbb8-2866-43e2-b4b0-213b26940b49",
 				"0e178333-7561-4505-a3bf-84b6535ba514",
 				"a010f024-f396-4744-b892-d0f87bb8453a",
-				"52969ca5-8f03-4501-a318-b2bc0ea11e38",
 				"ba1e0c1e-3604-45e0-9027-60476ffe97b2"
 			]
 		},
 		{
 			"uuid": "40497cc6-13fd-4ee0-8c8a-501f1679fe85",
 			"title": "Doing",
-			"tasks": [
-				"b46728ea-8587-4e8b-9176-9ed8ea0c82a6"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "a3265bdc-f5e5-4b73-85c5-a4a50d7111f0",
@@ -33,6 +34,8 @@
 			"tasks": [
 				"093fd4eb-0925-4110-b4f0-e7123d22f5d3",
 				"3ece640c-c1db-4d71-9230-6cada86ffa19",
+				"61377157-01c9-4b96-a77f-9d720aae390e",
+				"b46728ea-8587-4e8b-9176-9ed8ea0c82a6",
 				"d82f9c2e-2210-4268-8e56-e5160622d775",
 				"fd658690-f9be-40be-a833-ded5a72ec2de",
 				"15fc6cf1-914b-4f5a-bde3-0d38139c66a5",
@@ -359,29 +362,22 @@
 			"steps": []
 		},
 		{
-			"uuid": "52969ca5-8f03-4501-a318-b2bc0ea11e38",
-			"title": "[Bug] Turn doesn't end if nothing busy happened",
-			"description": "",
-			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
-			"steps": []
-		},
-		{
 			"uuid": "2c2bd4e1-f866-4701-ab48-c4516839e8dd",
-			"title": "[Feat] Add jetpack timer & fuel",
-			"description": "",
+			"title": "[Feat] Add jetpack fuel",
+			"description": "A jetpack should have a limited amount of use. ",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
 		},
 		{
 			"uuid": "0e178333-7561-4505-a3bf-84b6535ba514",
-			"title": "[Bug] Sometimes two players are activated",
+			"title": "[Bug] Sometimes two players are activated (?)",
 			"description": "",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
 		},
 		{
 			"uuid": "a010f024-f396-4744-b892-d0f87bb8453a",
-			"title": "[Bug] Camera doesn't always properly switch",
+			"title": "[Bug] Camera doesn't always properly switch (?)",
 			"description": "",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
@@ -404,6 +400,41 @@
 			"uuid": "577303c7-5a7d-4726-8073-a8a9d924e8af",
 			"title": "[Feat] Improve timings between turns",
 			"description": "Current times to wait between turns are inconsistent.\nEvery turn end should last at least 3 seconds to let the player process, even if nothing happened.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "f6e1cbe8-7ea2-47c6-a2d4-c7f96e1f6d48",
+			"title": "[Feat] Damage of players should happen after business ends",
+			"description": "Players should accumulate damage they take in the turn. This damage should then be applied only after business has finished, and before the next turn starts.\n\nIf a player takes enough damage to be marked for death, the player should die immediately.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "5488e8f4-13ab-4b5b-a3b4-e3f6ef15302f",
+			"title": "[Feat] Add turn timer",
+			"description": "A single turn should be maximum of 40 seconds. When the timer runs out, the active player is deactivated, and turn finishes.\n",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "61377157-01c9-4b96-a77f-9d720aae390e",
+			"title": "[Refactor] Control player camera through the player manager",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "6a4ae222-d31a-4f6a-9ef4-81460922f2f0",
+			"title": "[Feat] Improve pickuppable spawn",
+			"description": "Pickuppables should spawn a little above their intended spawn point.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "68bbfbb8-2866-43e2-b4b0-213b26940b49",
+			"title": "[Feat] Winner should be displayed",
+			"description": "When a winner is declared, the camera should shift to a random player of the winning team. Each player of that team should celebrate. After a few seconds, the game ends.",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
 		}

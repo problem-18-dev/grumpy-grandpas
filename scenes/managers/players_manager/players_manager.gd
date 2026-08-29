@@ -29,7 +29,17 @@ func activate_player() -> void:
 	active_team = current_team()
 	active_player = active_team.current_player()
 	active_player.activate()
+	EventSystem.camera.request_follow.emit(active_player, GameCamera.Priority.LOW)
 	Debug.log("Activating %s" % active_player.name)
+
+
+func deactivate_player() -> void:
+	if not is_instance_valid(active_player):
+		return
+
+	EventSystem.camera.revoke_follow.emit(active_player)
+	active_player.deactivate()
+	active_player = null
 
 
 func heal_player(player_to_heal: Player) -> void:
@@ -37,15 +47,14 @@ func heal_player(player_to_heal: Player) -> void:
 
 
 func kill_marked_players() -> void:
-	if is_instance_valid(active_player):
-		active_player.deactivate()
+	if players_marked_for_death.is_empty():
+		return
 
 	for player in players_marked_for_death:
 		if not is_instance_valid(player):
 			continue
 
-		player.die()
-		await player.died
+		await _kill_player(player)
 
 	players_marked_for_death = []
 
@@ -97,6 +106,13 @@ func get_winner() -> TeamResource:
 		return
 
 	return teams[0] if teams.size() == 1 else null
+
+
+func _kill_player(player: Player) -> void:
+	EventSystem.camera.request_follow.emit(player, GameCamera.Priority.HIGH, GameCamera.Zoom.NEAR)
+	player.die()
+	await player.died
+	EventSystem.camera.revoke_follow.emit(player)
 
 
 func _on_player_marked_for_death(player: Player) -> void:

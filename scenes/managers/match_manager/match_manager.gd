@@ -9,7 +9,7 @@ signal match_ended(winner: TeamResource)
 
 func initiate_match(spawn_points: Array[Dictionary]) -> void:
 	players_manager.spawn_players(spawn_points)
-	_start_match()
+	_start_turn()
 
 
 func next_turn() -> void:
@@ -18,6 +18,7 @@ func next_turn() -> void:
 
 
 func finish_turn() -> void:
+	players_manager.deactivate_player()
 	await players_manager.kill_marked_players()
 	turn_finished.emit()
 
@@ -32,10 +33,6 @@ func unlock_item(by: Player, type: PickuppableResource.Type) -> void:
 			players_manager.heal_player(by)
 		_:
 			push_error("Unknown pickuppable type")
-
-
-func _start_match() -> void:
-	_start_turn()
 
 
 func _start_turn() -> void:

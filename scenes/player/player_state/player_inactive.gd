@@ -2,8 +2,6 @@ extends PlayerState
 
 
 func enter(_data := { }) -> void:
-	EventSystem.camera.revoke_follow.emit(player)
-
 	player.unequip_aimable()
 	player.velocity = Vector2.ZERO
 
