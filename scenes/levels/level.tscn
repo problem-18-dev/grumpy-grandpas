@@ -23,6 +23,9 @@ point_count = 5
 
 [node name="Level" type="Node2D" unique_id=909882963]
 script = ExtResource("1_377w7")
+turn_duration = 5
+
+[node name="TurnTimer" type="Timer" parent="." unique_id=153290448]
 
 [node name="Terrain" parent="." unique_id=654413745 instance=ExtResource("4_xb4v1")]
 
@@ -92,7 +95,19 @@ offset_bottom = -92.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="TimeLabel" type="Label" parent="CanvasLayer" unique_id=2128892508]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -48.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 26.0
+grow_horizontal = 0
+
+[connection signal="timeout" from="TurnTimer" to="." method="_on_turn_timer_timeout"]
 [connection signal="match_ended" from="MatchManager" to="." method="_on_match_manager_match_ended"]
 [connection signal="turn_finished" from="MatchManager" to="." method="_on_match_manager_turn_finished"]
 [connection signal="busy_ended" from="BusyManager" to="." method="_on_busy_manager_busy_ended"]
+[connection signal="busy_started" from="BusyManager" to="." method="_on_busy_manager_busy_started"]
 [connection signal="picked_up" from="PickuppableManager" to="." method="_on_pickuppable_manager_picked_up"]

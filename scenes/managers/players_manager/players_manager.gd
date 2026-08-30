@@ -23,6 +23,7 @@ func spawn_players(spawn_points: Array[Dictionary]) -> void:
 			player.marked_for_death.connect(_on_player_marked_for_death)
 			player.damage_accumulated.connect(_on_player_damage_accumulated)
 			player.requested_catalogue.connect(_on_player_requested_catalogue)
+			player.finished.connect(deactivate_player)
 
 			get_or_create_team(team).add_player(player)
 

@@ -6,6 +6,7 @@ signal requested_catalogue(player: Player)
 signal damage_accumulated(player: Player)
 signal damage_applied
 signal died
+signal finished
 
 const CATALOGUE = preload("uid://gr6x0tlr2xog")
 const LEFT_DIRECTION := -1
@@ -84,6 +85,7 @@ func setup(team: TeamResource, player: PlayerResource) -> void:
 	name = player.name
 #endregion
 
+#region Inventory
 func toggle_inventory() -> void:
 	if player_hud.visible or _inventory_locked:
 		player_hud.close()
@@ -94,9 +96,10 @@ func toggle_inventory() -> void:
 
 func open_inventory(locked_items: Array[ItemResource]) -> void:
 	player_hud.open(locked_items, _equipped_item)
+#endregion
 
+#region Damage & Healing
 
-# TODO: Make healing dynamic (value on pickuppable)
 func heal(amount := 25) -> void:
 	health.add_health(amount)
 
@@ -106,7 +109,7 @@ func apply_damage() -> void:
 		return
 
 	health.take_health(_damage_accumulated)
-
+#endregion
 
 func _reset() -> void:
 	_ammo_remaining = 0
@@ -177,6 +180,7 @@ func _on_aimable_holder_aimable_fired() -> void:
 
 	_reset()
 	deactivate()
+	finished.emit()
 	EventSystem.busy.busy_finished.emit(self)
 
 
