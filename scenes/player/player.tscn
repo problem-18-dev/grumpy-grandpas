@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://n6aq4lhmi1g5" path="res://scenes/player/player_state/player_dead.gd" id="12_gx1jg"]
 [ext_resource type="Script" uid="uid://bea0lrgqy0cag" path="res://scenes/player/player_state/player_grapple_hook.gd" id="13_ugbui"]
 [ext_resource type="Script" uid="uid://drtsbr2w8ifar" path="res://scenes/player/player_state/player_jetpack.gd" id="14_fcs02"]
+[ext_resource type="PackedScene" uid="uid://dyfpao2c8xfpn" path="res://scenes/components/damage_indicator/damage_indicator.tscn" id="16_myrg7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1xhu4"]
 
@@ -38,8 +39,7 @@ shape = SubResource("CapsuleShape2D_1xhu4")
 
 [node name="AimableHolder" parent="." unique_id=1646053950 instance=ExtResource("3_5gtgg")]
 
-[node name="HurtboxComponent" parent="." unique_id=923971495 node_paths=PackedStringArray("health_component") instance=ExtResource("3_qek5x")]
-health_component = NodePath("../HealthComponent")
+[node name="HurtboxComponent" parent="." unique_id=923971495 instance=ExtResource("3_qek5x")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1229987194]
 shape = SubResource("CapsuleShape2D_5gtgg")
@@ -83,18 +83,34 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -9.5
-offset_top = -32.0
-offset_right = 9.5
-offset_bottom = -23.0
+offset_left = -5.0
+offset_top = -24.0
+offset_right = 5.0
+offset_bottom = -19.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_type_variation = &"PlayerNameLabel"
 text = "Test"
 
+[node name="DamageIndicator" parent="." unique_id=626911322 instance=ExtResource("16_myrg7")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+float_height = 16.0
+
 [connection signal="aimable_fired" from="AimableHolder" to="." method="_on_aimable_holder_aimable_fired"]
 [connection signal="aimable_used" from="AimableHolder" to="." method="_on_aimable_holder_aimable_used"]
+[connection signal="hurt" from="HurtboxComponent" to="." method="_on_hurtbox_component_hurt"]
 [connection signal="knockbacked" from="HurtboxComponent" to="." method="_on_hurtbox_component_knockbacked"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+[connection signal="health_added" from="HealthComponent" to="." method="_on_health_component_health_added"]
+[connection signal="health_taken" from="HealthComponent" to="." method="_on_health_component_health_taken"]
 [connection signal="item_selected" from="PlayerHUD" to="." method="_on_player_hud_item_selected"]
+[connection signal="finished" from="DamageIndicator" to="." method="_on_damage_indicator_finished"]

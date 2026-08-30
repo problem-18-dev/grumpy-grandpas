@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dyfpao2c8xfpn"]
+
+[ext_resource type="Script" uid="uid://cqi1n3gbtpk3j" path="res://scenes/components/damage_indicator/damage_indicator.gd" id="1_8fcqg"]
+
+[node name="DamageIndicator" type="Control" unique_id=626911322]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+script = ExtResource("1_8fcqg")

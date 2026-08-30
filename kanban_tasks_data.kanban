@@ -11,15 +11,13 @@
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
 			"tasks": [
-				"f6e1cbe8-7ea2-47c6-a2d4-c7f96e1f6d48",
 				"5488e8f4-13ab-4b5b-a3b4-e3f6ef15302f",
-				"2c2bd4e1-f866-4701-ab48-c4516839e8dd",
-				"71c0fc7c-366d-42bc-a8de-1fc50d936357",
-				"6a4ae222-d31a-4f6a-9ef4-81460922f2f0",
+				"abd5c689-687e-4b51-afbf-4489f6fe2d7b",
 				"577303c7-5a7d-4726-8073-a8a9d924e8af",
 				"68bbfbb8-2866-43e2-b4b0-213b26940b49",
-				"0e178333-7561-4505-a3bf-84b6535ba514",
-				"a010f024-f396-4744-b892-d0f87bb8453a",
+				"6a4ae222-d31a-4f6a-9ef4-81460922f2f0",
+				"2c2bd4e1-f866-4701-ab48-c4516839e8dd",
+				"71c0fc7c-366d-42bc-a8de-1fc50d936357",
 				"ba1e0c1e-3604-45e0-9027-60476ffe97b2"
 			]
 		},
@@ -37,6 +35,7 @@
 				"61377157-01c9-4b96-a77f-9d720aae390e",
 				"b46728ea-8587-4e8b-9176-9ed8ea0c82a6",
 				"d82f9c2e-2210-4268-8e56-e5160622d775",
+				"f6e1cbe8-7ea2-47c6-a2d4-c7f96e1f6d48",
 				"fd658690-f9be-40be-a833-ded5a72ec2de",
 				"15fc6cf1-914b-4f5a-bde3-0d38139c66a5",
 				"9500c87d-d388-4493-bc4c-3c88e5816da9",
@@ -369,20 +368,6 @@
 			"steps": []
 		},
 		{
-			"uuid": "0e178333-7561-4505-a3bf-84b6535ba514",
-			"title": "[Bug] Sometimes two players are activated (?)",
-			"description": "",
-			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
-			"steps": []
-		},
-		{
-			"uuid": "a010f024-f396-4744-b892-d0f87bb8453a",
-			"title": "[Bug] Camera doesn't always properly switch (?)",
-			"description": "",
-			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
-			"steps": []
-		},
-		{
 			"uuid": "fd658690-f9be-40be-a833-ded5a72ec2de",
 			"title": "[Bug] Pickuppable slides down slopes",
 			"description": "",
@@ -435,6 +420,13 @@
 			"uuid": "68bbfbb8-2866-43e2-b4b0-213b26940b49",
 			"title": "[Feat] Winner should be displayed",
 			"description": "When a winner is declared, the camera should shift to a random player of the winning team. Each player of that team should celebrate. After a few seconds, the game ends.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "abd5c689-687e-4b51-afbf-4489f6fe2d7b",
+			"title": "[Feat] Fall damage",
+			"description": "A player should take damage (and thus end turn) if they fall at a too high velocity.\n",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
 		}

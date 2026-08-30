@@ -12,6 +12,10 @@ extends Resource
 var _active_players: Array[Player]
 
 
+func get_players() -> Array[Player]:
+	return _active_players
+
+
 func add_player(player: Player) -> void:
 	_active_players.append(player)
 

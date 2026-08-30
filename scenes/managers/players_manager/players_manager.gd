@@ -7,6 +7,7 @@ var teams: Array[TeamResource] = []
 var active_team: TeamResource
 var active_player: Player
 var players_marked_for_death: Array[Player]
+var players_to_damage: Array[Player]
 
 
 func spawn_players(spawn_points: Array[Dictionary]) -> void:
@@ -20,6 +21,7 @@ func spawn_players(spawn_points: Array[Dictionary]) -> void:
 			player.setup(team, player_resource)
 
 			player.marked_for_death.connect(_on_player_marked_for_death)
+			player.damage_accumulated.connect(_on_player_damage_accumulated)
 			player.requested_catalogue.connect(_on_player_requested_catalogue)
 
 			get_or_create_team(team).add_player(player)
@@ -57,6 +59,16 @@ func kill_marked_players() -> void:
 		await _kill_player(player)
 
 	players_marked_for_death = []
+
+
+func damage_players() -> void:
+	if players_to_damage.is_empty():
+		return
+
+	for player in players_to_damage:
+		await _damage_player(player)
+
+	players_to_damage = []
 
 
 func next_team() -> void:
@@ -115,6 +127,13 @@ func _kill_player(player: Player) -> void:
 	EventSystem.camera.revoke_follow.emit(player)
 
 
+func _damage_player(player: Player) -> void:
+	EventSystem.camera.request_follow.emit(player, GameCamera.Priority.HIGH, GameCamera.Zoom.NEAR)
+	player.apply_damage()
+	await player.damage_applied
+	EventSystem.camera.revoke_follow.emit(player)
+
+
 func _on_player_marked_for_death(player: Player) -> void:
 	if player == active_player:
 		active_player = null
@@ -127,6 +146,13 @@ func _on_player_marked_for_death(player: Player) -> void:
 		if team.has_lost():
 			teams.erase(team)
 			break
+
+
+func _on_player_damage_accumulated(player: Player) -> void:
+	if players_to_damage.has(player):
+		return
+
+	players_to_damage.append(player)
 
 
 func _on_player_requested_catalogue(player: Player) -> void:

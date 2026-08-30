@@ -9,8 +9,6 @@ const HURTBOX_COLOR := Color(0.0, 1.0, 0.0, 0.392)
 
 @export_group("Properties")
 @export var enabled := true
-@export_group("Health")
-@export var health_component: HealthComponent
 
 
 func _ready() -> void:
@@ -28,9 +26,6 @@ func hit(amount: int) -> void:
 
 	Debug.log("%s Hit by %s" % [owner.name, amount])
 	hurt.emit(amount)
-
-	if health_component:
-		health_component.take_health(amount)
 
 
 func knockback(knockback_force: float, knockback_angle: float) -> void:

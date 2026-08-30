@@ -3,7 +3,9 @@ extends CharacterBody2D
 
 signal marked_for_death(player: Player)
 signal requested_catalogue(player: Player)
-signal died(player: Player)
+signal damage_accumulated(player: Player)
+signal damage_applied
+signal died
 
 const CATALOGUE = preload("uid://gr6x0tlr2xog")
 const LEFT_DIRECTION := -1
@@ -11,9 +13,10 @@ const RIGHT_DIRECTION := 1
 const FLOOR_MAX_ANGLE := 80
 
 var _equipped_item: ItemResource = CATALOGUE.default_weapon
-var _last_direction := RIGHT_DIRECTION
-var _ammo_remaining := 0
 var _inventory_locked := false
+var _ammo_remaining := 0
+var _damage_accumulated := 0
+var _last_direction := RIGHT_DIRECTION
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
@@ -23,6 +26,7 @@ var _inventory_locked := false
 @onready var name_label: Label = $NameLabel
 @onready var hurtbox: HurtboxComponent = $HurtboxComponent
 @onready var health: HealthComponent = $HealthComponent
+@onready var damage_indicator: DamageIndicator = $DamageIndicator
 
 
 func _ready() -> void:
@@ -93,12 +97,20 @@ func open_inventory(locked_items: Array[ItemResource]) -> void:
 
 
 # TODO: Make healing dynamic (value on pickuppable)
-func heal() -> void:
-	health.add_health(25)
+func heal(amount := 25) -> void:
+	health.add_health(amount)
+
+
+func apply_damage() -> void:
+	if _damage_accumulated <= 0:
+		return
+
+	health.take_health(_damage_accumulated)
 
 
 func _reset() -> void:
 	_ammo_remaining = 0
+	_damage_accumulated = 0
 	_inventory_locked = false
 
 
@@ -115,6 +127,19 @@ func _set_ammo(amount: int) -> void:
 
 func _on_hurtbox_component_knockbacked(force: float, angle: float) -> void:
 	state_machine.transition_to_state(PlayerState.KNOCKBACK, { "force": force, "angle": angle })
+
+
+func _on_hurtbox_component_hurt(amount: int) -> void:
+	_damage_accumulated += amount
+	damage_accumulated.emit(self)
+
+
+func _on_health_component_health_added(amount: int) -> void:
+	damage_indicator.display(amount)
+
+
+func _on_health_component_health_taken(amount: int) -> void:
+	damage_indicator.display(-amount)
 
 
 func _on_health_component_died() -> void:
@@ -153,3 +178,7 @@ func _on_aimable_holder_aimable_fired() -> void:
 	_reset()
 	deactivate()
 	EventSystem.busy.busy_finished.emit(self)
+
+
+func _on_damage_indicator_finished() -> void:
+	damage_applied.emit(self)

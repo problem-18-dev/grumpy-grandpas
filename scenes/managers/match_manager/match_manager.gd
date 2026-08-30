@@ -19,6 +19,7 @@ func next_turn() -> void:
 
 func finish_turn() -> void:
 	players_manager.deactivate_player()
+	await players_manager.damage_players()
 	await players_manager.kill_marked_players()
 	turn_finished.emit()
 

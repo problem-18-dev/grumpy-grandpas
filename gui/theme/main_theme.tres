@@ -5,6 +5,10 @@
 [resource]
 default_font = ExtResource("1_uqwjj")
 default_font_size = 16
+DamageIndicatorLabel/base_type = &"Label"
+DamageIndicatorLabel/colors/font_color = Color(1, 1, 1, 1)
+DamageIndicatorLabel/constants/outline_size = 4
+DamageIndicatorLabel/font_sizes/font_size = 6
 DebugLabel/base_type = &"Label"
 DebugLabel/font_sizes/font_size = 8
 InventoryItemButton/base_type = &"Button"
