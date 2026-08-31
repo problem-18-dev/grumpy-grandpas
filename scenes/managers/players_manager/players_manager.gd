@@ -1,6 +1,8 @@
 class_name PlayersManager
 extends Node2D
 
+signal player_finished
+
 const PLAYER := preload("uid://bmag23mf230r3")
 
 var teams: Array[TeamResource] = []
@@ -11,6 +13,9 @@ var players_to_damage: Array[Player]
 
 
 func spawn_players(spawn_points: Array[Dictionary]) -> void:
+	assert(spawn_points.size() > 0, "No spawn points provided.")
+	assert(GameManager.get_teams().size() > 0, "No teams to spawn.")
+
 	for team in GameManager.get_teams():
 		for player_resource in team.player_resources:
 			var player: Player = PLAYER.instantiate()
@@ -25,15 +30,14 @@ func spawn_players(spawn_points: Array[Dictionary]) -> void:
 			player.requested_catalogue.connect(_on_player_requested_catalogue)
 			player.finished.connect(deactivate_player)
 
-			get_or_create_team(team).add_player(player)
+			_get_or_create_team(team).add_player(player)
 
 
 func activate_player() -> void:
-	active_team = current_team()
+	active_team = _current_team()
 	active_player = active_team.current_player()
 	active_player.activate()
 	EventSystem.camera.request_follow.emit(active_player, GameCamera.Priority.LOW)
-	Debug.log("Activating %s" % active_player.name)
 
 
 func deactivate_player() -> void:
@@ -43,10 +47,7 @@ func deactivate_player() -> void:
 	EventSystem.camera.revoke_follow.emit(active_player)
 	active_player.deactivate()
 	active_player = null
-
-
-func heal_player(player_to_heal: Player) -> void:
-	player_to_heal.heal()
+	player_finished.emit()
 
 
 func kill_marked_players() -> void:
@@ -73,27 +74,35 @@ func damage_players() -> void:
 
 
 func next_team() -> void:
-	if active_team != current_team():
+	if active_team != _current_team():
 		return
 
 	active_team.next_player(active_player)
 	teams.push_back(teams.pop_front())
 
 
-func current_team() -> TeamResource:
-	return teams.front()
+func get_winner() -> TeamResource:
+	if teams.size() > 1:
+		push_warning("Winner requested while more than 1 team remaining.")
+		return
+
+	return teams[0] if teams.size() == 1 else null
 
 
-func get_or_create_team(team_resource: TeamResource) -> TeamResource:
-	if teams.has(team_resource):
-		return team_resource
+func unlock_item(by: Player, type: PickuppableResource.Type) -> void:
+	match type:
+		PickuppableResource.Type.WEAPON:
+			_unlock_weapon()
+		PickuppableResource.Type.TOOL:
+			_unlock_tool()
+		PickuppableResource.Type.HEALTH:
+			_heal_player(by)
+		_:
+			push_error("Unknown pickuppable type")
 
-	teams.append(team_resource)
-	return team_resource
 
-
-func unlock_random(category_items: Array) -> void:
-	var team := current_team()
+func _unlock_random(category_items: Array) -> void:
+	var team := _current_team()
 	var locked := team.get_locked_items().filter(
 		func(item: ItemResource):
 			return category_items.has(item),
@@ -105,20 +114,28 @@ func unlock_random(category_items: Array) -> void:
 	team.unlock_item(locked.pick_random())
 
 
-func unlock_weapon() -> void:
-	unlock_random(GameManager.get_catalogue().weapons)
+func _unlock_weapon() -> void:
+	_unlock_random(GameManager.get_catalogue().weapons)
 
 
-func unlock_tool() -> void:
-	unlock_random(GameManager.get_catalogue().tools)
+func _unlock_tool() -> void:
+	_unlock_random(GameManager.get_catalogue().tools)
 
 
-func get_winner() -> TeamResource:
-	if teams.size() > 1:
-		push_warning("Winner requested while more than 1 team remaining.")
-		return
+func _heal_player(player_to_heal: Player) -> void:
+	player_to_heal.heal()
 
-	return teams[0] if teams.size() == 1 else null
+
+func _current_team() -> TeamResource:
+	return teams.front()
+
+
+func _get_or_create_team(team_resource: TeamResource) -> TeamResource:
+	if teams.has(team_resource):
+		return team_resource
+
+	teams.append(team_resource)
+	return team_resource
 
 
 func _kill_player(player: Player) -> void:
@@ -157,5 +174,5 @@ func _on_player_damage_accumulated(player: Player) -> void:
 
 
 func _on_player_requested_catalogue(player: Player) -> void:
-	var locked_items := current_team().get_locked_items()
+	var locked_items := _current_team().get_locked_items()
 	player.open_inventory(locked_items)

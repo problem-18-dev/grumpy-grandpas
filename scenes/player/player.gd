@@ -177,7 +177,6 @@ func _on_aimable_holder_aimable_used(player_state: String, state_data: Dictionar
 # TODO: Weapon holder being busy would work better here, more control over firing collisions
 func _on_aimable_holder_aimable_fired() -> void:
 	_ammo_remaining -= 1
-	Debug.log("Ammo remaining: %s" % _ammo_remaining)
 
 	if _ammo_remaining > 0:
 		EventSystem.busy.busy_started.emit(self)

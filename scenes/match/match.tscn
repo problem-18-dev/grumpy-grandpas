@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://cd2ib37t0cgmf"]
+
+[ext_resource type="Script" uid="uid://dpjstawxawa7x" path="res://scenes/match/match.gd" id="1_o7qs2"]
+[ext_resource type="PackedScene" uid="uid://d0okm02wagiv7" path="res://scenes/terrain/terrain.tscn" id="2_eh1bq"]
+[ext_resource type="PackedScene" uid="uid://cmrioaepcqauw" path="res://scenes/managers/turn_manager/turn_manager.tscn" id="3_2tc32"]
+[ext_resource type="Script" uid="uid://qp7wd878ywhm" path="res://scenes/managers/spawn_generator/spawn_generator.gd" id="4_s7v56"]
+[ext_resource type="PackedScene" uid="uid://c6rdv182qtrpo" path="res://scenes/managers/busy_manager/busy_manager.tscn" id="5_mhsfb"]
+[ext_resource type="Script" uid="uid://cfhootipnhms2" path="res://scenes/managers/pickuppable_manager/pickuppable_manager.gd" id="6_lp24t"]
+[ext_resource type="Script" uid="uid://djft4707qktxi" path="res://resources/pickuppable_resource/pickuppable_resource.gd" id="7_7hvel"]
+[ext_resource type="Resource" uid="uid://cigipvuxrk2eo" path="res://resources/pickuppable_resource/crate.tres" id="8_hu0eo"]
+[ext_resource type="Resource" uid="uid://bc62j8ns7bj8t" path="res://resources/pickuppable_resource/toolbox.tres" id="9_kka2t"]
+[ext_resource type="PackedScene" uid="uid://bedwmp6j28trh" path="res://scenes/death_zone/death_zone.tscn" id="10_xtdla"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="11_c7gxq"]
+[ext_resource type="PackedScene" uid="uid://dwfdnq2y4c1w2" path="res://scenes/game_camera/game_camera.tscn" id="12_dqi03"]
+[ext_resource type="PackedScene" uid="uid://dbdar1owhc1hg" path="res://scenes/managers/players_manager/players_manager.tscn" id="13_eh1bq"]
+
+[sub_resource type="Curve2D" id="Curve2D_urvlt"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -104, 0, 0, 0, 0, 0, 112, -72, 0, 0, 0, 0, 416, -72, 0, 0, 0, 0, 808, 0, 0, 0, 0, 0, 240, 136)
+}
+point_count = 5
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1xhu4"]
+
+[node name="Match" type="Node2D" unique_id=909882963]
+script = ExtResource("1_o7qs2")
+
+[node name="SpawnGenerator" type="Node2D" parent="." unique_id=40225150 node_paths=PackedStringArray("spawn_path_follow")]
+script = ExtResource("4_s7v56")
+spawn_path_follow = NodePath("../SpawnPath/SpawnFollow")
+spawn_attempts = 160
+
+[node name="Terrain" parent="." unique_id=654413745 instance=ExtResource("2_eh1bq")]
+
+[node name="SpawnPath" type="Path2D" parent="." unique_id=579392240]
+curve = SubResource("Curve2D_urvlt")
+
+[node name="SpawnFollow" type="PathFollow2D" parent="SpawnPath" unique_id=1939929917]
+position = Vector2(-104, 0)
+rotation = -0.32175055
+
+[node name="Objects" type="Node2D" parent="." unique_id=656412160 groups=["objects"]]
+
+[node name="Managers" type="Node" parent="." unique_id=752860655]
+
+[node name="TurnManager" parent="Managers" unique_id=299448507 instance=ExtResource("3_2tc32")]
+turn_duration = 3
+
+[node name="BusyManager" parent="Managers" unique_id=952442597 instance=ExtResource("5_mhsfb")]
+
+[node name="PickuppableManager" type="Node2D" parent="Managers" unique_id=359604408 node_paths=PackedStringArray("spawn_follow")]
+script = ExtResource("6_lp24t")
+spawn_chance = 1.0
+spawn_follow = NodePath("../../SpawnPath/SpawnFollow")
+spawn_resources = Array[ExtResource("7_7hvel")]([ExtResource("8_hu0eo"), ExtResource("9_kka2t")])
+
+[node name="PlayersManager" parent="Managers" unique_id=1956244340 instance=ExtResource("13_eh1bq")]
+
+[node name="Camera" type="Node2D" parent="." unique_id=1082269990]
+
+[node name="Camera2D" type="Camera2D" parent="Camera" unique_id=1800382336]
+top_level = true
+
+[node name="PhantomCameraHost" type="Node" parent="Camera/Camera2D" unique_id=1546512804]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("11_c7gxq")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="GameCamera" parent="Camera" unique_id=190906775 instance=ExtResource("12_dqi03")]
+
+[node name="DeathZone" parent="." unique_id=1360078976 instance=ExtResource("10_xtdla")]
+position = Vector2(320, 512)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathZone" unique_id=1097086512]
+shape = SubResource("WorldBoundaryShape2D_1xhu4")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="DeathZone" unique_id=884480188]
+position = Vector2(-1152, -368)
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_1xhu4")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="DeathZone" unique_id=2108284348]
+position = Vector2(1216, -280)
+rotation = -1.5707964
+shape = SubResource("WorldBoundaryShape2D_1xhu4")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1994097302]
+
+[node name="TimeLabel" type="Label" parent="CanvasLayer" unique_id=2128892508]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -48.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 26.0
+grow_horizontal = 0
+
+[connection signal="time_changed" from="Managers/TurnManager" to="." method="_on_turn_manager_time_changed"]
+[connection signal="transition_finished" from="Managers/TurnManager" to="." method="_on_turn_manager_transition_finished"]
+[connection signal="turn_ended" from="Managers/TurnManager" to="." method="_on_turn_manager_turn_ended"]
+[connection signal="busy_ended" from="Managers/BusyManager" to="." method="_on_busy_manager_busy_ended"]
+[connection signal="busy_started" from="Managers/BusyManager" to="." method="_on_busy_manager_busy_started"]
+[connection signal="picked_up" from="Managers/PickuppableManager" to="." method="_on_pickuppable_manager_picked_up"]

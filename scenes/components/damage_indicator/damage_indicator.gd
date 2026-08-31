@@ -13,6 +13,7 @@ const POSITIVE_COLOR := Color(0.0, 1.0, 0.05, 1.0)
 @export var float_height := 10.0
 @export_group("Count")
 @export var count_duration := 3.0
+@export var delay_duration := 0.5
 @export_group("Testing")
 @export_tool_button("Display") var display_action = display
 
@@ -37,7 +38,7 @@ func display(amount := 50) -> void:
 		float_duration,
 	)
 	tween.set_trans(Tween.TRANS_EXPO).tween_method(_set_text, 0, amount, count_duration)
-	tween.chain().tween_callback(_label.queue_free)
+	tween.chain().tween_callback(_label.queue_free).set_delay(delay_duration)
 	await tween.finished
 	finished.emit()
 

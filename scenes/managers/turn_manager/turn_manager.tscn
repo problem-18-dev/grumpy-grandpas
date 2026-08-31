@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cmrioaepcqauw"]
+
+[ext_resource type="Script" uid="uid://d3yln8br38f5s" path="res://scenes/managers/turn_manager/turn_manager.gd" id="1_0ywio"]
+
+[node name="TurnManager" type="Node2D" unique_id=299448507]
+script = ExtResource("1_0ywio")
+
+[node name="TurnTimer" type="Timer" parent="." unique_id=1552965466]
+
+[node name="TransitionTimer" type="Timer" parent="." unique_id=1368135674]
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
+[connection signal="timeout" from="TurnTimer" to="." method="_on_turn_timer_timeout"]
+[connection signal="timeout" from="TransitionTimer" to="." method="_on_transition_timer_timeout"]
