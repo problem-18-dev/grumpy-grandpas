@@ -11,7 +11,6 @@
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
 			"tasks": [
-				"68bbfbb8-2866-43e2-b4b0-213b26940b49",
 				"6a4ae222-d31a-4f6a-9ef4-81460922f2f0",
 				"2c2bd4e1-f866-4701-ab48-c4516839e8dd",
 				"71c0fc7c-366d-42bc-a8de-1fc50d936357",
@@ -30,6 +29,7 @@
 				"093fd4eb-0925-4110-b4f0-e7123d22f5d3",
 				"3ece640c-c1db-4d71-9230-6cada86ffa19",
 				"61377157-01c9-4b96-a77f-9d720aae390e",
+				"68bbfbb8-2866-43e2-b4b0-213b26940b49",
 				"577303c7-5a7d-4726-8073-a8a9d924e8af",
 				"abd5c689-687e-4b51-afbf-4489f6fe2d7b",
 				"b46728ea-8587-4e8b-9176-9ed8ea0c82a6",
@@ -419,7 +419,7 @@
 		{
 			"uuid": "68bbfbb8-2866-43e2-b4b0-213b26940b49",
 			"title": "[Feat] Winner should be displayed",
-			"description": "When a winner is declared, the camera should shift to a random player of the winning team. Each player of that team should celebrate. After a few seconds, the game ends.",
+			"description": "When a winner is declared, the camera should shift to a random player of the winning team. Each player of that team should celebrate.",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
 		},

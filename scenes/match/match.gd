@@ -28,6 +28,7 @@ func _announce_winner() -> void:
 	var winner := players_manager.get_winner()
 
 	if winner:
+		players_manager.show_team(winner)
 		time_label.text = "%s has won!" % winner.name
 		return
 

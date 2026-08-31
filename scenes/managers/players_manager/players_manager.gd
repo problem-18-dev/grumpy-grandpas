@@ -1,8 +1,6 @@
 class_name PlayersManager
 extends Node2D
 
-signal player_finished
-
 const PLAYER := preload("uid://bmag23mf230r3")
 
 var teams: Array[TeamResource] = []
@@ -11,7 +9,7 @@ var active_player: Player
 var players_marked_for_death: Array[Player]
 var players_to_damage: Array[Player]
 
-
+#region Players
 func spawn_players(spawn_points: Array[Dictionary]) -> void:
 	assert(spawn_points.size() > 0, "No spawn points provided.")
 	assert(GameManager.get_teams().size() > 0, "No teams to spawn.")
@@ -47,7 +45,6 @@ func deactivate_player() -> void:
 	EventSystem.camera.revoke_follow.emit(active_player)
 	active_player.deactivate()
 	active_player = null
-	player_finished.emit()
 
 
 func kill_marked_players() -> void:
@@ -71,14 +68,28 @@ func damage_players() -> void:
 		await _damage_player(player)
 
 	players_to_damage = []
+#endregion
 
-
+#region Team
 func next_team() -> void:
 	if active_team != _current_team():
 		return
 
 	active_team.next_player(active_player)
 	teams.push_back(teams.pop_front())
+
+
+func show_team(team: TeamResource, duration := 0.0) -> void:
+	assert(teams.has(team), "Showing team that isn't in the match.")
+
+	var player: Player = team.get_players().pick_random()
+	EventSystem.camera.request_follow.emit(player, GameCamera.Priority.HIGH, GameCamera.Zoom.NEAR)
+
+	if is_zero_approx(duration):
+		return
+
+	await get_tree().create_timer(duration).timeout
+	EventSystem.camera.revoke_follow.emit(player)
 
 
 func get_winner() -> TeamResource:
@@ -88,7 +99,9 @@ func get_winner() -> TeamResource:
 
 	return teams[0] if teams.size() == 1 else null
 
+#endregion
 
+#region Items
 func unlock_item(by: Player, type: PickuppableResource.Type) -> void:
 	match type:
 		PickuppableResource.Type.WEAPON:
@@ -124,7 +137,7 @@ func _unlock_tool() -> void:
 
 func _heal_player(player_to_heal: Player) -> void:
 	player_to_heal.heal()
-
+#endregion
 
 func _current_team() -> TeamResource:
 	return teams.front()
