@@ -62,6 +62,7 @@ func register_last_direction(new_last_direction: float) -> void:
 
 #region Control
 func activate() -> void:
+	_reset()
 	state_machine.transition_to_state(PlayerState.IDLE)
 
 
@@ -108,7 +109,13 @@ func apply_damage() -> void:
 	if _damage_accumulated <= 0:
 		return
 
+	Debug.log("Damaging %s by %s" % [name, _damage_accumulated])
 	health.take_health(_damage_accumulated)
+
+
+func register_damage(amount: int) -> void:
+	_damage_accumulated += amount
+	damage_accumulated.emit(self)
 #endregion
 
 func _reset() -> void:
@@ -133,8 +140,7 @@ func _on_hurtbox_component_knockbacked(force: float, angle: float) -> void:
 
 
 func _on_hurtbox_component_hurt(amount: int) -> void:
-	_damage_accumulated += amount
-	damage_accumulated.emit(self)
+	register_damage(amount)
 
 
 func _on_health_component_health_added(amount: int) -> void:
@@ -178,7 +184,6 @@ func _on_aimable_holder_aimable_fired() -> void:
 		_inventory_locked = true
 		return
 
-	_reset()
 	deactivate()
 	finished.emit()
 	EventSystem.busy.busy_finished.emit(self)

@@ -46,7 +46,6 @@ shape = SubResource("CapsuleShape2D_5gtgg")
 debug_color = Color(0, 1, 0, 0.392)
 
 [node name="HealthComponent" parent="." unique_id=779439910 instance=ExtResource("7_0owmy")]
-max_health = 5
 
 [node name="StateMachine" parent="." unique_id=1355297057 node_paths=PackedStringArray("initial_state") instance=ExtResource("3_gmlin")]
 initial_state = NodePath("Inactive")

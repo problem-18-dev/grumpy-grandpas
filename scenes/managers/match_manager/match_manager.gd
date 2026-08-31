@@ -1,6 +1,7 @@
 class_name MatchManager
 extends Node2D
 
+signal turn_started
 signal turn_finished
 signal match_ended(winner: TeamResource)
 
@@ -39,6 +40,7 @@ func unlock_item(by: Player, type: PickuppableResource.Type) -> void:
 func _start_turn() -> void:
 	if players_manager.teams.size() > 1:
 		players_manager.activate_player()
+		turn_started.emit()
 		return
 
 	var winner := players_manager.get_winner()

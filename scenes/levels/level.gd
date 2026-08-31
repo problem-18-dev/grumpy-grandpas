@@ -20,16 +20,11 @@ func _ready() -> void:
 	var spawn_points := spawn_generator.generate_spawn_points()
 	match_manager.initiate_match(spawn_points)
 
-	turn_timer.start()
-	time_label.text = str(turn_time_remaining)
-
 
 func _start_turn() -> void:
 	busy_manager.reset()
 	await pickuppable_manager.attempt_spawn()
 	match_manager.next_turn()
-	turn_time_remaining = turn_duration
-	turn_timer.start()
 
 
 func _end_turn() -> void:
@@ -47,6 +42,11 @@ func _on_match_manager_match_ended(winner: TeamResource) -> void:
 		return
 
 	announcement_label.text = "It's a tie!"
+
+
+func _on_match_manager_turn_started() -> void:
+	turn_time_remaining = turn_duration
+	turn_timer.start()
 
 
 func _on_match_manager_turn_finished() -> void:

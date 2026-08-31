@@ -23,7 +23,6 @@ point_count = 5
 
 [node name="Level" type="Node2D" unique_id=909882963]
 script = ExtResource("1_377w7")
-turn_duration = 5
 
 [node name="TurnTimer" type="Timer" parent="." unique_id=153290448]
 
@@ -108,6 +107,7 @@ grow_horizontal = 0
 [connection signal="timeout" from="TurnTimer" to="." method="_on_turn_timer_timeout"]
 [connection signal="match_ended" from="MatchManager" to="." method="_on_match_manager_match_ended"]
 [connection signal="turn_finished" from="MatchManager" to="." method="_on_match_manager_turn_finished"]
+[connection signal="turn_started" from="MatchManager" to="." method="_on_match_manager_turn_started"]
 [connection signal="busy_ended" from="BusyManager" to="." method="_on_busy_manager_busy_ended"]
 [connection signal="busy_started" from="BusyManager" to="." method="_on_busy_manager_busy_started"]
 [connection signal="picked_up" from="PickuppableManager" to="." method="_on_pickuppable_manager_picked_up"]
