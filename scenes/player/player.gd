@@ -25,6 +25,7 @@ var _last_direction := RIGHT_DIRECTION
 @onready var state_machine: StateMachine = $StateMachine
 @onready var player_hud: PlayerHUD = $PlayerHUD
 @onready var name_label: Label = $NameLabel
+@onready var health_label: Label = $HealthLabel
 @onready var hurtbox: HurtboxComponent = $HurtboxComponent
 @onready var health: HealthComponent = $HealthComponent
 @onready var damage_indicator: DamageIndicator = $DamageIndicator
@@ -62,7 +63,7 @@ func register_last_direction(new_last_direction: float) -> void:
 
 #region Control
 func activate() -> void:
-	_reset()
+	reset()
 	state_machine.transition_to_state(PlayerState.IDLE)
 
 
@@ -74,6 +75,12 @@ func die() -> void:
 	state_machine.transition_to_state(PlayerState.DEAD)
 
 
+func reset() -> void:
+	_ammo_remaining = 0
+	_damage_accumulated = 0
+	_inventory_locked = false
+
+
 func spawn(spawn_position: Vector2, floor_normal: Vector2) -> void:
 	var shape: CapsuleShape2D = collision_shape_2d.shape
 	var floor_offset := spawn_position + (floor_normal * shape.radius)
@@ -83,6 +90,8 @@ func spawn(spawn_position: Vector2, floor_normal: Vector2) -> void:
 func setup(team: TeamResource, player: PlayerResource) -> void:
 	name_label.add_theme_color_override("font_color", team.color)
 	name_label.text = player.name
+	health_label.add_theme_color_override("font_color", team.color)
+	health_label.text = str(player.health)
 	name = player.name
 #endregion
 
@@ -111,18 +120,13 @@ func apply_damage() -> void:
 
 	Debug.log("Damaging %s by %s" % [name, _damage_accumulated])
 	health.take_health(_damage_accumulated)
+	reset()
 
 
 func register_damage(amount: int) -> void:
 	_damage_accumulated += amount
 	damage_accumulated.emit(self)
 #endregion
-
-func _reset() -> void:
-	_ammo_remaining = 0
-	_damage_accumulated = 0
-	_inventory_locked = false
-
 
 func _flip_sprite() -> void:
 	if is_zero_approx(velocity.x):
@@ -143,12 +147,9 @@ func _on_hurtbox_component_hurt(amount: int) -> void:
 	register_damage(amount)
 
 
-func _on_health_component_health_added(amount: int) -> void:
+func _on_health_component_health_changed(new_health: int, amount: int) -> void:
 	damage_indicator.display(amount)
-
-
-func _on_health_component_health_taken(amount: int) -> void:
-	damage_indicator.display(-amount)
+	health_label.text = str(new_health)
 
 
 func _on_health_component_died() -> void:
@@ -174,7 +175,6 @@ func _on_aimable_holder_aimable_used(player_state: String, state_data: Dictionar
 	state_machine.transition_to_state(player_state, state_data)
 
 
-# TODO: Weapon holder being busy would work better here, more control over firing collisions
 func _on_aimable_holder_aimable_fired() -> void:
 	_ammo_remaining -= 1
 

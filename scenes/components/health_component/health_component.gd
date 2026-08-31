@@ -1,8 +1,7 @@
 class_name HealthComponent
 extends Node
 
-signal health_added(amount: int)
-signal health_taken(amount: int)
+signal health_changed(new_health: int, amount: int)
 signal died
 
 const DEFAULT_HEALTH := 100
@@ -12,25 +11,31 @@ const DEFAULT_HEALTH := 100
 
 var _dead := false
 
-@onready var _health := max_health
+@onready var health := max_health
+
+
+func get_health() -> int:
+	return health
 
 
 func add_health(amount: int) -> void:
-	health_added.emit(mini(amount, max_health - _health))
+	var new_health := health + amount
+	new_health = mini(max_health, health)
 
-	_health += amount
-	_health = mini(max_health, _health)
+	health_changed.emit(new_health, mini(amount, max_health - health))
+	health = new_health
 
 
 func take_health(amount: int) -> void:
 	if _dead:
 		return
 
-	health_taken.emit(mini(amount, _health))
+	var new_health := health - amount
+	new_health = maxi(0, new_health)
 
-	_health -= amount
-	_health = maxi(0, _health)
+	health_changed.emit(new_health, -mini(amount, health))
+	health = new_health
 
-	if _health <= 0:
+	if health <= 0:
 		_dead = true
 		died.emit()

@@ -82,15 +82,32 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -5.0
-offset_top = -24.0
-offset_right = 5.0
-offset_bottom = -19.0
+offset_left = -9.5
+offset_top = -35.0
+offset_right = 9.5
+offset_bottom = -26.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_type_variation = &"PlayerNameLabel"
 text = "Test"
+
+[node name="HealthLabel" type="Label" parent="." unique_id=1328752178]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.5
+offset_top = -25.0
+offset_right = 6.5
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_type_variation = &"DamageIndicatorLabel"
+text = "100"
+horizontal_alignment = 1
 
 [node name="DamageIndicator" parent="." unique_id=626911322 instance=ExtResource("16_myrg7")]
 anchors_preset = 8
@@ -98,8 +115,8 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = -16.0
-offset_bottom = -16.0
+offset_top = -22.0
+offset_bottom = -22.0
 grow_horizontal = 2
 grow_vertical = 2
 float_height = 16.0
@@ -109,7 +126,6 @@ float_height = 16.0
 [connection signal="hurt" from="HurtboxComponent" to="." method="_on_hurtbox_component_hurt"]
 [connection signal="knockbacked" from="HurtboxComponent" to="." method="_on_hurtbox_component_knockbacked"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
-[connection signal="health_added" from="HealthComponent" to="." method="_on_health_component_health_added"]
-[connection signal="health_taken" from="HealthComponent" to="." method="_on_health_component_health_taken"]
+[connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="item_selected" from="PlayerHUD" to="." method="_on_player_hud_item_selected"]
 [connection signal="finished" from="DamageIndicator" to="." method="_on_damage_indicator_finished"]

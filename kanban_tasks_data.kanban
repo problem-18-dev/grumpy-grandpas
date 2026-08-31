@@ -11,7 +11,6 @@
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
 			"tasks": [
-				"2c2bd4e1-f866-4701-ab48-c4516839e8dd",
 				"71c0fc7c-366d-42bc-a8de-1fc50d936357",
 				"ba1e0c1e-3604-45e0-9027-60476ffe97b2"
 			]
@@ -361,13 +360,6 @@
 			"steps": []
 		},
 		{
-			"uuid": "2c2bd4e1-f866-4701-ab48-c4516839e8dd",
-			"title": "[Feat] Add jetpack fuel",
-			"description": "A jetpack should have a limited amount of use. ",
-			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
-			"steps": []
-		},
-		{
 			"uuid": "fd658690-f9be-40be-a833-ded5a72ec2de",
 			"title": "[Bug] Pickuppable slides down slopes",
 			"description": "",
@@ -427,6 +419,13 @@
 			"uuid": "abd5c689-687e-4b51-afbf-4489f6fe2d7b",
 			"title": "[Feat] Fall damage",
 			"description": "A player should take damage (and thus end turn) if they fall at a too high velocity.\n",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "60c55b7c-d743-416e-841d-1b486158e205",
+			"title": "New task",
+			"description": "",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
 		}

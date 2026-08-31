@@ -49,7 +49,6 @@ rotation = -0.32175055
 
 [node name="PickuppableManager" type="Node2D" parent="Managers" unique_id=359604408 node_paths=PackedStringArray("spawn_follow")]
 script = ExtResource("6_lp24t")
-spawn_chance = 1.0
 spawn_follow = NodePath("../../SpawnPath/SpawnFollow")
 spawn_resources = Array[ExtResource("7_7hvel")]([ExtResource("8_hu0eo"), ExtResource("9_kka2t")])
 
