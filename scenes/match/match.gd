@@ -23,7 +23,6 @@ func _start_match() -> void:
 	turn_manager.start_turn()
 
 
-# TODO: Move camera to random player of winning team
 func _announce_winner() -> void:
 	var winner := players_manager.get_winner()
 

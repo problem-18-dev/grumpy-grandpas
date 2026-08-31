@@ -35,6 +35,9 @@ shape = SubResource("CircleShape2D_1xhu4")
 wait_time = 3.0
 one_shot = true
 
+[node name="WaitTimer" type="Timer" parent="." unique_id=1363905357]
+one_shot = true
+
 [node name="Label" type="Label" parent="." unique_id=1733715552]
 anchors_preset = 8
 anchor_left = 0.5
@@ -56,3 +59,4 @@ vertical_alignment = 1
 
 [connection signal="picked_up" from="PickupComponent" to="." method="_on_pickup_component_picked_up"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]

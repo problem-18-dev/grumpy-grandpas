@@ -10,6 +10,7 @@ const HURTBOX_COLLISION_MASK := 4
 @export_group("Properties")
 @export var spawn_chance := 0.15
 @export var spawn_follow: PathFollow2D
+@export var spawn_vertical_offset := 64.0
 @export_group("Guards")
 @export var should_check_for_players := true
 @export var player_guard_range := 32.0
@@ -56,14 +57,26 @@ func _get_spawn_position() -> Vector2:
 	spawn_follow.progress_ratio = randf()
 
 	var world_state := get_world_2d().direct_space_state
-	var query := PhysicsRayQueryParameters2D.create(
+	var world_query := PhysicsRayQueryParameters2D.create(
 		spawn_follow.global_position,
 		spawn_follow.global_position + (Vector2.DOWN * RAY_LENGTH),
 		DestructiblePolygon2D.WORLD_COLLISION_LAYER,
 	)
 
-	var collision := world_state.intersect_ray(query)
-	return collision.position if collision else null
+	var world_collision := world_state.intersect_ray(world_query)
+
+	if not world_collision:
+		return Vector2.ZERO
+
+	var offset_position: Vector2 = world_collision.position + (Vector2.UP * spawn_vertical_offset)
+	var offset_query := PhysicsRayQueryParameters2D.create(
+		world_collision.position,
+		offset_position,
+		DestructiblePolygon2D.WORLD_COLLISION_LAYER,
+	)
+
+	var offset_collision := world_state.intersect_ray(offset_query)
+	return offset_position if not offset_collision else Vector2.ZERO
 
 
 func _check_players_nearby(check_position: Vector2) -> bool:
@@ -74,7 +87,6 @@ func _check_players_nearby(check_position: Vector2) -> bool:
 	var shape := CircleShape2D.new()
 	shape.radius = player_guard_range
 	shape_query.shape = shape
-
 	var space_state := get_world_2d().direct_space_state
 	var collisions := space_state.intersect_shape(shape_query)
 	return collisions.size() > 0

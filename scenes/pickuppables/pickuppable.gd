@@ -13,6 +13,7 @@ const MIN_BOUNCE_SPEED := 40.0
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var spawn_timer: Timer = $SpawnTimer
+@onready var wait_timer: Timer = $WaitTimer
 @onready var label: Label = $Label
 
 
@@ -23,6 +24,8 @@ func _ready() -> void:
 	sprite.texture = resource.texture
 	label.text = resource.name
 	floor_max_angle = Player.FLOOR_MAX_ANGLE
+
+	set_physics_process(false)
 
 
 func _physics_process(delta: float) -> void:
@@ -41,7 +44,7 @@ func setup(new_resource: PickuppableResource) -> void:
 
 func spawn(spawn_position: Vector2) -> void:
 	EventSystem.camera.request_follow.emit(self, GameCamera.Priority.HIGH, GameCamera.Zoom.NEAR)
-	spawn_timer.start()
+	wait_timer.start()
 
 	var shape: RectangleShape2D = collision_shape.shape
 	var offset := shape.size.y / 2
@@ -61,3 +64,8 @@ func _on_pickup_component_picked_up(by: Player) -> void:
 func _on_spawn_timer_timeout() -> void:
 	spawned.emit()
 	EventSystem.camera.revoke_follow.emit(self)
+
+
+func _on_wait_timer_timeout() -> void:
+	spawn_timer.start()
+	set_physics_process(true)

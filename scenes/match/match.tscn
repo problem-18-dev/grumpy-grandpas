@@ -44,7 +44,6 @@ rotation = -0.32175055
 [node name="Managers" type="Node" parent="." unique_id=752860655]
 
 [node name="TurnManager" parent="Managers" unique_id=299448507 instance=ExtResource("3_2tc32")]
-turn_duration = 3
 
 [node name="BusyManager" parent="Managers" unique_id=952442597 instance=ExtResource("5_mhsfb")]
 
