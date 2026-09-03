@@ -7,6 +7,7 @@ var busy := Busy.new()
 class Camera:
 	signal request_follow(target: Node2D, priority: GameCamera.Priority, zoom: GameCamera.Zoom)
 	signal revoke_follow(target: Node2D)
+	signal shake(noise: PhantomCameraNoise2D, duration: float)
 
 
 class Busy:

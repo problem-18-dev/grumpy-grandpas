@@ -23,6 +23,7 @@ var _zoom_tween: Tween
 
 @onready var update_timer: Timer = $UpdateTimer
 @onready var stall_timer: Timer = $StallTimer
+@onready var noise_emitter: PhantomCameraNoiseEmitter2D = $NoiseEmitter
 
 
 func _init() -> void:
@@ -31,6 +32,7 @@ func _init() -> void:
 
 	EventSystem.camera.request_follow.connect(_on_request_follow)
 	EventSystem.camera.revoke_follow.connect(_on_revoke_follow)
+	EventSystem.camera.shake.connect(_on_shake)
 
 
 func _update_camera() -> void:
@@ -121,6 +123,14 @@ func _on_request_follow(
 func _on_revoke_follow(target: Node2D) -> void:
 	_targets.erase(target)
 	_update_camera()
+
+
+func _on_shake(new_noise: PhantomCameraNoise2D, duration: float) -> void:
+	noise_emitter.noise = new_noise
+	noise_emitter.duration = duration
+	noise_emitter.decay_time = duration / 3
+
+	noise_emitter.emit()
 
 
 func _on_update_timer_timeout() -> void:

@@ -9,6 +9,7 @@ const PLAYER_EXPLOSION = preload("uid://d0al511wp4v17")
 
 
 func enter(_data := { }) -> void:
+	player.reset()
 	_die()
 
 

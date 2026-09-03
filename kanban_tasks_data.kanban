@@ -11,7 +11,10 @@
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
 			"tasks": [
-				"71c0fc7c-366d-42bc-a8de-1fc50d936357",
+				"08abd116-1bd9-4a00-a3ca-dcf5fd62715b",
+				"38fcff7a-c781-4ce4-b826-61552b11b434",
+				"26d5f9f0-0078-48f2-8306-c5e54c707ae8",
+				"f08c4f40-bea2-442b-aa32-262c5323b59d",
 				"ba1e0c1e-3604-45e0-9027-60476ffe97b2"
 			]
 		},
@@ -27,6 +30,7 @@
 				"093fd4eb-0925-4110-b4f0-e7123d22f5d3",
 				"3ece640c-c1db-4d71-9230-6cada86ffa19",
 				"61377157-01c9-4b96-a77f-9d720aae390e",
+				"71c0fc7c-366d-42bc-a8de-1fc50d936357",
 				"6a4ae222-d31a-4f6a-9ef4-81460922f2f0",
 				"68bbfbb8-2866-43e2-b4b0-213b26940b49",
 				"577303c7-5a7d-4726-8073-a8a9d924e8af",
@@ -424,6 +428,41 @@
 		},
 		{
 			"uuid": "60c55b7c-d743-416e-841d-1b486158e205",
+			"title": "New task",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "26d5f9f0-0078-48f2-8306-c5e54c707ae8",
+			"title": "[Feat] Quick tutorial on how the game works",
+			"description": "Before the player enters the match for the first time, a quick tutorial should be played to demonstrate the game's capabilities.\n\nSimple polygon with closed off walls. One player versus another player.\n\nShow how to shoot rocket launcher, emphasis on charging.\n\nShow how to move around.\n\nShow how to jump.\n\nShow how to pick up pickuppables.\n\nExample:\nPlayer starts, another player is at the other end. First show player how to move by displaying arrows, considered complete when pressed each at least once. Then show how to jump by displaying the up arrow. Then auto equip the rocket launcher, show to how fire at other player. Then show how to use inventory. Use a grapple hook. Lastly, pick up crate and unlock revolver, shoot and consider it done. Move on to game.\n\nDo not display again if already saw once.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "38fcff7a-c781-4ce4-b826-61552b11b434",
+			"title": "[Feat] Improve projectiles flying out of the map",
+			"description": "Easiest fix is to limit the camera's movement to a certain amount beyond the polygon's bounds.\n\nMake projectile destruction graceful",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "08abd116-1bd9-4a00-a3ca-dcf5fd62715b",
+			"title": "[Feat] Player death on fall off map",
+			"description": "A player should die when falling off the map. When hitting the water, player should enter a water state in which the player slowly sinks, and is dead + eliminated from team. Turn ends afterwards.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "f08c4f40-bea2-442b-aa32-262c5323b59d",
+			"title": "[Feat] Enemy AI",
+			"description": "Game should be playable by playing against an AI. This AI should be simple but consistent. A team can be marked as AI, if the player is of an AI team, an algorithm takes a few frames to check best possible weapon usage by projecting invisible collision points and simulating a weapon's launch or shot.\n\nAI takes the best result and executes.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "2be0c329-8644-4573-b810-7efea70ddae4",
 			"title": "New task",
 			"description": "",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
