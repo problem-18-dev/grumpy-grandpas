@@ -178,8 +178,9 @@ func _on_aimable_holder_aimable_used(player_state: String, state_data: Dictionar
 func _on_aimable_holder_aimable_fired() -> void:
 	_ammo_remaining -= 1
 
+	EventSystem.busy.busy_started.emit(self)
+	
 	if _ammo_remaining > 0:
-		EventSystem.busy.busy_started.emit(self)
 		_inventory_locked = true
 		return
 

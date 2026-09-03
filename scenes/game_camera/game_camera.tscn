@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cuxk28tdab5at" path="res://scenes/game_camera/game_camera.gd" id="1_tkp5u"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_gdyjp"]
+[ext_resource type="Script" uid="uid://bhd4nuiu23e7l" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_noise_emitter_2d.gd" id="3_gdyjp"]
 
 [sub_resource type="Resource" id="Resource_ouxo3"]
 script = ExtResource("2_gdyjp")
@@ -13,6 +14,7 @@ script = ExtResource("1_tkp5u")
 follow_mode = 2
 tween_resource = SubResource("Resource_ouxo3")
 follow_damping = true
+noise_emitter_layer = 1
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="UpdateTimer" type="Timer" parent="." unique_id=1750970810]
@@ -24,6 +26,10 @@ autostart = true
 process_callback = 0
 wait_time = 3.0
 one_shot = true
+
+[node name="NoiseEmitter" type="Node2D" parent="." unique_id=2008814542]
+script = ExtResource("3_gdyjp")
+metadata/_custom_type_script = "uid://bhd4nuiu23e7l"
 
 [connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]
 [connection signal="timeout" from="StallTimer" to="." method="_on_stall_timer_timeout"]

@@ -17,6 +17,7 @@ func explode(explode_position: Vector2) -> void:
 	global_position = explode_position
 	EventSystem.busy.busy_started.emit(self)
 	EventSystem.camera.request_follow.emit(self, GameCamera.Priority.MID)
+	EventSystem.camera.shake.emit(explosion_resource.shake_noise, explosion_resource.shake_duration)
 	timer.start()
 
 	_damage_targets()

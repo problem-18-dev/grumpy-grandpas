@@ -3,8 +3,6 @@
 [ext_resource type="Script" uid="uid://05fqs75xukhe" path="res://resources/team_resource/team_resource.gd" id="1_v6ulp"]
 [ext_resource type="Script" uid="uid://ccrc8sl42duol" path="res://resources/player_resource/player_resource.gd" id="1_wf6gw"]
 [ext_resource type="Script" uid="uid://cp1j8tubsspi2" path="res://resources/item_resource/item_resource.gd" id="2_y07t6"]
-[ext_resource type="Resource" uid="uid://dy5rkwn75f8ov" path="res://resources/item_resource/weapons/revolver_item.tres" id="3_cqpqk"]
-[ext_resource type="Resource" uid="uid://dg268oqi3o2lj" path="res://resources/item_resource/tools/jetpack_item.tres" id="6_e18di"]
 
 [sub_resource type="Resource" id="Resource_8xq02"]
 script = ExtResource("1_wf6gw")
@@ -21,5 +19,4 @@ script = ExtResource("1_v6ulp")
 name = "Team Blue"
 color = Color(0.32757595, 0.6947892, 1, 1)
 player_resources = Array[ExtResource("1_wf6gw")]([SubResource("Resource_8xq02"), SubResource("Resource_prn5b")])
-locked_items = Array[ExtResource("2_y07t6")]([ExtResource("3_cqpqk"), ExtResource("6_e18di")])
 metadata/_custom_type_script = "uid://05fqs75xukhe"

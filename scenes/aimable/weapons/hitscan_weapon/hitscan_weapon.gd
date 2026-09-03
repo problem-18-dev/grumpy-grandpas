@@ -29,6 +29,7 @@ func shoot() -> void:
 	hitscan_ray_cast.force_raycast_update()
 
 	fired.emit()
+	EventSystem.camera.shake.emit(_resource.shake_noise, _resource.shake_duration)
 
 	if not hitscan_ray_cast.is_colliding():
 		return

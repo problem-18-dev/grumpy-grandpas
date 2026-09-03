@@ -9,3 +9,6 @@ const DEFAULT_CARVE_RADIUS := 48.0
 @export var damage: DamageResource
 @export_group("Knockback")
 @export var knockback: KnockbackResource
+@export_group("Camera")
+@export var shake_duration := 0.2
+@export var shake_noise: PhantomCameraNoise2D

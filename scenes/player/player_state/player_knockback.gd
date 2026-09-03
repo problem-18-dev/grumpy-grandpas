@@ -9,7 +9,6 @@ var _finished := false
 
 
 func enter(data := { }) -> void:
-	EventSystem.busy.busy_started.emit(player)
 	_finished = false
 	player.unequip_aimable()
 
@@ -17,6 +16,8 @@ func enter(data := { }) -> void:
 		push_error("Entered knockback state without force or angle")
 		finished.emit(PlayerState.INACTIVE)
 		return
+
+	EventSystem.busy.busy_started.emit(player)
 
 	var angle: float = data.get("angle")
 	var force: float = data.get("force")
