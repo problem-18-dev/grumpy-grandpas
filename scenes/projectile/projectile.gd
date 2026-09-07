@@ -46,7 +46,7 @@ func fire(start_position: Vector2, angle_in_rad: float, force: float) -> void:
 	_is_fired = true
 
 
-func cleanup() -> void:
+func destroy() -> void:
 	EventSystem.busy.busy_finished.emit(self)
 	EventSystem.camera.revoke_follow.emit(self)
 	queue_free()
@@ -54,7 +54,7 @@ func cleanup() -> void:
 
 func _explode() -> void:
 	Utils.create_explosion(resource.explosion, global_position)
-	cleanup()
+	destroy()
 
 
 func _handle_gravity(delta: float) -> void:

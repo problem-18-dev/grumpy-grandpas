@@ -9,7 +9,7 @@ load_path = "res://.godot/imported/rocket.png-79893a6a213dcc8e9a4ae14a59bc55ac.c
 [sub_resource type="CircleShape2D" id="CircleShape2D_lav5m"]
 radius = 6.0
 
-[node name="Projectile" type="CharacterBody2D" unique_id=371139237]
+[node name="Projectile" type="CharacterBody2D" unique_id=371139237 groups=["projectiles"]]
 collision_layer = 16
 collision_mask = 7
 script = ExtResource("1_2dulq")

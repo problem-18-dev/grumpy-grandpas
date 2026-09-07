@@ -3,8 +3,6 @@ extends PlayerState
 @export_group("Properties")
 @export var drown_speed := 30.0
 
-var _is_sinking := true
-
 @onready var drown_timer: Timer = $DrownTimer
 
 
@@ -19,10 +17,6 @@ func enter(_data := { }) -> void:
 
 
 func _physics_update(_delta: float) -> void:
-	if not _is_sinking:
-		player.velocity = Vector2.ZERO
-		return
-
 	player.move_and_slide()
 	_handle_collision()
 
@@ -45,7 +39,7 @@ func _handle_collision() -> void:
 			continue
 
 		player.marked_for_death.emit(player)
-		_is_sinking = false
+		finished.emit(PlayerState.INACTIVE)
 
 
 func _finish_drowning() -> void:
