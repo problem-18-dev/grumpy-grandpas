@@ -6,6 +6,7 @@ signal requested_catalogue(player: Player)
 signal damage_accumulated(player: Player)
 signal damage_applied
 signal died
+signal drowned(player: Player)
 signal finished
 
 const CATALOGUE = preload("uid://gr6x0tlr2xog")
@@ -29,6 +30,7 @@ var _last_direction := RIGHT_DIRECTION
 @onready var hurtbox: HurtboxComponent = $HurtboxComponent
 @onready var health: HealthComponent = $HealthComponent
 @onready var damage_indicator: DamageIndicator = $DamageIndicator
+@onready var floor_ray_cast: RayCast2D = $FloorRayCast
 
 
 func _ready() -> void:
@@ -38,6 +40,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	_flip_sprite()
+
 
 #region Aimables
 func equip_aimable(aimable_resource: AimableResource) -> void:
@@ -52,6 +55,7 @@ func reequip_aimable() -> void:
 	equip_aimable(_equipped_item.aimable_resource)
 #endregion
 
+
 #region Direction
 func get_direction() -> float:
 	return Input.get_axis("move_left", "move_right")
@@ -60,6 +64,7 @@ func get_direction() -> float:
 func register_last_direction(new_last_direction: float) -> void:
 	_last_direction = LEFT_DIRECTION if new_last_direction < 0 else RIGHT_DIRECTION
 #endregion
+
 
 #region Control
 func activate() -> void:
@@ -73,6 +78,10 @@ func deactivate() -> void:
 
 func die() -> void:
 	state_machine.transition_to_state(PlayerState.DEAD)
+
+
+func drown() -> void:
+	state_machine.transition_to_state(PlayerState.DROWN)
 
 
 func reset() -> void:
@@ -95,6 +104,7 @@ func setup(team: TeamResource, player: PlayerResource) -> void:
 	name = player.name
 #endregion
 
+
 #region Inventory
 func toggle_inventory() -> void:
 	if player_hud.visible or _inventory_locked:
@@ -108,8 +118,8 @@ func open_inventory(locked_items: Array[ItemResource]) -> void:
 	player_hud.open(locked_items, _equipped_item)
 #endregion
 
-#region Damage & Healing
 
+#region Damage & Healing
 func heal(amount := 25) -> void:
 	health.add_health(amount)
 
@@ -127,6 +137,7 @@ func register_damage(amount: int) -> void:
 	_damage_accumulated += amount
 	damage_accumulated.emit(self)
 #endregion
+
 
 func _flip_sprite() -> void:
 	if is_zero_approx(velocity.x):
@@ -179,7 +190,7 @@ func _on_aimable_holder_aimable_fired() -> void:
 	_ammo_remaining -= 1
 
 	EventSystem.busy.busy_started.emit(self)
-	
+
 	if _ammo_remaining > 0:
 		_inventory_locked = true
 		return

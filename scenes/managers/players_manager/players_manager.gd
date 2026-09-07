@@ -9,6 +9,7 @@ var active_player: Player
 var players_marked_for_death: Array[Player]
 var players_to_damage: Array[Player]
 
+
 #region Players
 func spawn_players(spawn_points: Array[Dictionary]) -> void:
 	assert(spawn_points.size() > 0, "No spawn points provided.")
@@ -26,12 +27,14 @@ func spawn_players(spawn_points: Array[Dictionary]) -> void:
 			player.marked_for_death.connect(_on_player_marked_for_death)
 			player.damage_accumulated.connect(_on_player_damage_accumulated)
 			player.requested_catalogue.connect(_on_player_requested_catalogue)
+			player.drowned.connect(_on_player_drowned)
 			player.finished.connect(deactivate_player)
 
 			_get_or_create_team(team).add_player(player)
 
 
 func activate_player() -> void:
+	deactivate_player()
 	active_team = _current_team()
 	active_player = active_team.current_player()
 	active_player.activate()
@@ -70,6 +73,7 @@ func damage_players() -> void:
 	players_to_damage = []
 #endregion
 
+
 #region Team
 func next_team() -> void:
 	if active_team != _current_team():
@@ -98,8 +102,8 @@ func get_winner() -> TeamResource:
 		return
 
 	return teams[0] if teams.size() == 1 else null
-
 #endregion
+
 
 #region Items
 func unlock_item(by: Player, type: PickuppableResource.Type) -> void:
@@ -138,6 +142,7 @@ func _unlock_tool() -> void:
 func _heal_player(player_to_heal: Player) -> void:
 	player_to_heal.heal()
 #endregion
+
 
 func _current_team() -> TeamResource:
 	return teams.front()
@@ -184,6 +189,21 @@ func _on_player_damage_accumulated(player: Player) -> void:
 		return
 
 	players_to_damage.append(player)
+
+
+func _on_player_drowned(player: Player) -> void:
+	players_marked_for_death.erase(player)
+	players_to_damage.erase(player)
+	active_team.kill_player(player)
+
+	if active_team.has_lost():
+		teams.erase(active_team)
+		active_team = null
+
+	if player == active_player:
+		EventSystem.camera.revoke_follow.emit(player)
+
+	active_player = null
 
 
 func _on_player_requested_catalogue(player: Player) -> void:

@@ -19,6 +19,19 @@ const WORLD_COLLISION_LAYER := 2
 @onready var _has_been_collidable := collidable
 
 
+static func build_circle_polygon(radius: float, tolerance := 1.0) -> Array[Vector2]:
+	var cos_arg := clampf(1.0 - tolerance / radius, -1.0, 1.0)
+	var segments := maxi(ceili(PI / acos(cos_arg)), 3)
+
+	var points: Array[Vector2] = []
+	var step := TAU / segments
+
+	for i in segments:
+		var point := Vector2.from_angle(i * step) * radius
+		points.append(point)
+	return points
+
+
 func _ready():
 	if Engine.is_editor_hint():
 		return
@@ -26,7 +39,6 @@ func _ready():
 	if collidable:
 		for polygon_2d in get_children():
 			add_collision_polygon(polygon_2d)
-
 			update_bounds_and_area(polygon_2d, polygon_2d.polygon)
 	else:
 		for polygon_2d in get_children():
@@ -115,6 +127,8 @@ func add_collision_polygon(polygon_2d: Polygon2D):
 	var static_body_2d = StaticBody2D.new()
 	var collision_polygon_2d = CollisionPolygon2D.new()
 
+	static_body_2d.add_to_group("terrain")
+
 	collision_polygon_2d.polygon = polygon_2d.polygon
 	static_body_2d.set_collision_layer_value(WORLD_COLLISION_LAYER, true)
 
@@ -140,19 +154,6 @@ func set_collidable(value):
 	elif _has_been_collidable:
 		for polygon_2d in get_children():
 			polygon_2d.get_child(0).get_child(0).set_deferred("disabled", true)
-
-
-static func build_circle_polygon(radius: float, tolerance := 1.0) -> Array[Vector2]:
-	var cos_arg := clampf(1.0 - tolerance / radius, -1.0, 1.0)
-	var segments := maxi(ceili(PI / acos(cos_arg)), 3)
-
-	var points: Array[Vector2] = []
-	var step := TAU / segments
-
-	for i in segments:
-		var point := Vector2.from_angle(i * step) * radius
-		points.append(point)
-	return points
 
 
 func _destruct_child(polygon_2d, mask):

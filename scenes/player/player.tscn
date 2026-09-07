@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bkrmhl1oip2je" path="res://scenes/player/player_hud/hud.tscn" id="10_h17s1"]
 [ext_resource type="Script" uid="uid://c8a35l3xxakio" path="res://scenes/player/player_state/player_knockback.gd" id="11_ugbui"]
 [ext_resource type="Script" uid="uid://n6aq4lhmi1g5" path="res://scenes/player/player_state/player_dead.gd" id="12_gx1jg"]
+[ext_resource type="Script" uid="uid://b7bl74jsxu3on" path="res://scenes/player/player_state/player_drown.gd" id="13_kvlxm"]
 [ext_resource type="Script" uid="uid://bea0lrgqy0cag" path="res://scenes/player/player_state/player_grapple_hook.gd" id="13_ugbui"]
 [ext_resource type="Script" uid="uid://drtsbr2w8ifar" path="res://scenes/player/player_state/player_jetpack.gd" id="14_fcs02"]
 [ext_resource type="PackedScene" uid="uid://dyfpao2c8xfpn" path="res://scenes/components/damage_indicator/damage_indicator.tscn" id="16_myrg7"]
@@ -24,7 +25,7 @@ radius = 12.0
 height = 32.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1829503951 groups=["players"]]
-collision_mask = 2
+collision_mask = 3
 floor_max_angle = 1.3962634
 floor_snap_length = 4.0
 script = ExtResource("1_8afob")
@@ -36,6 +37,12 @@ texture = ExtResource("2_dovo2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1830283869]
 shape = SubResource("CapsuleShape2D_1xhu4")
+
+[node name="FloorRayCast" type="RayCast2D" parent="." unique_id=1971516153]
+position = Vector2(0, 16)
+enabled = false
+target_position = Vector2(0, 240)
+collision_mask = 2
 
 [node name="AimableHolder" parent="." unique_id=1646053950 instance=ExtResource("3_5gtgg")]
 
@@ -67,6 +74,13 @@ script = ExtResource("11_ugbui")
 
 [node name="Dead" type="Node" parent="StateMachine" unique_id=760627324]
 script = ExtResource("12_gx1jg")
+
+[node name="Drown" type="Node" parent="StateMachine" unique_id=1304144022]
+script = ExtResource("13_kvlxm")
+
+[node name="DrownTimer" type="Timer" parent="StateMachine/Drown" unique_id=73706997]
+wait_time = 0.25
+one_shot = true
 
 [node name="GrappleHook" type="Node" parent="StateMachine" unique_id=455664359]
 script = ExtResource("13_ugbui")
@@ -127,5 +141,6 @@ float_height = 16.0
 [connection signal="knockbacked" from="HurtboxComponent" to="." method="_on_hurtbox_component_knockbacked"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
+[connection signal="timeout" from="StateMachine/Drown/DrownTimer" to="StateMachine/Drown" method="_on_drown_timer_timeout"]
 [connection signal="item_selected" from="PlayerHUD" to="." method="_on_player_hud_item_selected"]
 [connection signal="finished" from="DamageIndicator" to="." method="_on_damage_indicator_finished"]

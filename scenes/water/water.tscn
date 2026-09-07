@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://c1nx228cdqcdb"]
+
+[ext_resource type="Shader" uid="uid://bo3bn6j4r17qd" path="res://scenes/water/water.gdshader" id="1_2dnj0"]
+[ext_resource type="Script" uid="uid://djcmvptyiucll" path="res://scenes/water/water.gd" id="1_mj6gl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mj6gl"]
+size = Vector2(2000, 480)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dmnfl"]
+shader = ExtResource("1_2dnj0")
+shader_parameter/liquid_level = 0.98000004655
+shader_parameter/liquid_color = Color(0.2, 0.40784314, 1, 0.8)
+shader_parameter/foam_color = Color(0.8, 0.9, 1, 0.6)
+shader_parameter/wave_amplitude = 0.010000000475
+shader_parameter/wave_frequency = 7.50000035625
+shader_parameter/wave_speed = 2.0
+shader_parameter/gravity_angle = 0.0
+shader_parameter/gravity_direction = Vector2(0, 1)
+shader_parameter/foam_thickness = 0.0150000007125
+shader_parameter/shine_intensity = 0.2000000095
+shader_parameter/add_bubble = true
+shader_parameter/bubble_scale = 30.000001425
+shader_parameter/bubble_speed = 0.5
+
+[sub_resource type="ExternalTexture" id="ExternalTexture_rqs1d"]
+size = Vector2(2000, 480)
+
+[node name="Water" type="Node2D" unique_id=1073738961]
+script = ExtResource("1_mj6gl")
+size = Vector2(24, 24)
+
+[node name="WaterArea" type="Area2D" parent="." unique_id=1757958041]
+collision_layer = 0
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterArea" unique_id=1137403365]
+shape = SubResource("RectangleShape2D_mj6gl")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=117535629]
+material = SubResource("ShaderMaterial_dmnfl")
+texture = SubResource("ExternalTexture_rqs1d")
+
+[connection signal="body_entered" from="WaterArea" to="." method="_on_water_area_body_entered"]

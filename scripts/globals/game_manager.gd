@@ -2,8 +2,9 @@ extends Node
 
 const TEAM_BLUE := preload("uid://qihimwpg1bn7")
 const TEAM_RED := preload("uid://dejqu3g4sl2sc")
+const TEAM_GREEN := preload("uid://btagmrw1fbvk6")
 
-const DEFAULT_TEAMS: Array[TeamResource] = [TEAM_BLUE, TEAM_RED]
+const DEFAULT_TEAMS: Array[TeamResource] = [TEAM_BLUE, TEAM_RED, TEAM_GREEN]
 const DEFAULT_CATALOGUE: CatalogueResource = preload("uid://gr6x0tlr2xog")
 
 var teams := DEFAULT_TEAMS
