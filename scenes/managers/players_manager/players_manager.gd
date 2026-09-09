@@ -50,6 +50,7 @@ func activate_player() -> void:
 	deactivate_player()
 	active_team = _current_team()
 	active_player = active_team.current_player()
+	active_player.reset()
 	active_player.activate()
 	EventSystem.camera.request_follow.emit(active_player, GameCamera.Priority.LOW)
 
@@ -64,7 +65,6 @@ func deactivate_player() -> void:
 
 
 func player_equip(item: ItemResource) -> void:
-	activate_player()
 	active_player.equip_item(item)
 
 
@@ -225,5 +225,5 @@ func _on_player_drowned(player: Player) -> void:
 
 
 func _on_player_requested_inventory(current_item: ItemResource) -> void:
-	var locked_items := _current_team().get_locked_items()
+	var locked_items := active_team.get_locked_items()
 	inventory_requested.emit(locked_items, current_item)

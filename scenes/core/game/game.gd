@@ -43,8 +43,8 @@ func load_level(new_scene: Level) -> void:
 		_current_level = null
 		await get_tree().process_frame
 
-	var scene := load(_level_paths[new_scene])
-	_current_level = scene.instantiate()
+	_current_level = load(_level_paths[new_scene]).instantiate()
+	_current_level.projectile_exited.connect(_on_projectile_exited)
 	level_root.add_child(_current_level)
 
 	await get_tree().process_frame
@@ -115,6 +115,7 @@ func _on_turn_manager_time_changed(time: int) -> void:
 
 
 func _on_turn_manager_transition_finished() -> void:
+	_current_level.cleanup()
 	await players_manager.damage_players()
 	await players_manager.kill_marked_players()
 	_continue()
@@ -139,8 +140,11 @@ func _on_players_manager_inventory_requested(
 
 
 func _on_inventory_closed(new_item: ItemResource = null) -> void:
-	if not new_item:
-		players_manager.activate_player()
-		return
+	players_manager.activate_player()
 
-	players_manager.player_equip(new_item)
+	if new_item:
+		players_manager.player_equip(new_item)
+
+
+func _on_projectile_exited() -> void:
+	turn_manager.finish_turn()

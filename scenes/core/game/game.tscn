@@ -19,6 +19,7 @@ unique_name_in_owner = true
 
 [node name="TurnManager" parent="Systems" unique_id=299448507 instance=ExtResource("3_l2mu6")]
 unique_name_in_owner = true
+turn_duration = 3
 
 [node name="PlayersManager" parent="Systems" unique_id=1956244340 node_paths=PackedStringArray("spawn_target") instance=ExtResource("4_t6juh")]
 unique_name_in_owner = true

@@ -46,7 +46,7 @@ func _ready() -> void:
 
 
 func _get_configuration_warnings() -> PackedStringArray:
-	var children: Array[Polygon2D] = get_children() as Array[Polygon2D]
+	var children := get_children()
 
 	for child: Polygon2D in children:
 		if !child is Polygon2D:

@@ -32,7 +32,7 @@ var _last_direction := RIGHT_DIRECTION
 
 
 func _ready() -> void:
-	_set_ammo(CATALOGUE.default_weapon.aimable_resource.ammo)
+	_set_ammo(_equipped_item.aimable_resource.ammo)
 
 
 func _physics_process(_delta: float) -> void:
@@ -80,7 +80,6 @@ func register_last_direction(new_last_direction: float) -> void:
 
 #region Control
 func activate() -> void:
-	reset()
 	state_machine.transition_to_state(PlayerState.IDLE)
 
 

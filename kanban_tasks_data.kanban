@@ -11,6 +11,7 @@
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
 			"tasks": [
+				"1920af68-b41c-4ab3-a0af-e67e3ef249c8",
 				"26d5f9f0-0078-48f2-8306-c5e54c707ae8",
 				"f08c4f40-bea2-442b-aa32-262c5323b59d",
 				"ba1e0c1e-3604-45e0-9027-60476ffe97b2"
@@ -19,9 +20,7 @@
 		{
 			"uuid": "40497cc6-13fd-4ee0-8c8a-501f1679fe85",
 			"title": "Doing",
-			"tasks": [
-				"38fcff7a-c781-4ce4-b826-61552b11b434"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "a3265bdc-f5e5-4b73-85c5-a4a50d7111f0",
@@ -29,6 +28,7 @@
 			"tasks": [
 				"093fd4eb-0925-4110-b4f0-e7123d22f5d3",
 				"08abd116-1bd9-4a00-a3ca-dcf5fd62715b",
+				"38fcff7a-c781-4ce4-b826-61552b11b434",
 				"3ece640c-c1db-4d71-9230-6cada86ffa19",
 				"61377157-01c9-4b96-a77f-9d720aae390e",
 				"71c0fc7c-366d-42bc-a8de-1fc50d936357",
@@ -465,6 +465,13 @@
 		{
 			"uuid": "2be0c329-8644-4573-b810-7efea70ddae4",
 			"title": "New task",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "1920af68-b41c-4ab3-a0af-e67e3ef249c8",
+			"title": "[Feat] Add shoot cooldown to weapons with ammo",
 			"description": "",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
