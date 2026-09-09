@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://c7r0cing6s0w4" path="res://scenes/managers/players_manager/players_manager.gd" id="1_rttgr"]
 
-[node name="PlayersManager" type="Node2D" unique_id=1956244340]
+[node name="PlayersManager" type="Node" unique_id=1711071540]
 script = ExtResource("1_rttgr")

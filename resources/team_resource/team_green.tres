@@ -6,12 +6,12 @@
 
 [sub_resource type="Resource" id="Resource_8a5kl"]
 script = ExtResource("2_6osg5")
-name = "Mati"
+name = "Demon"
 metadata/_custom_type_script = "uid://ccrc8sl42duol"
 
 [sub_resource type="Resource" id="Resource_s2swh"]
 script = ExtResource("2_6osg5")
-name = "Femke"
+name = "Pen"
 metadata/_custom_type_script = "uid://ccrc8sl42duol"
 
 [resource]

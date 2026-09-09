@@ -2,7 +2,7 @@
 class_name ProjectileWeapon
 extends Aimable
 
-const PROJECTILE = preload("uid://csa3ig7aroxsa")
+const PROJECTILE := preload("uid://csa3ig7aroxsa")
 
 var _resource: ProjectileWeaponResource
 var _is_charging := false
@@ -47,8 +47,8 @@ func shoot() -> void:
 	projectile.prepare(_resource.projectile_resource)
 
 	# Add to level
-	var objects := Utils.get_objects_container()
-	objects.add_child(projectile)
+	var entities := Utils.get_entities_container()
+	entities.add_child(projectile)
 
 	# Fire projectile
 	var force := _calculate_force()

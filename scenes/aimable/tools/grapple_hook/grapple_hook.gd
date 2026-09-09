@@ -45,8 +45,8 @@ func shoot() -> void:
 func _attach_hook(point: Vector2, normal: Vector2) -> Hook:
 	var hook: Hook = HOOK.instantiate()
 
-	var objects := Utils.get_objects_container()
-	objects.add_child(hook)
+	var entities := Utils.get_entities_container()
+	entities.add_child(hook)
 
 	var hook_rotation := normal.angle() + PI
 	hook.spawn(point, hook_rotation)

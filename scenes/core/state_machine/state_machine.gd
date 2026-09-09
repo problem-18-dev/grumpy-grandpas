@@ -42,7 +42,7 @@ func transition_to_state(state: String, data := { }) -> void:
 		return
 
 	if data.size() > 0:
-		Debug.log("%s state changed to %s with %s" % [owner.name, state, data])
+		print("%s state changed to %s with %s" % [owner.name, state, data])
 		return
 
-	Debug.log("%s state changed to %s" % [owner.name, state])
+	print("%s state changed to %s" % [owner.name, state])

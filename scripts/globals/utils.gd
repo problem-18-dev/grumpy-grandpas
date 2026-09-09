@@ -1,6 +1,6 @@
 extends Node
 
-const EXPLOSION := preload("uid://dchrvlerl7kne")
+const EXPLOSION_UID := "uid://dchrvlerl7kne"
 
 
 func create_shape_query(
@@ -18,16 +18,16 @@ func create_shape_query(
 
 
 func create_explosion(explosion_resource: ExplosionResource, explode_position: Vector2) -> void:
-	var explosion := EXPLOSION.instantiate()
+	var explosion: Explosion = load(EXPLOSION_UID).instantiate()
 	explosion.prepare(explosion_resource)
 
-	var objects := get_objects_container()
-	objects.add_child(explosion)
+	var entities := get_entities_container()
+	entities.add_child(explosion)
 
 	explosion.explode(explode_position)
 
 
-func get_objects_container() -> Node2D:
-	var objects := get_tree().get_first_node_in_group("objects")
-	assert(objects, "Attempting to use objects container, but it doesn't exist.")
-	return objects
+func get_entities_container() -> Node2D:
+	var entities := get_tree().get_first_node_in_group("entities")
+	assert(entities, "Attempting to use entities container, but it doesn't exist.")
+	return entities

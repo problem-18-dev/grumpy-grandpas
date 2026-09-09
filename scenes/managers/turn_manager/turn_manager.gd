@@ -1,5 +1,5 @@
 class_name TurnManager
-extends Node2D
+extends Node
 
 signal time_changed(time: int)
 signal transition_started
@@ -17,6 +17,13 @@ var _transition_time_remaining: int
 
 @onready var turn_timer: Timer = $TurnTimer
 @onready var transition_timer: Timer = $TransitionTimer
+
+
+func reset() -> void:
+	_turn_time_remaining = turn_duration
+	_transition_time_remaining = transition_duration
+	turn_timer.stop()
+	transition_timer.stop()
 
 
 func start_turn() -> void:

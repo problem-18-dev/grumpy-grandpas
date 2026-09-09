@@ -10,7 +10,7 @@ var _finished := false
 
 func enter(data := { }) -> void:
 	_finished = false
-	player.unequip_aimable()
+	player.unequip_item()
 
 	if not data.has("force") or not data.has("angle"):
 		push_error("Entered knockback state without force or angle")

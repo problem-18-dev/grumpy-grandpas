@@ -24,7 +24,7 @@ func hit(amount: int) -> void:
 	if not enabled:
 		return
 
-	Debug.log("%s Hit by %s" % [owner.name, amount])
+	print("%s Hit by %s" % [owner.name, amount])
 	hurt.emit(amount)
 
 

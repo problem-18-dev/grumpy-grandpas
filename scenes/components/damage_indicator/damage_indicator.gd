@@ -15,7 +15,7 @@ const POSITIVE_COLOR := Color(0.0, 1.0, 0.05, 1.0)
 @export var count_duration := 3.0
 @export var delay_duration := 0.5
 @export_group("Testing")
-@export_tool_button("Display") var display_action = display
+@export_tool_button("Display") var display_action: Callable = display
 
 var _label: Label
 

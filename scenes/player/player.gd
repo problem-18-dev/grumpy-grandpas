@@ -2,7 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 signal marked_for_death(player: Player)
-signal requested_catalogue(player: Player)
+signal requested_inventory(equipped_item: ItemResource)
 signal damage_accumulated(player: Player)
 signal damage_applied
 signal died
@@ -15,7 +15,6 @@ const RIGHT_DIRECTION := 1
 const FLOOR_MAX_ANGLE := 80
 
 var _equipped_item: ItemResource = CATALOGUE.default_weapon
-var _inventory_locked := false
 var _ammo_remaining := 0
 var _damage_accumulated := 0
 var _last_direction := RIGHT_DIRECTION
@@ -24,7 +23,6 @@ var _last_direction := RIGHT_DIRECTION
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var aimable_holder: AimableHolder = $AimableHolder
 @onready var state_machine: StateMachine = $StateMachine
-@onready var player_hud: PlayerHUD = $PlayerHUD
 @onready var name_label: Label = $NameLabel
 @onready var health_label: Label = $HealthLabel
 @onready var hurtbox: HurtboxComponent = $HurtboxComponent
@@ -34,7 +32,6 @@ var _last_direction := RIGHT_DIRECTION
 
 
 func _ready() -> void:
-	player_hud.close()
 	_set_ammo(CATALOGUE.default_weapon.aimable_resource.ammo)
 
 
@@ -42,17 +39,32 @@ func _physics_process(_delta: float) -> void:
 	_flip_sprite()
 
 
-#region Aimables
-func equip_aimable(aimable_resource: AimableResource) -> void:
-	aimable_holder.equip_aimable(aimable_resource, _last_direction)
+#region Equipping
+func equip_item(item: ItemResource) -> void:
+	_equipped_item = item
+
+	var new_player_state := PlayerState.IDLE
+
+	if item.aimable_resource:
+		aimable_holder.equip_aimable(item.aimable_resource, _last_direction)
+		_set_ammo(item.aimable_resource.ammo)
+
+	if item.set_player_state_on_equip:
+		new_player_state = item.player_state
+
+	state_machine.transition_to_state(new_player_state)
 
 
-func unequip_aimable() -> void:
+func unequip_item() -> void:
 	aimable_holder.remove_aimable()
 
 
-func reequip_aimable() -> void:
-	equip_aimable(_equipped_item.aimable_resource)
+func reequip_item() -> void:
+	if _equipped_item.aimable_resource:
+		aimable_holder.equip_aimable(_equipped_item.aimable_resource, _last_direction)
+
+	if _equipped_item.set_player_state_on_equip:
+		state_machine.transition_to_state(_equipped_item.player_state)
 #endregion
 
 
@@ -87,7 +99,6 @@ func drown() -> void:
 func reset() -> void:
 	_ammo_remaining = 0
 	_damage_accumulated = 0
-	_inventory_locked = false
 
 
 func spawn(spawn_position: Vector2, floor_normal: Vector2) -> void:
@@ -106,16 +117,8 @@ func setup(team: TeamResource, player: PlayerResource) -> void:
 
 
 #region Inventory
-func toggle_inventory() -> void:
-	if player_hud.visible or _inventory_locked:
-		player_hud.close()
-		return
-
-	requested_catalogue.emit(self)
-
-
-func open_inventory(locked_items: Array[ItemResource]) -> void:
-	player_hud.open(locked_items, _equipped_item)
+func request_inventory() -> void:
+	requested_inventory.emit(_equipped_item)
 #endregion
 
 
@@ -128,7 +131,7 @@ func apply_damage() -> void:
 	if _damage_accumulated <= 0:
 		return
 
-	Debug.log("Damaging %s by %s" % [name, _damage_accumulated])
+	print("Damaging %s by %s" % [name, _damage_accumulated])
 	health.take_health(_damage_accumulated)
 	reset()
 
@@ -167,21 +170,6 @@ func _on_health_component_died() -> void:
 	marked_for_death.emit(self)
 
 
-func _on_player_hud_item_selected(item: ItemResource) -> void:
-	_equipped_item = item
-
-	var new_player_state := PlayerState.IDLE
-
-	if item.aimable_resource:
-		reequip_aimable()
-		_set_ammo(item.aimable_resource.ammo)
-
-	if item.set_player_state_on_equip:
-		new_player_state = item.player_state
-
-	state_machine.transition_to_state(new_player_state)
-
-
 func _on_aimable_holder_aimable_used(player_state: String, state_data: Dictionary) -> void:
 	state_machine.transition_to_state(player_state, state_data)
 
@@ -192,7 +180,6 @@ func _on_aimable_holder_aimable_fired() -> void:
 	EventSystem.busy.busy_started.emit(self)
 
 	if _ammo_remaining > 0:
-		_inventory_locked = true
 		return
 
 	deactivate()

@@ -10,7 +10,7 @@ var _is_flying := false
 
 
 func enter(_data := { }) -> void:
-	player.unequip_aimable()
+	player.unequip_item()
 
 
 func _key_input(event: InputEvent) -> void:
@@ -18,7 +18,7 @@ func _key_input(event: InputEvent) -> void:
 		return
 
 	if event.is_action_pressed("inventory"):
-		player.toggle_inventory()
+		player.request_inventory()
 
 
 func _physics_update(delta: float) -> void:

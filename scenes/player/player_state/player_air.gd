@@ -14,7 +14,7 @@ var _has_fallen := false
 
 
 func enter(data := { }) -> void:
-	player.unequip_aimable()
+	player.unequip_item()
 
 	if data.has("jump"):
 		_jump()

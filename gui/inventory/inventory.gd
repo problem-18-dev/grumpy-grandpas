@@ -1,10 +1,11 @@
-class_name PlayerHUD
-extends CanvasLayer
+class_name Inventory
+extends Control
 
-signal item_selected(item: ItemResource)
+## Emits when inventory is closed, optionally provides which item was chosen
+signal closed(item: ItemResource)
 
-const CATALOGUE = preload("uid://gr6x0tlr2xog")
-const INVENTORY_ITEM_BUTTON_VARIANT := "InventoryItemButton"
+const CATALOGUE: CatalogueResource = preload("uid://gr6x0tlr2xog")
+const INVENTORY_ITEM_BUTTON_VARIANT: String = "InventoryItemButton"
 
 var _item_buttons: Dictionary[ItemResource, Button]
 
@@ -18,14 +19,16 @@ func _ready() -> void:
 	_spawn_tool_buttons()
 
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("inventory"):
+		closed.emit()
+		queue_free()
+		get_viewport().set_input_as_handled()
+
+
 func open(locked_items: Array[ItemResource], equipped_item: ItemResource) -> void:
 	_update_locked_items(locked_items)
 	_disable_equipped_item_button(equipped_item)
-	show()
-
-
-func close() -> void:
-	hide()
 
 
 func _update_locked_items(new_locked_items: Array[ItemResource]) -> void:
@@ -42,10 +45,10 @@ func _update_locked_items(new_locked_items: Array[ItemResource]) -> void:
 
 
 func _spawn_weapon_buttons() -> void:
-	var weapons := CATALOGUE.weapons
+	var weapons: Array[ItemResource] = CATALOGUE.weapons
 
-	for weapon in weapons:
-		var button := Button.new()
+	for weapon: ItemResource in weapons:
+		var button: Button = Button.new()
 		button.theme_type_variation = INVENTORY_ITEM_BUTTON_VARIANT
 		button.pressed.connect(_on_button_pressed.bind(weapon))
 		button.text = weapon.name
@@ -54,10 +57,10 @@ func _spawn_weapon_buttons() -> void:
 
 
 func _spawn_tool_buttons() -> void:
-	var tools := CATALOGUE.tools
+	var tools: Array[ItemResource] = CATALOGUE.tools
 
-	for tool in tools:
-		var button := Button.new()
+	for tool: ItemResource in tools:
+		var button: Button = Button.new()
 		button.theme_type_variation = INVENTORY_ITEM_BUTTON_VARIANT
 		button.pressed.connect(_on_button_pressed.bind(tool))
 		button.text = tool.name
@@ -70,23 +73,23 @@ func _disable_equipped_item_button(equipped_item: ItemResource) -> void:
 
 
 func _unlock_all() -> void:
-	for item in _item_buttons.keys():
+	for item: ItemResource in _item_buttons.keys():
 		_unlock_button(item)
 
 
 func _unlock_button(item: ItemResource) -> void:
-	var button := _item_buttons[item]
+	var button: Button = _item_buttons[item]
 	button.disabled = false
 	button.text = item.name
 
 
 ## TODO: Implement special locked state
 func _lock_button(item: ItemResource) -> void:
-	var button := _item_buttons[item]
+	var button: Button = _item_buttons[item]
 	button.disabled = true
 	button.text = item.name + " (locked)"
 
 
 func _on_button_pressed(item: ItemResource) -> void:
-	close()
-	item_selected.emit(item)
+	closed.emit(item)
+	queue_free()

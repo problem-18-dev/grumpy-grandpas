@@ -1,11 +1,11 @@
 class_name BusyManager
-extends Node2D
+extends Node
 
 signal busy_started
 signal busy_ended
 
 var _has_settled := false
-var _busy_nodes: Array[Node2D] = []
+var _busy_nodes: Array[Node] = []
 
 @onready var settle_timer: Timer = $SettleTimer
 
@@ -21,7 +21,11 @@ func reset() -> void:
 	settle_timer.stop()
 
 
-func _on_busy_started(node: Node2D) -> void:
+func is_busy() -> bool:
+	return not _busy_nodes.is_empty() or not settle_timer.is_stopped()
+
+
+func _on_busy_started(node: Node) -> void:
 	if _busy_nodes.has(node):
 		return
 
@@ -32,7 +36,7 @@ func _on_busy_started(node: Node2D) -> void:
 	_busy_nodes.append(node)
 
 
-func _on_busy_finished(node: Node2D) -> void:
+func _on_busy_finished(node: Node) -> void:
 	if not _busy_nodes.has(node):
 		return
 

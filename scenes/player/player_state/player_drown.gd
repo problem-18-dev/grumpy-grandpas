@@ -8,7 +8,7 @@ extends PlayerState
 
 func enter(_data := { }) -> void:
 	EventSystem.busy.busy_started.emit(player)
-	player.unequip_aimable()
+	player.unequip_item()
 	player.velocity = Vector2.DOWN * drown_speed
 
 	_check_sink_limit()
@@ -39,6 +39,7 @@ func _handle_collision() -> void:
 			continue
 
 		player.marked_for_death.emit(player)
+		_finish_drowning()
 		finished.emit(PlayerState.INACTIVE)
 
 

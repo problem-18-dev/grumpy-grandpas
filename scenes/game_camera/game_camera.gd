@@ -108,7 +108,7 @@ func _start_stall() -> void:
 
 
 func _log() -> void:
-	Debug.log("Moving camera to %s" % follow_target.name)
+	print("Moving camera to %s" % follow_target.name)
 
 
 func _on_request_follow(

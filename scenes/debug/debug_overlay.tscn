@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://drkkxlses2ss3"]
+
+[ext_resource type="Script" uid="uid://en6lm42na48a" path="res://scenes/debug/debug_overlay.gd" id="1_dytaf"]
+
+[node name="DebugOverlay" type="Control" unique_id=567403883]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+script = ExtResource("1_dytaf")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1840923755]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1407787639]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="FpsLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1996152198]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DebugLabel"
+text = "FPS: "
+
+[node name="BuildLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1518510492]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"DebugLabel"
+text = "Build: 0.1.0"

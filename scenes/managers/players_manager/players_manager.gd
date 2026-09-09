@@ -1,13 +1,26 @@
 class_name PlayersManager
-extends Node2D
+extends Node
+
+signal inventory_requested(locked_items: Array[ItemResource], current_item: ItemResource)
 
 const PLAYER := preload("uid://bmag23mf230r3")
+
+@export_group("Spawn")
+@export var spawn_target: Node2D
 
 var teams: Array[TeamResource] = []
 var active_team: TeamResource
 var active_player: Player
 var players_marked_for_death: Array[Player]
 var players_to_damage: Array[Player]
+
+
+func reset() -> void:
+	teams.clear()
+	active_team = null
+	active_player = null
+	players_marked_for_death.clear()
+	players_to_damage.clear()
 
 
 #region Players
@@ -18,7 +31,7 @@ func spawn_players(spawn_points: Array[Dictionary]) -> void:
 	for team in GameManager.get_teams():
 		for player_resource in team.player_resources:
 			var player: Player = PLAYER.instantiate()
-			add_child(player)
+			spawn_target.add_child(player)
 
 			var spawn_data: Dictionary = spawn_points.pop_back()
 			player.spawn(spawn_data.get("spawn_position"), spawn_data.get("spawn_normal"))
@@ -26,7 +39,7 @@ func spawn_players(spawn_points: Array[Dictionary]) -> void:
 
 			player.marked_for_death.connect(_on_player_marked_for_death)
 			player.damage_accumulated.connect(_on_player_damage_accumulated)
-			player.requested_catalogue.connect(_on_player_requested_catalogue)
+			player.requested_inventory.connect(_on_player_requested_inventory)
 			player.drowned.connect(_on_player_drowned)
 			player.finished.connect(deactivate_player)
 
@@ -48,6 +61,11 @@ func deactivate_player() -> void:
 	EventSystem.camera.revoke_follow.emit(active_player)
 	active_player.deactivate()
 	active_player = null
+
+
+func player_equip(item: ItemResource) -> void:
+	activate_player()
+	active_player.equip_item(item)
 
 
 func kill_marked_players() -> void:
@@ -121,7 +139,7 @@ func unlock_item(by: Player, type: PickuppableResource.Type) -> void:
 func _unlock_random(category_items: Array) -> void:
 	var team := _current_team()
 	var locked := team.get_locked_items().filter(
-		func(item: ItemResource):
+		func(item: ItemResource) -> bool:
 			return category_items.has(item),
 	)
 
@@ -206,6 +224,6 @@ func _on_player_drowned(player: Player) -> void:
 	active_player = null
 
 
-func _on_player_requested_catalogue(player: Player) -> void:
+func _on_player_requested_inventory(current_item: ItemResource) -> void:
 	var locked_items := _current_team().get_locked_items()
-	player.open_inventory(locked_items)
+	inventory_requested.emit(locked_items, current_item)

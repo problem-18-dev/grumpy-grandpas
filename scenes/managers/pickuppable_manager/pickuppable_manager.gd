@@ -9,7 +9,6 @@ const HURTBOX_COLLISION_MASK := 4
 
 @export_group("Properties")
 @export var spawn_chance := 0.15
-@export var spawn_follow: PathFollow2D
 @export var spawn_vertical_offset := 64.0
 @export_group("Guards")
 @export var should_check_for_players := true
@@ -17,12 +16,16 @@ const HURTBOX_COLLISION_MASK := 4
 @export_group("Resources")
 @export var spawn_resources: Array[PickuppableResource]
 
+var spawn_follow: PathFollow2D
 
-func _ready() -> void:
-	assert(spawn_follow, "No spawn follow provided.")
+
+func setup(new_spawn_follow: PathFollow2D) -> void:
+	spawn_follow = new_spawn_follow
 
 
 func attempt_spawn() -> void:
+	assert(spawn_follow, "Attempting spawn without path follow")
+
 	if spawn_resources.is_empty():
 		push_warning("No spawn resources assigned, skipping.")
 		return
@@ -39,7 +42,7 @@ func attempt_spawn() -> void:
 		return
 
 	var pickuppable_resource: PickuppableResource = spawn_resources.pick_random()
-	Debug.log("Spawning %s" % pickuppable_resource.name)
+	print("Spawning %s" % pickuppable_resource.name)
 	var pickuppable: Pickuppable = PICKUPPABLE.instantiate()
 	pickuppable.picked_up.connect(picked_up.emit)
 

@@ -3,7 +3,7 @@ extends PlayerState
 
 func enter(_data := { }) -> void:
 	player.velocity = Vector2.ZERO
-	player.reequip_aimable()
+	player.reequip_item()
 
 
 func _physics_update(_delta: float) -> void:
@@ -17,7 +17,8 @@ func _key_input(event: InputEvent) -> void:
 		finished.emit(PlayerState.AIR, { "jump": true })
 
 	if event.is_action_pressed("inventory"):
-		player.toggle_inventory()
+		player.request_inventory()
+		get_viewport().set_input_as_handled()
 
 
 func _handle_movement() -> void:

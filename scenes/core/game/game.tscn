@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://ciimkqey5k0nn"]
+
+[ext_resource type="Script" uid="uid://ddhhtvwb1c10u" path="res://scenes/core/game/game.gd" id="1_uf3vs"]
+[ext_resource type="PackedScene" uid="uid://c6rdv182qtrpo" path="res://scenes/managers/busy_manager/busy_manager.tscn" id="2_hk36i"]
+[ext_resource type="PackedScene" uid="uid://cmrioaepcqauw" path="res://scenes/managers/turn_manager/turn_manager.tscn" id="3_l2mu6"]
+[ext_resource type="PackedScene" uid="uid://dbdar1owhc1hg" path="res://scenes/managers/players_manager/players_manager.tscn" id="4_t6juh"]
+[ext_resource type="PackedScene" uid="uid://cw3y8hipohxda" path="res://scenes/managers/pickuppable_manager/pickuppable_manager.tscn" id="5_0c8qe"]
+[ext_resource type="PackedScene" uid="uid://drkkxlses2ss3" path="res://scenes/debug/debug_overlay.tscn" id="6_22cy2"]
+
+[node name="Game" type="Node" unique_id=1409832964]
+process_mode = 3
+script = ExtResource("1_uf3vs")
+
+[node name="Systems" type="Node" parent="." unique_id=630301451]
+process_mode = 3
+
+[node name="BusyManager" parent="Systems" unique_id=952442597 instance=ExtResource("2_hk36i")]
+unique_name_in_owner = true
+
+[node name="TurnManager" parent="Systems" unique_id=299448507 instance=ExtResource("3_l2mu6")]
+unique_name_in_owner = true
+
+[node name="PlayersManager" parent="Systems" unique_id=1956244340 node_paths=PackedStringArray("spawn_target") instance=ExtResource("4_t6juh")]
+unique_name_in_owner = true
+spawn_target = NodePath("../../World/EntityRoot")
+
+[node name="PickuppableManager" parent="Systems" unique_id=180867956 instance=ExtResource("5_0c8qe")]
+unique_name_in_owner = true
+
+[node name="World" type="Node2D" parent="." unique_id=735254960]
+process_mode = 1
+
+[node name="LevelRoot" type="Node2D" parent="World" unique_id=866049232]
+unique_name_in_owner = true
+
+[node name="EntityRoot" type="Node2D" parent="World" unique_id=931130454 groups=["entities"]]
+unique_name_in_owner = true
+
+[node name="HUDLayer" type="CanvasLayer" parent="." unique_id=1761495330]
+process_mode = 1
+
+[node name="HUDRoot" type="Control" parent="HUDLayer" unique_id=1532385107]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InventoryLayer" type="CanvasLayer" parent="." unique_id=1412375788]
+process_mode = 1
+layer = 2
+
+[node name="InventoryRoot" type="Control" parent="InventoryLayer" unique_id=2013031899]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PauseLayer" type="CanvasLayer" parent="." unique_id=1224369660]
+process_mode = 2
+layer = 10
+
+[node name="PauseRoot" type="Control" parent="PauseLayer" unique_id=817513710]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TransitionLayer" type="CanvasLayer" parent="." unique_id=1786320674]
+process_mode = 3
+layer = 20
+
+[node name="TransitionRoot" type="Control" parent="TransitionLayer" unique_id=2026892133]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="DebugLayer" type="CanvasLayer" parent="." unique_id=663106365]
+process_mode = 3
+layer = 30
+
+[node name="DebugRoot" type="Control" parent="DebugLayer" unique_id=2022143443]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+mouse_default_cursor_shape = 1
+
+[node name="DebugOverlay" parent="DebugLayer/DebugRoot" unique_id=567403883 instance=ExtResource("6_22cy2")]
+layout_mode = 1
+
+[connection signal="busy_ended" from="Systems/BusyManager" to="." method="_on_busy_manager_busy_ended"]
+[connection signal="busy_started" from="Systems/BusyManager" to="." method="_on_busy_manager_busy_started"]
+[connection signal="time_changed" from="Systems/TurnManager" to="." method="_on_turn_manager_time_changed"]
+[connection signal="transition_finished" from="Systems/TurnManager" to="." method="_on_turn_manager_transition_finished"]
+[connection signal="turn_ended" from="Systems/TurnManager" to="." method="_on_turn_manager_turn_ended"]
+[connection signal="inventory_requested" from="Systems/PlayersManager" to="." method="_on_players_manager_inventory_requested"]
+[connection signal="picked_up" from="Systems/PickuppableManager" to="." method="_on_pickuppable_manager_picked_up"]

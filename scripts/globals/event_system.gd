@@ -1,7 +1,7 @@
 extends Node
 
-var camera := Camera.new()
-var busy := Busy.new()
+var camera: Camera = Camera.new()
+var busy: Busy = Busy.new()
 
 
 class Camera:

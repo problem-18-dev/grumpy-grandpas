@@ -10,7 +10,6 @@
 [ext_resource type="Script" uid="uid://cnc8c7xcxascg" path="res://scenes/player/player_state/player_air.gd" id="6_75vfm"]
 [ext_resource type="PackedScene" uid="uid://bdmwi2dhvl8q1" path="res://scenes/components/health_component/health_component.tscn" id="7_0owmy"]
 [ext_resource type="Script" uid="uid://bep13uudvc7lh" path="res://scenes/player/player_state/player_inactive.gd" id="10_gx1jg"]
-[ext_resource type="PackedScene" uid="uid://bkrmhl1oip2je" path="res://scenes/player/player_hud/hud.tscn" id="10_h17s1"]
 [ext_resource type="Script" uid="uid://c8a35l3xxakio" path="res://scenes/player/player_state/player_knockback.gd" id="11_ugbui"]
 [ext_resource type="Script" uid="uid://n6aq4lhmi1g5" path="res://scenes/player/player_state/player_dead.gd" id="12_gx1jg"]
 [ext_resource type="Script" uid="uid://b7bl74jsxu3on" path="res://scenes/player/player_state/player_drown.gd" id="13_kvlxm"]
@@ -88,8 +87,6 @@ script = ExtResource("13_ugbui")
 [node name="Jetpack" type="Node" parent="StateMachine" unique_id=1454097151]
 script = ExtResource("14_fcs02")
 
-[node name="PlayerHUD" parent="." unique_id=864953640 instance=ExtResource("10_h17s1")]
-
 [node name="NameLabel" type="Label" parent="." unique_id=1121474135]
 anchors_preset = 8
 anchor_left = 0.5
@@ -142,5 +139,4 @@ float_height = 16.0
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="timeout" from="StateMachine/Drown/DrownTimer" to="StateMachine/Drown" method="_on_drown_timer_timeout"]
-[connection signal="item_selected" from="PlayerHUD" to="." method="_on_player_hud_item_selected"]
 [connection signal="finished" from="DamageIndicator" to="." method="_on_damage_indicator_finished"]

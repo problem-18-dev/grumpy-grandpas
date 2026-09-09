@@ -2,7 +2,7 @@ extends PlayerState
 
 
 func enter(_data := { }) -> void:
-	player.unequip_aimable()
+	player.unequip_item()
 	player.velocity = Vector2.ZERO
 
 

@@ -32,7 +32,7 @@ static func build_circle_polygon(radius: float, tolerance := 1.0) -> Array[Vecto
 	return points
 
 
-func _ready():
+func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
@@ -45,10 +45,10 @@ func _ready():
 			update_bounds_and_area(polygon_2d, polygon_2d.polygon)
 
 
-func _get_configuration_warnings():
-	var children = get_children()
+func _get_configuration_warnings() -> PackedStringArray:
+	var children: Array[Polygon2D] = get_children() as Array[Polygon2D]
 
-	for child in children:
+	for child: Polygon2D in children:
 		if !child is Polygon2D:
 			return ["A DestructiblePolygon2D may only have Polygon2D children."]
 
@@ -74,14 +74,14 @@ func destruct(polygon: PackedVector2Array, at_global_position := Vector2.ZERO) -
 		max_x = max(max_x, point.x)
 		max_y = max(max_y, point.y)
 
-	var mask_bounds = Rect2(min_x, min_y, max_x - min_x, max_y - min_y)
-	var area_sum = 0
-	var empty = free_when_empty
+	var mask_bounds: Rect2 = Rect2(min_x, min_y, max_x - min_x, max_y - min_y)
+	var area_sum: float = 0
+	var empty: bool = free_when_empty
 
 	for polygon_2d in get_children():
 		if polygon_2d.get_meta("bounds").intersects(mask_bounds):
-			var old_area = polygon_2d.get_meta("area")
-			var new_area = _destruct_child(polygon_2d, mask)
+			var old_area: float = polygon_2d.get_meta("area")
+			var new_area: float = _destruct_child(polygon_2d, mask)
 
 			area_sum += old_area - new_area
 
@@ -98,12 +98,12 @@ func destruct(polygon: PackedVector2Array, at_global_position := Vector2.ZERO) -
 
 ## When adding a [Polygon2D] child at runtime, call this.
 func update_bounds_and_area(polygon_2d: Polygon2D, polygon: PackedVector2Array) -> float:
-	var min_x = INF
-	var min_y = INF
-	var max_x = -INF
-	var max_y = -INF
-	var area = 0
-	var previous_point = polygon[polygon.size() - 1]
+	var min_x: float = INF
+	var min_y: float = INF
+	var max_x: float = -INF
+	var max_y: float = -INF
+	var area: float = 0
+	var previous_point: Vector2 = polygon[polygon.size() - 1]
 
 	for point in polygon:
 		min_x = min(min_x, point.x)
@@ -123,9 +123,9 @@ func update_bounds_and_area(polygon_2d: Polygon2D, polygon: PackedVector2Array) 
 
 
 ## When adding a [Polygon2D] child at runtime, call this if [member collidable] is [code]true[/code].
-func add_collision_polygon(polygon_2d: Polygon2D):
-	var static_body_2d = StaticBody2D.new()
-	var collision_polygon_2d = CollisionPolygon2D.new()
+func add_collision_polygon(polygon_2d: Polygon2D) -> void:
+	var static_body_2d: StaticBody2D = StaticBody2D.new()
+	var collision_polygon_2d: CollisionPolygon2D = CollisionPolygon2D.new()
 
 	static_body_2d.add_to_group("terrain")
 
@@ -136,7 +136,7 @@ func add_collision_polygon(polygon_2d: Polygon2D):
 	polygon_2d.add_child(static_body_2d)
 
 
-func set_collidable(value):
+func set_collidable(value: bool) -> void:
 	collidable = value
 
 	if Engine.is_editor_hint() || !is_inside_tree():
@@ -156,8 +156,11 @@ func set_collidable(value):
 			polygon_2d.get_child(0).get_child(0).set_deferred("disabled", true)
 
 
-func _destruct_child(polygon_2d, mask):
-	var clipped_polygons = Geometry2D.clip_polygons(polygon_2d.polygon, mask)
+func _destruct_child(polygon_2d: Polygon2D, mask: PackedVector2Array) -> float:
+	var clipped_polygons: Array[PackedVector2Array] = Geometry2D.clip_polygons(
+		polygon_2d.polygon,
+		mask,
+	)
 
 	match clipped_polygons.size():
 		0:
@@ -165,12 +168,12 @@ func _destruct_child(polygon_2d, mask):
 
 			return 0
 		1:
-			var polygon = polygon_2d.polygon
-			var polygon_size = polygon.size()
-			var polygon_changed = polygon_size != clipped_polygons[0].size()
+			var polygon: PackedVector2Array = polygon_2d.polygon
+			var polygon_size: int = polygon.size()
+			var polygon_changed: bool = polygon_size != clipped_polygons[0].size()
 
 			if !polygon_changed:
-				var index = clipped_polygons[0].find(polygon[0])
+				var index: int = clipped_polygons[0].find(polygon[0])
 
 				if index == -1:
 					polygon_changed = true
@@ -185,11 +188,11 @@ func _destruct_child(polygon_2d, mask):
 				return polygon_2d.get_meta("area")
 		2:
 			if Geometry2D.is_polygon_clockwise(clipped_polygons[1]):
-				var boundary_size = clipped_polygons[0].size()
-				var hole_size = clipped_polygons[1].size()
+				var boundary_size: int = clipped_polygons[0].size()
+				var hole_size: int = clipped_polygons[1].size()
 
 				for i in boundary_size:
-					var link1 = [clipped_polygons[0][i], null]
+					var link1: Array = [clipped_polygons[0][i], null]
 
 					for j in hole_size:
 						link1[1] = clipped_polygons[1][j]
@@ -205,7 +208,7 @@ func _destruct_child(polygon_2d, mask):
 							continue
 
 						for k in range(i + 1, boundary_size):
-							var link2 = [clipped_polygons[0][k], null]
+							var link2: Array = [clipped_polygons[0][k], null]
 
 							for l in hole_size:
 								if l == j:
@@ -231,8 +234,8 @@ func _destruct_child(polygon_2d, mask):
 								) != null:
 									continue
 
-								var part1 = PackedVector2Array()
-								var part2 = PackedVector2Array()
+								var part1: PackedVector2Array = PackedVector2Array()
+								var part2: PackedVector2Array = PackedVector2Array()
 
 								for m in boundary_size:
 									if m >= i && m <= k:
@@ -244,7 +247,7 @@ func _destruct_child(polygon_2d, mask):
 									if m >= k:
 										part2.insert(m - k, clipped_polygons[0][m])
 
-								var m = l
+								var m: int = l
 
 								while true:
 									part1.push_back(clipped_polygons[1][m])
@@ -262,17 +265,22 @@ func _destruct_child(polygon_2d, mask):
 
 									m = (m + 1) % hole_size
 
-								var area1 = _update_or_create(
+								var area1: float = _update_or_create(
 									polygon_2d,
 									part1,
 									part1.size(),
 									false,
 								)
-								var area2 = _update_or_create(polygon_2d, part2, part2.size(), true)
+								var area2: float = _update_or_create(
+									polygon_2d,
+									part2,
+									part2.size(),
+									true,
+								)
 
 								return area1 + area2
 
-	var area_sum = 0
+	var area_sum: float = 0
 
 	for i in clipped_polygons.size():
 		area_sum += _update_or_create(
@@ -285,21 +293,27 @@ func _destruct_child(polygon_2d, mask):
 	return area_sum
 
 
-func _update_or_create(polygon_2d, polygon, size, new):
+func _update_or_create(
+	polygon_2d: Polygon2D,
+	polygon: PackedVector2Array,
+	size: int,
+	new: bool,
+) -> float:
 	if size > 128:
-		var i = size / 2
-		var step = 1
+		@warning_ignore("integer_division")
+		var i := size / 2
+		var step: int = 1
 
 		while true:
 			for j in size:
-				var k = (j + i) % size
+				var k := (j + i) % size
 
 				if !Geometry2D.clip_polyline_with_polygon([polygon[j], polygon[k]], polygon).is_empty():
 					continue
 
-				var part1 = PackedVector2Array()
-				var part2 = PackedVector2Array()
-				var l = j
+				var part1: PackedVector2Array = PackedVector2Array()
+				var part2: PackedVector2Array = PackedVector2Array()
+				var l: int = j
 
 				while true:
 					part1.push_back(polygon[l])
@@ -317,8 +331,8 @@ func _update_or_create(polygon_2d, polygon, size, new):
 
 					l = (l + 1) % size
 
-				var area1 = _update_or_create(polygon_2d, part1, i + 1, new)
-				var area2 = _update_or_create(polygon_2d, part2, size - i + 1, true)
+				var area1: float = _update_or_create(polygon_2d, part1, i + 1, new)
+				var area2: float = _update_or_create(polygon_2d, part2, size - i + 1, true)
 
 				return area1 + area2
 
@@ -328,12 +342,12 @@ func _update_or_create(polygon_2d, polygon, size, new):
 			step += sign(step)
 
 	if simplification > 0:
-		var simplified_polygon = PackedVector2Array()
-		var previous_point = polygon[polygon.size() - 1]
-		var previous_distance = previous_point.distance_to(polygon[polygon.size() - 2])
+		var simplified_polygon: PackedVector2Array = PackedVector2Array()
+		var previous_point: Vector2 = polygon[polygon.size() - 1]
+		var previous_distance: float = previous_point.distance_to(polygon[polygon.size() - 2])
 
 		for point in polygon:
-			var distance = point.distance_to(previous_point)
+			var distance: float = point.distance_to(previous_point)
 
 			if previous_distance >= simplification || distance >= simplification:
 				simplified_polygon.push_back(previous_point)

@@ -1,7 +1,7 @@
 extends PlayerState
 
-const BED := preload("uid://dt41u72nlmr4c")
-const PLAYER_EXPLOSION = preload("uid://d0al511wp4v17")
+const BED_UID := "uid://dt41u72nlmr4c"
+const PLAYER_EXPLOSION_UID = "uid://d0al511wp4v17"
 
 @export_group("Properties")
 @export var pre_death_timer := 3.0
@@ -21,7 +21,7 @@ func _physics_update(delta: float) -> void:
 
 
 func _die() -> void:
-	Debug.log("%s has died" % player.name)
+	print("%s has died" % player.name)
 	player.name_label.text = "%s (dead)" % player.name
 
 	# TODO: replace this with animation
@@ -34,11 +34,11 @@ func _die() -> void:
 
 
 func _explode() -> void:
-	Utils.create_explosion(PLAYER_EXPLOSION, player.global_position)
+	Utils.create_explosion(load(PLAYER_EXPLOSION_UID), player.global_position)
 
 
 func _spawn_bed() -> void:
-	var bed: Node2D = BED.instantiate()
+	var bed: Node2D = load(BED_UID).instantiate()
 	player.add_child(bed)
 
 

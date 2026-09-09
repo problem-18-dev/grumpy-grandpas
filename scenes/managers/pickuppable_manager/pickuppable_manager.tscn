@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cw3y8hipohxda"]
+
+[ext_resource type="Script" uid="uid://cfhootipnhms2" path="res://scenes/managers/pickuppable_manager/pickuppable_manager.gd" id="1_nx5f2"]
+[ext_resource type="Script" uid="uid://djft4707qktxi" path="res://resources/pickuppable_resource/pickuppable_resource.gd" id="2_w5bym"]
+[ext_resource type="Resource" uid="uid://cigipvuxrk2eo" path="res://resources/pickuppable_resource/crate.tres" id="3_in4jq"]
+[ext_resource type="Resource" uid="uid://bc62j8ns7bj8t" path="res://resources/pickuppable_resource/toolbox.tres" id="4_32mex"]
+
+[node name="PickuppableManager" type="Node2D" unique_id=180867956]
+script = ExtResource("1_nx5f2")
+spawn_resources = Array[ExtResource("2_w5bym")]([ExtResource("3_in4jq"), ExtResource("4_32mex")])

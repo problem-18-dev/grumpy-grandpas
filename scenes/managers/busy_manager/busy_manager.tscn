@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://lymj0de4rogu" path="res://scenes/managers/busy_manager/busy_manager.gd" id="1_21r03"]
 
-[node name="BusyManager" type="Node2D" unique_id=952442597]
+[node name="BusyManager" type="Node" unique_id=521475468]
 script = ExtResource("1_21r03")
 
 [node name="SettleTimer" type="Timer" parent="." unique_id=1227406159]
