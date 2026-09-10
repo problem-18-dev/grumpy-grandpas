@@ -7,13 +7,14 @@ var _present_entities: Array[Node2D] = []
 
 
 func cleanup() -> void:
-	for entity: Node2D in _present_entities:
-		_free_present_entity(entity)
-
+	_present_entities.map(_free_present_entity)
 	_present_entities = []
 
 
 func _free_present_entity(entity: Node2D) -> void:
+	if not is_instance_valid(entity):
+		return
+
 	if entity is Projectile:
 		entity.destroy()
 

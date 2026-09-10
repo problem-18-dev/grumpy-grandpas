@@ -8,3 +8,5 @@ extends AimableResource
 @export_group("Camera")
 @export var shake_duration := 0.06
 @export var shake_noise: PhantomCameraNoise2D
+@export_group("Firing")
+@export var cooldown := 0.5

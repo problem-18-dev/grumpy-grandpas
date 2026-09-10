@@ -1,7 +1,7 @@
 class_name AimableHolder
 extends Node2D
 
-signal aimable_fired
+signal aimable_fired(life_time: float)
 signal aimable_used(player_state: String, state_data: Dictionary)
 
 enum HolderState {

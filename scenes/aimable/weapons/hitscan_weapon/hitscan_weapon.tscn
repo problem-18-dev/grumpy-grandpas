@@ -74,3 +74,6 @@ collide_with_areas = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1282977607]
 libraries/ = SubResource("AnimationLibrary_m8n6t")
 autoplay = &"equip"
+
+[node name="CooldownTimer" type="Timer" parent="." unique_id=126672430]
+one_shot = true

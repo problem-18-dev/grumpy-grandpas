@@ -45,6 +45,8 @@ collision_mask = 2
 
 [node name="AimableHolder" parent="." unique_id=1646053950 instance=ExtResource("3_5gtgg")]
 
+[node name="AimableLifeTimeTimer" type="Timer" parent="." unique_id=1341215963]
+
 [node name="HurtboxComponent" parent="." unique_id=923971495 instance=ExtResource("3_qek5x")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1229987194]
@@ -134,6 +136,7 @@ float_height = 16.0
 
 [connection signal="aimable_fired" from="AimableHolder" to="." method="_on_aimable_holder_aimable_fired"]
 [connection signal="aimable_used" from="AimableHolder" to="." method="_on_aimable_holder_aimable_used"]
+[connection signal="timeout" from="AimableLifeTimeTimer" to="." method="_on_aimable_life_time_timer_timeout"]
 [connection signal="hurt" from="HurtboxComponent" to="." method="_on_hurtbox_component_hurt"]
 [connection signal="knockbacked" from="HurtboxComponent" to="." method="_on_hurtbox_component_knockbacked"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

@@ -27,8 +27,7 @@ func prepare(new_aimable_resource: AimableResource) -> void:
 	aimable_resource = new_aimable_resource
 
 
-func shoot() -> void:
-	pass
+@abstract func shoot() -> void
 
 
 ## Flips the weapon's sprite

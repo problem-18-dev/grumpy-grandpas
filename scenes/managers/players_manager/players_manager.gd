@@ -39,9 +39,9 @@ func spawn_players(spawn_points: Array[Dictionary]) -> void:
 
 			player.marked_for_death.connect(_on_player_marked_for_death)
 			player.damage_accumulated.connect(_on_player_damage_accumulated)
-			player.requested_inventory.connect(_on_player_requested_inventory)
+			player.inventory_requested.connect(_on_player_inventory_requested)
 			player.drowned.connect(_on_player_drowned)
-			player.finished.connect(deactivate_player)
+			player.firing_finished.connect(deactivate_player)
 
 			_get_or_create_team(team).add_player(player)
 
@@ -224,6 +224,6 @@ func _on_player_drowned(player: Player) -> void:
 	active_player = null
 
 
-func _on_player_requested_inventory(current_item: ItemResource) -> void:
+func _on_player_inventory_requested(current_item: ItemResource) -> void:
 	var locked_items := active_team.get_locked_items()
 	inventory_requested.emit(locked_items, current_item)

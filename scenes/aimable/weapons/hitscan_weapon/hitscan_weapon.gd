@@ -5,6 +5,7 @@ extends Aimable
 var _resource: HitscanWeaponResource
 
 @onready var hitscan_ray_cast: RayCast2D = $HitscanRayCast
+@onready var cooldown_timer: Timer = $CooldownTimer
 
 
 func _ready() -> void:
@@ -17,11 +18,12 @@ func _ready() -> void:
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if not _is_enabled:
+	if not _is_enabled or not cooldown_timer.is_stopped():
 		return
 
 	if event.is_action_pressed("shoot"):
 		shoot()
+		_start_cooldown()
 		get_viewport().set_input_as_handled()
 
 
@@ -50,3 +52,7 @@ func shoot() -> void:
 		var from := hitscan_ray_cast.global_position
 		var to: Vector2 = collider.global_position
 		collider.knockback(knockback_force, from.angle_to_point(to))
+
+
+func _start_cooldown() -> void:
+	cooldown_timer.start(_resource.cooldown)

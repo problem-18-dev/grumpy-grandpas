@@ -2,12 +2,12 @@ class_name Player
 extends CharacterBody2D
 
 signal marked_for_death(player: Player)
-signal requested_inventory(equipped_item: ItemResource)
+signal inventory_requested(equipped_item: ItemResource)
 signal damage_accumulated(player: Player)
 signal damage_applied
 signal died
 signal drowned(player: Player)
-signal finished
+signal firing_finished
 
 const CATALOGUE = preload("uid://gr6x0tlr2xog")
 const LEFT_DIRECTION := -1
@@ -17,6 +17,7 @@ const FLOOR_MAX_ANGLE := 80
 var _equipped_item: ItemResource = CATALOGUE.default_weapon
 var _ammo_remaining := 0
 var _damage_accumulated := 0
+var _aimable_life_time_remaining := 0.0
 var _last_direction := RIGHT_DIRECTION
 
 @onready var sprite: Sprite2D = $Sprite2D
@@ -29,6 +30,7 @@ var _last_direction := RIGHT_DIRECTION
 @onready var health: HealthComponent = $HealthComponent
 @onready var damage_indicator: DamageIndicator = $DamageIndicator
 @onready var floor_ray_cast: RayCast2D = $FloorRayCast
+@onready var aimable_life_time_timer: Timer = $AimableLifeTimeTimer
 
 
 func _ready() -> void:
@@ -98,6 +100,8 @@ func drown() -> void:
 func reset() -> void:
 	_ammo_remaining = 0
 	_damage_accumulated = 0
+	_aimable_life_time_remaining = 0
+	aimable_life_time_timer.stop()
 
 
 func spawn(spawn_position: Vector2, floor_normal: Vector2) -> void:
@@ -117,7 +121,7 @@ func setup(team: TeamResource, player: PlayerResource) -> void:
 
 #region Inventory
 func request_inventory() -> void:
-	requested_inventory.emit(_equipped_item)
+	inventory_requested.emit(_equipped_item)
 #endregion
 
 
@@ -174,6 +178,14 @@ func _on_aimable_holder_aimable_used(player_state: String, state_data: Dictionar
 
 
 func _on_aimable_holder_aimable_fired() -> void:
+	# If ammo remaining is equal to resource ammo => first shot
+	if _ammo_remaining == _equipped_item.aimable_resource.ammo:
+		var life_time := _equipped_item.aimable_resource.life_time
+
+		if life_time > 0:
+			_aimable_life_time_remaining = life_time
+			aimable_life_time_timer.start()
+
 	_ammo_remaining -= 1
 
 	EventSystem.busy.busy_started.emit(self)
@@ -181,10 +193,18 @@ func _on_aimable_holder_aimable_fired() -> void:
 	if _ammo_remaining > 0:
 		return
 
-	deactivate()
-	finished.emit()
+	firing_finished.emit()
 	EventSystem.busy.busy_finished.emit(self)
 
 
 func _on_damage_indicator_finished() -> void:
 	damage_applied.emit(self)
+
+
+func _on_aimable_life_time_timer_timeout() -> void:
+	_aimable_life_time_remaining -= 1
+
+	if _aimable_life_time_remaining <= 0:
+		aimable_life_time_timer.stop()
+		firing_finished.emit()
+		EventSystem.busy.busy_finished.emit(self)
