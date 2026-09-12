@@ -9,10 +9,13 @@ signal died
 signal drowned(player: Player)
 signal firing_finished
 
-const CATALOGUE = preload("uid://gr6x0tlr2xog")
+const CATALOGUE := preload("uid://gr6x0tlr2xog")
 const LEFT_DIRECTION := -1
 const RIGHT_DIRECTION := 1
 const FLOOR_MAX_ANGLE := 80
+
+var is_cpu: bool
+var team: TeamResource
 
 var _equipped_item: ItemResource = CATALOGUE.default_weapon
 var _ammo_remaining := 0
@@ -67,6 +70,10 @@ func reequip_item() -> void:
 
 	if _equipped_item.set_player_state_on_equip:
 		state_machine.transition_to_state(_equipped_item.player_state)
+
+
+func get_aimable() -> AimableResource:
+	return _equipped_item.aimable_resource
 #endregion
 
 
@@ -82,6 +89,10 @@ func register_last_direction(new_last_direction: float) -> void:
 
 #region Control
 func activate() -> void:
+	if is_cpu:
+		state_machine.transition_to_state(PlayerState.CPU)
+		return
+
 	state_machine.transition_to_state(PlayerState.IDLE)
 
 
@@ -110,12 +121,15 @@ func spawn(spawn_position: Vector2, floor_normal: Vector2) -> void:
 	global_position = floor_offset + (Vector2.UP * (shape.height / 2 - shape.radius))
 
 
-func setup(team: TeamResource, player: PlayerResource) -> void:
+func setup(player_team: TeamResource, player: PlayerResource) -> void:
+	team = player_team
+
 	name_label.add_theme_color_override("font_color", team.color)
 	name_label.text = player.name
 	health_label.add_theme_color_override("font_color", team.color)
 	health_label.text = str(player.health)
 	name = player.name
+	is_cpu = team.is_cpu
 #endregion
 
 

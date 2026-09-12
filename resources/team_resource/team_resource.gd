@@ -8,8 +8,15 @@ extends Resource
 @export var player_resources: Array[PlayerResource]
 @export_group("Inventory")
 @export var locked_items: Array[ItemResource]
+@export_group("CPU")
+@export var is_cpu := false
+@export var difficulty := "easy"
 
 var _active_players: Array[Player]
+
+
+func get_id() -> String:
+	return name.strip_edges().to_lower()
 
 
 func get_players() -> Array[Player]:

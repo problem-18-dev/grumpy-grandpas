@@ -18,4 +18,5 @@ metadata/_custom_type_script = "uid://ccrc8sl42duol"
 script = ExtResource("1_g4vb3")
 name = "Team Red"
 player_resources = Array[ExtResource("1_fpj4e")]([SubResource("Resource_8xq02"), SubResource("Resource_prn5b")])
+is_cpu = true
 metadata/_custom_type_script = "uid://05fqs75xukhe"

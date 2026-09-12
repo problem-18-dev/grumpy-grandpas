@@ -74,6 +74,11 @@ func register_aim_angle(delta: float) -> void:
 	_rotate_aimable()
 
 
+func ai_register_aim_angle(angle: float) -> void:
+	_aim_angle = angle
+	_rotate_aimable()
+
+
 func _change_state(new_state: HolderState) -> void:
 	match new_state:
 		HolderState.ENABLED:

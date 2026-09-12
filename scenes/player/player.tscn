@@ -16,6 +16,9 @@
 [ext_resource type="Script" uid="uid://bea0lrgqy0cag" path="res://scenes/player/player_state/player_grapple_hook.gd" id="13_ugbui"]
 [ext_resource type="Script" uid="uid://drtsbr2w8ifar" path="res://scenes/player/player_state/player_jetpack.gd" id="14_fcs02"]
 [ext_resource type="PackedScene" uid="uid://dyfpao2c8xfpn" path="res://scenes/components/damage_indicator/damage_indicator.tscn" id="16_myrg7"]
+[ext_resource type="Script" uid="uid://bo7oittgiumdi" path="res://scenes/player/player_state/player_cpu/player_cpu_projectile_module.gd" id="17_lgqa7"]
+[ext_resource type="Script" uid="uid://dkygro7a81njo" path="res://scenes/player/player_state/player_cpu.gd" id="17_uf5tr"]
+[ext_resource type="Script" uid="uid://dxllbk0hyl02n" path="res://scenes/player/player_state/player_cpu/player_cpu_hitscan_module.gd" id="18_lgqa7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1xhu4"]
 
@@ -88,6 +91,15 @@ script = ExtResource("13_ugbui")
 
 [node name="Jetpack" type="Node" parent="StateMachine" unique_id=1454097151]
 script = ExtResource("14_fcs02")
+
+[node name="CPU" type="Node" parent="StateMachine" unique_id=2145201964]
+script = ExtResource("17_uf5tr")
+
+[node name="CPUHitscanModule" type="Node" parent="StateMachine/CPU" unique_id=1292517404]
+script = ExtResource("18_lgqa7")
+
+[node name="CPUProjectileModule" type="Node" parent="StateMachine/CPU" unique_id=954478486]
+script = ExtResource("17_lgqa7")
 
 [node name="NameLabel" type="Label" parent="." unique_id=1121474135]
 anchors_preset = 8
