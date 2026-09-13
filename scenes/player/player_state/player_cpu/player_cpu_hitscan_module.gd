@@ -69,7 +69,7 @@ func _determine_best_shot() -> CPUHitscanShot:
 	var best_score := -INF
 
 	for shot in sampled_shots:
-		var score: float = SHOT_SCORE_BASE - shot.distance
+		var score: float = 1.0 - shot.distance
 
 		if shot.is_direct:
 			score += 500

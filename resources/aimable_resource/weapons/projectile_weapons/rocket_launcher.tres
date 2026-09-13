@@ -11,5 +11,4 @@ charge_time = 1.75
 projectile_resource = ExtResource("1_1n6u7")
 scene = "uid://cupft37g0c1yp"
 texture = ExtResource("3_2bg5f")
-muzzle_offset = Vector2(24, 0)
 metadata/_custom_type_script = "uid://pp6wnjxndi6r"

@@ -4,9 +4,13 @@ extends PlayerState
 
 @export_group("Aiming")
 @export var aim_attempts := 20
-@export_group("Timing")
-@export var calculation_time := 3.0
-@export var aim_time := 3.0
+@export var aim_force_variations := 4
+@export var aim_max_sampling_iterations := 5000
+@export var aim_min_score := 0.125
+@export_group("Scoring")
+@export var enemy_reward_weight := 1.0
+@export var teammate_penalty_weight := 1.0
+
 @export_group("Debug")
 @export var override_weapon := false:
 	set(value):
@@ -24,6 +28,8 @@ var space_state: PhysicsDirectSpaceState2D
 
 
 func enter(_data := { }) -> void:
+	EventSystem.busy.busy_started.emit(player)
+
 	var weapon := _get_random_weapon()
 	player.equip_item(weapon)
 	_find_shot(weapon.aimable_resource)
@@ -31,6 +37,7 @@ func enter(_data := { }) -> void:
 
 func exit() -> void:
 	_reset()
+	EventSystem.busy.busy_finished.emit(player)
 
 
 func _validate_property(property: Dictionary) -> void:
@@ -50,14 +57,18 @@ func _find_shot(weapon: AimableResource) -> void:
 	_update_players()
 	space_state = player.get_world_2d().direct_space_state
 
+	await get_tree().create_timer(1.0).timeout
 	if weapon is ProjectileWeaponResource:
-		var projectile_shot := cpu_projectile_module.find_shot(weapon)
+		var projectile_shot := await cpu_projectile_module.find_shot(weapon)
+
+		if not projectile_shot:
+			player.firing_finished.emit()
+			return
+
 		player.cpu_fire_projectile(projectile_shot)
 	elif weapon is HitscanWeaponResource:
 		var hitscan_shot := cpu_hitscan_module.find_shot(weapon)
 		player.cpu_fire_hitscan(hitscan_shot)
-
-	#_reset()[
 
 
 func _update_players() -> void:

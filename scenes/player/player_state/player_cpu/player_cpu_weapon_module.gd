@@ -2,8 +2,6 @@
 class_name PlayerCPUWeaponModule
 extends Node
 
-const SHOT_SCORE_BASE := 1000
-
 @export_group("Debug")
 @export var debug_pathing := false:
 	set(value):

@@ -4,6 +4,7 @@ extends Node2D
 ## A node for free-form destruction (and creation) of polygonal terrain.
 ## Define the initial terrain with [Polygon2D] children, then call [member destruct] on it to erase a polygonal area.
 
+const PLAYER_COLLISION_LAYER := 1
 const WORLD_COLLISION_LAYER := 2
 
 ## If [code]true[/code], the node is collidable as a static body (in layer 1).
@@ -130,6 +131,7 @@ func add_collision_polygon(polygon_2d: Polygon2D) -> void:
 	static_body_2d.add_to_group("terrain")
 
 	collision_polygon_2d.polygon = polygon_2d.polygon
+	static_body_2d.set_collision_layer_value(PLAYER_COLLISION_LAYER, false)
 	static_body_2d.set_collision_layer_value(WORLD_COLLISION_LAYER, true)
 
 	static_body_2d.add_child(collision_polygon_2d)
@@ -300,8 +302,7 @@ func _update_or_create(
 	new: bool,
 ) -> float:
 	if size > 128:
-		@warning_ignore("integer_division")
-		var i := size / 2
+		@warning_ignore("integer_division") var i := size / 2
 		var step: int = 1
 
 		while true:

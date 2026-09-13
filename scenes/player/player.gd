@@ -56,6 +56,9 @@ func equip_item(item: ItemResource) -> void:
 	if item.set_player_state_on_equip:
 		new_player_state = item.player_state
 
+	if is_cpu:
+		return
+
 	state_machine.transition_to_state(new_player_state)
 
 

@@ -7,7 +7,7 @@ const DEFAULT_LIFE_TIME := 10.0
 @export var name := "Projectile"
 @export_group("Properties")
 @export var texture: Texture2D
-@export var collision_shape: Shape2D
+@export var collision_shape: CircleShape2D
 @export_group("Bounce")
 @export var bounce_enabled: bool
 @export var bounce_velocity_divider := DEFAULT_BOUNCE_DIVIDER

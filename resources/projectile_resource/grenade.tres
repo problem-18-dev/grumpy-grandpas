@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d4gc80blia3ku" path="res://resources/projectile_resource/projectile_resource.gd" id="1_hsf44"]
 [ext_resource type="Resource" uid="uid://bhr2ogpl4fnch" path="res://resources/explosion_resource/grenade_explosion.tres" id="1_p75as"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_lav5m"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_lgqa7"]
 radius = 6.0
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p75as"]
@@ -13,7 +13,7 @@ load_path = "res://.godot/imported/rocket.png-79893a6a213dcc8e9a4ae14a59bc55ac.c
 script = ExtResource("1_hsf44")
 name = "Grenade"
 texture = SubResource("CompressedTexture2D_p75as")
-collision_shape = SubResource("CircleShape2D_lav5m")
+collision_shape = SubResource("CircleShape2D_lgqa7")
 bounce_enabled = true
 life_time = 5.0
 explosion = ExtResource("1_p75as")

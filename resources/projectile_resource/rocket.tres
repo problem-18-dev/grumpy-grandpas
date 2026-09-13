@@ -4,15 +4,14 @@
 [ext_resource type="Script" uid="uid://d4gc80blia3ku" path="res://resources/projectile_resource/projectile_resource.gd" id="1_bkuvr"]
 [ext_resource type="Texture2D" uid="uid://c5s0wwqdt0u8v" path="res://scenes/projectile/rocket.png" id="2_jxn76"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tldn6"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_lgqa7"]
 radius = 8.0
-height = 16.0
 
 [resource]
 script = ExtResource("1_bkuvr")
 name = "Rocket"
 texture = ExtResource("2_jxn76")
-collision_shape = SubResource("CapsuleShape2D_tldn6")
-life_time = 7.5
+collision_shape = SubResource("CircleShape2D_lgqa7")
+life_time = 4.0
 explosion = ExtResource("1_2lqe6")
 metadata/_custom_type_script = "uid://d4gc80blia3ku"

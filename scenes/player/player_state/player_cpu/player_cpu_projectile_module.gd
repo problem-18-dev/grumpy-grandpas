@@ -1,17 +1,25 @@
 class_name CPUProjectileModule
 extends PlayerCPUWeaponModule
 
-const COLLISION_MASK := 0b100110
+# Bit-wise collision mask for world, hurtbox, bounds.
+const PROJECTILE_COLLISION_MASK := 0b100110
+const HURTBOX_COLLISION_MASK := 0b100
+const WORLD_COLLISION_MASK := 0b10
 
 var sampled_shots: Array[CPUProjectileShot] = []
 
 
-func find_shot(projectile_weapon: ProjectileWeaponResource) -> CPUProjectileShot:
-	for angle in _get_aim_angles():
-		var force := randf_range(projectile_weapon.min_force, projectile_weapon.max_force)
-		_sample_shot(angle, force, projectile_weapon.muzzle_offset)
+func find_shot(weapon: ProjectileWeaponResource) -> CPUProjectileShot:
+	for chunked_aim_attempts in _generate_aim_attempts_chunks(weapon):
+		for aim_attempt: Dictionary in chunked_aim_attempts:
+			_sample_shot(weapon, aim_attempt.angle, aim_attempt.force)
+		await get_tree().process_frame
 
-	return _determine_best_shot()
+	if sampled_shots.is_empty():
+		print("No projectile shot found.")
+		return null
+
+	return _determine_best_shot(weapon)
 
 
 func reset() -> void:
@@ -21,96 +29,128 @@ func reset() -> void:
 		child.queue_free()
 
 
-func _sample_shot(angle: float, force: float, offset: Vector2) -> void:
-	var query_position := cpu.player.global_position + offset.rotated(angle)
+func _sample_shot(weapon: ProjectileWeaponResource, angle: float, force: float) -> void:
+	var projectile := weapon.projectile_resource
+	var delta := get_physics_process_delta_time()
+	var max_sampling_iterations := mini(
+		cpu.aim_max_sampling_iterations,
+		ceili(projectile.life_time / delta),
+	)
+
+	var query_position := cpu.player.global_position + weapon.muzzle_offset.rotated(angle)
+	var last_free_position := query_position
 	var velocity := Vector2.from_angle(angle) * force
+	var sample_iteration := 0
 	var line := _add_debug_line()
 
-	while true:
-		var query := PhysicsPointQueryParameters2D.new()
-		query.collide_with_bodies = true
-		query.collide_with_areas = true
-		query.exclude = [cpu.player.get_rid()]
-		query.collision_mask = COLLISION_MASK
-		query.position = query_position
+	while sample_iteration < max_sampling_iterations:
+		sample_iteration += 1
 
-		var collisions := cpu.space_state.intersect_point(query)
+		var query := Utils.create_shape_query(PROJECTILE_COLLISION_MASK, query_position, true, true)
+		query.exclude = [cpu.player.hurtbox] # Some projectiles spawn within current hurtbox
+		query.shape = projectile.collision_shape
 
-		# Shot is invalid if out of bounds
-		if _is_point_oob(collisions):
+		var collisions := cpu.space_state.intersect_shape(query)
+
+		if _is_query_oob(collisions):
 			return
 
-		# Only one collision => must be within bound, continue
-		if collisions.size() == 1:
+		var normal := _get_world_normal(query_position, projectile.collision_shape)
+
+		# No world collision => continue
+		if normal == Vector2.ZERO:
 			line.add_point(query_position)
-			velocity += cpu.player.get_gravity() * get_physics_process_delta_time()
-			query_position += velocity * get_physics_process_delta_time()
+			last_free_position = query_position
+			velocity += cpu.player.get_gravity() * delta
+			query_position += velocity * delta
 			continue
 
-		# Direct hit on teammate
-		if collisions.any(
-			func(c: Dictionary) -> bool:
-				return c.collider.is_in_group(cpu.player.team.get_id()),
-		):
-			return
+		if not projectile.bounce_enabled:
+			break
 
-		# Collision with world or hurtbox
-		var distance_to_self := query_position.distance_to(cpu.player.global_position)
+		# Remember position before collision with world otherwise it's "in" the world
+		query_position = last_free_position
+		velocity = velocity.bounce(normal) / projectile.bounce_velocity_divider
+		line.add_point(query_position)
 
-		var distance_to_teammate := INF
-		for t in cpu.teammates:
-			var distance := query_position.distance_to(t.global_position)
+		# If movement is slow enough => finished
+		if velocity.length_squared() < 1.0:
+			break
 
-			if distance < distance_to_teammate:
-				distance_to_teammate = distance
+	var shot := _create_shot(weapon, query_position, angle, force)
+	sampled_shots.append(shot)
 
-		var distance_to_enemy := INF
-		for e in cpu.enemies:
-			var distance := query_position.distance_to(e.global_position)
 
-			if distance < distance_to_enemy:
-				distance_to_enemy = distance
+func _get_world_normal(at_position: Vector2, shape: Shape2D) -> Vector2:
+	var query := Utils.create_shape_query(WORLD_COLLISION_MASK, at_position, false, true)
+	query.shape = shape
 
-		var is_direct := collisions.any(
-			func(c: Dictionary) -> bool:
-				return c.collider is HurtboxComponent,
-		)
-
-		var shot := CPUProjectileShot.new(
-			distance_to_self,
-			distance_to_enemy,
-			distance_to_teammate,
-			angle,
-			force,
-			is_direct,
-		)
-		sampled_shots.append(shot)
-		return
+	var rest := cpu.space_state.get_rest_info(query)
+	return rest.get("normal", Vector2.ZERO)
 
 
 ## Determines the best shot out of all sampled shots.
-## Score: 1000 + Distance to enemy player - distance to teammate player - distance to self
-func _determine_best_shot() -> CPUProjectileShot:
-	var best_shot := sampled_shots[0]
-	var best_score := -INF
+func _determine_best_shot(weapon: ProjectileWeaponResource) -> CPUProjectileShot:
+	var best_shot: CPUProjectileShot
+	var best_score := 0.0
+	var explosion_max_range := weapon.projectile_resource.explosion.damage.max_range
 
 	for shot in sampled_shots:
-		var enemy_score: float = SHOT_SCORE_BASE - shot.distance_to_enemy
-		var teammate_score: float = enemy_score + shot.distance_to_teammate
-		var score: float = teammate_score + shot.distance_to_self
+		var score := 1.0
 
-		if shot.is_direct:
-			score += 500
+		# Enemy score
+		var enemy_score := inverse_lerp(0, explosion_max_range, shot.distance_to_enemy)
+		var weighted_enemy_score := enemy_score * cpu.enemy_reward_weight
+		score = 1.0 - clampf(weighted_enemy_score, 0, 1)
 
-		if score > best_score:
+		# Teammate penalty
+		var teammate_penalty := inverse_lerp(explosion_max_range, 0, shot.distance_to_teammate)
+		var weighted_teammate_penalty := teammate_penalty * cpu.teammate_penalty_weight
+		score = clampf(score - weighted_teammate_penalty, 0, 1)
+
+		if score >= cpu.aim_min_score and score > best_score:
 			best_shot = shot
 			best_score = score
 
 	return best_shot
 
 
+func _create_shot(
+	weapon: ProjectileWeaponResource,
+	query_position: Vector2,
+	angle: float,
+	force: float,
+) -> CPUProjectileShot:
+	var explosion_max_range := weapon.projectile_resource.explosion.damage.max_range
+	var explosion_query := Utils.create_shape_query(
+		HURTBOX_COLLISION_MASK,
+		query_position,
+		true,
+		true,
+	)
+	var shape := CircleShape2D.new()
+	shape.radius = explosion_max_range
+	explosion_query.shape = shape
+
+	var explosion_collisions := cpu.space_state.intersect_shape(explosion_query)
+	var distance_to_teammate := explosion_max_range
+	var distance_to_enemy := explosion_max_range
+
+	for collision in explosion_collisions:
+		var collider: HurtboxComponent = collision.collider
+		var distance := query_position.distance_to(collider.global_position)
+
+		if collider.is_in_group(cpu.player.team.get_id()):
+			distance_to_teammate = minf(distance, distance_to_teammate)
+			continue
+
+		distance_to_enemy = minf(distance, distance_to_enemy)
+
+	return CPUProjectileShot.new(distance_to_enemy, distance_to_teammate, angle, force)
+
+
 ## Checks whether intersection is within the level's bounds
-func _is_point_oob(collisions: Array[Dictionary]) -> bool:
+func _is_query_oob(collisions: Array[Dictionary]) -> bool:
 	return (
 		collisions.is_empty()
 		or not collisions.any(
@@ -120,37 +160,48 @@ func _is_point_oob(collisions: Array[Dictionary]) -> bool:
 	)
 
 
-func _get_aim_angles() -> Array[float]:
-	var step := TAU / cpu.aim_attempts
-	var angles: Array[float] = []
+## Checks whether the query position is directly on teammate
+func _is_query_teammate(collisions: Array[Dictionary]) -> bool:
+	return collisions.any(
+		func(c: Dictionary) -> bool:
+			return c.collider.is_in_group(cpu.player.team.get_id()),
+	)
 
-	for aim_attempt in cpu.aim_attempts:
-		var angle := AimableHolder.MINIMUM_ROTATION + (step * aim_attempt)
-		angles.append(angle)
 
-	return angles
+func _generate_aim_attempts_chunks(weapon: ProjectileWeaponResource) -> Array[Array]:
+	var force := weapon.max_force - weapon.min_force # 1000 - 200 = 800
+	var force_division := floori(force / cpu.aim_force_variations) # 800 / 4 = 200
+
+	# Chunk into aim force variations + 1 to account for max range
+	var chunked_aim_attempts: Array[Array] = []
+	chunked_aim_attempts.resize(cpu.aim_force_variations + 1)
+
+	var angle_step := TAU / cpu.aim_attempts
+	for chunk_index in range(0, chunked_aim_attempts.size()):
+		var chunk: Array = chunked_aim_attempts[chunk_index]
+		var chunk_force := weapon.min_force + (force_division * chunk_index)
+
+		for aim_attempt in cpu.aim_attempts:
+			var angle := AimableHolder.MINIMUM_ROTATION + (angle_step * aim_attempt)
+			chunk.append({ "angle": angle, "force": chunk_force })
+
+	return chunked_aim_attempts
 
 
 class CPUProjectileShot:
-	var distance_to_self: float
 	var distance_to_enemy: float
 	var distance_to_teammate: float
 	var angle: float
 	var force: float
-	var is_direct: bool
 
 
 	func _init(
-		init_distance_to_self: float,
 		init_distance_to_enemy: float,
 		init_distance_to_teammate: float,
 		init_angle: float,
 		init_force: float,
-		init_is_direct: bool,
 	) -> void:
-		distance_to_self = init_distance_to_self
 		distance_to_enemy = init_distance_to_enemy
 		distance_to_teammate = init_distance_to_teammate
 		angle = init_angle
 		force = init_force
-		is_direct = init_is_direct

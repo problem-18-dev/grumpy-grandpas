@@ -1,19 +1,17 @@
 [gd_scene format=3 uid="uid://csa3ig7aroxsa"]
 
 [ext_resource type="Script" uid="uid://vh6un5fax3ox" path="res://scenes/projectile/projectile.gd" id="1_2dulq"]
-[ext_resource type="Resource" uid="uid://c0v8vjr33360s" path="res://resources/projectile_resource/grenade.tres" id="2_lw0th"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p75as"]
 load_path = "res://.godot/imported/rocket.png-79893a6a213dcc8e9a4ae14a59bc55ac.ctex"
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_lav5m"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_2lqe6"]
 radius = 6.0
 
-[node name="Projectile" type="CharacterBody2D" unique_id=371139237 groups=["projectiles"]]
+[node name="Projectile" type="CharacterBody2D" unique_id=371139237]
 collision_layer = 16
-collision_mask = 7
+collision_mask = 6
 script = ExtResource("1_2dulq")
-resource = ExtResource("2_lw0th")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1307171759]
 scale = Vector2(0.4, 0.4)
@@ -21,9 +19,10 @@ texture = SubResource("CompressedTexture2D_p75as")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1157895186]
 rotation = 1.5707964
-shape = SubResource("CircleShape2D_lav5m")
+shape = SubResource("CircleShape2D_2lqe6")
 
 [node name="LifeTimeTimer" type="Timer" parent="." unique_id=1644829793]
+process_callback = 0
 one_shot = true
 
 [connection signal="timeout" from="LifeTimeTimer" to="." method="_on_life_time_timer_timeout"]

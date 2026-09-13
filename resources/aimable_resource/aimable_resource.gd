@@ -6,7 +6,7 @@ const DEFAULT_CROSSHAIR_DISTANCE := 100.0
 @export_file("*.tscn") var scene: String
 @export_group("Properties")
 @export var texture: Texture2D
-@export var muzzle_offset: Vector2
+@export var muzzle_offset := Vector2(24, 0)
 @export var crosshair_distance := DEFAULT_CROSSHAIR_DISTANCE
 @export_group("Firing")
 @export var ammo := 1

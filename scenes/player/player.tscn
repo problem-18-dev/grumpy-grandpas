@@ -94,6 +94,7 @@ script = ExtResource("14_fcs02")
 
 [node name="CPU" type="Node" parent="StateMachine" unique_id=2145201964]
 script = ExtResource("17_uf5tr")
+aim_min_score = null
 override_weapon = true
 projectile_only = true
 
