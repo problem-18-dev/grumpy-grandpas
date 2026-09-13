@@ -57,12 +57,22 @@ func shoot() -> void:
 	fired.emit()
 
 
-func _start_charging() -> void:
+func charge_and_shoot(charge_amount: float) -> void:
+	var charge_scale := charge_amount / (_resource.max_force - _resource.min_force)
+	_start_charging(charge_scale)
+
+
+func _start_charging(charge_scale: float = 0.0) -> void:
 	charge_sprite.scale.x = 0.0
 	charge_sprite.show()
 
 	_charge_tween = create_tween()
-	_charge_tween.tween_property(charge_sprite, "scale:x", 1.0, _resource.charge_time)
+	_charge_tween.tween_property(
+		charge_sprite,
+		"scale:x",
+		charge_scale if not is_zero_approx(charge_scale) else 1.0,
+		_resource.charge_time,
+	)
 	charge_timer.start(_resource.charge_time)
 
 	_is_charging = true

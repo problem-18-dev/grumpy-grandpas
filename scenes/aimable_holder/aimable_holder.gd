@@ -73,6 +73,21 @@ func register_aim_angle(delta: float) -> void:
 
 	_rotate_aimable()
 
+#region CPU
+func cpu_register_aim_angle(angle: float) -> void:
+	_aim_angle = angle
+	_rotate_aimable()
+
+
+func cpu_shoot_projectile(force: float) -> void:
+	assert(_equipped_aimable is ProjectileWeapon, "Attempting to shoot non-hitscan weapon.")
+	_equipped_aimable.charge_and_shoot(force)
+
+
+func cpu_shoot_hitscan() -> void:
+	assert(_equipped_aimable is HitscanWeapon, "Attempting to shoot non-hitscan weapon.")
+	_equipped_aimable.shoot()
+#endregion
 
 func _change_state(new_state: HolderState) -> void:
 	match new_state:

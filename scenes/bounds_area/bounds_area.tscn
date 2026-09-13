@@ -3,10 +3,9 @@
 [ext_resource type="Script" uid="uid://cvffhvppwmk17" path="res://scenes/bounds_area/bounds_area.gd" id="1_t8b7o"]
 
 [node name="BoundsArea" type="Area2D" unique_id=1365056220]
-collision_layer = 0
+collision_layer = 32
 collision_mask = 17
 input_pickable = false
-monitorable = false
 script = ExtResource("1_t8b7o")
 
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

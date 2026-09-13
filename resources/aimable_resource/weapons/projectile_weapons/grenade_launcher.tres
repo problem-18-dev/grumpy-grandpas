@@ -9,7 +9,6 @@ script = ExtResource("2_808hy")
 max_force = 750.0
 charge_time = 1.5
 projectile_resource = ExtResource("1_nedrb")
-name = "Grenade Launcher"
 scene = "uid://cupft37g0c1yp"
 texture = ExtResource("3_6omh8")
 muzzle_offset = Vector2(16, 0)

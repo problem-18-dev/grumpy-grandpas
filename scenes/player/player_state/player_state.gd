@@ -10,6 +10,7 @@ const DEAD := "Dead"
 const DROWN := "Drown"
 const GRAPPLE_HOOK := "GrappleHook"
 const JETPACK := "Jetpack"
+const CPU := "CPU"
 
 var player: Player
 

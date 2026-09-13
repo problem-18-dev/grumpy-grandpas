@@ -8,8 +8,15 @@ extends Resource
 @export var player_resources: Array[PlayerResource]
 @export_group("Inventory")
 @export var locked_items: Array[ItemResource]
+@export_group("CPU")
+@export var is_cpu := false
+@export var difficulty := "easy"
 
 var _active_players: Array[Player]
+
+
+func get_id() -> String:
+	return name.strip_edges().to_lower()
 
 
 func get_players() -> Array[Player]:
@@ -29,7 +36,7 @@ func kill_player(player: Player) -> void:
 
 
 func next_player(after: Player) -> void:
-	if _active_players.front() != after:
+	if _active_players.front() == after:
 		return
 
 	_active_players.push_back(_active_players.pop_front())
