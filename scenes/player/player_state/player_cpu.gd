@@ -1,3 +1,4 @@
+@tool
 class_name PlayerStateCPU
 extends PlayerState
 
@@ -9,6 +10,8 @@ extends PlayerState
 @export var aim_min_score := 0.125
 @export var enemy_reward_weight := 1.0
 @export var teammate_penalty_weight := 1.0
+@export_group("Thinking")
+@export var thinking_time := 2.5
 
 @export_group("Debug")
 @export var override_weapon := false:
@@ -34,7 +37,6 @@ func enter(_data := { }) -> void:
 
 func exit() -> void:
 	_reset()
-	EventSystem.busy.busy_finished.emit(player)
 
 
 func _validate_property(property: Dictionary) -> void:
@@ -53,12 +55,14 @@ func _find_shot(weapon: AimableResource) -> void:
 
 	space_state = player.get_world_2d().direct_space_state
 
-	var shot: CPUShot
+	var shot: PlayerCPUWeaponModule.CPUShot
 	if weapon is ProjectileWeaponResource:
 		shot = await cpu_projectile_module.find_shot(weapon)
 
 	elif weapon is HitscanWeaponResource:
 		shot = cpu_hitscan_module.find_shot(weapon)
+
+	await get_tree().create_timer(thinking_time).timeout
 
 	_handle_shot(shot)
 
@@ -85,26 +89,18 @@ func _get_random_weapon() -> ItemResource:
 	return available_items.pick_random()
 
 
-func _handle_shot(shot: CPUShot) -> void:
+func _handle_shot(shot: PlayerCPUWeaponModule.CPUShot) -> void:
 	if not shot:
-		player.firing_finished.emit()
+		player.finish()
 		return
 
 	if shot is CPUProjectileModule.CPUProjectileShot:
-		player.aimable_holder.shoot(shot.angle, shot.force)
+		player.aimable_holder.cpu_shoot(shot.angle, shot.force)
 		return
 
-	player.aimable_holder.shoot(shot.angle)
+	player.aimable_holder.cpu_shoot(shot.angle)
 
 
 func _reset() -> void:
 	cpu_hitscan_module.reset()
 	cpu_projectile_module.reset()
-
-
-class CPUShot:
-	var angle: float
-
-
-	func _init(init_angle: float) -> void:
-		angle = init_angle

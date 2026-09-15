@@ -21,5 +21,4 @@ name = "Team Blue"
 color = Color(0.32757595, 0.6947892, 1, 1)
 player_resources = Array[ExtResource("1_wf6gw")]([SubResource("Resource_8xq02"), SubResource("Resource_prn5b")])
 locked_items = Array[ExtResource("2_y07t6")]([ExtResource("2_hmelp")])
-is_cpu = true
 metadata/_custom_type_script = "uid://05fqs75xukhe"

@@ -29,6 +29,7 @@ damage = ExtResource("1_bsdyn")
 knockback = SubResource("Resource_urvlt")
 shake_duration = 0.1
 shake_noise = SubResource("Resource_q27wl")
+carve_radius = 12
 cooldown = 2.0
 scene = "uid://cc45g8xgg4lyo"
 texture = ExtResource("4_iomhp")

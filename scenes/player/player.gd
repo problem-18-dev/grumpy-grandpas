@@ -108,6 +108,11 @@ func drown() -> void:
 	state_machine.transition_to_state(PlayerState.DROWN)
 
 
+func finish() -> void:
+	firing_finished.emit()
+	EventSystem.busy.busy_finished.emit(self)
+
+
 func reset() -> void:
 	_ammo_remaining = 0
 	_damage_accumulated = 0
@@ -124,14 +129,15 @@ func spawn(spawn_position: Vector2, floor_normal: Vector2) -> void:
 func setup(player_team: TeamResource, player: PlayerResource) -> void:
 	team = player_team
 	hurtbox.add_to_group(team.get_id())
+
 	aimable_holder.is_cpu = team.is_cpu
+	is_cpu = team.is_cpu
 
 	name_label.add_theme_color_override("font_color", team.color)
 	name_label.text = player.name
 	health_label.add_theme_color_override("font_color", team.color)
 	health_label.text = str(player.health)
 	name = player.name
-	is_cpu = team.is_cpu
 #endregion
 
 #region Inventory
@@ -203,11 +209,13 @@ func _on_aimable_holder_aimable_fired() -> void:
 
 	EventSystem.busy.busy_started.emit(self)
 
+	if is_cpu:
+		state_machine.transition_to_state(PlayerState.CPU)
+
 	if _ammo_remaining > 0:
 		return
 
-	firing_finished.emit()
-	EventSystem.busy.busy_finished.emit(self)
+	finish()
 
 
 func _on_damage_indicator_finished() -> void:
@@ -219,5 +227,4 @@ func _on_aimable_life_time_timer_timeout() -> void:
 
 	if _aimable_life_time_remaining <= 0:
 		aimable_life_time_timer.stop()
-		firing_finished.emit()
-		EventSystem.busy.busy_finished.emit(self)
+		finish()

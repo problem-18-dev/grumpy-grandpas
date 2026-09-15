@@ -29,3 +29,11 @@ func _create_debug_line(line_points: Array[Vector2]) -> Line2D:
 	line.points = line_points
 	add_child(line)
 	return line
+
+
+class CPUShot:
+	var angle: float
+
+
+	func _init(init_angle: float) -> void:
+		angle = init_angle

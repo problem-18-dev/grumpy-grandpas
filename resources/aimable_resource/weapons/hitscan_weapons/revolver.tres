@@ -28,6 +28,7 @@ script = ExtResource("3_q27wl")
 damage = ExtResource("1_sbwkc")
 knockback = SubResource("Resource_urvlt")
 shake_noise = SubResource("Resource_kvlxm")
+carve_radius = 10
 scene = "uid://cc45g8xgg4lyo"
 texture = ExtResource("4_bnhag")
 muzzle_offset = Vector2(20, 0)

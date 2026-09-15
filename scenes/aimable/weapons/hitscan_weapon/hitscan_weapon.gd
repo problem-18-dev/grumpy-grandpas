@@ -40,8 +40,9 @@ func shoot() -> void:
 
 	var collider := hitscan_ray_cast.get_collider()
 
+	var collision_point := hitscan_ray_cast.get_collision_point()
+
 	if collider is HurtboxComponent:
-		var collision_point := hitscan_ray_cast.get_collision_point()
 		var distance_to_target := hitscan_ray_cast.global_position.distance_to(collision_point)
 
 		var damage := _resource.damage.calculate(distance_to_target)
@@ -54,6 +55,13 @@ func shoot() -> void:
 		var from := hitscan_ray_cast.global_position
 		var to: Vector2 = collider.global_position
 		collider.knockback(knockback_force, from.angle_to_point(to))
+
+	if collider.is_in_group("terrain"):
+		var terrain: DestructiblePolygon2D = get_tree().get_first_node_in_group("terrain")
+
+		if terrain:
+			var carve_polygon := DestructiblePolygon2D.build_circle_polygon(_resource.carve_radius)
+			terrain.destruct(carve_polygon, collision_point)
 
 	_start_cooldown()
 

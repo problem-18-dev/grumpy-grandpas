@@ -15,6 +15,8 @@ const MAXIMUM_ROTATION := PI / 2
 
 @export_group("Properties")
 @export var rotation_speed := 60.0
+@export_group("CPU")
+@export var aiming_time := 1.0
 
 var is_cpu := false
 
@@ -78,9 +80,12 @@ func register_aim_angle(delta: float) -> void:
 
 #region CPU
 
-func shoot(angle: float, force := 0.0) -> void:
+## Only to be used by CPU teams. Immediately angles and shoots the current aimable.
+func cpu_shoot(angle: float, force := 0.0) -> void:
 	_aim_angle = angle
 	_rotate_aimable()
+
+	await get_tree().create_timer(aiming_time).timeout
 
 	if _equipped_aimable is ProjectileWeapon:
 		assert(not is_zero_approx(force), "Manually shooting a projectile weapon without force.")

@@ -151,7 +151,7 @@ func _create_shot(
 
 		distance_to_enemy = minf(distance, distance_to_enemy)
 
-	return CPUProjectileShot.new(distance_to_enemy, distance_to_teammate, angle, force)
+	return CPUProjectileShot.new(angle, distance_to_enemy, distance_to_teammate, force)
 
 
 ## Checks whether intersection is within the level's bounds
@@ -193,7 +193,7 @@ func _generate_aim_attempts_chunks(weapon: ProjectileWeaponResource) -> Array[Ar
 	return chunked_aim_attempts
 
 
-class CPUProjectileShot extends PlayerStateCPU.CPUShot:
+class CPUProjectileShot extends CPUShot:
 	var distance_to_enemy: float
 	var distance_to_teammate: float
 	var force: float

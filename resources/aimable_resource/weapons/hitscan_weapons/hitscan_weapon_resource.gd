@@ -9,4 +9,6 @@ extends AimableResource
 @export var shake_duration := 0.06
 @export var shake_noise: PhantomCameraNoise2D
 @export_group("Firing")
+## Must be an even number
+@export var carve_radius := 4
 @export var cooldown := 0.5

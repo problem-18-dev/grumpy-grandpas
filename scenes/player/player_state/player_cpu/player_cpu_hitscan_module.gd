@@ -79,7 +79,7 @@ func _determine_best_shot(weapon: HitscanWeaponResource) -> CPUHitscanShot:
 		var weighted_enemy_score := enemy_score * cpu.enemy_reward_weight
 		score = score + clampf(weighted_enemy_score, 0, 1)
 
-		if score > best_score:
+		if score >= cpu.aim_min_score and score > best_score:
 			best_score = score
 			best_shot = shot
 
@@ -97,7 +97,7 @@ func _get_enemies() -> Array[Player]:
 	return enemies
 
 
-class CPUHitscanShot extends PlayerStateCPU.CPUShot:
+class CPUHitscanShot extends CPUShot:
 	var distance: float
 	var enemy: Player
 	var is_direct: bool
