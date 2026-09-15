@@ -18,16 +18,18 @@ func _ready() -> void:
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if not _is_enabled or not cooldown_timer.is_stopped():
+	if not _is_enabled or is_cpu:
 		return
 
 	if event.is_action_pressed("shoot"):
 		shoot()
-		_start_cooldown()
 		get_viewport().set_input_as_handled()
 
 
 func shoot() -> void:
+	if not cooldown_timer.is_stopped():
+		return
+
 	hitscan_ray_cast.force_raycast_update()
 
 	fired.emit()
@@ -52,6 +54,8 @@ func shoot() -> void:
 		var from := hitscan_ray_cast.global_position
 		var to: Vector2 = collider.global_position
 		collider.knockback(knockback_force, from.angle_to_point(to))
+
+	_start_cooldown()
 
 
 func _start_cooldown() -> void:

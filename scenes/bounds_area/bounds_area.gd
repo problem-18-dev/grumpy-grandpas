@@ -11,7 +11,7 @@ func cleanup() -> void:
 	_present_entities = []
 
 
-func _free_present_entity(entity: Object) -> void:
+func _free_present_entity(entity: Variant) -> void:
 	if not is_instance_valid(entity):
 		return
 

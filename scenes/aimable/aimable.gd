@@ -9,6 +9,8 @@ signal used(player_state: String, state_data: Dictionary)
 
 @export var aimable_resource: AimableResource
 
+var is_cpu := false
+
 var _is_enabled := false
 
 @onready var sprite: Sprite2D = $Sprite2D

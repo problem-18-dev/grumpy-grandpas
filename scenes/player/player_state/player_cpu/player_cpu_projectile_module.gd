@@ -16,7 +16,7 @@ func find_shot(weapon: ProjectileWeaponResource) -> CPUProjectileShot:
 		await get_tree().process_frame
 
 	if sampled_shots.is_empty():
-		print("No projectile shot found.")
+		push_warning("No projectile shot found.")
 		return null
 
 	return _determine_best_shot(weapon)
@@ -41,7 +41,9 @@ func _sample_shot(weapon: ProjectileWeaponResource, angle: float, force: float) 
 	var last_free_position := query_position
 	var velocity := Vector2.from_angle(angle) * force
 	var sample_iteration := 0
-	var line := _add_debug_line()
+
+	# Debug
+	var line_points: Array[Vector2] = []
 
 	while sample_iteration < max_sampling_iterations:
 		sample_iteration += 1
@@ -59,7 +61,7 @@ func _sample_shot(weapon: ProjectileWeaponResource, angle: float, force: float) 
 
 		# No world collision => continue
 		if normal == Vector2.ZERO:
-			line.add_point(query_position)
+			line_points.append(query_position)
 			last_free_position = query_position
 			velocity += cpu.player.get_gravity() * delta
 			query_position += velocity * delta
@@ -71,11 +73,14 @@ func _sample_shot(weapon: ProjectileWeaponResource, angle: float, force: float) 
 		# Remember position before collision with world otherwise it's "in" the world
 		query_position = last_free_position
 		velocity = velocity.bounce(normal) / projectile.bounce_velocity_divider
-		line.add_point(query_position)
+		line_points.append(query_position)
 
 		# If movement is slow enough => finished
 		if velocity.length_squared() < 1.0:
 			break
+
+	if debug_pathing:
+		_create_debug_line(line_points)
 
 	var shot := _create_shot(weapon, query_position, angle, force)
 	sampled_shots.append(shot)
@@ -96,7 +101,7 @@ func _determine_best_shot(weapon: ProjectileWeaponResource) -> CPUProjectileShot
 	var explosion_max_range := weapon.projectile_resource.explosion.damage.max_range
 
 	for shot in sampled_shots:
-		var score := 1.0
+		var score := 0.0
 
 		# Enemy score
 		var enemy_score := inverse_lerp(0, explosion_max_range, shot.distance_to_enemy)
@@ -188,20 +193,19 @@ func _generate_aim_attempts_chunks(weapon: ProjectileWeaponResource) -> Array[Ar
 	return chunked_aim_attempts
 
 
-class CPUProjectileShot:
+class CPUProjectileShot extends PlayerStateCPU.CPUShot:
 	var distance_to_enemy: float
 	var distance_to_teammate: float
-	var angle: float
 	var force: float
 
 
 	func _init(
+		init_angle: float,
 		init_distance_to_enemy: float,
 		init_distance_to_teammate: float,
-		init_angle: float,
 		init_force: float,
 	) -> void:
+		super(init_angle)
 		distance_to_enemy = init_distance_to_enemy
 		distance_to_teammate = init_distance_to_teammate
-		angle = init_angle
 		force = init_force

@@ -14,10 +14,6 @@ var _dead := false
 @onready var health := max_health
 
 
-func get_health() -> int:
-	return health
-
-
 func add_health(amount: int) -> void:
 	var new_health := health + amount
 	new_health = mini(max_health, health)

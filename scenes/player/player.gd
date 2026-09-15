@@ -124,6 +124,7 @@ func spawn(spawn_position: Vector2, floor_normal: Vector2) -> void:
 func setup(player_team: TeamResource, player: PlayerResource) -> void:
 	team = player_team
 	hurtbox.add_to_group(team.get_id())
+	aimable_holder.is_cpu = team.is_cpu
 
 	name_label.add_theme_color_override("font_color", team.color)
 	name_label.text = player.name
@@ -155,17 +156,6 @@ func apply_damage() -> void:
 func register_damage(amount: int) -> void:
 	_damage_accumulated += amount
 	damage_accumulated.emit(self)
-#endregion
-
-#region CPU
-func cpu_fire_projectile(projectile: CPUProjectileModule.CPUProjectileShot) -> void:
-	aimable_holder.cpu_register_aim_angle(projectile.angle)
-	aimable_holder.cpu_shoot_projectile(projectile.force)
-
-
-func cpu_fire_hitscan(hitscan: CPUHitscanModule.CPUHitscanShot) -> void:
-	aimable_holder.cpu_register_aim_angle(hitscan.angle)
-	aimable_holder.cpu_shoot_hitscan()
 #endregion
 
 func _flip_sprite() -> void:

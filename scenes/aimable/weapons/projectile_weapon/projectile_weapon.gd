@@ -3,6 +3,7 @@ class_name ProjectileWeapon
 extends Aimable
 
 const PROJECTILE := preload("uid://csa3ig7aroxsa")
+const PRE_DEFINED_FORCE_TIME := 0.5
 
 var _resource: ProjectileWeaponResource
 var _is_charging := false
@@ -26,16 +27,14 @@ func _ready() -> void:
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if not _is_enabled:
+	if not _is_enabled or is_cpu:
 		return
 
-	if event.is_action_pressed("shoot") and not _is_charging:
-		_start_charging()
-		get_viewport().set_input_as_handled()
+	var pressed := event.is_action_pressed("shoot")
+	var released := event.is_action_released("shoot")
+	process_input(pressed, released)
 
-	if event.is_action_released("shoot") and _is_charging:
-		_stop_charging()
-		shoot()
+	if pressed or released:
 		get_viewport().set_input_as_handled()
 
 
@@ -51,49 +50,64 @@ func shoot() -> void:
 	entities.add_child(projectile)
 
 	# Fire projectile
-	var force := _calculate_force()
+	var force := lerpf(
+		_resource.min_force,
+		_resource.max_force,
+		inverse_lerp(_resource.charge_time, 0, _charge_time_left),
+	)
 	projectile.fire(muzzle_offset_marker.global_position, global_rotation, force)
 
 	fired.emit()
 
 
-func charge_and_shoot(charge_amount: float) -> void:
-	var charge_scale := charge_amount / (_resource.max_force - _resource.min_force)
-	_start_charging(charge_scale)
+func process_input(pressed: bool, released: bool, charge_force := 0.0) -> void:
+	if not _is_enabled:
+		return
+
+	# Skip timer if charge force pre-defined
+	if charge_force > 0.0:
+		_kill_tween()
+		var charge_scale := inverse_lerp(_resource.min_force, _resource.max_force, charge_force)
+		charge_sprite.scale.x = charge_scale
+		charge_sprite.show()
+		_charge_time_left = _resource.charge_time * (1.0 - charge_scale)
+		await get_tree().create_timer(PRE_DEFINED_FORCE_TIME).timeout
+		shoot()
+		charge_sprite.hide()
+		return
+
+	if pressed and not _is_charging:
+		_start_charging()
+	if released and _is_charging:
+		_stop_charging()
+		shoot()
 
 
-func _start_charging(charge_scale: float = 0.0) -> void:
-	charge_sprite.scale.x = 0.0
-	charge_sprite.show()
-
-	_charge_tween = create_tween()
-	_charge_tween.tween_property(
-		charge_sprite,
-		"scale:x",
-		charge_scale if not is_zero_approx(charge_scale) else 1.0,
-		_resource.charge_time,
-	)
+func _start_charging() -> void:
+	_tween_charge(1.0)
 	charge_timer.start(_resource.charge_time)
-
 	_is_charging = true
 
 
 func _stop_charging() -> void:
-	if _charge_tween and _charge_tween.is_running():
-		_charge_tween.kill()
-
+	_kill_tween()
 	_charge_time_left = charge_timer.time_left
 	charge_timer.stop()
-
 	_is_charging = false
 
 
-func _calculate_force() -> float:
-	return lerpf(
-		_resource.min_force,
-		_resource.max_force,
-		inverse_lerp(_resource.charge_time, 0, _charge_time_left),
-	)
+func _kill_tween() -> void:
+	if _charge_tween and _charge_tween.is_running():
+		_charge_tween.kill()
+
+
+func _tween_charge(charge_scale: float) -> void:
+	_kill_tween()
+
+	charge_sprite.scale.x = 0.0
+	charge_sprite.show()
+	_charge_tween = create_tween()
+	_charge_tween.tween_property(charge_sprite, "scale:x", charge_scale, _resource.charge_time)
 
 
 func _on_charge_timer_timeout() -> void:

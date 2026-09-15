@@ -22,9 +22,10 @@ func _get_configuration_warnings() -> PackedStringArray:
 @abstract func reset() -> void
 
 
-func _add_debug_line() -> Line2D:
+func _create_debug_line(line_points: Array[Vector2]) -> Line2D:
 	var line := Line2D.new()
 	line.width = 2
-	line.default_color = Color(0.1, 0.4, 0.0, 1.0)
+	line.default_color = Color(1.0, 0.8, 0.0, 0.49)
+	line.points = line_points
 	add_child(line)
 	return line

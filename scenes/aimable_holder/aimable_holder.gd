@@ -16,6 +16,8 @@ const MAXIMUM_ROTATION := PI / 2
 @export_group("Properties")
 @export var rotation_speed := 60.0
 
+var is_cpu := false
+
 var _is_flipped := false
 var _aim_angle := 0.0
 var _equipped_aimable: Aimable
@@ -25,7 +27,7 @@ var _state := HolderState.DISABLED
 
 
 func _physics_process(delta: float) -> void:
-	if _state == HolderState.DISABLED:
+	if _state == HolderState.DISABLED or is_cpu:
 		return
 
 	register_aim_angle(delta)
@@ -38,6 +40,7 @@ func equip_aimable(aimable_resource: AimableResource, player_direction: float) -
 	# Spawn aimable
 	assert(aimable_resource.scene, "Aimble resource has no scene")
 	var aimable: Aimable = load(aimable_resource.scene).instantiate()
+	aimable.is_cpu = is_cpu
 	aimable.used.connect(_on_aimable_used)
 	aimable.fired.connect(aimable_fired.emit)
 	aimable.prepare(aimable_resource)
@@ -74,18 +77,16 @@ func register_aim_angle(delta: float) -> void:
 	_rotate_aimable()
 
 #region CPU
-func cpu_register_aim_angle(angle: float) -> void:
+
+func shoot(angle: float, force := 0.0) -> void:
 	_aim_angle = angle
 	_rotate_aimable()
 
+	if _equipped_aimable is ProjectileWeapon:
+		assert(not is_zero_approx(force), "Manually shooting a projectile weapon without force.")
+		(_equipped_aimable as ProjectileWeapon).process_input(false, false, force)
+		return
 
-func cpu_shoot_projectile(force: float) -> void:
-	assert(_equipped_aimable is ProjectileWeapon, "Attempting to shoot non-hitscan weapon.")
-	_equipped_aimable.charge_and_shoot(force)
-
-
-func cpu_shoot_hitscan() -> void:
-	assert(_equipped_aimable is HitscanWeapon, "Attempting to shoot non-hitscan weapon.")
 	_equipped_aimable.shoot()
 #endregion
 

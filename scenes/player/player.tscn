@@ -94,16 +94,12 @@ script = ExtResource("14_fcs02")
 
 [node name="CPU" type="Node" parent="StateMachine" unique_id=2145201964]
 script = ExtResource("17_uf5tr")
-aim_min_score = null
-override_weapon = true
-projectile_only = true
 
 [node name="CPUHitscanModule" type="Node" parent="StateMachine/CPU" unique_id=1292517404]
 script = ExtResource("18_lgqa7")
 
 [node name="CPUProjectileModule" type="Node" parent="StateMachine/CPU" unique_id=954478486]
 script = ExtResource("17_lgqa7")
-debug_pathing = true
 
 [node name="NameLabel" type="Label" parent="." unique_id=1121474135]
 anchors_preset = 8
