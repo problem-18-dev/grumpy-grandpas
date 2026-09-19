@@ -54,6 +54,10 @@ func destroy() -> void:
 	queue_free()
 
 
+func cancel() -> void:
+	life_time_timer.stop()
+
+
 func _explode() -> void:
 	Utils.create_explosion(resource.explosion, global_position)
 	destroy()

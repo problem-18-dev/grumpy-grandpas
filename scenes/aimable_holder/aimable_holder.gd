@@ -18,10 +18,10 @@ const MAXIMUM_ROTATION := PI / 2
 @export var aiming_time := 1.0
 
 var is_cpu := false
+var equipped_aimable: Aimable
 
 var _is_flipped := false
 var _aim_angle := 0.0
-var _equipped_aimable: Aimable
 var _state := HolderState.DISABLED
 
 @onready var aimable_pivot: Node2D = $AimablePivot
@@ -35,7 +35,7 @@ func _physics_process(delta: float) -> void:
 
 
 func equip_aimable(aimable_resource: AimableResource, player_direction: float) -> void:
-	if _equipped_aimable:
+	if equipped_aimable:
 		remove_aimable()
 
 	# Spawn aimable
@@ -46,22 +46,22 @@ func equip_aimable(aimable_resource: AimableResource, player_direction: float) -
 	aimable.fired.connect(aimable_fired.emit)
 	aimable.prepare(aimable_resource)
 	aimable_pivot.add_child(aimable)
-	_equipped_aimable = aimable
+	equipped_aimable = aimable
 
 	# Flip aimable based on player's direction
 	var should_flip := player_direction == Player.LEFT_DIRECTION
 	_flip(should_flip)
-	_equipped_aimable.flip(should_flip)
+	equipped_aimable.flip(should_flip)
 
 	_change_state(HolderState.ENABLED)
 
 
 func remove_aimable() -> void:
-	if not _equipped_aimable:
+	if not equipped_aimable:
 		return
 
-	_equipped_aimable.queue_free()
-	_equipped_aimable = null
+	equipped_aimable.queue_free()
+	equipped_aimable = null
 
 	_change_state(HolderState.DISABLED)
 
@@ -86,12 +86,12 @@ func cpu_shoot(angle: float, force := 0.0) -> void:
 
 	await get_tree().create_timer(aiming_time).timeout
 
-	if _equipped_aimable is ProjectileWeapon:
+	if equipped_aimable is ProjectileWeapon:
 		assert(not is_zero_approx(force), "Manually shooting a projectile weapon without force.")
-		(_equipped_aimable as ProjectileWeapon).process_input(false, false, force)
+		(equipped_aimable as ProjectileWeapon).process_input(false, false, force)
 		return
 
-	_equipped_aimable.shoot()
+	equipped_aimable.shoot()
 #endregion
 
 func _change_state(new_state: HolderState) -> void:
@@ -102,8 +102,8 @@ func _change_state(new_state: HolderState) -> void:
 		HolderState.DISABLED:
 			set_physics_process(false)
 			set_process_unhandled_key_input(false)
-			if _equipped_aimable:
-				_equipped_aimable.disable()
+			if equipped_aimable:
+				equipped_aimable.disable()
 
 	_state = new_state
 

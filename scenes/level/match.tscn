@@ -14,9 +14,6 @@ _data = {
 }
 point_count = 6
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tj2m0"]
-size = Vector2(1692.5, 1054)
-
 [node name="Match" type="Node2D" unique_id=909882963]
 script = ExtResource("1_o7qs2")
 
@@ -43,10 +40,10 @@ polygon = PackedVector2Array(1169, -290, 1167, -205, 724, -206)
 
 [node name="Camera2D" type="Camera2D" parent="Camera" unique_id=1800382336]
 top_level = true
-limit_left = -408
-limit_top = -658
-limit_right = 1252
-limit_bottom = 364
+limit_left = -576
+limit_top = -512
+limit_right = 1344
+limit_bottom = 352
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera/Camera2D" unique_id=1546512804]
@@ -57,8 +54,11 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="GameCamera" parent="Camera" unique_id=190906775 instance=ExtResource("12_dqi03")]
 draw_limits = true
-limit_target = NodePath("../../BoundsArea/CollisionShape2D")
-limit_margin = Vector4i(16, 16, 16, 16)
+limit_left = -576
+limit_top = -512
+limit_right = 1344
+limit_bottom = 352
+limit_margin = Vector4i(157, 157, 157, 157)
 
 [node name="SpawnGenerator" type="Node2D" parent="." unique_id=40225150 node_paths=PackedStringArray("spawn_path_follow")]
 script = ExtResource("4_s7v56")
@@ -75,8 +75,21 @@ rotation = -0.7680989
 
 [node name="BoundsArea" parent="." unique_id=1365056220 instance=ExtResource("7_tj2m0")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BoundsArea" unique_id=1370673157]
-position = Vector2(422, -147)
-shape = SubResource("RectangleShape2D_tj2m0")
+[node name="Top" parent="BoundsArea" index="0" unique_id=145456361]
+position = Vector2(352, -512)
+rotation = 3.1415927
+
+[node name="Right" parent="BoundsArea" index="1" unique_id=292086785]
+position = Vector2(1344, 40)
+rotation = -1.5707964
+
+[node name="Bottom" parent="BoundsArea" index="2" unique_id=1700487279]
+position = Vector2(384, 352)
+
+[node name="Left" parent="BoundsArea" index="3" unique_id=2119979601]
+position = Vector2(-576, -40)
+rotation = 1.5707964
 
 [connection signal="projectile_exited" from="BoundsArea" to="." method="_on_bounds_area_projectile_exited"]
+
+[editable path="BoundsArea"]

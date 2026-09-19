@@ -2,10 +2,26 @@
 
 [ext_resource type="Script" uid="uid://cvffhvppwmk17" path="res://scenes/bounds_area/bounds_area.gd" id="1_t8b7o"]
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_t8b7o"]
+
 [node name="BoundsArea" type="Area2D" unique_id=1365056220]
 collision_layer = 32
 collision_mask = 17
 input_pickable = false
+monitorable = false
 script = ExtResource("1_t8b7o")
 
+[node name="Top" type="CollisionShape2D" parent="." unique_id=145456361]
+shape = SubResource("WorldBoundaryShape2D_t8b7o")
+
+[node name="Right" type="CollisionShape2D" parent="." unique_id=292086785]
+shape = SubResource("WorldBoundaryShape2D_t8b7o")
+
+[node name="Bottom" type="CollisionShape2D" parent="." unique_id=1700487279]
+shape = SubResource("WorldBoundaryShape2D_t8b7o")
+
+[node name="Left" type="CollisionShape2D" parent="." unique_id=2119979601]
+shape = SubResource("WorldBoundaryShape2D_t8b7o")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

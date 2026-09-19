@@ -169,7 +169,7 @@ func register_damage(amount: int) -> void:
 
 #region CPU
 func cpu_shoot(angle: float, force := 0.0) -> void:
-	if not _equipped_item:
+	if not _equipped_item or not aimable_holder.equipped_aimable:
 		return
 
 	aimable_holder.cpu_shoot(angle, force)

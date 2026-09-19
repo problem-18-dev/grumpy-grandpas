@@ -8,7 +8,7 @@ var _present_entities: Array[Node2D] = []
 
 func cleanup() -> void:
 	_present_entities.map(_free_present_entity)
-	_present_entities = []
+	_present_entities.clear()
 
 
 func _free_present_entity(entity: Variant) -> void:
@@ -22,5 +22,9 @@ func _free_present_entity(entity: Variant) -> void:
 		entity.queue_free()
 
 
-func _on_body_exited(body: Node2D) -> void:
+func _on_body_entered(body: Node2D) -> void:
 	_present_entities.append(body)
+
+	if body is Projectile:
+		body.cancel()
+		projectile_exited.emit()
