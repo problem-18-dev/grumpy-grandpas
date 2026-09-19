@@ -6,8 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://dwfdnq2y4c1w2" path="res://scenes/game_camera/game_camera.tscn" id="5_at1g2"]
 [ext_resource type="PackedScene" uid="uid://3nsota473q6r" path="res://scenes/bounds_area/bounds_area.tscn" id="7_tadih"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_tujrl"]
-
 [node name="Tutorial" type="Node2D" unique_id=1672131671]
 script = ExtResource("1_tujrl")
 
@@ -39,12 +37,21 @@ draw_limits = true
 limit_margin = Vector4i(16, 16, 16, 16)
 
 [node name="BoundsArea" parent="." unique_id=1365056220 instance=ExtResource("7_tadih")]
-position = Vector2(-40, 128)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BoundsArea" unique_id=1947432475]
-position = Vector2(304, -600)
+[node name="Top" parent="BoundsArea" index="0" unique_id=145456361]
+position = Vector2(256, -320)
 rotation = 3.1415927
-shape = SubResource("WorldBoundaryShape2D_tujrl")
+
+[node name="Right" parent="BoundsArea" index="1" unique_id=292086785]
+position = Vector2(832, 144)
+rotation = -1.5707964
+
+[node name="Bottom" parent="BoundsArea" index="2" unique_id=1700487279]
+position = Vector2(256, 576)
+
+[node name="Left" parent="BoundsArea" index="3" unique_id=2119979601]
+position = Vector2(-256, 136)
+rotation = 1.5707964
 
 [node name="PlayerSpawnMarker" type="Marker2D" parent="." unique_id=2050232590]
 position = Vector2(88, 256)
@@ -55,4 +62,9 @@ position = Vector2(488, 256)
 [node name="PickuppableSpawnMarker" type="Marker2D" parent="." unique_id=816830277]
 position = Vector2(192, 192)
 
+[node name="KeycapSpawnMarker" type="Marker2D" parent="." unique_id=1553856920]
+position = Vector2(64, 192)
+
 [connection signal="projectile_exited" from="BoundsArea" to="." method="_on_bounds_area_projectile_exited"]
+
+[editable path="BoundsArea"]

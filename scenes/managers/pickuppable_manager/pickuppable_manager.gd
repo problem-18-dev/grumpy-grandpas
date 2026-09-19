@@ -8,6 +8,7 @@ const RAY_LENGTH := 1000
 const HURTBOX_COLLISION_MASK := 4
 
 @export_group("Properties")
+@export var spawn_target: Node2D
 @export var spawn_chance := 0.15
 @export var spawn_vertical_offset := 64.0
 @export_group("Guards")
@@ -31,7 +32,7 @@ func spawn(pickuppable_resource: PickuppableResource, spawn_position: Vector2) -
 	var pickuppable: Pickuppable = PICKUPPABLE.instantiate()
 	pickuppable.picked_up.connect(picked_up.emit)
 	pickuppable.setup(pickuppable_resource)
-	add_child(pickuppable)
+	spawn_target.add_child(pickuppable)
 	pickuppable.spawn(spawn_position)
 
 	await pickuppable.spawned
@@ -39,6 +40,7 @@ func spawn(pickuppable_resource: PickuppableResource, spawn_position: Vector2) -
 
 func attempt_spawn() -> void:
 	assert(spawn_follow, "Attempting spawn without path follow")
+	assert(spawn_target, "No spawn target provided")
 
 	if spawn_resources.is_empty():
 		push_warning("No spawn resources assigned, skipping.")

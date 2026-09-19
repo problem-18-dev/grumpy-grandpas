@@ -7,6 +7,7 @@ signal projectile_exited
 @onready var enemy_spawn_marker: Marker2D = $EnemySpawnMarker
 @onready var player_spawn_marker: Marker2D = $PlayerSpawnMarker
 @onready var pickuppable_spawn_marker: Marker2D = $PickuppableSpawnMarker
+@onready var keycap_spawn_marker: Marker2D = $KeycapSpawnMarker
 
 
 ## Player spawn must come last.
@@ -18,6 +19,10 @@ func get_spawn_points() -> Array[SpawnGenerator.SpawnPoint]:
 
 func get_pickuppable_spawn() -> Vector2:
 	return pickuppable_spawn_marker.global_position
+
+
+func get_keycap_spawn() -> Vector2:
+	return keycap_spawn_marker.global_position
 
 
 func cleanup() -> void:

@@ -10,6 +10,7 @@ const TUTORIAL_LEVEL = preload("uid://bw3v314eg0rgg")
 const TUTORIAL_ANNOUNCEMENT = preload("uid://gpncyxff15bx")
 const CRATE = preload("uid://cigipvuxrk2eo")
 const TUTORIAL_CATALOGUE = preload("uid://c0onk6kmhoekl")
+const KEYCAP = preload("uid://bb8fs5vr1xjp")
 
 @export_group("Announcements")
 @export var announcement_intro_duration := 3.0
@@ -21,6 +22,7 @@ var _is_preparing := false
 @onready var hud: HUD = %HUD
 @onready var level_root: Node2D = %LevelRoot
 @onready var entity_root: Node2D = %EntityRoot
+@onready var keycaps_container: VBoxContainer = %KeycapsContainer
 @onready var inventory_root: Control = %InventoryRoot
 @onready var continue_label: Label = %ContinueLabel
 
@@ -113,6 +115,9 @@ func _continue() -> void:
 	_announcement_pointer = clampi(_announcement_pointer, 0, _announcements.size() - 1)
 	hud.set_message(_announcements[_announcement_pointer])
 
+	if tutorial_manager.current_phase == TutorialManager.Phase.OUTRO:
+		return
+
 	if _announcement_pointer == _announcements.size() - 1:
 		continue_label.hide()
 		_activate_player()
@@ -161,6 +166,18 @@ func _lower_players_health() -> void:
 		player.health.take_health(99)
 
 
+func _create_keycaps(... letters: Array) -> void:
+	for letter: String in letters:
+		var keycap: Keycap = KEYCAP.instantiate()
+		keycap.text = letter
+		keycaps_container.add_child(keycap)
+
+
+func _clear_keycaps() -> void:
+	for child in keycaps_container.get_children():
+		child.queue_free()
+
+
 func _on_pickuppable_manager_picked_up(by: Player, type: PickuppableResource.Type) -> void:
 	players_manager.unlock_item(by, type)
 	tutorial_manager.next_phase()
@@ -189,12 +206,22 @@ func _on_inventory_closed(new_item: ItemResource = null) -> void:
 
 func _on_tutorial_manager_phase_started(phase: TutorialManager.Phase) -> void:
 	tutorial_manager.initial_phase = phase
-
+	_clear_keycaps()
 	_start_announcements(phase)
 
 	match phase:
+		TutorialManager.Phase.MOVE:
+			_create_keycaps("←", "→")
+		TutorialManager.Phase.JUMP:
+			_create_keycaps("x")
+		TutorialManager.Phase.AIM:
+			_create_keycaps("↑", "↓")
+		TutorialManager.Phase.SHOOT:
+			_create_keycaps("Space")
 		TutorialManager.Phase.PICK_UP:
 			await pickuppable_manager.spawn(CRATE, _tutorial_level.get_pickuppable_spawn())
+		TutorialManager.Phase.INVENTORY:
+			_create_keycaps("i")
 		TutorialManager.Phase.ENEMY_DEATH:
 			_lower_players_health()
 
@@ -203,10 +230,12 @@ func _on_busy_manager_busy_ended() -> void:
 	await players_manager.damage_players()
 	await players_manager.kill_marked_players()
 
-	if tutorial_manager.current_phase == TutorialManager.Phase.SHOOT:
-		tutorial_manager.next_phase()
-
-	_prepare()
+	match tutorial_manager.current_phase:
+		TutorialManager.Phase.SHOOT:
+			tutorial_manager.next_phase()
+			_prepare()
+		TutorialManager.Phase.PICK_UP:
+			_prepare()
 
 
 func _on_projectile_exited() -> void:

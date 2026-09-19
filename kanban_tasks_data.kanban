@@ -11,7 +11,6 @@
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
 			"tasks": [
-				"0ce50d02-53d8-43d0-af03-c0a2522288c5",
 				"e31e55b2-7b3d-49ce-9b96-ce54bbc3e1a5",
 				"54b9edce-7cf6-409f-b5ab-2e9b3d65790c",
 				"25ab6998-d8ed-4553-9291-0892e5d21368",
@@ -33,6 +32,7 @@
 			"tasks": [
 				"093fd4eb-0925-4110-b4f0-e7123d22f5d3",
 				"1920af68-b41c-4ab3-a0af-e67e3ef249c8",
+				"0ce50d02-53d8-43d0-af03-c0a2522288c5",
 				"fc26f186-2d0d-4be1-83d6-d6dba9e9cb36",
 				"1cd67cfc-0c38-41db-8f0c-f95c9390efca",
 				"cc38fcb0-7f8f-474d-b13c-425a3d16a151",
@@ -548,15 +548,15 @@
 			"steps": [
 				{
 					"details": "Add button visuals",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Improve announcement spacing",
-					"done": false
+					"done": true
 				},
 				{
 					"details": "Clean up pickuppable if failed\n",
-					"done": false
+					"done": true
 				}
 			]
 		},
