@@ -100,10 +100,10 @@ func _handle_shot(shot: PlayerCPUWeaponModule.CPUShot) -> void:
 		return
 
 	if shot is CPUProjectileModule.CPUProjectileShot:
-		player.aimable_holder.cpu_shoot(shot.angle, shot.force)
+		player.cpu_shoot(shot.angle, shot.force)
 		return
 
-	player.aimable_holder.cpu_shoot(shot.angle)
+	player.cpu_shoot(shot.angle)
 
 
 func _reset() -> void:

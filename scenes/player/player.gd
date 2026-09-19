@@ -167,6 +167,14 @@ func register_damage(amount: int) -> void:
 	damage_accumulated.emit(self)
 #endregion
 
+#region CPU
+func cpu_shoot(angle: float, force := 0.0) -> void:
+	if not _equipped_item:
+		return
+
+	aimable_holder.cpu_shoot(angle, force)
+#endregion
+
 func _flip_sprite() -> void:
 	if is_zero_approx(velocity.x):
 		return

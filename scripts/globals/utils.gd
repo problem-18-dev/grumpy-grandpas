@@ -24,7 +24,7 @@ func create_explosion(explosion_resource: ExplosionResource, explode_position: V
 	var entities := get_entities_container()
 	entities.add_child(explosion)
 
-	explosion.explode(explode_position)
+	explosion.explode.call_deferred(explode_position)
 
 
 func get_entities_container() -> Node2D:

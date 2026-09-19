@@ -11,6 +11,7 @@ var _is_fired := false
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var life_time_timer: Timer = $LifeTimeTimer
+@onready var hitbox_collision_shape: CollisionShape2D = $HitboxComponent/CollisionShape2D
 
 
 func _ready() -> void:
@@ -19,6 +20,7 @@ func _ready() -> void:
 
 	sprite.texture = resource.texture
 	collision_shape.shape = resource.collision_shape
+	hitbox_collision_shape.shape = resource.collision_shape
 
 
 func _physics_process(delta: float) -> void:
@@ -78,4 +80,11 @@ func _handle_rotation() -> void:
 
 
 func _on_life_time_timer_timeout() -> void:
+	_explode()
+
+
+func _on_hitbox_component_hit() -> void:
+	if resource.bounce_enabled:
+		return
+
 	_explode()

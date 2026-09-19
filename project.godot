@@ -56,9 +56,6 @@ folder_colors={
 
 [gui]
 
-theme/default_font_subpixel_positioning=0
-theme/default_font_multichannel_signed_distance_field=true
-theme/default_font_generate_mipmaps=true
 theme/custom="uid://dtngddcpoh66q"
 theme/custom_font="uid://g2bs15qxt57b"
 
