@@ -1,6 +1,7 @@
 class_name PlayerState
 extends State
 
+const CAMERA := "Camera"
 const IDLE := "Idle"
 const WALK := "Walk"
 const AIR := "Air"

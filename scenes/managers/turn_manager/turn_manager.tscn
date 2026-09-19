@@ -4,10 +4,11 @@
 
 [node name="TurnManager" type="Node" unique_id=1078894919]
 script = ExtResource("1_0ywio")
+transition_duration = 1
 
-[node name="TurnTimer" type="Timer" parent="." unique_id=1552965466]
+[node name="TransitionTimer" type="Timer" parent="." unique_id=1552965466]
 
-[node name="TransitionTimer" type="Timer" parent="." unique_id=1368135674]
+[node name="TurnTimer" type="Timer" parent="." unique_id=2136705067]
 
-[connection signal="timeout" from="TurnTimer" to="." method="_on_turn_timer_timeout"]
 [connection signal="timeout" from="TransitionTimer" to="." method="_on_transition_timer_timeout"]
+[connection signal="timeout" from="TurnTimer" to="." method="_on_turn_timer_timeout"]

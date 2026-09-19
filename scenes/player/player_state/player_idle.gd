@@ -16,6 +16,10 @@ func _key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump") and not InputGate.has("jump"):
 		finished.emit(PlayerState.AIR, { "jump": true })
 
+	if event.is_action_pressed("camera"):
+		finished.emit(PlayerState.CAMERA)
+		return
+
 	if event.is_action_pressed("inventory") and not InputGate.has("inventory"):
 		player.request_inventory()
 		get_viewport().set_input_as_handled()

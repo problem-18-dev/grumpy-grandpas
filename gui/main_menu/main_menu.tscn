@@ -103,10 +103,10 @@ text = "Quickplay"
 layout_mode = 2
 text = "Tutorial"
 
-[node name="TeamsButton" parent="Menu/MarginContainer/VBoxContainer" unique_id=1097023995 instance=ExtResource("1_ahke7")]
+[node name="CustomButton" parent="Menu/MarginContainer/VBoxContainer" unique_id=1097023995 instance=ExtResource("1_ahke7")]
 layout_mode = 2
 disabled = true
-text = "Teams"
+text = "Custom"
 
 [node name="SettingsButton" parent="Menu/MarginContainer/VBoxContainer" unique_id=624488429 instance=ExtResource("1_ahke7")]
 layout_mode = 2

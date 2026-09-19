@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dmnq07wos3jc2" path="res://scenes/player/player_state/player_walk.gd" id="5_p47bc"]
 [ext_resource type="Script" uid="uid://cnc8c7xcxascg" path="res://scenes/player/player_state/player_air.gd" id="6_75vfm"]
 [ext_resource type="PackedScene" uid="uid://bdmwi2dhvl8q1" path="res://scenes/components/health_component/health_component.tscn" id="7_0owmy"]
+[ext_resource type="Script" uid="uid://86e71bcy4vmw" path="res://scenes/player/player_state/player_camera.gd" id="7_8ydkj"]
 [ext_resource type="Script" uid="uid://bep13uudvc7lh" path="res://scenes/player/player_state/player_inactive.gd" id="10_gx1jg"]
 [ext_resource type="Script" uid="uid://c8a35l3xxakio" path="res://scenes/player/player_state/player_knockback.gd" id="11_ugbui"]
 [ext_resource type="Script" uid="uid://n6aq4lhmi1g5" path="res://scenes/player/player_state/player_dead.gd" id="12_gx1jg"]
@@ -61,6 +62,9 @@ debug_color = Color(0, 1, 0, 0.392)
 [node name="StateMachine" parent="." unique_id=1355297057 node_paths=PackedStringArray("initial_state") instance=ExtResource("3_gmlin")]
 initial_state = NodePath("Inactive")
 
+[node name="Camera" type="Node" parent="StateMachine" unique_id=1691491715]
+script = ExtResource("7_8ydkj")
+
 [node name="Idle" type="Node" parent="StateMachine" unique_id=2031766278]
 script = ExtResource("4_lvxji")
 
@@ -100,6 +104,7 @@ script = ExtResource("18_lgqa7")
 
 [node name="CPUProjectileModule" type="Node" parent="StateMachine/CPU" unique_id=954478486]
 script = ExtResource("17_lgqa7")
+debug_pathing = true
 
 [node name="NameLabel" type="Label" parent="." unique_id=1121474135]
 anchors_preset = 8
@@ -116,6 +121,8 @@ grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_type_variation = &"PlayerNameLabel"
 text = "Test"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HealthLabel" type="Label" parent="." unique_id=1328752178]
 anchors_preset = 8
@@ -133,6 +140,7 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_type_variation = &"DamageIndicatorLabel"
 text = "100"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="DamageIndicator" parent="." unique_id=626911322 instance=ExtResource("16_myrg7")]
 anchors_preset = 8

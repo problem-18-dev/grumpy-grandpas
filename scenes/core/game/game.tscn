@@ -6,10 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://dbdar1owhc1hg" path="res://scenes/managers/players_manager/players_manager.tscn" id="4_t6juh"]
 [ext_resource type="PackedScene" uid="uid://cw3y8hipohxda" path="res://scenes/managers/pickuppable_manager/pickuppable_manager.tscn" id="5_0c8qe"]
 [ext_resource type="PackedScene" uid="uid://drkkxlses2ss3" path="res://scenes/debug/debug_overlay.tscn" id="6_22cy2"]
+[ext_resource type="PackedScene" uid="uid://d35ssjbiwjytu" path="res://scenes/managers/camera_manager/camera_manager.tscn" id="6_l2mu6"]
+[ext_resource type="Script" uid="uid://djg5n7ehmm5vr" path="res://scenes/managers/camera_manager/camera_manager.gd" id="7_t6juh"]
+[ext_resource type="PackedScene" uid="uid://c5q7bwqmijr3e" path="res://gui/hud/hud.tscn" id="8_t6juh"]
 
 [node name="Game" type="Node" unique_id=1409832964]
 process_mode = 3
 script = ExtResource("1_uf3vs")
+skip_team_intro = true
 
 [node name="Systems" type="Node" parent="." unique_id=630301451]
 process_mode = 3
@@ -28,6 +32,10 @@ spawn_target = NodePath("../../World/EntityRoot")
 unique_name_in_owner = true
 spawn_target = NodePath("../../World/EntityRoot")
 
+[node name="CameraManager" parent="Systems" unique_id=22320113 instance=ExtResource("6_l2mu6")]
+unique_name_in_owner = true
+script = ExtResource("7_t6juh")
+
 [node name="World" type="Node2D" parent="." unique_id=735254960]
 process_mode = 1
 
@@ -41,13 +49,16 @@ unique_name_in_owner = true
 process_mode = 1
 
 [node name="HUDRoot" type="Control" parent="HUDLayer" unique_id=1532385107]
-unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="HUD" parent="HUDLayer/HUDRoot" unique_id=673953980 instance=ExtResource("8_t6juh")]
+unique_name_in_owner = true
+layout_mode = 1
 
 [node name="InventoryLayer" type="CanvasLayer" parent="." unique_id=1412375788]
 process_mode = 1

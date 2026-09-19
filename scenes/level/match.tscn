@@ -5,8 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://d0okm02wagiv7" path="res://scenes/terrain/terrain.tscn" id="2_eh1bq"]
 [ext_resource type="Script" uid="uid://qp7wd878ywhm" path="res://scenes/managers/spawn_generator/spawn_generator.gd" id="4_s7v56"]
 [ext_resource type="PackedScene" uid="uid://3nsota473q6r" path="res://scenes/bounds_area/bounds_area.tscn" id="7_tj2m0"]
-[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="11_c7gxq"]
-[ext_resource type="PackedScene" uid="uid://dwfdnq2y4c1w2" path="res://scenes/game_camera/game_camera.tscn" id="12_dqi03"]
 
 [sub_resource type="Curve2D" id="Curve2D_tj2m0"]
 _data = {
@@ -35,30 +33,6 @@ polygon = PackedVector2Array(356, -146, 201, -94, 447, -23, 511, -110)
 [node name="Polygon2D3" type="Polygon2D" parent="Terrain" unique_id=1971940719]
 position = Vector2(-69, 155)
 polygon = PackedVector2Array(1169, -290, 1167, -205, 724, -206)
-
-[node name="Camera" type="Node2D" parent="." unique_id=1082269990]
-
-[node name="Camera2D" type="Camera2D" parent="Camera" unique_id=1800382336]
-top_level = true
-limit_left = -576
-limit_top = -512
-limit_right = 1344
-limit_bottom = 352
-editor_draw_limits = true
-
-[node name="PhantomCameraHost" type="Node" parent="Camera/Camera2D" unique_id=1546512804]
-process_priority = 300
-process_physics_priority = 300
-script = ExtResource("11_c7gxq")
-metadata/_custom_type_script = "uid://bd046eokvcnu2"
-
-[node name="GameCamera" parent="Camera" unique_id=190906775 instance=ExtResource("12_dqi03")]
-draw_limits = true
-limit_left = -576
-limit_top = -512
-limit_right = 1344
-limit_bottom = 352
-limit_margin = Vector4i(157, 157, 157, 157)
 
 [node name="SpawnGenerator" type="Node2D" parent="." unique_id=40225150 node_paths=PackedStringArray("spawn_path_follow")]
 script = ExtResource("4_s7v56")

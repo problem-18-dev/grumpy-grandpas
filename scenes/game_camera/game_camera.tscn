@@ -14,6 +14,7 @@ script = ExtResource("1_tkp5u")
 follow_mode = 2
 tween_resource = SubResource("Resource_ouxo3")
 follow_damping = true
+draw_limits = true
 noise_emitter_layer = 1
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
@@ -30,6 +31,9 @@ one_shot = true
 [node name="NoiseEmitter" type="Node2D" parent="." unique_id=2008814542]
 script = ExtResource("3_gdyjp")
 metadata/_custom_type_script = "uid://bhd4nuiu23e7l"
+
+[node name="ManualTarget" type="Node2D" parent="." unique_id=1246235686]
+top_level = true
 
 [connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]
 [connection signal="timeout" from="StallTimer" to="." method="_on_stall_timer_timeout"]

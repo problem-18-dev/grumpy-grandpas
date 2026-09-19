@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://d35ssjbiwjytu"]
+
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_lndx6"]
+[ext_resource type="PackedScene" uid="uid://dwfdnq2y4c1w2" path="res://scenes/game_camera/game_camera.tscn" id="2_pidic"]
+
+[node name="CameraManager" type="Node2D" unique_id=22320113]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1766280552]
+top_level = true
+editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D" unique_id=940254958]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("1_lndx6")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="GameCamera" parent="." unique_id=190906775 instance=ExtResource("2_pidic")]
+limit_margin = Vector4i(157, 157, 157, 157)

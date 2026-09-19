@@ -11,4 +11,7 @@ signal projectile_exited
 @abstract func get_spawn_follow() -> PathFollow2D
 
 
+@abstract func get_bounds() -> Array[int]
+
+
 @abstract func cleanup() -> void

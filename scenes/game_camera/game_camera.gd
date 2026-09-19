@@ -17,13 +17,17 @@ enum Zoom {
 const ZOOM := { Zoom.NEAR: 1.2, Zoom.NORMAL: 1.0, Zoom.FAR: 0.9 }
 const ZOOM_TWEEN_DURATION := 0.5
 
+@export var manual_target_speed := 150.0
+
 var _targets: Dictionary[Node2D, Dictionary]
 var _current_zoom := Zoom.NORMAL
 var _zoom_tween: Tween
+var _manual_override := false
 
 @onready var update_timer: Timer = $UpdateTimer
 @onready var stall_timer: Timer = $StallTimer
 @onready var noise_emitter: PhantomCameraNoiseEmitter2D = $NoiseEmitter
+@onready var manual_target: Node2D = $ManualTarget
 
 
 func _init() -> void:
@@ -33,9 +37,32 @@ func _init() -> void:
 	EventSystem.camera.request_follow.connect(_on_request_follow)
 	EventSystem.camera.revoke_follow.connect(_on_revoke_follow)
 	EventSystem.camera.shake.connect(_on_shake)
+	EventSystem.camera.request_manual.connect(_on_request_manual)
+	EventSystem.camera.revoke_manual.connect(_on_revoke_manual)
+
+
+func _physics_process(delta: float) -> void:
+	if not _manual_override:
+		return
+
+	var direction := Input.get_vector("move_left", "move_right", "up", "down")
+	manual_target.global_position += manual_target_speed * direction * delta
+	manual_target.global_position.x = clampf(
+		manual_target.global_position.x,
+		limit_left,
+		limit_right,
+	)
+	manual_target.global_position.y = clampf(
+		manual_target.global_position.y,
+		limit_top,
+		limit_bottom,
+	)
 
 
 func _update_camera() -> void:
+	if _manual_override:
+		return
+
 	# Nothing registered, keep following whatever we had until a new target arrives.
 	if _targets.is_empty():
 		return
@@ -132,8 +159,18 @@ func _on_shake(new_noise: PhantomCameraNoise2D, duration: float) -> void:
 	noise_emitter.noise = new_noise
 	noise_emitter.duration = duration
 	noise_emitter.decay_time = duration / 3
-
 	noise_emitter.emit()
+
+
+func _on_request_manual(manual_position: Vector2) -> void:
+	_manual_override = true
+	manual_target.global_position = manual_position
+	follow_target = manual_target
+
+
+func _on_revoke_manual() -> void:
+	_manual_override = false
+	_update_camera()
 
 
 func _on_update_timer_timeout() -> void:
