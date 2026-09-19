@@ -12,12 +12,12 @@
 			"title": "Todo",
 			"tasks": [
 				"e31e55b2-7b3d-49ce-9b96-ce54bbc3e1a5",
+				"40bcaa4b-3d10-424c-9b62-de4a91c7cd71",
+				"5a23c18d-6b49-4c8f-a580-a58311ca397e",
 				"54b9edce-7cf6-409f-b5ab-2e9b3d65790c",
 				"25ab6998-d8ed-4553-9291-0892e5d21368",
 				"ba1e0c1e-3604-45e0-9027-60476ffe97b2",
 				"13fe63cb-550f-42d6-8497-cdf1411fbf83",
-				"a718fc6a-159a-4091-ab59-24f3c1ba5884",
-				"5a23c18d-6b49-4c8f-a580-a58311ca397e",
 				"36986abb-b8a5-47f2-bcf9-548b5718e5af"
 			]
 		},
@@ -32,6 +32,7 @@
 			"tasks": [
 				"093fd4eb-0925-4110-b4f0-e7123d22f5d3",
 				"1920af68-b41c-4ab3-a0af-e67e3ef249c8",
+				"a718fc6a-159a-4091-ab59-24f3c1ba5884",
 				"0ce50d02-53d8-43d0-af03-c0a2522288c5",
 				"fc26f186-2d0d-4be1-83d6-d6dba9e9cb36",
 				"1cd67cfc-0c38-41db-8f0c-f95c9390efca",
@@ -622,6 +623,13 @@
 			"uuid": "fc26f186-2d0d-4be1-83d6-d6dba9e9cb36",
 			"title": "[Bug] Drowning causes crash",
 			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "40bcaa4b-3d10-424c-9b62-de4a91c7cd71",
+			"title": "[Feat] Add intro camera",
+			"description": "When a match starts, it should first show the entire level, before the player gets activated and zoomed into.\n",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
 		}

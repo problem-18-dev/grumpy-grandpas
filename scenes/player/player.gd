@@ -133,8 +133,8 @@ func setup(player_team: TeamResource, player: PlayerResource) -> void:
 	team = player_team
 	hurtbox.add_to_group(team.get_id())
 
-	aimable_holder.is_cpu = team.is_cpu
-	is_cpu = team.is_cpu
+	aimable_holder.is_cpu = team.cpu_resource != null
+	is_cpu = team.cpu_resource != null
 
 	name_label.add_theme_color_override("font_color", team.color)
 	name_label.text = player.name
@@ -165,14 +165,6 @@ func apply_damage() -> void:
 func register_damage(amount: int) -> void:
 	_damage_accumulated += amount
 	damage_accumulated.emit(self)
-#endregion
-
-#region CPU
-func cpu_shoot(angle: float, force := 0.0) -> void:
-	if not _equipped_item or not aimable_holder.equipped_aimable:
-		return
-
-	aimable_holder.cpu_shoot(angle, force)
 #endregion
 
 func _flip_sprite() -> void:

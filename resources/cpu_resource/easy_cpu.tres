@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="CPUResource" format=3 uid="uid://76vl5rrkqckq"]
+
+[ext_resource type="Script" uid="uid://bj12a0uytufq1" path="res://resources/cpu_resource/cpu_resource.gd" id="1_1wbdw"]
+
+[resource]
+script = ExtResource("1_1wbdw")
+metadata/_custom_type_script = "uid://bj12a0uytufq1"

@@ -33,7 +33,8 @@ func spawn_players(spawn_points: Array[SpawnGenerator.SpawnPoint]) -> void:
 			var player: Player = PLAYER.instantiate()
 			spawn_target.add_child(player)
 
-			var spawn_data: SpawnGenerator.SpawnPoint = spawn_points.pop_back()
+			var spawn_data: SpawnGenerator.SpawnPoint = spawn_points.pick_random()
+			spawn_points.erase(spawn_data)
 			player.spawn(spawn_data.position, spawn_data.normal)
 			player.setup(team, player_resource)
 

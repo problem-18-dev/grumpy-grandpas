@@ -81,6 +81,9 @@ func register_aim_angle(delta: float) -> void:
 
 ## Only to be used by CPU teams. Immediately angles and shoots the current aimable.
 func cpu_shoot(angle: float, force := 0.0) -> void:
+	if not equipped_aimable:
+		return
+
 	_aim_angle = angle
 	_rotate_aimable()
 

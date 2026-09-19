@@ -99,11 +99,21 @@ func _handle_shot(shot: PlayerCPUWeaponModule.CPUShot) -> void:
 		player.finish()
 		return
 
+	shot = _adjust_shot_angle(shot)
+
 	if shot is CPUProjectileModule.CPUProjectileShot:
-		player.cpu_shoot(shot.angle, shot.force)
+		player.aimable_holder.cpu_shoot(shot.angle, shot.force)
 		return
 
-	player.cpu_shoot(shot.angle)
+	player.aimable_holder.cpu_shoot(shot.angle)
+
+
+func _adjust_shot_angle(shot: PlayerCPUWeaponModule.CPUShot) -> PlayerCPUWeaponModule.CPUShot:
+	var shot_angle := shot.angle
+	var angle_range := player.team.cpu_resource.get_angle_range()
+	shot_angle += randf_range(-angle_range, angle_range)
+	shot.angle = shot_angle
+	return shot
 
 
 func _reset() -> void:
