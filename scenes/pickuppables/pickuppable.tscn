@@ -28,7 +28,7 @@ shape = SubResource("RectangleShape2D_0m844")
 
 [node name="PickupComponent" parent="." unique_id=1903898418 instance=ExtResource("4_d8i2i")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupComponent" unique_id=999639438]
+[node name="PickupCollisionShape" type="CollisionShape2D" parent="PickupComponent" unique_id=999639438]
 shape = SubResource("CircleShape2D_1xhu4")
 
 [node name="SpawnTimer" type="Timer" parent="." unique_id=362873926]

@@ -26,6 +26,8 @@ spawn_target = NodePath("../../World/EntityRoot")
 
 [node name="PickuppableManager" parent="Systems" unique_id=180867956 instance=ExtResource("5_0c8qe")]
 unique_name_in_owner = true
+spawn_chance = 1.0
+should_check_for_players = false
 
 [node name="World" type="Node2D" parent="." unique_id=735254960]
 process_mode = 1

@@ -48,6 +48,7 @@ func attempt_spawn() -> void:
 		return
 
 	_space_state = get_world_2d().direct_space_state
+
 	var world_position := _get_world_position()
 	if not world_position:
 		return
@@ -56,12 +57,12 @@ func attempt_spawn() -> void:
 	if players_nearby:
 		return
 
-	var offset_position := _get_offset_position(world_position)
+	var pickuppable_to_spawn: PickuppableResource = spawn_resources.pick_random()
+	var offset_position := _get_offset_position(world_position, pickuppable_to_spawn)
 	if not offset_position:
 		return
 
-	var pickuppable_resource: PickuppableResource = spawn_resources.pick_random()
-	await spawn(pickuppable_resource, offset_position)
+	await spawn(pickuppable_to_spawn, offset_position)
 
 
 func _should_spawn() -> bool:
@@ -81,16 +82,23 @@ func _get_world_position() -> Vector2:
 	return world_collision.position if world_collision else Vector2.ZERO
 
 
-func _get_offset_position(world_position: Vector2) -> Vector2:
+func _get_offset_position(
+	world_position: Vector2,
+	pickuppable_resource: PickuppableResource,
+) -> Vector2:
 	var offset_position: Vector2 = world_position + (Vector2.UP * spawn_vertical_offset)
-	var offset_query := PhysicsRayQueryParameters2D.create(
-		world_position,
-		offset_position,
+	var shape_query := Utils.create_shape_query(
 		DestructiblePolygon2D.WORLD_COLLISION_LAYER,
+		offset_position,
+		false,
+		true,
 	)
+	var shape := CircleShape2D.new()
+	shape.radius = pickuppable_resource.pickup_radius
+	shape_query.shape = shape
 
-	var offset_collision := _space_state.intersect_ray(offset_query)
-	return offset_position if not offset_collision else Vector2.ZERO
+	var collisions := _space_state.intersect_shape(shape_query)
+	return Vector2.ZERO if collisions.size() > 0 else offset_position
 
 
 func _check_players_nearby(check_position: Vector2) -> bool:
@@ -101,6 +109,5 @@ func _check_players_nearby(check_position: Vector2) -> bool:
 	var shape := CircleShape2D.new()
 	shape.radius = player_guard_range
 	shape_query.shape = shape
-	var space_state := get_world_2d().direct_space_state
-	var collisions := space_state.intersect_shape(shape_query)
+	var collisions := _space_state.intersect_shape(shape_query)
 	return collisions.size() > 0
