@@ -27,10 +27,15 @@ var space_state: PhysicsDirectSpaceState2D
 @onready var cpu_hitscan_module: CPUHitscanModule = $CPUHitscanModule
 
 
-func enter(_data := { }) -> void:
+func enter(data := { }) -> void:
 	EventSystem.busy.busy_started.emit(player)
 
-	var weapon := _get_random_weapon()
+	var weapon: ItemResource
+	if data.has("item"):
+		weapon = data.get("item")
+	else:
+		weapon = _get_random_weapon()
+
 	player.equip_item(weapon)
 	_find_shot(weapon.aimable_resource)
 

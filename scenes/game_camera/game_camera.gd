@@ -108,6 +108,9 @@ func _start_stall() -> void:
 
 
 func _log() -> void:
+	if not follow_target:
+		return
+
 	print("Moving camera to %s" % follow_target.name)
 
 

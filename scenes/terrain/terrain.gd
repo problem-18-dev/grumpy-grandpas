@@ -63,23 +63,14 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 ## Clips [param polygon] against itself [param at_global_position], and returns the destructed area in pixels.
 func destruct(polygon: PackedVector2Array, at_global_position := Vector2.ZERO) -> float:
-	var mask := Transform2D(0, at_global_position - global_position) * polygon
-	var min_x := INF
-	var min_y := INF
-	var max_x := -INF
-	var max_y := -INF
-
-	for point in mask:
-		min_x = min(min_x, point.x)
-		min_y = min(min_y, point.y)
-		max_x = max(max_x, point.x)
-		max_y = max(max_y, point.y)
-
-	var mask_bounds: Rect2 = Rect2(min_x, min_y, max_x - min_x, max_y - min_y)
 	var area_sum: float = 0
 	var empty: bool = free_when_empty
 
 	for polygon_2d in get_children():
+		# Each child's polygon/bounds are in its own local space, so the mask must be too.
+		var mask := Transform2D(0, at_global_position - polygon_2d.global_position) * polygon
+		var mask_bounds := _polygon_bounds(mask)
+
 		if polygon_2d.get_meta("bounds").intersects(mask_bounds):
 			var old_area: float = polygon_2d.get_meta("area")
 			var new_area: float = _destruct_child(polygon_2d, mask)
@@ -95,6 +86,21 @@ func destruct(polygon: PackedVector2Array, at_global_position := Vector2.ZERO) -
 		queue_free()
 
 	return area_sum
+
+
+static func _polygon_bounds(points: PackedVector2Array) -> Rect2:
+	var min_x := INF
+	var min_y := INF
+	var max_x := -INF
+	var max_y := -INF
+
+	for point in points:
+		min_x = min(min_x, point.x)
+		min_y = min(min_y, point.y)
+		max_x = max(max_x, point.x)
+		max_y = max(max_y, point.y)
+
+	return Rect2(min_x, min_y, max_x - min_x, max_y - min_y)
 
 
 ## When adding a [Polygon2D] child at runtime, call this.

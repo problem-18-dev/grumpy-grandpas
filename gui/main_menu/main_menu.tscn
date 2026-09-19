@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://b2d8kklebnhfj"]
+
+[ext_resource type="Script" uid="uid://v4ljgfmhlemg" path="res://gui/main_menu/main_menu.gd" id="1_85nol"]
+[ext_resource type="PackedScene" uid="uid://bgmr6t3g43dl2" path="res://gui/theme/buttons/primary_button.tscn" id="1_ahke7"]
+
+[sub_resource type="Animation" id="Animation_qy2xc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Menu:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-160, 120)]
+}
+
+[sub_resource type="Animation" id="Animation_85nol"]
+resource_name = "menu_intro"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Menu:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-160, 120), Vector2(0, 120)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qy2xc"]
+_data = {
+&"RESET": SubResource("Animation_qy2xc"),
+&"menu_intro": SubResource("Animation_85nol")
+}
+
+[node name="MainMenu" type="Control" unique_id=44400933]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_85nol")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1962219575]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.7294118, 0.8, 0.85882354, 1)
+
+[node name="TitleLabel" type="Label" parent="." unique_id=338772310]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -472.0
+offset_top = 24.0
+offset_right = -25.0
+offset_bottom = 76.0
+grow_horizontal = 0
+theme_type_variation = &"PrimaryLabel"
+theme_override_font_sizes/font_size = 48
+text = "Grumpy Grandpas"
+
+[node name="Menu" type="CenterContainer" parent="." unique_id=1591549677]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -240.0
+offset_right = 10.0
+offset_bottom = 9.1552734e-05
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu" unique_id=224336582]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MarginContainer" unique_id=921233191]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="QuickplayButton" parent="Menu/MarginContainer/VBoxContainer" unique_id=325206655 instance=ExtResource("1_ahke7")]
+layout_mode = 2
+text = "Quickplay"
+
+[node name="TutorialButton" parent="Menu/MarginContainer/VBoxContainer" unique_id=405920122 instance=ExtResource("1_ahke7")]
+layout_mode = 2
+text = "Tutorial"
+
+[node name="TeamsButton" parent="Menu/MarginContainer/VBoxContainer" unique_id=1097023995 instance=ExtResource("1_ahke7")]
+layout_mode = 2
+disabled = true
+text = "Teams"
+
+[node name="SettingsButton" parent="Menu/MarginContainer/VBoxContainer" unique_id=624488429 instance=ExtResource("1_ahke7")]
+layout_mode = 2
+disabled = true
+text = "Settings"
+
+[node name="Feedback" type="CenterContainer" parent="." unique_id=493768047]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Feedback" unique_id=1617339461]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="LinkButton" type="LinkButton" parent="Feedback/MarginContainer" unique_id=195829792]
+layout_mode = 2
+theme_type_variation = &"FeedbackButton"
+text = "Feedback"
+underline = 2
+uri = "https://forms.gle/qfCH3XAZTobHXTwq5"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=362362379]
+libraries/ = SubResource("AnimationLibrary_qy2xc")
+autoplay = &"menu_intro"
+
+[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/QuickplayButton" to="." method="_on_quickplay_button_pressed"]
+[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/TutorialButton" to="." method="_on_tutorial_button_pressed"]

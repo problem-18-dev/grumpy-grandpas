@@ -7,7 +7,6 @@ signal aimable_used(player_state: String, state_data: Dictionary)
 enum HolderState {
 	ENABLED,
 	DISABLED,
-	USED,
 }
 
 const MINIMUM_ROTATION := -PI / 2
@@ -29,7 +28,7 @@ var _state := HolderState.DISABLED
 
 
 func _physics_process(delta: float) -> void:
-	if _state == HolderState.DISABLED or is_cpu:
+	if _state == HolderState.DISABLED or is_cpu or InputGate.has_multiple(["up", "down"]):
 		return
 
 	register_aim_angle(delta)
@@ -103,10 +102,8 @@ func _change_state(new_state: HolderState) -> void:
 		HolderState.DISABLED:
 			set_physics_process(false)
 			set_process_unhandled_key_input(false)
-		HolderState.USED:
-			set_physics_process(false)
-			set_process_unhandled_key_input(false)
-			_equipped_aimable.disable()
+			if _equipped_aimable:
+				_equipped_aimable.disable()
 
 	_state = new_state
 
@@ -125,5 +122,5 @@ func _rotate_aimable() -> void:
 
 
 func _on_aimable_used(player_state: String, state_data: Dictionary) -> void:
-	_change_state(HolderState.USED)
+	_change_state(HolderState.DISABLED)
 	aimable_used.emit(player_state, state_data)

@@ -7,6 +7,7 @@ enum Level {
 
 const HUD_UID := "uid://c5q7bwqmijr3e"
 const INVENTORY_UID := "uid://bkrmhl1oip2je"
+const MAIN_MENU_UID := "uid://b2d8kklebnhfj"
 
 @export var initial_level := Level.MATCH
 
@@ -34,7 +35,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		return
 
 	if event.is_action_pressed("debug_quit"):
-		get_tree().quit()
+		get_tree().change_scene_to_file(MAIN_MENU_UID)
 
 
 func load_level(new_scene: Level) -> void:
@@ -69,7 +70,8 @@ func load_hud() -> void:
 func _start_level() -> void:
 	var spawn_points := _current_level.get_spawn_points()
 	players_manager.spawn_players(spawn_points)
-	players_manager.activate_player()
+	var new_player := players_manager.activate_player()
+	_current_hud.set_message("Time for %s!" % new_player.name, 3.0)
 	turn_manager.start_turn()
 
 
@@ -92,7 +94,8 @@ func _continue() -> void:
 	busy_manager.reset()
 	await pickuppable_manager.attempt_spawn()
 	players_manager.next_team()
-	players_manager.activate_player()
+	var new_player := players_manager.activate_player()
+	_current_hud.set_message("Time for %s!" % new_player.name, 3.0)
 	turn_manager.start_turn()
 
 

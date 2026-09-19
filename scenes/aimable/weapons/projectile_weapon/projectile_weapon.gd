@@ -27,7 +27,7 @@ func _ready() -> void:
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if not _is_enabled or is_cpu:
+	if not _is_enabled or is_cpu or InputGate.has("shoot"):
 		return
 
 	var pressed := event.is_action_pressed("shoot")

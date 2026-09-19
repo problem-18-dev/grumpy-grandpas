@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="TeamResource" format=3 uid="uid://ch58ix0v1k12m"]
+
+[ext_resource type="Script" uid="uid://cp1j8tubsspi2" path="res://resources/item_resource/item_resource.gd" id="1_ocpuu"]
+[ext_resource type="Resource" uid="uid://drlv87ogkip0u" path="res://resources/item_resource/weapons/shotgun_item.tres" id="2_8cx7k"]
+[ext_resource type="Script" uid="uid://ccrc8sl42duol" path="res://resources/player_resource/player_resource.gd" id="3_x8qj0"]
+[ext_resource type="Script" uid="uid://05fqs75xukhe" path="res://resources/team_resource/team_resource.gd" id="4_ysl21"]
+
+[sub_resource type="Resource" id="Resource_8xq02"]
+script = ExtResource("3_x8qj0")
+name = "Gerald"
+metadata/_custom_type_script = "uid://ccrc8sl42duol"
+
+[sub_resource type="Resource" id="Resource_prn5b"]
+script = ExtResource("3_x8qj0")
+name = "Melinda"
+metadata/_custom_type_script = "uid://ccrc8sl42duol"
+
+[sub_resource type="Resource" id="Resource_tj2m0"]
+script = ExtResource("3_x8qj0")
+name = "Anubis"
+metadata/_custom_type_script = "uid://ccrc8sl42duol"
+
+[sub_resource type="Resource" id="Resource_8cnme"]
+script = ExtResource("3_x8qj0")
+name = "Oswald"
+metadata/_custom_type_script = "uid://ccrc8sl42duol"
+
+[resource]
+script = ExtResource("4_ysl21")
+name = "Team Blue"
+color = Color(0.32757595, 0.6947892, 1, 1)
+player_resources = Array[ExtResource("3_x8qj0")]([SubResource("Resource_8xq02"), SubResource("Resource_prn5b"), SubResource("Resource_tj2m0"), SubResource("Resource_8cnme")])
+locked_items = Array[ExtResource("1_ocpuu")]([ExtResource("2_8cx7k")])
+metadata/_custom_type_script = "uid://05fqs75xukhe"

@@ -4,7 +4,6 @@ extends Control
 ## Emits when inventory is closed, optionally provides which item was chosen
 signal closed(item: ItemResource)
 
-const CATALOGUE: CatalogueResource = preload("uid://gr6x0tlr2xog")
 const INVENTORY_ITEM_BUTTON_VARIANT: String = "InventoryItemButton"
 
 var _item_buttons: Dictionary[ItemResource, Button]
@@ -45,7 +44,7 @@ func _update_locked_items(new_locked_items: Array[ItemResource]) -> void:
 
 
 func _spawn_weapon_buttons() -> void:
-	var weapons: Array[ItemResource] = CATALOGUE.weapons
+	var weapons: Array[ItemResource] = GameManager.get_catalogue().weapons
 
 	for weapon: ItemResource in weapons:
 		var button: Button = Button.new()
@@ -57,7 +56,7 @@ func _spawn_weapon_buttons() -> void:
 
 
 func _spawn_tool_buttons() -> void:
-	var tools: Array[ItemResource] = CATALOGUE.tools
+	var tools: Array[ItemResource] = GameManager.get_catalogue().tools
 
 	for tool: ItemResource in tools:
 		var button: Button = Button.new()

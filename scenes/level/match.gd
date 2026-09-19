@@ -1,6 +1,6 @@
 extends BaseLevel
 
-var _spawn_points: Array[Dictionary] = []
+var _spawn_points: Array[SpawnGenerator.SpawnPoint] = []
 
 @onready var spawn_generator: SpawnGenerator = $SpawnGenerator
 @onready var spawn_follow: PathFollow2D = $SpawnPath/SpawnFollow
@@ -11,7 +11,7 @@ func _ready() -> void:
 	_spawn_points = spawn_generator.generate_spawn_points()
 
 
-func get_spawn_points() -> Array[Dictionary]:
+func get_spawn_points() -> Array[SpawnGenerator.SpawnPoint]:
 	return _spawn_points
 
 

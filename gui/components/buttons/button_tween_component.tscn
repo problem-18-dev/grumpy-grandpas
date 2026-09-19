@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cxqi4fxuqa7a6"]
+
+[ext_resource type="Script" uid="uid://g165ebuvp0j6" path="res://gui/components/buttons/button_tween_component.gd" id="1_mo0iu"]
+
+[node name="ButtonTweenComponent" type="Node" unique_id=1702153834]
+script = ExtResource("1_mo0iu")

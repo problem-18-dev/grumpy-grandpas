@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="TutorialAnnouncementResource" format=3 uid="uid://gpncyxff15bx"]
+
+[ext_resource type="Script" uid="uid://c5xuoshpolsu" path="res://resources/announcement_resource/tutorial_announcement_resource.gd" id="1_lid4w"]
+
+[resource]
+script = ExtResource("1_lid4w")
+announcements = Dictionary[int, Array]({
+0: ["Welcome to the tutorial!"],
+1: ["Use the left and right arrows to move."],
+2: ["Press X to jump."],
+3: ["Use the up and down arrows to aim."],
+4: ["Press (and hold) space to shoot."],
+5: ["A crate has spawned!", "Throughout the match, there's a chance for a crate to spawn.", "A crate can contain a weapon or ammo for it.", "Walk over the crate to pick it up."],
+6: ["You unlocked a revolver!", "Press I to open your team's inventory.", "Select the revolver"],
+7: ["Use the revolver to finish off the enemy."],
+8: ["That's it!", "There's more that you can do.", "Find out in a real match!", "Good luck!"]
+})
+metadata/_custom_type_script = "uid://c5xuoshpolsu"

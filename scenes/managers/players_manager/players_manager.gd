@@ -2,6 +2,7 @@ class_name PlayersManager
 extends Node
 
 signal inventory_requested(locked_items: Array[ItemResource], current_item: ItemResource)
+signal player_died(player: Player)
 
 const PLAYER := preload("uid://bmag23mf230r3")
 
@@ -22,9 +23,8 @@ func reset() -> void:
 	players_marked_for_death.clear()
 	players_to_damage.clear()
 
-
 #region Players
-func spawn_players(spawn_points: Array[Dictionary]) -> void:
+func spawn_players(spawn_points: Array[SpawnGenerator.SpawnPoint]) -> void:
 	assert(spawn_points.size() > 0, "No spawn points provided.")
 	assert(GameManager.get_teams().size() > 0, "No teams to spawn.")
 
@@ -33,8 +33,8 @@ func spawn_players(spawn_points: Array[Dictionary]) -> void:
 			var player: Player = PLAYER.instantiate()
 			spawn_target.add_child(player)
 
-			var spawn_data: Dictionary = spawn_points.pop_back()
-			player.spawn(spawn_data.get("spawn_position"), spawn_data.get("spawn_normal"))
+			var spawn_data: SpawnGenerator.SpawnPoint = spawn_points.pop_back()
+			player.spawn(spawn_data.position, spawn_data.normal)
 			player.setup(team, player_resource)
 
 			player.marked_for_death.connect(_on_player_marked_for_death)
@@ -46,13 +46,14 @@ func spawn_players(spawn_points: Array[Dictionary]) -> void:
 			_get_or_create_team(team).add_player(player)
 
 
-func activate_player() -> void:
+func activate_player() -> Player:
 	deactivate_player()
 	active_team = _current_team()
 	active_player = active_team.current_player()
 	active_player.reset()
 	active_player.activate()
 	EventSystem.camera.request_follow.emit(active_player, GameCamera.Priority.LOW)
+	return active_player
 
 
 func deactivate_player() -> void:
@@ -91,7 +92,6 @@ func damage_players() -> void:
 	players_to_damage = []
 #endregion
 
-
 #region Team
 func next_team() -> void:
 	if active_team != _current_team():
@@ -121,7 +121,6 @@ func get_winner() -> TeamResource:
 
 	return teams[0] if teams.size() == 1 else null
 #endregion
-
 
 #region Items
 func unlock_item(by: Player, type: PickuppableResource.Type) -> void:
@@ -161,7 +160,6 @@ func _heal_player(player_to_heal: Player) -> void:
 	player_to_heal.heal()
 #endregion
 
-
 func _current_team() -> TeamResource:
 	return teams.front()
 
@@ -178,6 +176,7 @@ func _kill_player(player: Player) -> void:
 	EventSystem.camera.request_follow.emit(player, GameCamera.Priority.HIGH, GameCamera.Zoom.NEAR)
 	player.die()
 	await player.died
+	player_died.emit(player)
 	EventSystem.camera.revoke_follow.emit(player)
 
 

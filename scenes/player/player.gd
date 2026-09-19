@@ -80,6 +80,9 @@ func get_aimable() -> AimableResource:
 
 #region Direction
 func get_direction() -> float:
+	if InputGate.has_multiple(["move_left", "move_right"]):
+		return 0
+
 	return Input.get_axis("move_left", "move_right")
 
 
@@ -209,10 +212,9 @@ func _on_aimable_holder_aimable_fired() -> void:
 
 	EventSystem.busy.busy_started.emit(self)
 
-	if is_cpu:
-		state_machine.transition_to_state(PlayerState.CPU)
-
 	if _ammo_remaining > 0:
+		if is_cpu:
+			state_machine.transition_to_state(PlayerState.CPU, { "item": _equipped_item })
 		return
 
 	finish()

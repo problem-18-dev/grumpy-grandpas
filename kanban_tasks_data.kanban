@@ -11,8 +11,17 @@
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
 			"tasks": [
-				"26d5f9f0-0078-48f2-8306-c5e54c707ae8",
-				"ba1e0c1e-3604-45e0-9027-60476ffe97b2"
+				"918fd59c-2e83-4467-a07e-cf575dc8004f",
+				"36986abb-b8a5-47f2-bcf9-548b5718e5af",
+				"1cd67cfc-0c38-41db-8f0c-f95c9390efca",
+				"0ce50d02-53d8-43d0-af03-c0a2522288c5",
+				"e31e55b2-7b3d-49ce-9b96-ce54bbc3e1a5",
+				"54b9edce-7cf6-409f-b5ab-2e9b3d65790c",
+				"25ab6998-d8ed-4553-9291-0892e5d21368",
+				"ba1e0c1e-3604-45e0-9027-60476ffe97b2",
+				"13fe63cb-550f-42d6-8497-cdf1411fbf83",
+				"a718fc6a-159a-4091-ab59-24f3c1ba5884",
+				"5a23c18d-6b49-4c8f-a580-a58311ca397e"
 			]
 		},
 		{
@@ -27,6 +36,7 @@
 				"093fd4eb-0925-4110-b4f0-e7123d22f5d3",
 				"1920af68-b41c-4ab3-a0af-e67e3ef249c8",
 				"cc38fcb0-7f8f-474d-b13c-425a3d16a151",
+				"26d5f9f0-0078-48f2-8306-c5e54c707ae8",
 				"e9006e6c-cd4a-48f7-85ee-3b4dc26ac371",
 				"6f0fe107-5e4a-421c-bd7d-af22cbcf5c3b",
 				"72b53cb5-fe1a-4afc-97ea-1c4ca11d1f8e",
@@ -507,6 +517,105 @@
 			"description": "",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
+		},
+		{
+			"uuid": "7ed5da60-f072-4e6d-b5b9-9574465f58f1",
+			"title": "[Feat] ",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "25ab6998-d8ed-4553-9291-0892e5d21368",
+			"title": "[Feat] Settings menu",
+			"description": "The settings menu should only allow muting sound effects.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "54b9edce-7cf6-409f-b5ab-2e9b3d65790c",
+			"title": "[Feat] Teams menu",
+			"description": "The teams menu should simply allow creating up to 4 teams, choosing the color for each, and choosing up to 6 players per team, each player being given an optional gender and custom name.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "0ce50d02-53d8-43d0-af03-c0a2522288c5",
+			"title": "[Feat] Tutorial improvements",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": [
+				{
+					"details": "Add button visuals",
+					"done": false
+				},
+				{
+					"details": "Improve announcement spacing",
+					"done": false
+				},
+				{
+					"details": "Clean up pickuppable if failed\n",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "e31e55b2-7b3d-49ce-9b96-ce54bbc3e1a5",
+			"title": "[Feat] Create 3 various levels",
+			"description": "The levels should be smaller than you think\n",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "918fd59c-2e83-4467-a07e-cf575dc8004f",
+			"title": "[Bug] Pickuppable spawns on player sometimes",
+			"description": "Crates can spawn on player, resulting in bug and immediate pickup",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "1cd67cfc-0c38-41db-8f0c-f95c9390efca",
+			"title": "[Bug] Projectiles and hitscan seem to miss.",
+			"description": "soms rocket launcher en revolver shots die door enemies gaan zonder damage te doen",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "13fe63cb-550f-42d6-8497-cdf1411fbf83",
+			"title": "[Feat] Review turn end and transition durations",
+			"description": "tijd tussen shot en damage tonen is mss wa lang",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "36986abb-b8a5-47f2-bcf9-548b5718e5af",
+			"title": "[Bug] Turn didn't end after missed revolver shot",
+			"description": "heb een revolver shot gedaan net naast een enemy, en dan was de game stuck (kon niet meer bewegen, timer stuck, maar wel nog de waves in de achtergrond)",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "a718fc6a-159a-4091-ab59-24f3c1ba5884",
+			"title": "[Feat] Add AI difficulty",
+			"description": "ai heeft soms aimhack lol",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "5a23c18d-6b49-4c8f-a580-a58311ca397e",
+			"title": "[Feat] Add loading transition",
+			"description": "Implement multi-thread scene loading in places like main menu => match => main menu",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": [
+				{
+					"details": "Fade in transition",
+					"done": false
+				},
+				{
+					"details": "Basic loading bar",
+					"done": false
+				}
+			]
 		}
 	],
 	"layout": {

@@ -18,9 +18,23 @@ const HURTBOX_COLLISION_MASK := 4
 
 var spawn_follow: PathFollow2D
 
+var _space_state: PhysicsDirectSpaceState2D
+
 
 func setup(new_spawn_follow: PathFollow2D) -> void:
 	spawn_follow = new_spawn_follow
+
+
+func spawn(pickuppable_resource: PickuppableResource, spawn_position: Vector2) -> void:
+	print("Spawning %s" % pickuppable_resource.name)
+
+	var pickuppable: Pickuppable = PICKUPPABLE.instantiate()
+	pickuppable.picked_up.connect(picked_up.emit)
+	pickuppable.setup(pickuppable_resource)
+	add_child(pickuppable)
+	pickuppable.spawn(spawn_position)
+
+	await pickuppable.spawned
 
 
 func attempt_spawn() -> void:
@@ -33,52 +47,49 @@ func attempt_spawn() -> void:
 	if not _should_spawn():
 		return
 
-	var spawn_position := _get_spawn_position()
-	if not spawn_position:
+	_space_state = get_world_2d().direct_space_state
+	var world_position := _get_world_position()
+	if not world_position:
 		return
 
-	var players_nearby := _check_players_nearby(spawn_position)
+	var players_nearby := _check_players_nearby(world_position)
 	if players_nearby:
 		return
 
-	var pickuppable_resource: PickuppableResource = spawn_resources.pick_random()
-	print("Spawning %s" % pickuppable_resource.name)
-	var pickuppable: Pickuppable = PICKUPPABLE.instantiate()
-	pickuppable.picked_up.connect(picked_up.emit)
+	var offset_position := _get_offset_position(world_position)
+	if not offset_position:
+		return
 
-	pickuppable.setup(pickuppable_resource)
-	add_child(pickuppable)
-	pickuppable.spawn(spawn_position)
-	await pickuppable.spawned
+	var pickuppable_resource: PickuppableResource = spawn_resources.pick_random()
+	await spawn(pickuppable_resource, offset_position)
 
 
 func _should_spawn() -> bool:
 	return randf() <= spawn_chance
 
 
-func _get_spawn_position() -> Vector2:
+func _get_world_position() -> Vector2:
 	spawn_follow.progress_ratio = randf()
 
-	var world_state := get_world_2d().direct_space_state
 	var world_query := PhysicsRayQueryParameters2D.create(
 		spawn_follow.global_position,
 		spawn_follow.global_position + (Vector2.DOWN * RAY_LENGTH),
 		DestructiblePolygon2D.WORLD_COLLISION_LAYER,
 	)
 
-	var world_collision := world_state.intersect_ray(world_query)
+	var world_collision := _space_state.intersect_ray(world_query)
+	return world_collision.position if world_collision else Vector2.ZERO
 
-	if not world_collision:
-		return Vector2.ZERO
 
-	var offset_position: Vector2 = world_collision.position + (Vector2.UP * spawn_vertical_offset)
+func _get_offset_position(world_position: Vector2) -> Vector2:
+	var offset_position: Vector2 = world_position + (Vector2.UP * spawn_vertical_offset)
 	var offset_query := PhysicsRayQueryParameters2D.create(
-		world_collision.position,
+		world_position,
 		offset_position,
 		DestructiblePolygon2D.WORLD_COLLISION_LAYER,
 	)
 
-	var offset_collision := world_state.intersect_ray(offset_query)
+	var offset_collision := _space_state.intersect_ray(offset_query)
 	return offset_position if not offset_collision else Vector2.ZERO
 
 

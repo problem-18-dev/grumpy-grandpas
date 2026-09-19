@@ -7,10 +7,10 @@ const RAY_LENGTH := 1000
 @export var spawn_path_follow: PathFollow2D
 @export_range(16, 200) var spawn_attempts := 200
 
-var _spawn_points: Array[Dictionary]
+var _spawn_points: Array[SpawnPoint]
 
 
-func generate_spawn_points() -> Array[Dictionary]:
+func generate_spawn_points() -> Array[SpawnPoint]:
 	assert(spawn_path_follow, "No path follow provided.")
 
 	var space_state := get_world_2d().direct_space_state
@@ -32,7 +32,18 @@ func generate_spawn_points() -> Array[Dictionary]:
 		if floor_normal.dot(Vector2.UP) < max_spawn_angle:
 			continue
 
-		_spawn_points.append({ "spawn_position": collision.position, "spawn_normal": floor_normal })
+		var spawn_point := SpawnPoint.new(collision.position, floor_normal)
+		_spawn_points.append(spawn_point)
 
 	_spawn_points.shuffle()
 	return _spawn_points
+
+
+class SpawnPoint:
+	var position: Vector2
+	var normal: Vector2
+
+
+	func _init(_position: Vector2, _normal := Vector2.ZERO) -> void:
+		position = _position
+		normal = _normal

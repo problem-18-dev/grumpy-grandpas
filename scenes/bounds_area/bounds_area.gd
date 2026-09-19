@@ -24,6 +24,3 @@ func _free_present_entity(entity: Variant) -> void:
 
 func _on_body_exited(body: Node2D) -> void:
 	_present_entities.append(body)
-
-	if body is Projectile:
-		projectile_exited.emit()
