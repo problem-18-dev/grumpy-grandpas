@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://detbmroxfa70l"]
+
+[ext_resource type="PackedScene" uid="uid://cxqi4fxuqa7a6" path="res://gui/components/buttons/button_tween_component.tscn" id="1_oo32f"]
+
+[node name="InventoryItemButton" type="Button" unique_id=250866465]
+custom_minimum_size = Vector2(32, 32)
+offset_right = 16.0
+offset_bottom = 16.0
+size_flags_horizontal = 3
+offset_transform_enabled = true
+theme_type_variation = &"InventoryItemButton"
+
+[node name="ButtonTweenComponent" parent="." unique_id=1702153834 instance=ExtResource("1_oo32f")]
+scale = 1.05
+rotation_in_deg = 1.0
+pressed_scale = 0.9

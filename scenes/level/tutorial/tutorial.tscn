@@ -43,7 +43,6 @@ _data = {
 [node name="Tutorial" type="Node" unique_id=1409832964]
 process_mode = 3
 script = ExtResource("1_r2p7n")
-initial_phase = 4
 
 [node name="Systems" type="Node" parent="." unique_id=630301451]
 process_mode = 3

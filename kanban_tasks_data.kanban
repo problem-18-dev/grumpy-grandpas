@@ -565,7 +565,7 @@
 		},
 		{
 			"uuid": "e31e55b2-7b3d-49ce-9b96-ce54bbc3e1a5",
-			"title": "[Feat] Create 3 various levels",
+			"title": "[Feat] Create 3 levels",
 			"description": "The levels should be smaller than you think\n",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []

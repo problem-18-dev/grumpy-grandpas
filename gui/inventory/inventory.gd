@@ -4,13 +4,10 @@ extends Control
 ## Emits when inventory is closed, optionally provides which item was chosen
 signal closed(item: ItemResource)
 
-const INVENTORY_ITEM_BUTTON_VARIANT: String = "InventoryItemButton"
-
 var _item_buttons: Dictionary[ItemResource, Button]
 
-@onready var weapons_grid: GridContainer = %WeaponsGrid
-@onready var tools_grid: GridContainer = %ToolsGrid
-@onready var tools_label: Label = %ToolsLabel
+@onready var weapons_panel: InventoryPanel = %WeaponsPanel
+@onready var tools_panel: InventoryPanel = %ToolsPanel
 
 
 func _ready() -> void:
@@ -47,11 +44,7 @@ func _spawn_weapon_buttons() -> void:
 	var weapons: Array[ItemResource] = GameManager.get_catalogue().weapons
 
 	for weapon: ItemResource in weapons:
-		var button: Button = Button.new()
-		button.theme_type_variation = INVENTORY_ITEM_BUTTON_VARIANT
-		button.pressed.connect(_on_button_pressed.bind(weapon))
-		button.text = weapon.name
-		weapons_grid.add_child(button)
+		var button := weapons_panel.add_item(weapon)
 		_item_buttons[weapon] = button
 
 
@@ -59,11 +52,7 @@ func _spawn_tool_buttons() -> void:
 	var tools: Array[ItemResource] = GameManager.get_catalogue().tools
 
 	for tool: ItemResource in tools:
-		var button: Button = Button.new()
-		button.theme_type_variation = INVENTORY_ITEM_BUTTON_VARIANT
-		button.pressed.connect(_on_button_pressed.bind(tool))
-		button.text = tool.name
-		tools_grid.add_child(button)
+		var button := tools_panel.add_item(tool)
 		_item_buttons[tool] = button
 
 
@@ -82,13 +71,12 @@ func _unlock_button(item: ItemResource) -> void:
 	button.text = item.name
 
 
-## TODO: Implement special locked state
 func _lock_button(item: ItemResource) -> void:
 	var button: Button = _item_buttons[item]
 	button.disabled = true
 	button.text = item.name + " (locked)"
 
 
-func _on_button_pressed(item: ItemResource) -> void:
+func _on_panel_item_selected(item: ItemResource) -> void:
 	closed.emit(item)
 	queue_free()

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://v4ljgfmhlemg" path="res://gui/main_menu/main_menu.gd" id="1_85nol"]
 [ext_resource type="PackedScene" uid="uid://bgmr6t3g43dl2" path="res://gui/theme/buttons/primary_button.tscn" id="1_ahke7"]
+[ext_resource type="PackedScene" uid="uid://drkkxlses2ss3" path="res://scenes/debug/debug_overlay.tscn" id="3_qy2xc"]
 
 [sub_resource type="Animation" id="Animation_qy2xc"]
 length = 0.001
@@ -142,6 +143,9 @@ uri = "https://forms.gle/qfCH3XAZTobHXTwq5"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=362362379]
 libraries/ = SubResource("AnimationLibrary_qy2xc")
 autoplay = &"menu_intro"
+
+[node name="DebugOverlay" parent="." unique_id=567403883 instance=ExtResource("3_qy2xc")]
+layout_mode = 1
 
 [connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/QuickplayButton" to="." method="_on_quickplay_button_pressed"]
 [connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/TutorialButton" to="." method="_on_tutorial_button_pressed"]
