@@ -4,9 +4,20 @@
 [ext_resource type="PackedScene" uid="uid://c6rdv182qtrpo" path="res://scenes/managers/busy_manager/busy_manager.tscn" id="2_sp44e"]
 [ext_resource type="PackedScene" uid="uid://dbdar1owhc1hg" path="res://scenes/managers/players_manager/players_manager.tscn" id="4_cqum7"]
 [ext_resource type="PackedScene" uid="uid://cw3y8hipohxda" path="res://scenes/managers/pickuppable_manager/pickuppable_manager.tscn" id="5_dns2n"]
-[ext_resource type="PackedScene" uid="uid://ddn3m7rqgf7ae" path="res://scenes/managers/tutorial_manager/tutorial_manager.tscn" id="5_sp44e"]
 [ext_resource type="PackedScene" uid="uid://drkkxlses2ss3" path="res://scenes/debug/debug_overlay.tscn" id="6_bxuk6"]
+[ext_resource type="PackedScene" uid="uid://o6nlyis18n62" path="res://scenes/core/state_machine/state_machine.tscn" id="6_ce2oi"]
 [ext_resource type="PackedScene" uid="uid://c5q7bwqmijr3e" path="res://gui/hud/hud.tscn" id="7_ce2oi"]
+[ext_resource type="Script" uid="uid://rjccbgeyp5x2" path="res://scenes/tutorial/tutorial_state/tutorial_intro.gd" id="7_cqum7"]
+[ext_resource type="Script" uid="uid://lee1jsul3jcj" path="res://scenes/tutorial/tutorial_state/tutorial_move.gd" id="8_dns2n"]
+[ext_resource type="Script" uid="uid://ckinde4vfqfd4" path="res://scenes/tutorial/tutorial_state/tutorial_jump.gd" id="9_bxuk6"]
+[ext_resource type="Script" uid="uid://cm481g00dcwiv" path="res://scenes/tutorial/tutorial_state/tutorial_aim.gd" id="10_nadmp"]
+[ext_resource type="Script" uid="uid://cdw28x8nl5b3u" path="res://scenes/tutorial/tutorial_state/tutorial_camera.gd" id="11_m6xsd"]
+[ext_resource type="Script" uid="uid://de5drd3353ryf" path="res://scenes/tutorial/tutorial_state/tutorial_shoot.gd" id="12_1xd3w"]
+[ext_resource type="Script" uid="uid://dnd6wusxyuxwd" path="res://scenes/tutorial/tutorial_state/tutorial_pickuppable.gd" id="13_c8u5h"]
+[ext_resource type="Script" uid="uid://i0e644nouiah" path="res://scenes/tutorial/tutorial_state/tutorial_outro.gd" id="14_7q0jm"]
+[ext_resource type="Script" uid="uid://dcr403qmk5hhx" path="res://scenes/tutorial/tutorial_state/tutorial_inventory.gd" id="14_l3h2k"]
+[ext_resource type="Script" uid="uid://ce02kxadndnwc" path="res://scenes/tutorial/tutorial_state/tutorial_enemy_death.gd" id="15_7q0jm"]
+[ext_resource type="PackedScene" uid="uid://d35ssjbiwjytu" path="res://scenes/managers/camera_manager/camera_manager.tscn" id="16_m6xsd"]
 
 [sub_resource type="Animation" id="Animation_ce2oi"]
 resource_name = "fade"
@@ -32,6 +43,7 @@ _data = {
 [node name="Tutorial" type="Node" unique_id=1409832964]
 process_mode = 3
 script = ExtResource("1_r2p7n")
+initial_phase = 4
 
 [node name="Systems" type="Node" parent="." unique_id=630301451]
 process_mode = 3
@@ -47,8 +59,65 @@ spawn_target = NodePath("../../World/EntityRoot")
 unique_name_in_owner = true
 spawn_target = NodePath("../../World/EntityRoot")
 
-[node name="TutorialManager" parent="Systems" unique_id=644904562 instance=ExtResource("5_sp44e")]
+[node name="CameraManager" parent="Systems" unique_id=22320113 instance=ExtResource("16_m6xsd")]
 unique_name_in_owner = true
+
+[node name="StateMachine" parent="Systems" unique_id=1355297057 instance=ExtResource("6_ce2oi")]
+unique_name_in_owner = true
+auto_start = false
+
+[node name="Intro" type="Node" parent="Systems/StateMachine" unique_id=1111250492]
+script = ExtResource("7_cqum7")
+announcements = Array[String](["Welcome to the tutorial!", "Let's show you what this grandpa can do."])
+next_phase = 1
+
+[node name="Move" type="Node" parent="Systems/StateMachine" unique_id=1321618811]
+script = ExtResource("8_dns2n")
+announcements = Array[String](["Move with left and right arrows."])
+key_requirements = Array[int]([4194319, 4194321])
+next_phase = 2
+
+[node name="Jump" type="Node" parent="Systems/StateMachine" unique_id=734381602]
+script = ExtResource("9_bxuk6")
+announcements = Array[String](["You can jump when idle using X"])
+key_requirements = Array[int]([88])
+next_phase = 3
+
+[node name="Aim" type="Node" parent="Systems/StateMachine" unique_id=464577294]
+script = ExtResource("10_nadmp")
+announcements = Array[String](["Aim with the up and down arrows."])
+key_requirements = Array[int]([4194320, 4194322])
+next_phase = 4
+
+[node name="Camera" type="Node" parent="Systems/StateMachine" unique_id=555574938]
+script = ExtResource("11_m6xsd")
+announcements = Array[String](["You can manually take a look around you using the camera.", "Press C to take control of the camera."])
+next_phase = 5
+
+[node name="Shoot" type="Node" parent="Systems/StateMachine" unique_id=1165252715]
+script = ExtResource("12_1xd3w")
+announcements = Array[String](["You have a rocket launcher equipped.", "A rocket launcher can be charged.", "Different weapons have different behaviors.", "Press (and hold) SPACE to charge your rocket launcher."])
+next_phase = 6
+
+[node name="Pickuppable" type="Node" parent="Systems/StateMachine" unique_id=1209388283]
+script = ExtResource("13_c8u5h")
+announcements = Array[String](["A crate has spawned!", "A crate can contain a locked weapon.", "It can also contain a handy tool.", "It can even heal you.", "Pick it up by walking over it!"])
+next_phase = 7
+
+[node name="Inventory" type="Node" parent="Systems/StateMachine" unique_id=1276474229]
+script = ExtResource("14_l3h2k")
+announcements = Array[String](["Your team has a shared inventory.", "Open the inventory using I."])
+key_requirements = Array[int]([73])
+next_phase = 8
+
+[node name="EnemyDeath" type="Node" parent="Systems/StateMachine" unique_id=194937282]
+script = ExtResource("15_7q0jm")
+announcements = Array[String](["Finish off the enemy."])
+next_phase = 9
+
+[node name="Outro" type="Node" parent="Systems/StateMachine" unique_id=1717440447]
+script = ExtResource("14_7q0jm")
+announcements = Array[String](["There's more that you can do, but we covered the basics.", "Good luck!"])
 
 [node name="World" type="Node2D" parent="." unique_id=735254960]
 process_mode = 1
@@ -168,8 +237,5 @@ mouse_default_cursor_shape = 1
 [node name="DebugOverlay" parent="DebugLayer/DebugRoot" unique_id=567403883 instance=ExtResource("6_bxuk6")]
 layout_mode = 1
 
-[connection signal="busy_ended" from="Systems/BusyManager" to="." method="_on_busy_manager_busy_ended"]
 [connection signal="inventory_requested" from="Systems/PlayersManager" to="." method="_on_players_manager_inventory_requested"]
-[connection signal="player_died" from="Systems/PlayersManager" to="." method="_on_players_manager_player_died"]
-[connection signal="picked_up" from="Systems/PickuppableManager" to="." method="_on_pickuppable_manager_picked_up"]
-[connection signal="phase_started" from="Systems/TutorialManager" to="." method="_on_tutorial_manager_phase_started"]
+[connection signal="player_drowned" from="Systems/PlayersManager" to="." method="_on_players_manager_player_drowned"]

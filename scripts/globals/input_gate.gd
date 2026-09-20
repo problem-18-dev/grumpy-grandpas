@@ -18,7 +18,7 @@ func allow(input: String) -> void:
 
 
 func block_all() -> void:
-	blocked = ["move_left", "move_right", "up", "down", "jump", "shoot", "inventory"]
+	blocked = ["move_left", "move_right", "up", "down", "jump", "shoot", "inventory", "camera"]
 
 
 func block(input: String) -> void:

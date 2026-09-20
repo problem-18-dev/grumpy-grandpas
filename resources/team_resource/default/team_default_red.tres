@@ -33,6 +33,7 @@ metadata/_custom_type_script = "uid://ccrc8sl42duol"
 [resource]
 script = ExtResource("3_dprou")
 name = "Team Red"
+color = Color(1, 0.42352942, 0.47843137, 1)
 player_resources = Array[ExtResource("2_krw1k")]([SubResource("Resource_8xq02"), SubResource("Resource_prn5b"), SubResource("Resource_tj2m0"), SubResource("Resource_x618w")])
 cpu_resource = SubResource("Resource_att1y")
 metadata/_custom_type_script = "uid://05fqs75xukhe"

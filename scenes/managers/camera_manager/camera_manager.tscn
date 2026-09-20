@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://d35ssjbiwjytu"]
 
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_lndx6"]
+[ext_resource type="Script" uid="uid://djg5n7ehmm5vr" path="res://scenes/managers/camera_manager/camera_manager.gd" id="1_pidic"]
 [ext_resource type="PackedScene" uid="uid://dwfdnq2y4c1w2" path="res://scenes/game_camera/game_camera.tscn" id="2_pidic"]
 
 [node name="CameraManager" type="Node2D" unique_id=22320113]
+script = ExtResource("1_pidic")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1766280552]
 top_level = true

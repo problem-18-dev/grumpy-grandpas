@@ -11,7 +11,6 @@
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
 			"tasks": [
-				"40bcaa4b-3d10-424c-9b62-de4a91c7cd71",
 				"e31e55b2-7b3d-49ce-9b96-ce54bbc3e1a5",
 				"5a23c18d-6b49-4c8f-a580-a58311ca397e",
 				"54b9edce-7cf6-409f-b5ab-2e9b3d65790c",
@@ -24,15 +23,16 @@
 		{
 			"uuid": "40497cc6-13fd-4ee0-8c8a-501f1679fe85",
 			"title": "Doing",
-			"tasks": [
-				"4d0e0f3d-953a-4d49-b5a3-24ba73d8673a"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "a3265bdc-f5e5-4b73-85c5-a4a50d7111f0",
 			"title": "Done",
 			"tasks": [
 				"093fd4eb-0925-4110-b4f0-e7123d22f5d3",
+				"a50f5b3e-d1e8-4982-8561-b33645d79a67",
+				"4d0e0f3d-953a-4d49-b5a3-24ba73d8673a",
+				"40bcaa4b-3d10-424c-9b62-de4a91c7cd71",
 				"1920af68-b41c-4ab3-a0af-e67e3ef249c8",
 				"a718fc6a-159a-4091-ab59-24f3c1ba5884",
 				"0ce50d02-53d8-43d0-af03-c0a2522288c5",
@@ -641,6 +641,22 @@
 			"description": "",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
+		},
+		{
+			"uuid": "a50f5b3e-d1e8-4982-8561-b33645d79a67",
+			"title": "[Feat] Rework tutorial",
+			"description": "Should be on a small level where the enemy also responds + camera intro",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": [
+				{
+					"details": "Recreate with state machine",
+					"done": true
+				},
+				{
+					"details": "Simulate small match instead of locked walls",
+					"done": true
+				}
+			]
 		}
 	],
 	"layout": {

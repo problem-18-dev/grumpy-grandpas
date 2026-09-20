@@ -3,6 +3,7 @@ extends Node
 
 signal inventory_requested(locked_items: Array[ItemResource], current_item: ItemResource)
 signal player_died(player: Player)
+signal player_drowned(player: Player)
 
 const PLAYER := preload("uid://bmag23mf230r3")
 
@@ -17,7 +18,7 @@ var players_to_damage: Array[Player]
 
 
 func reset() -> void:
-	teams.clear()
+	teams = []
 	active_team = null
 	active_player = null
 	players_marked_for_death.clear()
@@ -30,21 +31,29 @@ func spawn_players(spawn_points: Array[SpawnGenerator.SpawnPoint]) -> void:
 
 	for team in GameManager.get_teams():
 		for player_resource in team.player_resources:
-			var player: Player = PLAYER.instantiate()
-			spawn_target.add_child(player)
-
 			var spawn_data: SpawnGenerator.SpawnPoint = spawn_points.pick_random()
 			spawn_points.erase(spawn_data)
-			player.spawn(spawn_data.position, spawn_data.normal)
-			player.setup(team, player_resource)
+			spawn_player_at(player_resource, team, spawn_data)
 
-			player.marked_for_death.connect(_on_player_marked_for_death)
-			player.damage_accumulated.connect(_on_player_damage_accumulated)
-			player.inventory_requested.connect(_on_player_inventory_requested)
-			player.drowned.connect(_on_player_drowned)
-			player.firing_finished.connect(deactivate_player)
 
-			_get_or_create_team(team).add_player(player)
+func spawn_player_at(
+	player_resource: PlayerResource,
+	team: TeamResource,
+	spawn_data: SpawnGenerator.SpawnPoint,
+) -> void:
+	var player: Player = PLAYER.instantiate()
+	spawn_target.add_child(player)
+
+	player.spawn(spawn_data.position, spawn_data.normal)
+	player.setup(team, player_resource)
+
+	player.marked_for_death.connect(_on_player_marked_for_death)
+	player.damage_accumulated.connect(_on_player_damage_accumulated)
+	player.inventory_requested.connect(_on_player_inventory_requested)
+	player.drowned.connect(_on_player_drowned)
+	player.firing_finished.connect(deactivate_player)
+
+	_get_or_create_team(team).add_player(player)
 
 
 func activate_player() -> Player:
@@ -221,6 +230,7 @@ func _on_player_drowned(player: Player) -> void:
 	if player == active_player:
 		EventSystem.camera.revoke_follow.emit(player)
 
+	player_drowned.emit(player)
 	active_player = null
 
 

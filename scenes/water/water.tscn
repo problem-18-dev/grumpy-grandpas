@@ -4,26 +4,26 @@
 [ext_resource type="Script" uid="uid://djcmvptyiucll" path="res://scenes/water/water.gd" id="1_mj6gl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mj6gl"]
-size = Vector2(2000, 480)
+size = Vector2(24, 24)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dmnfl"]
 shader = ExtResource("1_2dnj0")
 shader_parameter/liquid_level = 0.98000004655
-shader_parameter/liquid_color = Color(0.2, 0.40784314, 1, 0.8)
-shader_parameter/foam_color = Color(0.8, 0.9, 1, 0.6)
-shader_parameter/wave_amplitude = 0.010000000475
+shader_parameter/liquid_color = Color(0.24705882, 0.28235295, 0.7607843, 1)
+shader_parameter/foam_color = Color(0.6392157, 0.7529412, 0.9019608, 1)
+shader_parameter/wave_amplitude = 0.0030000001425
 shader_parameter/wave_frequency = 7.50000035625
-shader_parameter/wave_speed = 2.0
+shader_parameter/wave_speed = 2.000000095
 shader_parameter/gravity_angle = 0.0
 shader_parameter/gravity_direction = Vector2(0, 1)
 shader_parameter/foam_thickness = 0.0150000007125
-shader_parameter/shine_intensity = 0.2000000095
+shader_parameter/shine_intensity = 0.150000007125
 shader_parameter/add_bubble = true
-shader_parameter/bubble_scale = 30.000001425
-shader_parameter/bubble_speed = 0.5
+shader_parameter/bubble_scale = 25.0000011875
+shader_parameter/bubble_speed = 1.0000000475
 
 [sub_resource type="ExternalTexture" id="ExternalTexture_rqs1d"]
-size = Vector2(2000, 480)
+size = Vector2(24, 24)
 
 [node name="Water" type="Node2D" unique_id=1073738961]
 script = ExtResource("1_mj6gl")

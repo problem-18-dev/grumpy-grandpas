@@ -13,6 +13,7 @@ enum Phase {
 	INVENTORY,
 	ENEMY_DEATH,
 	OUTRO,
+	CAMERA,
 }
 
 ## Requirements are in key code
@@ -41,6 +42,7 @@ var _phase_order: Array[Phase] = [
 	Phase.JUMP,
 	Phase.AIM,
 	Phase.SHOOT,
+	Phase.CAMERA,
 	Phase.PICK_UP,
 	Phase.INVENTORY,
 	Phase.ENEMY_DEATH,

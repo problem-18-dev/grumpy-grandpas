@@ -7,14 +7,11 @@ const MAIN_MENU_UID := "uid://b2d8kklebnhfj"
 const TEAM_TUTORIAL_BLUE = preload("uid://cgtof6pv3rtlo")
 const TEAM_TUTORIAL_RED = preload("uid://ci6lhhlkv6opp")
 const TUTORIAL_LEVEL = preload("uid://bw3v314eg0rgg")
-const TUTORIAL_ANNOUNCEMENT = preload("uid://gpncyxff15bx")
 const CRATE = preload("uid://cigipvuxrk2eo")
 const TUTORIAL_CATALOGUE = preload("uid://c0onk6kmhoekl")
 const KEYCAP = preload("uid://bb8fs5vr1xjp")
 
-@export_group("Announcements")
-@export var announcement_intro_duration := 3.0
-@export var announcement_duration := 3.0
+@export var initial_phase := TutorialState.Phase.INTRO
 
 var _tutorial_level: TutorialLevel
 var _is_preparing := false
@@ -25,18 +22,16 @@ var _is_preparing := false
 @onready var keycaps_container: VBoxContainer = %KeycapsContainer
 @onready var inventory_root: Control = %InventoryRoot
 @onready var continue_label: Label = %ContinueLabel
-
-var _announcement_pointer := 0
-var _announcements: Array = []
-
 @onready var busy_manager: BusyManager = %BusyManager
 @onready var players_manager: PlayersManager = %PlayersManager
 @onready var pickuppable_manager: PickuppableManager = %PickuppableManager
-@onready var tutorial_manager: TutorialManager = %TutorialManager
+@onready var camera_manager: CameraManager = %CameraManager
+@onready var state_machine: StateMachine = %StateMachine
 
 
 func _ready() -> void:
-	_prepare()
+	await restart()
+	state_machine.start(TutorialState.PHASES[initial_phase])
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -46,31 +41,65 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_quit"):
 		get_tree().change_scene_to_file(MAIN_MENU_UID)
 
-	var can_continue := _can_continue()
 
-	if event.is_action_pressed("confirm") and can_continue:
-		_continue()
-		return
-
-	if can_continue:
-		return
-
-	tutorial_manager.record_key_event(event)
-
-
-func _prepare() -> void:
+func restart() -> void:
 	if _is_preparing:
 		return
 	_is_preparing = true
 
 	GamePresets.load_preset(GamePresets.Preset.TUTORIAL)
+	InputGate.block_all()
 
 	_clear_entities()
 	await _load_level()
 	_load_systems()
-	_start_tutorial()
+	_start()
 
 	_is_preparing = false
+
+
+func retry_phase() -> void:
+	if _is_preparing:
+		return
+
+	await restart()
+	state_machine.restart_current()
+
+
+func spawn_pickuppable() -> void:
+	pickuppable_manager.spawn(CRATE, _tutorial_level.get_pickuppable_spawn())
+
+
+func activate_player() -> void:
+	if players_manager.active_player:
+		return
+
+	players_manager.activate_player()
+
+
+func show_announcement(text: String) -> void:
+	hud.set_message(text)
+
+
+func create_keycaps(... letters: Array) -> void:
+	for letter: String in letters:
+		var keycap: Keycap = KEYCAP.instantiate()
+		keycap.text = letter
+		keycaps_container.add_child(keycap)
+
+
+func clear_keycaps() -> void:
+	for child in keycaps_container.get_children():
+		child.queue_free()
+
+
+func lower_enemy_health() -> void:
+	for player: Player in get_tree().get_nodes_in_group("players"):
+		if player.team.get_id() != TEAM_TUTORIAL_RED.get_id():
+			continue
+
+		player.health.health = 100
+		player.health.take_health(99)
 
 
 func _clear_entities() -> void:
@@ -93,94 +122,18 @@ func _load_level() -> void:
 func _load_systems() -> void:
 	busy_manager.reset()
 	players_manager.reset()
+	camera_manager.set_limits(_tutorial_level.get_bounds())
 
 
-func _start_tutorial() -> void:
-	var spawn_points := _tutorial_level.get_spawn_points()
-	players_manager.spawn_players(spawn_points)
-	tutorial_manager.start()
-
-
-func _continue() -> void:
-	_announcement_pointer += 1
-
-	if _announcement_pointer >= _announcements.size():
-		if tutorial_manager.current_phase == TutorialManager.Phase.OUTRO:
-			_return_to_main_menu()
-			return
-
-		tutorial_manager.next_phase()
-		return
-
-	_announcement_pointer = clampi(_announcement_pointer, 0, _announcements.size() - 1)
-	hud.set_message(_announcements[_announcement_pointer])
-
-	if tutorial_manager.current_phase == TutorialManager.Phase.OUTRO:
-		return
-
-	if _announcement_pointer == _announcements.size() - 1:
-		continue_label.hide()
-		_activate_player()
-
-
-func _start_announcements(phase: TutorialManager.Phase) -> void:
-	_announcements = TUTORIAL_ANNOUNCEMENT.get_announcements(phase)
-	hud.set_message(_announcements[0])
-	_announcement_pointer = 0
-
-	if _can_continue():
-		players_manager.deactivate_player()
-		continue_label.show()
-		return
-
-	continue_label.hide()
-	_activate_player()
-
-
-func _can_continue() -> bool:
-	# Intro and outro are always just text.
-	if tutorial_manager.current_phase in [TutorialManager.Phase.INTRO, TutorialManager.Phase.OUTRO]:
-		return true
-
-	return _announcements.size() > 1 and _announcement_pointer < _announcements.size() - 1
-
-
-func _return_to_main_menu() -> void:
-	GameManager.reset()
-	get_tree().change_scene_to_file(MAIN_MENU_UID)
-
-
-func _activate_player() -> void:
-	if players_manager.active_player:
-		return
-
-	players_manager.activate_player()
-
-
-func _lower_players_health() -> void:
-	for player: Player in get_tree().get_nodes_in_group("players"):
-		if player.team.get_id() != TEAM_TUTORIAL_RED.get_id():
-			continue
-
-		player.health.health = 100
-		player.health.take_health(99)
-
-
-func _create_keycaps(... letters: Array) -> void:
-	for letter: String in letters:
-		var keycap: Keycap = KEYCAP.instantiate()
-		keycap.text = letter
-		keycaps_container.add_child(keycap)
-
-
-func _clear_keycaps() -> void:
-	for child in keycaps_container.get_children():
-		child.queue_free()
-
-
-func _on_pickuppable_manager_picked_up(by: Player, type: PickuppableResource.Type) -> void:
-	players_manager.unlock_item(by, type)
-	tutorial_manager.next_phase()
+func _start() -> void:
+	var blue: TeamResource = TEAM_TUTORIAL_BLUE.duplicate_deep()
+	var red: TeamResource = TEAM_TUTORIAL_RED.duplicate_deep()
+	players_manager.spawn_player_at(
+		blue.player_resources[0],
+		blue,
+		_tutorial_level.get_player_spawn(),
+	)
+	players_manager.spawn_player_at(red.player_resources[0], red, _tutorial_level.get_enemy_spawn())
 
 
 func _on_players_manager_inventory_requested(
@@ -197,55 +150,20 @@ func _on_players_manager_inventory_requested(
 	inventory.open(locked_items, current_item)
 
 
+func _on_players_manager_player_drowned(player: Player) -> void:
+	if player.team.get_id() == TEAM_TUTORIAL_BLUE.get_id():
+		retry_phase()
+
+
 func _on_inventory_closed(new_item: ItemResource = null) -> void:
+	if initial_phase == TutorialState.Phase.INVENTORY:
+		state_machine.transition_to_state(TutorialState.PHASES[TutorialState.Phase.ENEMY_DEATH])
+
 	players_manager.activate_player()
 
 	if new_item:
 		players_manager.player_equip(new_item)
 
 
-func _on_tutorial_manager_phase_started(phase: TutorialManager.Phase) -> void:
-	tutorial_manager.initial_phase = phase
-	_clear_keycaps()
-	_start_announcements(phase)
-
-	match phase:
-		TutorialManager.Phase.MOVE:
-			_create_keycaps("←", "→")
-		TutorialManager.Phase.JUMP:
-			_create_keycaps("x")
-		TutorialManager.Phase.AIM:
-			_create_keycaps("↑", "↓")
-		TutorialManager.Phase.SHOOT:
-			_create_keycaps("Space")
-		TutorialManager.Phase.PICK_UP:
-			await pickuppable_manager.spawn(CRATE, _tutorial_level.get_pickuppable_spawn())
-		TutorialManager.Phase.INVENTORY:
-			_create_keycaps("i")
-		TutorialManager.Phase.ENEMY_DEATH:
-			_lower_players_health()
-
-
-func _on_busy_manager_busy_ended() -> void:
-	await players_manager.damage_players()
-	await players_manager.kill_marked_players()
-
-	match tutorial_manager.current_phase:
-		TutorialManager.Phase.SHOOT:
-			tutorial_manager.next_phase()
-			_prepare()
-		TutorialManager.Phase.PICK_UP:
-			_prepare()
-
-
 func _on_projectile_exited() -> void:
-	_prepare()
-
-
-func _on_players_manager_player_died(player: Player) -> void:
-	if (
-		tutorial_manager.current_phase == TutorialManager.Phase.ENEMY_DEATH
-		and player.team.get_id() == TEAM_TUTORIAL_RED.get_id()
-	):
-		tutorial_manager.next_phase()
-		return
+	retry_phase()

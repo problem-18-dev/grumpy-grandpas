@@ -1,12 +1,13 @@
 class_name StateMachine
 extends Node
 
+@export var auto_start := true
 @export_group("Properties")
 @export var initial_state: State
 @export_group("Debug")
 @export var debug_enabled := false
 
-@onready var _state := initial_state
+var _state: State
 
 
 func _ready() -> void:
@@ -15,7 +16,8 @@ func _ready() -> void:
 	for state: State in find_children("*", "State"):
 		state.finished.connect(transition_to_state)
 
-	_state.enter()
+	if auto_start:
+		start()
 
 
 func _process(delta: float) -> void:
@@ -28,6 +30,16 @@ func _physics_process(delta: float) -> void:
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	_state._key_input(event)
+
+
+func start(state := "", data := { }) -> void:
+	_state = get_node(state) if state else initial_state
+	_state.enter(data)
+
+
+func restart_current() -> void:
+	_state.exit()
+	_state.enter()
 
 
 func transition_to_state(state: String, data := { }) -> void:

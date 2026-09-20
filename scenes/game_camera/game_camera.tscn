@@ -13,6 +13,7 @@ top_level = true
 script = ExtResource("1_tkp5u")
 follow_mode = 2
 tween_resource = SubResource("Resource_ouxo3")
+tween_on_load = false
 follow_damping = true
 draw_limits = true
 noise_emitter_layer = 1

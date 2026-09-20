@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://cw3y8hipohxda" path="res://scenes/managers/pickuppable_manager/pickuppable_manager.tscn" id="5_0c8qe"]
 [ext_resource type="PackedScene" uid="uid://drkkxlses2ss3" path="res://scenes/debug/debug_overlay.tscn" id="6_22cy2"]
 [ext_resource type="PackedScene" uid="uid://d35ssjbiwjytu" path="res://scenes/managers/camera_manager/camera_manager.tscn" id="6_l2mu6"]
-[ext_resource type="Script" uid="uid://djg5n7ehmm5vr" path="res://scenes/managers/camera_manager/camera_manager.gd" id="7_t6juh"]
 [ext_resource type="PackedScene" uid="uid://c5q7bwqmijr3e" path="res://gui/hud/hud.tscn" id="8_t6juh"]
 
 [node name="Game" type="Node" unique_id=1409832964]
@@ -34,7 +33,6 @@ spawn_target = NodePath("../../World/EntityRoot")
 
 [node name="CameraManager" parent="Systems" unique_id=22320113 instance=ExtResource("6_l2mu6")]
 unique_name_in_owner = true
-script = ExtResource("7_t6juh")
 
 [node name="World" type="Node2D" parent="." unique_id=735254960]
 process_mode = 1

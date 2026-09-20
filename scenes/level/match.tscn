@@ -24,14 +24,17 @@ position = Vector2(-196, 0)
 
 [node name="Polygon2D" type="Polygon2D" parent="Terrain" unique_id=1283410831]
 position = Vector2(0, -152)
+color = Color(0.98039216, 1, 0.9882353, 1)
 polygon = PackedVector2Array(273, 228, 67, 309, 477, 401, 467, 306, 437, 241, 653, 189, 841, 230, 905, 329, 983, 268, 1202, 320, 952, 439, 806, 461, 740, 307, 555, 458, -22, 445, -100, 256, 62, 184)
 
 [node name="Polygon2D2" type="Polygon2D" parent="Terrain" unique_id=1607990955]
 position = Vector2(-25, 11)
+color = Color(0.98039216, 1, 0.9882353, 1)
 polygon = PackedVector2Array(356, -146, 201, -94, 447, -23, 511, -110)
 
 [node name="Polygon2D3" type="Polygon2D" parent="Terrain" unique_id=1971940719]
 position = Vector2(-69, 155)
+color = Color(0.98039216, 1, 0.9882353, 1)
 polygon = PackedVector2Array(1169, -290, 1167, -205, 724, -206)
 
 [node name="SpawnGenerator" type="Node2D" parent="." unique_id=40225150 node_paths=PackedStringArray("spawn_path_follow")]

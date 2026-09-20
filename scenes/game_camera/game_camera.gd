@@ -49,13 +49,13 @@ func _physics_process(delta: float) -> void:
 	manual_target.global_position += manual_target_speed * direction * delta
 	manual_target.global_position.x = clampf(
 		manual_target.global_position.x,
-		limit_left,
-		limit_right,
+		limit_left + (get_viewport_rect().size.x / 2) * ZOOM[_current_zoom],
+		limit_right - (get_viewport_rect().size.x / 2) * ZOOM[_current_zoom],
 	)
 	manual_target.global_position.y = clampf(
 		manual_target.global_position.y,
-		limit_top,
-		limit_bottom,
+		limit_top + (get_viewport_rect().size.y / 2) * ZOOM[_current_zoom],
+		limit_bottom - (get_viewport_rect().size.y / 2) * ZOOM[_current_zoom],
 	)
 
 
