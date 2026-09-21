@@ -1,16 +1,53 @@
 [gd_scene format=3 uid="uid://detbmroxfa70l"]
 
+[ext_resource type="Script" uid="uid://bepssuw6j1rss" path="res://gui/inventory/inventory_item_button/inventory_item_button.gd" id="1_5gn63"]
 [ext_resource type="PackedScene" uid="uid://cxqi4fxuqa7a6" path="res://gui/components/buttons/button_tween_component.tscn" id="1_oo32f"]
+[ext_resource type="Texture2D" uid="uid://bupei08w5vo0j" path="res://gui/assets/icons/icons8-lock-30.png" id="4_xs3gm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1xhu4"]
+bg_color = Color(0.13399999, 0.14609998, 0.2, 0.39215687)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="InventoryItemButton" type="Button" unique_id=250866465]
-custom_minimum_size = Vector2(32, 32)
 offset_right = 16.0
 offset_bottom = 16.0
 size_flags_horizontal = 3
 offset_transform_enabled = true
 theme_type_variation = &"InventoryItemButton"
+text = "Rocket launcher"
+script = ExtResource("1_5gn63")
 
 [node name="ButtonTweenComponent" parent="." unique_id=1702153834 instance=ExtResource("1_oo32f")]
 scale = 1.05
 rotation_in_deg = 1.0
 pressed_scale = 0.9
+
+[node name="LockedPanel" type="Panel" parent="." unique_id=808621536]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1xhu4")
+
+[node name="TextureRect" type="TextureRect" parent="LockedPanel" unique_id=677153680]
+modulate = Color(0.98039216, 1, 0.9882353, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.0
+offset_top = -5.5
+offset_right = 7.0
+offset_bottom = 5.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_xs3gm")
+expand_mode = 1

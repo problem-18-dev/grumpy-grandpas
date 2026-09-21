@@ -19,7 +19,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.13399999, 0.14609998, 0.2, 0.62352943)
+color = Color(0.13399999, 0.14609998, 0.2, 0.7058824)
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=51593030]
 layout_mode = 1
@@ -30,30 +30,53 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"PrimaryMarginContainer"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=880949498]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1638115568]
 layout_mode = 2
+
+[node name="Items" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=880949498]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 16
 
-[node name="InventoryLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=779564595]
+[node name="InventoryLabel" type="Label" parent="MarginContainer/HBoxContainer/Items" unique_id=779564595]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 theme_type_variation = &"PrimaryLabel"
 text = "Inventory"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1802821090]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Items" unique_id=1775831825]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 32
 
-[node name="WeaponsPanel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=29107529 instance=ExtResource("2_xuwjf")]
+[node name="ItemsPanel" parent="MarginContainer/HBoxContainer/Items/HBoxContainer" unique_id=29107529 instance=ExtResource("2_xuwjf")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/Items/HBoxContainer" unique_id=611275102]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SecondaryMarginContainer"
+
+[node name="ItemInfo" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Items/HBoxContainer/MarginContainer" unique_id=781093817]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="ItemNameLabel" type="Label" parent="MarginContainer/HBoxContainer/Items/HBoxContainer/MarginContainer/ItemInfo" unique_id=520349710]
 unique_name_in_owner = true
 layout_mode = 2
-title = "Weapons"
+theme_type_variation = &"SecondaryLabel"
+text = "Rocket launcher"
 
-[node name="ToolsPanel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1018400011 instance=ExtResource("2_xuwjf")]
+[node name="ItemInfoLabel" type="Label" parent="MarginContainer/HBoxContainer/Items/HBoxContainer/MarginContainer/ItemInfo" unique_id=1212543590]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
-title = "Tools"
+theme_type_variation = &"CaptionLabel"
+text = "This is an exquisite weapon!"
+autowrap_mode = 3
 
-[connection signal="item_selected" from="MarginContainer/VBoxContainer/HBoxContainer/WeaponsPanel" to="." method="_on_panel_item_selected"]
-[connection signal="item_selected" from="MarginContainer/VBoxContainer/HBoxContainer/ToolsPanel" to="." method="_on_panel_item_selected"]
+[connection signal="item_hovered" from="MarginContainer/HBoxContainer/Items/HBoxContainer/ItemsPanel" to="." method="_on_items_panel_item_hovered"]
+[connection signal="item_selected" from="MarginContainer/HBoxContainer/Items/HBoxContainer/ItemsPanel" to="." method="_on_panel_item_selected"]

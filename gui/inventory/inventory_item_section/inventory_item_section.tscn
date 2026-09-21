@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cr2l1rgtsqc3e"]
+
+[ext_resource type="Script" uid="uid://c126sfvc0boee" path="res://gui/inventory/inventory_item_section/inventory_item_section.gd" id="1_wf6lb"]
+
+[node name="InventoryItemSection" type="VBoxContainer" unique_id=1806235004]
+offset_right = 81.0
+offset_bottom = 30.0
+theme_override_constants/separation = 8
+script = ExtResource("1_wf6lb")
+
+[node name="TitleLabel" type="Label" parent="." unique_id=2073701973]
+layout_mode = 2
+theme_type_variation = &"TernaryLabel"
+text = "Section"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonContainer" type="VBoxContainer" parent="." unique_id=373680112]
+layout_mode = 2

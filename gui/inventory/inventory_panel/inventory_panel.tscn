@@ -8,7 +8,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
 theme_type_variation = &"InventoryPanel"
 script = ExtResource("1_8nvli")
 
@@ -19,22 +18,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_type_variation = &"SecondaryMarginContainer"
+theme_type_variation = &"PrimaryMarginContainer"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=327963448]
+[node name="ContentContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1936517496]
 layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=2140294579]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-theme_type_variation = &"SecondaryLabel"
-text = "Panel"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ButtonContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1090426587]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
+theme_override_constants/separation = 16
+alignment = 1
