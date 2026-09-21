@@ -17,6 +17,7 @@
 				"25ab6998-d8ed-4553-9291-0892e5d21368",
 				"13fe63cb-550f-42d6-8497-cdf1411fbf83",
 				"ba1e0c1e-3604-45e0-9027-60476ffe97b2",
+				"8c6c4c93-4108-4e7c-b829-5213f6a9a427",
 				"36986abb-b8a5-47f2-bcf9-548b5718e5af"
 			]
 		},
@@ -657,6 +658,13 @@
 					"done": true
 				}
 			]
+		},
+		{
+			"uuid": "8c6c4c93-4108-4e7c-b829-5213f6a9a427",
+			"title": "[Bug] Sometimes player is freed before removed from team",
+			"description": "Drowning problem.\n",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
 		}
 	],
 	"layout": {

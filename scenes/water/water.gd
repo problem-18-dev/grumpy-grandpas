@@ -1,4 +1,5 @@
 @tool
+class_name Water
 extends Node2D
 
 @export var size: Vector2

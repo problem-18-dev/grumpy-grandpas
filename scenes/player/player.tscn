@@ -98,6 +98,9 @@ script = ExtResource("14_fcs02")
 
 [node name="CPU" type="Node" parent="StateMachine" unique_id=2145201964]
 script = ExtResource("17_uf5tr")
+thinking_time = 2.5
+override_weapon = true
+hitscan_only = true
 
 [node name="CPUHitscanModule" type="Node" parent="StateMachine/CPU" unique_id=1292517404]
 script = ExtResource("18_lgqa7")

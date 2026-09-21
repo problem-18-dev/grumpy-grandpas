@@ -2,16 +2,8 @@
 class_name PlayerStateCPU
 extends PlayerState
 
-@export_group("Projectile aiming")
-@export var aim_attempts := 20
-@export var aim_force_variations := 4
-@export var aim_max_sampling_iterations := 5000
-@export_group("Scoring")
-@export var aim_min_score := 0.125
-@export var enemy_reward_weight := 1.0
-@export var teammate_penalty_weight := 1.0
 @export_group("Thinking")
-@export var thinking_time := 2.5
+@export var thinking_time := 1.75
 
 @export_group("Debug")
 @export var override_weapon := false:

@@ -6,6 +6,18 @@ const PROJECTILE_COLLISION_MASK := 0b100110
 const HURTBOX_COLLISION_MASK := 0b100
 const WORLD_COLLISION_MASK := 0b10
 
+@export_group("Sampling")
+@export var sample_attempts := 32
+@export var force_variations := 5
+@export var max_iterations := 1500
+@export_group("Scoring")
+@export var min_score := 0.1
+@export_subgroup("Weights")
+@export var enemy_distance_weight := 1.0
+@export var teammate_distance_weight := 1.0
+@export var self_distance_weight := 0.65
+@export var enemy_count_weight := 0.2
+
 var sampled_shots: Array[CPUProjectileShot] = []
 
 
@@ -29,13 +41,11 @@ func reset() -> void:
 		child.queue_free()
 
 
+# TODO: Dismiss shot if result in suicide
 func _sample_shot(weapon: ProjectileWeaponResource, angle: float, force: float) -> void:
 	var projectile := weapon.projectile_resource
 	var delta := get_physics_process_delta_time()
-	var max_sampling_iterations := mini(
-		cpu.aim_max_sampling_iterations,
-		ceili(projectile.life_time / delta),
-	)
+	var max_sampling_iterations := mini(max_iterations, ceili(projectile.life_time / delta))
 
 	var query_position := cpu.player.global_position + weapon.muzzle_offset.rotated(angle)
 	var last_free_position := query_position
@@ -97,25 +107,31 @@ func _get_world_normal(at_position: Vector2, shape: Shape2D) -> Vector2:
 ## Determines the best shot out of all sampled shots.
 func _determine_best_shot(weapon: ProjectileWeaponResource) -> CPUProjectileShot:
 	var best_shot: CPUProjectileShot
-	var best_score := 0.0
+	var best_score := -INF
 	var explosion_max_range := weapon.projectile_resource.explosion.damage.max_range
 
 	for shot in sampled_shots:
-		var score := 0.0
+		if shot.distance_to_self < explosion_max_range:
+			var expected_damage := weapon.projectile_resource.explosion.damage.calculate(
+				shot.distance_to_self
+			)
+			if cpu.player.health.health <= expected_damage:
+				continue
 
-		# Enemy score
-		var enemy_score := inverse_lerp(0, explosion_max_range, shot.distance_to_enemy)
-		var weighted_enemy_score := enemy_score * cpu.enemy_reward_weight
-		score = 1.0 - clampf(weighted_enemy_score, 0, 1)
+		var enemy_score := 1.0 - clampf(shot.distance_to_enemy / explosion_max_range, 0, 1)
+		var teammate_score := 1.0 - clampf(shot.distance_to_teammate / explosion_max_range, 0, 1)
+		var self_score := 1.0 - clampf(shot.distance_to_self / explosion_max_range, 0, 1)
 
-		# Teammate penalty
-		var teammate_penalty := inverse_lerp(explosion_max_range, 0, shot.distance_to_teammate)
-		var weighted_teammate_penalty := teammate_penalty * cpu.teammate_penalty_weight
-		score = clampf(score - weighted_teammate_penalty, 0, 1)
+		var score: float = (shot.enemies - shot.teammates) * enemy_count_weight
+		score += enemy_score * enemy_distance_weight
+		score -= teammate_score * teammate_distance_weight
+		score -= self_score * self_distance_weight
 
-		if score >= cpu.aim_min_score and score > best_score:
+		if score > min_score and score > best_score:
 			best_shot = shot
 			best_score = score
+
+	print("Projectile score: %s" % best_score)
 
 	return best_shot
 
@@ -133,6 +149,8 @@ func _create_shot(
 		true,
 		true,
 	)
+	explosion_query.exclude = [cpu.player.hurtbox]
+
 	var shape := CircleShape2D.new()
 	shape.radius = explosion_max_range
 	explosion_query.shape = shape
@@ -140,6 +158,9 @@ func _create_shot(
 	var explosion_collisions := cpu.space_state.intersect_shape(explosion_query)
 	var distance_to_teammate := explosion_max_range
 	var distance_to_enemy := explosion_max_range
+	var distance_to_self := query_position.distance_to(cpu.player.global_position)
+	var enemies_count := 0
+	var teammates_count := 0
 
 	for collision in explosion_collisions:
 		var collider: HurtboxComponent = collision.collider
@@ -147,46 +168,45 @@ func _create_shot(
 
 		if collider.is_in_group(cpu.player.team.get_id()):
 			distance_to_teammate = minf(distance, distance_to_teammate)
+			teammates_count += 1
 			continue
 
 		distance_to_enemy = minf(distance, distance_to_enemy)
+		enemies_count += 1
 
-	return CPUProjectileShot.new(angle, distance_to_enemy, distance_to_teammate, force)
+	return CPUProjectileShot.new(
+		angle,
+		distance_to_enemy,
+		distance_to_teammate,
+		distance_to_self,
+		force,
+		enemies_count,
+		teammates_count,
+	)
 
 
 ## Checks whether intersection is within the level's bounds
 func _is_query_oob(collisions: Array[Dictionary]) -> bool:
-	return (
-		collisions.is_empty()
-		or not collisions.any(
-			func(d: Dictionary) -> bool:
-				return d.collider is BoundsArea,
-		)
-	)
-
-
-## Checks whether the query position is directly on teammate
-func _is_query_teammate(collisions: Array[Dictionary]) -> bool:
 	return collisions.any(
-		func(c: Dictionary) -> bool:
-			return c.collider.is_in_group(cpu.player.team.get_id()),
+		func(d: Dictionary) -> bool:
+			return d.collider is BoundsArea or d.collider is Water,
 	)
 
 
 func _generate_aim_attempts_chunks(weapon: ProjectileWeaponResource) -> Array[Array]:
 	var force := weapon.max_force - weapon.min_force # 1000 - 200 = 800
-	var force_division := floori(force / cpu.aim_force_variations) # 800 / 4 = 200
+	var force_division := floori(force / force_variations) # 800 / 4 = 200
 
 	# Chunk into aim force variations + 1 to account for max range
 	var chunked_aim_attempts: Array[Array] = []
-	chunked_aim_attempts.resize(cpu.aim_force_variations + 1)
+	chunked_aim_attempts.resize(force_variations + 1)
 
-	var angle_step := TAU / cpu.aim_attempts
+	var angle_step := TAU / sample_attempts
 	for chunk_index in range(0, chunked_aim_attempts.size()):
 		var chunk: Array = chunked_aim_attempts[chunk_index]
 		var chunk_force := weapon.min_force + (force_division * chunk_index)
 
-		for aim_attempt in cpu.aim_attempts:
+		for aim_attempt in sample_attempts:
 			var angle := AimableHolder.MINIMUM_ROTATION + (angle_step * aim_attempt)
 			chunk.append({ "angle": angle, "force": chunk_force })
 
@@ -196,6 +216,9 @@ func _generate_aim_attempts_chunks(weapon: ProjectileWeaponResource) -> Array[Ar
 class CPUProjectileShot extends CPUShot:
 	var distance_to_enemy: float
 	var distance_to_teammate: float
+	var distance_to_self: float
+	var enemies: int
+	var teammates: int
 	var force: float
 
 
@@ -203,9 +226,15 @@ class CPUProjectileShot extends CPUShot:
 		init_angle: float,
 		init_distance_to_enemy: float,
 		init_distance_to_teammate: float,
+		init_distance_to_self: float,
 		init_force: float,
+		init_enemies: int,
+		init_teammates: int,
 	) -> void:
 		super(init_angle)
 		distance_to_enemy = init_distance_to_enemy
 		distance_to_teammate = init_distance_to_teammate
+		distance_to_self = init_distance_to_self
+		enemies = init_enemies
+		teammates = init_teammates
 		force = init_force

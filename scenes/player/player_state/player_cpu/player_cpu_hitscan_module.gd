@@ -4,6 +4,13 @@ extends PlayerCPUWeaponModule
 const RAY_LENGTH := 1000
 const COLLISION_MASK := 0b110
 
+@export_group("Scoring")
+@export var min_score := -0.5
+@export_subgroup("Weights")
+@export var direct_hit_weight := 1.1
+@export var health_weight := 0.25
+@export var distance_weight := 1.0
+
 var sampled_shots: Array[CPUHitscanShot] = []
 
 
@@ -63,25 +70,30 @@ func _sample_shot(weapon: HitscanWeaponResource, enemy: Player) -> void:
 
 func _determine_best_shot(weapon: HitscanWeaponResource) -> CPUHitscanShot:
 	var best_shot: CPUHitscanShot
-	var best_score: float
+	var best_score := -INF
 	var hitscan_max_range := weapon.damage.max_range
 
 	for shot in sampled_shots:
 		var score := 0.0
 
-		# First decide priority based on player health
+		# Direct shots should score high
+		if shot.is_direct:
+			score = 1.0 * direct_hit_weight
+
+		# Prioritize low health enemies
 		var enemy_max_health := shot.enemy.health.max_health
-		var enemy_health := inverse_lerp(0, enemy_max_health, shot.enemy.health.health)
-		score = 1.0 - enemy_health
+		var enemy_health := shot.enemy.health.health
+		score = score - (float(enemy_health) / float(enemy_max_health) * health_weight)
 
-		# Weigh distance second, distance should still win if close enough
-		var enemy_score := inverse_lerp(hitscan_max_range, 0, shot.distance)
-		var weighted_enemy_score := enemy_score * cpu.enemy_reward_weight
-		score = score + clampf(weighted_enemy_score, 0, 1)
+		# Lastly, check distance to collision
+		var normalized_distance := clampf(shot.distance / hitscan_max_range, 0, 1)
+		score = score - (normalized_distance * distance_weight)
 
-		if score >= cpu.aim_min_score and score > best_score:
+		if score >= min_score and score > best_score:
 			best_score = score
 			best_shot = shot
+
+	print("hitcan shot score: %s" % best_score)
 
 	return best_shot
 

@@ -30,7 +30,7 @@ script = ExtResource("1_mj6gl")
 size = Vector2(24, 24)
 
 [node name="WaterArea" type="Area2D" parent="." unique_id=1757958041]
-collision_layer = 0
+collision_layer = 32
 input_pickable = false
 monitorable = false
 
