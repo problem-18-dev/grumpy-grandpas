@@ -5,8 +5,8 @@ extends Control
 signal finished
 
 const THEME_TYPE := "DamageIndicatorLabel"
-const NEGATIVE_COLOR := Color("dc435b")
-const POSITIVE_COLOR := Color("2bdb72")
+const NEGATIVE_COLOR := Color("dc435bff")
+const POSITIVE_COLOR := Color("2bdb72ff")
 
 @export_group("Float")
 @export var float_duration := 1.5

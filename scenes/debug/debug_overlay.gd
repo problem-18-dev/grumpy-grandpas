@@ -12,4 +12,4 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	fps_label.text = "FPS: %s" % Engine.get_frames_per_second()
+	fps_label.text = "FPS: %s" % floori(Engine.get_frames_per_second())

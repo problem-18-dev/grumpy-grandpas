@@ -82,13 +82,18 @@ func show_announcement(text: String) -> void:
 
 
 func create_keycaps(... letters: Array) -> void:
+	clear_keycaps()
+
 	for letter: String in letters:
 		var keycap: Keycap = KEYCAP.instantiate()
-		keycap.text = letter
+		keycap.text = letter.to_upper()
 		keycaps_container.add_child(keycap)
+		keycaps_container.show()
 
 
 func clear_keycaps() -> void:
+	keycaps_container.hide()
+
 	for child in keycaps_container.get_children():
 		child.queue_free()
 

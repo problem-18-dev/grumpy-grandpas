@@ -26,7 +26,9 @@ func _ready() -> void:
 	button.offset_transform_enabled = true
 	button.pressed.connect(_on_pressed)
 	button.mouse_entered.connect(_on_mouse_hovered.bind(true))
+	button.focus_entered.connect(_on_mouse_hovered.bind(true))
 	button.mouse_exited.connect(_on_mouse_hovered.bind(false))
+	button.focus_exited.connect(_on_mouse_hovered.bind(false))
 
 
 func _clean_tween() -> void:

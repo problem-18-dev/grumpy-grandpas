@@ -4,8 +4,12 @@ extends Control
 ## Emits when inventory is closed, optionally provides which item was chosen
 signal closed(item: ItemResource)
 
+@export_group("Info")
+@export var tween_duration := 0.15
+
 var _item_buttons: Dictionary[ItemResource, InventoryItemButton]
 var _item_tween: Tween
+var _equipped_item: ItemResource
 
 @onready var items_panel: InventoryPanel = %ItemsPanel
 @onready var item_name_label: Label = %ItemNameLabel
@@ -13,6 +17,8 @@ var _item_tween: Tween
 
 
 func _ready() -> void:
+	item_name_label.text = ""
+	item_info_label.text = ""
 	_spawn_weapon_buttons()
 	_spawn_tool_buttons()
 
@@ -59,7 +65,9 @@ func _spawn_tool_buttons() -> void:
 
 
 func _disable_equipped_item_button(equipped_item: ItemResource) -> void:
-	_item_buttons[equipped_item].disabled = true
+	_equipped_item = equipped_item
+	var button := _item_buttons[equipped_item]
+	button.mark_equipped()
 
 
 func _unlock_all() -> void:
@@ -90,8 +98,8 @@ func _on_items_panel_item_hovered(hover: bool, item: ItemResource) -> void:
 		return
 
 	_item_tween = create_tween().set_parallel()
-	_item_tween.tween_property(item_name_label, "modulate:a", 1.0, 0.25).from(0.5)
-	_item_tween.tween_property(item_info_label, "modulate:a", 1.0, 0.25).from(0.5)
+	_item_tween.tween_property(item_name_label, "modulate:a", 1.0, tween_duration).from(0.5)
+	_item_tween.tween_property(item_info_label, "modulate:a", 1.0, tween_duration).from(0.5)
 
-	item_name_label.text = item.name
+	item_name_label.text = "%s (equipped)" % item.name if _equipped_item == item else item.name
 	item_info_label.text = item.description

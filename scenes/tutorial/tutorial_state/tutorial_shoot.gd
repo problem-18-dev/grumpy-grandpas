@@ -7,6 +7,7 @@ extends TutorialState
 func _start() -> void:
 	super()
 	InputGate.allow_some(["move_left", "move_right", "jump", "up", "down", "camera", "shoot"])
+	tutorial.create_keycaps("space")
 
 	if not busy_manager.busy_ended.is_connected(_on_busy_manager_busy_ended):
 		busy_manager.busy_ended.connect(_on_busy_manager_busy_ended, CONNECT_ONE_SHOT)

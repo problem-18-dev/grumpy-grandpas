@@ -57,7 +57,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.6392157, 0.7529412, 0.9019608, 1)
+color = Color(0.21176471, 0.20784314, 0.3019608, 1)
 
 [node name="TitleLabel" type="Label" parent="." unique_id=338772310]
 layout_mode = 1
@@ -65,12 +65,11 @@ anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -472.0
-offset_top = 24.0
-offset_right = -25.0
-offset_bottom = 76.0
+offset_top = 16.0
+offset_right = -32.0
+offset_bottom = 77.0
 grow_horizontal = 0
 theme_type_variation = &"PrimaryLabel"
-theme_override_font_sizes/font_size = 48
 text = "Grumpy Grandpas"
 
 [node name="Menu" type="CenterContainer" parent="." unique_id=1591549677]
@@ -81,8 +80,8 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = -160.0
 offset_top = -240.0
-offset_right = 10.0
-offset_bottom = 9.1552734e-05
+offset_right = 13.0
+offset_bottom = 12.0
 grow_vertical = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="Menu" unique_id=224336582]
@@ -97,20 +96,27 @@ layout_mode = 2
 theme_override_constants/separation = 16
 
 [node name="QuickplayButton" parent="Menu/MarginContainer/VBoxContainer" unique_id=325206655 instance=ExtResource("1_ahke7")]
+unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../TutorialButton")
 text = "Quickplay"
 
 [node name="TutorialButton" parent="Menu/MarginContainer/VBoxContainer" unique_id=405920122 instance=ExtResource("1_ahke7")]
 layout_mode = 2
+focus_neighbor_top = NodePath("../QuickplayButton")
+focus_neighbor_bottom = NodePath("../CustomButton")
 text = "Tutorial"
 
 [node name="CustomButton" parent="Menu/MarginContainer/VBoxContainer" unique_id=1097023995 instance=ExtResource("1_ahke7")]
 layout_mode = 2
+focus_neighbor_top = NodePath("../TutorialButton")
+focus_neighbor_bottom = NodePath("../SettingsButton")
 disabled = true
 text = "Custom"
 
 [node name="SettingsButton" parent="Menu/MarginContainer/VBoxContainer" unique_id=624488429 instance=ExtResource("1_ahke7")]
 layout_mode = 2
+focus_neighbor_top = NodePath("../CustomButton")
 disabled = true
 text = "Settings"
 

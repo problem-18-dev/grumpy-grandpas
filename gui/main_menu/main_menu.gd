@@ -3,7 +3,15 @@ extends Control
 const GAME_UID := "uid://ciimkqey5k0nn"
 const TUTORIAL_UID := "uid://sno2lalbj3mf"
 
+@onready var quickplay_button: Button = %QuickplayButton
 @onready var menu: CenterContainer = %Menu
+
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not event.is_action_pressed("down"):
+		return
+
+	quickplay_button.grab_focus()
 
 
 func _on_quickplay_button_pressed() -> void:
