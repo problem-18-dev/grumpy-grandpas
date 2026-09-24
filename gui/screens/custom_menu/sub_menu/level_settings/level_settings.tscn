@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://ciopl4v4mn33e"]
+
+[ext_resource type="Texture2D" uid="uid://c5s0wwqdt0u8v" path="res://scenes/projectile/rocket.png" id="1_sr7wq"]
+[ext_resource type="Script" uid="uid://dmj4pfmcyxl27" path="res://gui/screens/custom_menu/sub_menu/level_settings/level_settings.gd" id="1_vj8i1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjvey"]
+bg_color = Color(0.21176471, 0.20784314, 0.3019608, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mc1b8"]
+bg_color = Color(0.21176471, 0.20784314, 0.3019608, 1)
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.98039216, 1, 0.9882353, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="LevelSettings" type="HBoxContainer" unique_id=424706770]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_vj8i1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=442002572]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="LevelTitleLabel" type="Label" parent="VBoxContainer" unique_id=1730749394]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"TernaryLabel"
+text = "Level Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1869111860]
+layout_mode = 2
+alignment = 1
+
+[node name="PreviousPlayerButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1189486259]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_rotation = 3.1415927
+icon = ExtResource("1_sr7wq")
+
+[node name="LevelFrame" type="Control" parent="VBoxContainer/HBoxContainer" unique_id=1128944526]
+custom_minimum_size = Vector2(192, 128)
+layout_mode = 2
+
+[node name="LevelPanel" type="Panel" parent="VBoxContainer/HBoxContainer/LevelFrame" unique_id=1378046215]
+unique_name_in_owner = true
+clip_children = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"InventoryPanel"
+theme_override_styles/panel = SubResource("StyleBoxFlat_vjvey")
+
+[node name="LevelFramePanel" type="Panel" parent="VBoxContainer/HBoxContainer/LevelFrame" unique_id=682131015]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_type_variation = &"InventoryPanel"
+theme_override_styles/panel = SubResource("StyleBoxFlat_mc1b8")
+
+[node name="NextPlayerButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1836330923]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("1_sr7wq")
+
+[node name="PlayButton" type="Button" parent="VBoxContainer" unique_id=400087715]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"SecondaryButton"
+text = "Play"
+
+[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]

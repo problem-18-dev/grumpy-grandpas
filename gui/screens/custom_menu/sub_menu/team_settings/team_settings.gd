@@ -1,6 +1,8 @@
 class_name TeamSettings
 extends HBoxContainer
 
+signal teams_changed
+
 const DEFAULT_PLAYER_AMOUNT := 3
 
 ## Team being edited. A fresh draft, not yet in GameManager, when "New team" is selected.
@@ -26,7 +28,10 @@ func _ready() -> void:
 		color_option.add_item(TeamResource.TeamColor.keys()[team_color].capitalize(), team_color)
 
 	for difficulty: int in TeamResource.CPUDifficulty.values():
-		cpu_difficulty_option.add_item(TeamResource.CPUDifficulty.keys()[difficulty].capitalize(), difficulty)
+		cpu_difficulty_option.add_item(
+			TeamResource.CPUDifficulty.keys()[difficulty].capitalize(),
+			difficulty,
+		)
 
 	_show_editor(not GameManager.get_teams().is_empty())
 
@@ -59,7 +64,6 @@ func _add_row(text: String, team: TeamResource, icon: Texture2D = null) -> void:
 	item_list.set_item_tooltip_enabled(row, false)
 
 
-## Solid color swatch, scaled to 12x12 by the ItemList's fixed_icon_size.
 func _color_icon(color: Color) -> GradientTexture1D:
 	var gradient := Gradient.new()
 	gradient.colors = PackedColorArray([color, color])
@@ -74,7 +78,10 @@ func _select_row(row: int) -> void:
 	item_list.select(row)
 	_team = item_list.get_item_metadata(row)
 
-	var taken_colors := _other_teams().map(func(team: TeamResource) -> int: return team.color)
+	var taken_colors := _other_teams().map(
+		func(team: TeamResource) -> int:
+			return team.color,
+	)
 	for index in color_option.item_count:
 		color_option.set_item_disabled(index, index in taken_colors)
 
@@ -90,11 +97,21 @@ func _select_row(row: int) -> void:
 
 
 func _new_team() -> TeamResource:
-	var taken_colors := GameManager.get_teams().map(func(team: TeamResource) -> int: return team.color)
+	var taken_colors := GameManager.get_teams().map(
+		func(t: TeamResource) -> int:
+			return t.color,
+	)
 
 	var team := TeamResource.new()
 	# ponytail: MAX_TEAMS == TeamColor count, so a free color exists whenever this row does
-	team.color = TeamResource.TeamColor.values().filter(func(c: int) -> bool: return c not in taken_colors).front()
+	team.color = TeamResource \
+			.TeamColor \
+			.values() \
+			.filter(
+		func(c: int) -> bool:
+			return c not in taken_colors,
+	) \
+			.front()
 	_resize_players(team, DEFAULT_PLAYER_AMOUNT)
 	return team
 
@@ -102,8 +119,14 @@ func _new_team() -> TeamResource:
 func _resize_players(team: TeamResource, amount: int) -> void:
 	team.player_resources.resize(mini(amount, team.player_resources.size()))
 
-	var used_names := team.player_resources.map(func(player: PlayerResource) -> String: return player.name)
-	var free_names := PlayerResource.RANDOM_NAMES.filter(func(n: String) -> bool: return n not in used_names)
+	var used_names := team.player_resources.map(
+		func(player: PlayerResource) -> String:
+			return player.name,
+	)
+	var free_names := PlayerResource.RANDOM_NAMES.filter(
+		func(n: String) -> bool:
+			return n not in used_names,
+	)
 	free_names.shuffle()
 
 	while team.player_resources.size() < amount:
@@ -113,14 +136,21 @@ func _resize_players(team: TeamResource, amount: int) -> void:
 
 
 func _other_teams() -> Array:
-	return GameManager.get_teams().filter(func(team: TeamResource) -> bool: return team != _team)
+	return GameManager.get_teams().filter(
+		func(team: TeamResource) -> bool:
+			return team != _team,
+	)
 
 
 func _update_confirm_state() -> void:
 	var team_id := _sanitize_name(name_edit.text).to_lower()
 
-	confirm_button.disabled = team_id.is_empty() or _other_teams().any(
-		func(team: TeamResource) -> bool: return team.get_id() == team_id
+	confirm_button.disabled = (
+		team_id.is_empty()
+		or _other_teams().any(
+			func(team: TeamResource) -> bool:
+				return team.get_id() == team_id,
+		)
 	)
 
 
@@ -149,13 +179,15 @@ func _on_remove_button_pressed() -> void:
 
 func _on_confirm_button_pressed() -> void:
 	_team.name = _sanitize_name(name_edit.text)
-	_team.color = color_option.get_selected_id()
+	_team.color = color_option.get_selected_id() as TeamResource.TeamColor
 	_team.player_health = int(player_health.value)
 	_team.is_cpu = cpu_check.button_pressed
-	_team.cpu_difficulty = cpu_difficulty_option.get_selected_id()
+	_team.cpu_difficulty = cpu_difficulty_option.get_selected_id() as TeamResource.CPUDifficulty
 	_resize_players(_team, int(player_amount.value))
 
 	if not GameManager.get_teams().has(_team):
 		GameManager.add_team(_team)
 
 	_refresh_list()
+
+	teams_changed.emit()

@@ -1,0 +1,178 @@
+[gd_scene format=3 uid="uid://efwlcdg8ac6s"]
+
+[ext_resource type="Script" uid="uid://carvs44rglc1" path="res://gui/screens/custom_menu/sub_menu/players_settings/players_settings.gd" id="1_sr8uc"]
+[ext_resource type="Texture2D" uid="uid://c5s0wwqdt0u8v" path="res://scenes/projectile/rocket.png" id="2_vjvey"]
+[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="3_mc1b8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjvey"]
+bg_color = Color(0.21176471, 0.20784314, 0.3019608, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mc1b8"]
+bg_color = Color(0.21176471, 0.20784314, 0.3019608, 1)
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.98039216, 1, 0.9882353, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="PlayersSettings" type="HBoxContainer" unique_id=424706770]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+script = ExtResource("1_sr8uc")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=515774774]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="TeamsContainer" type="MarginContainer" parent="HBoxContainer" unique_id=1730881890]
+layout_mode = 2
+theme_type_variation = &"SecondaryMarginContainer"
+
+[node name="ItemList" type="ItemList" parent="HBoxContainer/TeamsContainer" unique_id=1644336918]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"TeamList"
+allow_search = false
+auto_width = true
+wraparound_items = false
+same_column_width = true
+fixed_column_width = 120
+fixed_icon_size = Vector2i(12, 12)
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" unique_id=1385754532]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SecondaryMarginContainer"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer" unique_id=138924636]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer/VBoxContainer" unique_id=787509723]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 8
+
+[node name="PreviousPlayerButton" type="Button" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1189486259]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_rotation = 3.1415927
+icon = ExtResource("2_vjvey")
+
+[node name="PlayerFrame" type="Control" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1128944526]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerPanel" type="Panel" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerFrame" unique_id=1378046215]
+unique_name_in_owner = true
+clip_children = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"InventoryPanel"
+theme_override_styles/panel = SubResource("StyleBoxFlat_vjvey")
+
+[node name="PlayerNameLabel" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerFrame/PlayerPanel" unique_id=902337948]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 8.0
+offset_right = 18.0
+offset_bottom = 21.0
+grow_horizontal = 2
+theme_type_variation = &"PlayerNameLabel"
+text = "Player"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerTexture" type="TextureRect" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerFrame/PlayerPanel" unique_id=1516106487]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -20.0
+offset_right = 28.0
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_mc1b8")
+expand_mode = 1
+
+[node name="PlayerFramePanel" type="Panel" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerFrame" unique_id=682131015]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_type_variation = &"InventoryPanel"
+theme_override_styles/panel = SubResource("StyleBoxFlat_mc1b8")
+
+[node name="NextPlayerButton" type="Button" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1836330923]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("2_vjvey")
+
+[node name="NameEdit" type="LineEdit" parent="HBoxContainer/MarginContainer/VBoxContainer" unique_id=1707551525]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"PrimaryLineEdit"
+placeholder_text = "Player Name"
+max_length = 32
+context_menu_enabled = false
+emoji_menu_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="GenderOption" type="OptionButton" parent="HBoxContainer/MarginContainer/VBoxContainer" unique_id=1393699252]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ConfirmButton" type="Button" parent="HBoxContainer/MarginContainer" unique_id=400087715]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_type_variation = &"SecondaryButton"
+text = "Confirm"
+
+[connection signal="item_selected" from="HBoxContainer/TeamsContainer/ItemList" to="." method="_select_row"]
+[connection signal="pressed" from="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PreviousPlayerButton" to="." method="_on_arrow_pressed" binds= [-1]]
+[connection signal="pressed" from="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/NextPlayerButton" to="." method="_on_arrow_pressed" binds= [1]]
+[connection signal="text_changed" from="HBoxContainer/MarginContainer/VBoxContainer/NameEdit" to="." method="_on_name_edit_text_changed"]
+[connection signal="item_selected" from="HBoxContainer/MarginContainer/VBoxContainer/GenderOption" to="." method="_on_gender_option_item_selected"]
+[connection signal="pressed" from="HBoxContainer/MarginContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]

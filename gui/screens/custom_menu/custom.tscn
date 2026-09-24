@@ -2,8 +2,12 @@
 
 [ext_resource type="Script" uid="uid://bm1gecsgv155u" path="res://gui/screens/custom_menu/custom.gd" id="1_8yr1g"]
 [ext_resource type="PackedScene" uid="uid://bgmr6t3g43dl2" path="res://gui/theme/buttons/primary_button.tscn" id="1_i4ukh"]
+[ext_resource type="PackedScene" uid="uid://bocfnvrwcsq33" path="res://gui/components/background/background.tscn" id="2_3qtxa"]
 [ext_resource type="PackedScene" uid="uid://drkkxlses2ss3" path="res://scenes/debug/debug_overlay.tscn" id="2_8pk88"]
 [ext_resource type="PackedScene" uid="uid://cjx5udp3tn2do" path="res://gui/screens/custom_menu/sub_menu/team_settings/team_settings.tscn" id="3_8k1xx"]
+[ext_resource type="PackedScene" uid="uid://efwlcdg8ac6s" path="res://gui/screens/custom_menu/sub_menu/players_settings/players_settings.tscn" id="4_bxqnp"]
+[ext_resource type="PackedScene" uid="uid://dr3lq3vsm38gw" path="res://gui/screens/custom_menu/sub_menu/items_settings/items_settings.tscn" id="5_mbx4c"]
+[ext_resource type="PackedScene" uid="uid://ciopl4v4mn33e" path="res://gui/screens/custom_menu/sub_menu/level_settings/level_settings.tscn" id="5_tp35x"]
 
 [node name="Custom" type="Control" unique_id=508400026]
 layout_mode = 3
@@ -14,14 +18,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8yr1g")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1022419243]
+[node name="TextureRect" parent="." unique_id=1194628109 instance=ExtResource("2_3qtxa")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.21176471, 0.20784314, 0.3019608, 1)
 
 [node name="Main" type="HBoxContainer" parent="." unique_id=1430341905]
 layout_mode = 1
@@ -44,37 +42,36 @@ size_flags_vertical = 3
 theme_type_variation = &"TernaryLabel"
 text = "Custom"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Main/MenuContainer" unique_id=1617329214]
+[node name="Buttons" type="VBoxContainer" parent="Main/MenuContainer" unique_id=1617329214]
 layout_mode = 2
 size_flags_vertical = 10
 theme_override_constants/separation = 16
 
-[node name="LevelButton" parent="Main/MenuContainer/VBoxContainer" unique_id=635616468 instance=ExtResource("1_i4ukh")]
+[node name="LevelButton" parent="Main/MenuContainer/Buttons" unique_id=635616468 instance=ExtResource("1_i4ukh")]
 unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_top = NodePath("../BackButton")
-focus_neighbor_bottom = NodePath("../TeamsButton")
 disabled = true
 text = "Level
 "
 
-[node name="PlayersButton" parent="Main/MenuContainer/VBoxContainer" unique_id=792813643 instance=ExtResource("1_i4ukh")]
+[node name="ItemsButton" parent="Main/MenuContainer/Buttons" unique_id=1391098482 instance=ExtResource("1_i4ukh")]
+unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_top = NodePath("../TeamsButton")
-focus_neighbor_bottom = NodePath("../BackButton")
+disabled = true
+text = "Items"
+
+[node name="PlayersButton" parent="Main/MenuContainer/Buttons" unique_id=792813643 instance=ExtResource("1_i4ukh")]
+unique_name_in_owner = true
+layout_mode = 2
 disabled = true
 text = "Players"
 
-[node name="TeamsButton" parent="Main/MenuContainer/VBoxContainer" unique_id=273280326 instance=ExtResource("1_i4ukh")]
+[node name="TeamsButton" parent="Main/MenuContainer/Buttons" unique_id=273280326 instance=ExtResource("1_i4ukh")]
 layout_mode = 2
-focus_neighbor_top = NodePath("../LevelButton")
-focus_neighbor_bottom = NodePath("../PlayersButton")
 text = "Teams"
 
-[node name="BackButton" parent="Main/MenuContainer/VBoxContainer" unique_id=1948873593 instance=ExtResource("1_i4ukh")]
+[node name="BackButton" parent="Main/MenuContainer/Buttons" unique_id=1948873593 instance=ExtResource("1_i4ukh")]
 layout_mode = 2
-focus_neighbor_top = NodePath("../PlayersButton")
-focus_neighbor_bottom = NodePath("../LevelButton")
 theme_type_variation = &"SecondaryButton"
 text = "Back"
 
@@ -86,27 +83,49 @@ theme_override_constants/separation = 0
 [node name="ContentLabel" type="Label" parent="Main/ContentContainer" unique_id=1084464677]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
 theme_type_variation = &"PrimaryLabel"
 text = "Teams"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Main/ContentContainer" unique_id=1891204840]
 layout_mode = 2
 size_flags_vertical = 3
 theme_type_variation = &"SecondaryMarginContainer"
 
-[node name="Panel" type="Panel" parent="Main/ContentContainer/MarginContainer" unique_id=1697309985]
+[node name="SubMenuPanel" type="Panel" parent="Main/ContentContainer/MarginContainer" unique_id=1697309985]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_type_variation = &"PrimaryPanel"
 
-[node name="TeamSettingsContainer" parent="Main/ContentContainer/MarginContainer/Panel" unique_id=542250334 instance=ExtResource("3_8k1xx")]
+[node name="TeamSettings" parent="Main/ContentContainer/MarginContainer/SubMenuPanel" unique_id=542250334 instance=ExtResource("3_8k1xx")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[node name="PlayersSettings" parent="Main/ContentContainer/MarginContainer/SubMenuPanel" unique_id=424706770 instance=ExtResource("4_bxqnp")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[node name="ItemsSettings" parent="Main/ContentContainer/MarginContainer/SubMenuPanel" unique_id=936153897 instance=ExtResource("5_mbx4c")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[node name="LevelSettings" parent="Main/ContentContainer/MarginContainer/SubMenuPanel" unique_id=777193397 instance=ExtResource("5_tp35x")]
+unique_name_in_owner = true
+visible = false
 layout_mode = 1
 
 [node name="DebugOverlay" parent="." unique_id=567403883 instance=ExtResource("2_8pk88")]
 layout_mode = 1
 
-[connection signal="pressed" from="Main/MenuContainer/VBoxContainer/LevelButton" to="." method="_on_level_button_pressed" flags=18]
-[connection signal="pressed" from="Main/MenuContainer/VBoxContainer/PlayersButton" to="." method="_on_level_button_pressed" flags=18]
-[connection signal="pressed" from="Main/MenuContainer/VBoxContainer/TeamsButton" to="." method="_on_level_button_pressed" flags=18]
-[connection signal="pressed" from="Main/MenuContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Main/MenuContainer/Buttons/LevelButton" to="." method="_on_button_pressed" binds= ["level"]]
+[connection signal="pressed" from="Main/MenuContainer/Buttons/ItemsButton" to="." method="_on_button_pressed" binds= ["items"]]
+[connection signal="pressed" from="Main/MenuContainer/Buttons/PlayersButton" to="." method="_on_button_pressed" binds= ["players"]]
+[connection signal="pressed" from="Main/MenuContainer/Buttons/TeamsButton" to="." method="_on_button_pressed" binds= ["teams"]]
+[connection signal="pressed" from="Main/MenuContainer/Buttons/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="teams_changed" from="Main/ContentContainer/MarginContainer/SubMenuPanel/TeamSettings" to="." method="_on_team_settings_teams_changed"]
+[connection signal="visibility_changed" from="Main/ContentContainer/MarginContainer/SubMenuPanel/PlayersSettings" to="Main/ContentContainer/MarginContainer/SubMenuPanel/PlayersSettings" method="_on_visibility_changed"]

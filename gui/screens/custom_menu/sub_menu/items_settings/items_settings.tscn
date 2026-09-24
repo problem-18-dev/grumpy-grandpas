@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://dr3lq3vsm38gw"]
+
+[ext_resource type="Script" uid="uid://d2ckc1p2xqkao" path="res://gui/screens/custom_menu/sub_menu/items_settings/items_settings.gd" id="1_hiqho"]
+
+[node name="ItemsSettings" type="HBoxContainer" unique_id=424706770]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+script = ExtResource("1_hiqho")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1385754532]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SecondaryMarginContainer"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1562975689]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=515774774]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1080316905]
+layout_mode = 2
+
+[node name="WeaponsLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1539544713]
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+theme_override_font_sizes/font_size = 20
+text = "Weapons"
+horizontal_alignment = 1
+
+[node name="WeaponsList" type="ItemList" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1845632025]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"TeamList"
+select_mode = 2
+allow_reselect = true
+allow_search = false
+auto_width = true
+fixed_column_width = 164
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1478999502]
+layout_mode = 2
+
+[node name="ToolsLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1112074578]
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+theme_override_font_sizes/font_size = 20
+text = "Tools"
+horizontal_alignment = 1
+
+[node name="ToolsList" type="ItemList" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1680985734]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"TeamList"
+select_mode = 2
+allow_search = false
+auto_width = true
+fixed_column_width = 164
+
+[connection signal="multi_selected" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/WeaponsList" to="." method="_on_weapons_list_multi_selected"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ToolsList" to="." method="_on_tools_list_item_selected"]
+[connection signal="multi_selected" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ToolsList" to="." method="_on_tools_list_multi_selected"]

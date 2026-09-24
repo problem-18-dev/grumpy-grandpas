@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://v4ljgfmhlemg" path="res://gui/screens/main_menu/main_menu.gd" id="1_gfa36"]
 [ext_resource type="PackedScene" uid="uid://bgmr6t3g43dl2" path="res://gui/theme/buttons/primary_button.tscn" id="2_aaccu"]
+[ext_resource type="PackedScene" uid="uid://bocfnvrwcsq33" path="res://gui/components/background/background.tscn" id="2_eq11g"]
 [ext_resource type="PackedScene" uid="uid://drkkxlses2ss3" path="res://scenes/debug/debug_overlay.tscn" id="3_eq11g"]
 
 [sub_resource type="Animation" id="Animation_6wy0j"]
@@ -50,14 +51,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gfa36")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1962219575]
+[node name="Background" parent="." unique_id=1194628109 instance=ExtResource("2_eq11g")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.21176471, 0.20784314, 0.3019608, 1)
 
 [node name="Main" type="Control" parent="." unique_id=1530070372]
 layout_mode = 1

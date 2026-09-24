@@ -11,7 +11,6 @@
 
 [resource]
 script = ExtResource("2_0rwuq")
-locked_items = Array[ExtResource("3_b6j7a")]([ExtResource("7_48k0a")])
 weapons = Array[ExtResource("3_b6j7a")]([ExtResource("6_nkv3i"), ExtResource("1_lhskn"), ExtResource("8_vrqn4"), ExtResource("7_48k0a")])
 default_weapon = ExtResource("1_lhskn")
 tools = Array[ExtResource("3_b6j7a")]([ExtResource("5_6ivch"), ExtResource("4_pghbo")])
