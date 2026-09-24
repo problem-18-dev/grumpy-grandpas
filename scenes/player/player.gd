@@ -133,12 +133,12 @@ func setup(player_team: TeamResource, player: PlayerResource) -> void:
 	team = player_team
 	hurtbox.add_to_group(team.get_id())
 
-	aimable_holder.is_cpu = team.cpu_resource != null
-	is_cpu = team.cpu_resource != null
+	aimable_holder.is_cpu = team.is_cpu
+	is_cpu = team.is_cpu
 
-	name_label.add_theme_color_override("font_color", team.color)
+	name_label.add_theme_color_override("font_color", team.get_color())
 	name_label.text = player.name
-	health_label.add_theme_color_override("font_color", team.color)
+	health_label.add_theme_color_override("font_color", team.get_color())
 	health_label.text = str(player.health)
 	name = player.name
 #endregion

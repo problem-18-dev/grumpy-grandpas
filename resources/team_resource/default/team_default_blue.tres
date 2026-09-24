@@ -28,7 +28,7 @@ metadata/_custom_type_script = "uid://ccrc8sl42duol"
 [resource]
 script = ExtResource("4_ysl21")
 name = "Team Blue"
-color = Color(0.26666668, 0.5529412, 0.90588236, 1)
+color = 1
 player_resources = Array[ExtResource("3_x8qj0")]([SubResource("Resource_8xq02"), SubResource("Resource_prn5b"), SubResource("Resource_tj2m0"), SubResource("Resource_8cnme")])
 locked_items = Array[ExtResource("1_ocpuu")]([ExtResource("2_8cx7k")])
 metadata/_custom_type_script = "uid://05fqs75xukhe"

@@ -7,6 +7,7 @@ signal finished
 const THEME_TYPE := "DamageIndicatorLabel"
 const NEGATIVE_COLOR := Color("dc435bff")
 const POSITIVE_COLOR := Color("2bdb72ff")
+const SIGN_OFFSET := 2.5
 
 @export_group("Float")
 @export var float_duration := 1.5
@@ -20,14 +21,8 @@ const POSITIVE_COLOR := Color("2bdb72ff")
 var _label: Label
 
 
-func display(amount := 50) -> void:
-	_label = Label.new()
-	_label.theme_type_variation = THEME_TYPE
-	_label.add_theme_color_override("font_color", NEGATIVE_COLOR if amount < 0 else POSITIVE_COLOR)
-	_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	_label.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	_label.grow_vertical = Control.GROW_DIRECTION_BOTH
-	add_child(_label)
+func display(amount := -50) -> void:
+	_create_label(amount)
 
 	var float_position := _label.position.y - float_height
 	var tween := create_tween().set_ease(Tween.EASE_OUT).set_parallel()
@@ -41,6 +36,17 @@ func display(amount := 50) -> void:
 	tween.chain().tween_callback(_label.queue_free).set_delay(delay_duration)
 	await tween.finished
 	finished.emit()
+
+
+func _create_label(amount: int) -> void:
+	_label = Label.new()
+	_label.theme_type_variation = THEME_TYPE
+	_label.add_theme_color_override("font_color", NEGATIVE_COLOR if amount < 0 else POSITIVE_COLOR)
+	_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	_label.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	_label.grow_vertical = Control.GROW_DIRECTION_BOTH
+	_label.position.x -= SIGN_OFFSET
+	add_child(_label)
 
 
 func _set_text(value: int) -> void:

@@ -1,0 +1,162 @@
+[gd_scene format=3 uid="uid://cjx5udp3tn2do"]
+
+[ext_resource type="Script" uid="uid://cfx0qstq2qnp3" path="res://gui/screens/custom_menu/sub_menu/team_settings/team_settings.gd" id="1_rn8jk"]
+
+[node name="TeamSettings" type="HBoxContainer" unique_id=424706770]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rn8jk")
+
+[node name="Empty" type="Control" parent="." unique_id=1478572870]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Empty" unique_id=1973985366]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.5
+offset_top = -39.0
+offset_right = 88.5
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="EmptyLabel" type="Label" parent="Empty/VBoxContainer" unique_id=1500709713]
+layout_mode = 2
+theme_type_variation = &"TernaryLabel"
+text = "No teams created"
+
+[node name="FirstNewTeamButton" type="Button" parent="Empty/VBoxContainer" unique_id=1506597200]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"SecondaryButton"
+text = "New team"
+
+[node name="Existing" type="Control" parent="." unique_id=1641385564]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Existing" unique_id=515774774]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="TeamsContainer" type="MarginContainer" parent="Existing/HBoxContainer" unique_id=1730881890]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_type_variation = &"SecondaryMarginContainer"
+
+[node name="ItemList" type="ItemList" parent="Existing/HBoxContainer/TeamsContainer" unique_id=1644336918]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+theme_type_variation = &"TeamList"
+allow_search = false
+auto_width = true
+wraparound_items = false
+same_column_width = true
+fixed_column_width = 120
+fixed_icon_size = Vector2i(12, 12)
+
+[node name="MarginContainer" type="MarginContainer" parent="Existing/HBoxContainer" unique_id=1385754532]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SecondaryMarginContainer"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Existing/HBoxContainer/MarginContainer" unique_id=138924636]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="NameEdit" type="LineEdit" parent="Existing/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1707551525]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"PrimaryLineEdit"
+placeholder_text = "Team name"
+max_length = 32
+context_menu_enabled = false
+emoji_menu_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="ColorOption" type="OptionButton" parent="Existing/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1393699252]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PlayerAmount" type="SpinBox" parent="Existing/HBoxContainer/MarginContainer/VBoxContainer" unique_id=2002725739]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 1.0
+max_value = 5.0
+value = 1.0
+rounded = true
+suffix = "Player"
+
+[node name="PlayerHealth" type="SpinBox" parent="Existing/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1342474461]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 75.0
+max_value = 200.0
+value = 100.0
+rounded = true
+suffix = "Health"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Existing/HBoxContainer/MarginContainer/VBoxContainer" unique_id=895001432]
+layout_mode = 2
+
+[node name="CPUCheck" type="CheckButton" parent="Existing/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1183801707]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"PrimaryCheckButton"
+text = "CPU"
+
+[node name="CPUDifficultyOption" type="OptionButton" parent="Existing/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1260254343]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 10
+theme_type_variation = &"PrimaryOptionButton"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Existing/HBoxContainer/MarginContainer" unique_id=373016052]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/separation = 16
+
+[node name="RemoveButton" type="Button" parent="Existing/HBoxContainer/MarginContainer/HBoxContainer" unique_id=690100689]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"DeleteButton"
+text = "Remove"
+
+[node name="ConfirmButton" type="Button" parent="Existing/HBoxContainer/MarginContainer/HBoxContainer" unique_id=400087715]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"SecondaryButton"
+text = "Confirm"
+
+[connection signal="pressed" from="Empty/VBoxContainer/FirstNewTeamButton" to="." method="_on_first_new_team_button_pressed"]
+[connection signal="item_selected" from="Existing/HBoxContainer/TeamsContainer/ItemList" to="." method="_select_row"]
+[connection signal="text_changed" from="Existing/HBoxContainer/MarginContainer/VBoxContainer/NameEdit" to="." method="_on_name_edit_text_changed"]
+[connection signal="toggled" from="Existing/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/CPUCheck" to="." method="_on_cpu_check_toggled"]
+[connection signal="pressed" from="Existing/HBoxContainer/MarginContainer/HBoxContainer/RemoveButton" to="." method="_on_remove_button_pressed"]
+[connection signal="pressed" from="Existing/HBoxContainer/MarginContainer/HBoxContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]

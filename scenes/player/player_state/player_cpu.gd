@@ -102,7 +102,7 @@ func _handle_shot(shot: PlayerCPUWeaponModule.CPUShot) -> void:
 
 func _adjust_shot_angle(shot: PlayerCPUWeaponModule.CPUShot) -> PlayerCPUWeaponModule.CPUShot:
 	var shot_angle := shot.angle
-	var angle_range := player.team.cpu_resource.get_angle_range()
+	var angle_range := _get_angle_range()
 	shot_angle += randf_range(-angle_range, angle_range)
 	shot.angle = shot_angle
 	return shot
@@ -111,3 +111,15 @@ func _adjust_shot_angle(shot: PlayerCPUWeaponModule.CPUShot) -> PlayerCPUWeaponM
 func _reset() -> void:
 	cpu_hitscan_module.reset()
 	cpu_projectile_module.reset()
+
+
+func _get_angle_range() -> float:
+	var difficulty := player.team.cpu_difficulty
+
+	match difficulty:
+		TeamResource.CPUDifficulty.MEDIUM:
+			return deg_to_rad(20)
+		TeamResource.CPUDifficulty.HARD:
+			return deg_to_rad(10)
+		_:
+			return deg_to_rad(30)

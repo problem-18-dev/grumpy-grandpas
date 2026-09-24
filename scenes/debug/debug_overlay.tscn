@@ -2,41 +2,25 @@
 
 [ext_resource type="Script" uid="uid://en6lm42na48a" path="res://scenes/debug/debug_overlay.gd" id="1_dytaf"]
 
-[node name="DebugOverlay" type="Control" unique_id=567403883]
-layout_mode = 3
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -34.0
-offset_right = 50.0
-grow_vertical = 0
-mouse_filter = 2
-mouse_behavior_recursive = 1
+[node name="MarginContainer" type="MarginContainer" unique_id=1840923755]
+offset_right = 69.0
+offset_bottom = 40.0
+theme_type_variation = &"SecondaryMarginContainer"
 script = ExtResource("1_dytaf")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1840923755]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -42.0
-offset_right = 51.0
-grow_vertical = 0
-theme_type_variation = &"SecondaryMarginContainer"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1407787639]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1407787639]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 theme_override_constants/separation = 0
 
-[node name="FpsLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1996152198]
+[node name="FpsLabel" type="Label" parent="VBoxContainer" unique_id=1996152198]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"DebugLabel"
 text = "FPS: "
 
-[node name="BuildLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1518510492]
+[node name="BuildLabel" type="Label" parent="VBoxContainer" unique_id=1518510492]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"DebugLabel"

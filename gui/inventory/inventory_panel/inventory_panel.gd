@@ -10,7 +10,7 @@ enum Section {
 	TOOLS,
 }
 
-const INVENTORY_ITEM_SECTION = preload("uid://cr2l1rgtsqc3e")
+const INVENTORY_ITEM_SECTION := preload("uid://cr2l1rgtsqc3e")
 const SECTION_TITLES := { Section.WEAPONS: "Weapons", Section.TOOLS: "Tools" }
 
 var _sections: Dictionary[Section, InventoryItemSection]

@@ -1,15 +1,38 @@
 class_name TeamResource
 extends Resource
 
+enum CPUDifficulty {
+	EASY,
+	MEDIUM,
+	HARD,
+}
+
+enum TeamColor {
+	RED,
+	BLUE,
+	GREEN,
+	YELLOW,
+}
+
+const TEAM_COLORS := {
+	TeamColor.RED: Color(1.0, 0.424, 0.478, 1.0),
+	TeamColor.BLUE: Color(0.267, 0.553, 0.906, 1.0),
+	TeamColor.GREEN: Color(0.169, 0.859, 0.447, 1.0),
+	TeamColor.YELLOW: Color(1.0, 0.922, 0.2, 1.0),
+}
+
+
 @export_group("Properties")
-@export var name := "Team One"
-@export var color := Color(1.0, 0.494, 0.427, 1.0)
+@export var name := ""
+@export var color: TeamColor = TeamColor.RED
 @export_group("Players")
+@export var player_health := 100
 @export var player_resources: Array[PlayerResource]
 @export_group("Inventory")
 @export var locked_items: Array[ItemResource]
 @export_group("CPU")
-@export var cpu_resource: CPUResource
+@export var is_cpu: bool
+@export var cpu_difficulty := CPUDifficulty.EASY
 
 var _active_players: Array[Player]
 
@@ -51,3 +74,7 @@ func unlock_item(item: ItemResource) -> void:
 
 func get_locked_items() -> Array[ItemResource]:
 	return locked_items
+
+
+func get_color() -> Color:
+	return TEAM_COLORS[color]

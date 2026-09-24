@@ -71,7 +71,7 @@ func _start_level() -> void:
 
 	var new_player := players_manager.activate_player()
 	var team := players_manager.active_team
-	hud.set_message("Time for %s!" % new_player.name, intro_duration_per_player, team.color)
+	hud.set_message("Time for %s!" % new_player.name, intro_duration_per_player, team.get_color())
 	turn_manager.start_turn()
 
 
@@ -91,7 +91,7 @@ func _introduce_teams() -> void:
 		return
 
 	for team in players_manager.teams:
-		hud.set_message("Introducing %s" % team.name, 0.0, team.color)
+		hud.set_message("Introducing %s" % team.name, 0.0, team.get_color())
 		await players_manager.show_team(team, intro_duration_per_team)
 
 	hud.set_message("")
