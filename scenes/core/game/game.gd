@@ -71,7 +71,11 @@ func _start_level() -> void:
 
 	var new_player := players_manager.activate_player()
 	var team := players_manager.active_team
-	hud.set_message("Time for %s!" % new_player.name, intro_duration_per_player, team.get_color())
+	hud.set_message(
+		"Time for %s!" % new_player.player_name,
+		intro_duration_per_player,
+		team.get_color(),
+	)
 	turn_manager.start_turn()
 
 

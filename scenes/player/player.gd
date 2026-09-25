@@ -16,6 +16,7 @@ const FLOOR_MAX_ANGLE := 80
 
 var is_cpu: bool
 var team: TeamResource
+var player_name: String
 
 var _equipped_item: ItemResource = CATALOGUE.default_weapon
 var _ammo_remaining := 0
@@ -141,6 +142,7 @@ func setup(player_team: TeamResource, player: PlayerResource) -> void:
 	health_label.add_theme_color_override("font_color", team.get_color())
 	health_label.text = str(player.health)
 	name = player.name
+	player_name = player.name
 #endregion
 
 #region Inventory

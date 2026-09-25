@@ -13,13 +13,13 @@ func _ready() -> void:
 
 
 func _load_saved_values() -> void:
-	master_slider.set_value_no_signal(SettingsManager.save.master_volume)
-	sfx_slider.set_value_no_signal(SettingsManager.save.sfx_volume)
+	master_slider.set_value_no_signal(SettingsSaveManager.save.master_volume)
+	sfx_slider.set_value_no_signal(SettingsSaveManager.save.sfx_volume)
 
 
 func _save_values() -> void:
-	SettingsManager.save_master_volume(master_slider.value)
-	SettingsManager.save_sfx_volume(sfx_slider.value)
+	SettingsSaveManager.save_master_volume(master_slider.value)
+	SettingsSaveManager.save_sfx_volume(sfx_slider.value)
 
 
 func _change_volume(value: float, bus: int) -> void:

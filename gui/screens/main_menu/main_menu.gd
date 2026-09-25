@@ -9,8 +9,17 @@ const SETTINGS_UID := "uid://dniqe8bmxsu7q"
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
+func _ready() -> void:
+	_load_saves()
+
+
+func _load_saves() -> void:
+	CustomGameSaveManager.load_settings()
+	SettingsSaveManager.load_settings()
+
+
 func _on_quickplay_button_pressed() -> void:
-	GamePresets.load_preset(GamePresets.Preset.QUICK_PLAY)
+	GameConfigurator.load_preset(GameConfigurator.Preset.QUICK_PLAY)
 	get_tree().change_scene_to_file(GAME_UID)
 
 

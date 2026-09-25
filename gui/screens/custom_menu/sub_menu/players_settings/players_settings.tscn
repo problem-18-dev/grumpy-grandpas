@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://efwlcdg8ac6s"]
 
 [ext_resource type="Script" uid="uid://carvs44rglc1" path="res://gui/screens/custom_menu/sub_menu/players_settings/players_settings.gd" id="1_sr8uc"]
-[ext_resource type="Texture2D" uid="uid://c5s0wwqdt0u8v" path="res://scenes/projectile/rocket.png" id="2_vjvey"]
+[ext_resource type="Texture2D" uid="uid://hrxgwt1ackg3" path="res://gui/assets/icons/chevron_left.png" id="2_p7cg1"]
 [ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="3_mc1b8"]
 [ext_resource type="PackedScene" uid="uid://cxqi4fxuqa7a6" path="res://gui/components/buttons/button_tween_component.tscn" id="4_0d5wj"]
+[ext_resource type="Texture2D" uid="uid://0utme7chj341" path="res://gui/assets/icons/chevron_right.png" id="5_p7cg1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjvey"]
 bg_color = Color(0.21176471, 0.20784314, 0.3019608, 1)
@@ -67,12 +68,18 @@ theme_override_constants/separation = 8
 
 [node name="PreviousPlayerButton" type="Button" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1189486259]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+custom_maximum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 offset_transform_enabled = true
-offset_transform_rotation = 3.1415927
-icon = ExtResource("2_vjvey")
+theme_type_variation = &"IconButton"
+icon = ExtResource("2_p7cg1")
+icon_alignment = 1
+expand_icon = true
+
+[node name="ButtonTweenComponent" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PreviousPlayerButton" unique_id=1702153834 instance=ExtResource("4_0d5wj")]
 
 [node name="PlayerFrame" type="Control" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1128944526]
 custom_minimum_size = Vector2(96, 96)
@@ -141,10 +148,17 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_mc1b8")
 
 [node name="NextPlayerButton" type="Button" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1836330923]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-icon = ExtResource("2_vjvey")
+offset_transform_enabled = true
+theme_type_variation = &"IconButton"
+icon = ExtResource("5_p7cg1")
+icon_alignment = 1
+expand_icon = true
+
+[node name="ButtonTweenComponent" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/NextPlayerButton" unique_id=394354250 instance=ExtResource("4_0d5wj")]
 
 [node name="NameEdit" type="LineEdit" parent="HBoxContainer/MarginContainer/VBoxContainer" unique_id=1707551525]
 unique_name_in_owner = true
@@ -170,9 +184,9 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 offset_transform_enabled = true
 theme_type_variation = &"SecondaryButton"
-text = "Confirm"
+text = "Update"
 
-[node name="ButtonTweenComponent" parent="HBoxContainer/MarginContainer/ConfirmButton" unique_id=1702153834 instance=ExtResource("4_0d5wj")]
+[node name="ButtonTweenComponent" parent="HBoxContainer/MarginContainer/ConfirmButton" unique_id=717077835 instance=ExtResource("4_0d5wj")]
 scale = 1.1
 rotation_in_deg = 1.0
 pressed_scale = 0.9

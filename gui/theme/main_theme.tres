@@ -3,6 +3,31 @@
 [ext_resource type="FontFile" uid="uid://dsmnppppsovbw" path="res://gui/font/BasicallyAMono-Regular.otf" id="1_psdg5"]
 [ext_resource type="FontFile" uid="uid://c3vvi8q8g5117" path="res://gui/font/Geologica-Bold.ttf" id="3_qc27g"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3n7b"]
+bg_color = Color(0.13333334, 0.14509805, 0.2, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6392157, 0.7529412, 0.9019608, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 12.0
+expand_margin_top = 40.0
+expand_margin_right = 12.0
+expand_margin_bottom = 12.0
+shadow_size = 640
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ru1rn"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.21176471, 0.20784314, 0.3019608, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqkcb"]
 content_margin_left = 6.0
 content_margin_top = 4.0
@@ -80,6 +105,14 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_psdg5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ru1rn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r4g1a"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qc27g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wcgdq"]
 content_margin_left = 6.0
@@ -361,7 +394,7 @@ shadow_color = Color(0.13333334, 0.14509805, 0.2, 1)
 shadow_size = 2
 shadow_offset = Vector2(-3, 3)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ru1rn"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4cne8"]
 content_margin_left = 12.0
 content_margin_top = 8.0
 content_margin_right = 12.0
@@ -380,7 +413,7 @@ shadow_color = Color(0.13333334, 0.14509805, 0.2, 1)
 shadow_size = 2
 shadow_offset = Vector2(-2, 2)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3n7b"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jo6af"]
 content_margin_left = 12.0
 content_margin_top = 8.0
 content_margin_right = 12.0
@@ -611,6 +644,11 @@ corner_radius_bottom_left = 8
 [resource]
 default_font = ExtResource("3_qc27g")
 default_font_size = 16
+AcceptDialog/colors/title_color = Color(0.98039216, 1, 0.9882353, 1)
+AcceptDialog/constants/buttons_min_width = 64
+AcceptDialog/fonts/title_font = ExtResource("1_psdg5")
+AcceptDialog/styles/embedded_border = SubResource("StyleBoxFlat_o3n7b")
+AcceptDialog/styles/panel = SubResource("StyleBoxFlat_ru1rn")
 BoxContainer/constants/separation = 16
 CaptionLabel/base_type = &"Label"
 CaptionLabel/colors/font_color = Color(0.98039216, 1, 0.9882353, 1)
@@ -652,6 +690,15 @@ HSlider/constants/center_grabber = 1
 HSlider/styles/grabber_area = SubResource("StyleBoxFlat_ly4pv")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_lb1tq")
 HSlider/styles/slider = SubResource("StyleBoxFlat_psdg5")
+IconButton/base_type = &"Button"
+IconButton/colors/icon_focus_color = Color(1, 0.92156863, 0.2, 1)
+IconButton/colors/icon_hover_color = Color(1, 0.92156863, 0.2, 1)
+IconButton/colors/icon_normal_color = Color(0.98039216, 1, 0.9882353, 1)
+IconButton/colors/icon_pressed_color = Color(1, 0.92156863, 0.2, 1)
+IconButton/styles/focus = SubResource("StyleBoxEmpty_psdg5")
+IconButton/styles/hover = SubResource("StyleBoxEmpty_ru1rn")
+IconButton/styles/normal = SubResource("StyleBoxEmpty_r4g1a")
+IconButton/styles/pressed = SubResource("StyleBoxEmpty_qc27g")
 InventoryItemButton/base_type = &"Button"
 InventoryItemButton/colors/font_color = Color(0.98039216, 1, 0.9882353, 1)
 InventoryItemButton/colors/font_disabled_color = Color(0.98039216, 1, 0.9882353, 1)
@@ -706,8 +753,8 @@ PrimaryButton/fonts/font = ExtResource("1_psdg5")
 PrimaryButton/styles/disabled = SubResource("StyleBoxFlat_qc27g")
 PrimaryButton/styles/focus = SubResource("StyleBoxFlat_1a5sv")
 PrimaryButton/styles/hover = SubResource("StyleBoxFlat_lide0")
-PrimaryButton/styles/normal = SubResource("StyleBoxFlat_ru1rn")
-PrimaryButton/styles/pressed = SubResource("StyleBoxFlat_o3n7b")
+PrimaryButton/styles/normal = SubResource("StyleBoxFlat_4cne8")
+PrimaryButton/styles/pressed = SubResource("StyleBoxFlat_jo6af")
 PrimaryCheckButton/base_type = &"CheckButton"
 PrimaryCheckButton/colors/button_checked_color = Color(1, 0.92156863, 0.2, 1)
 PrimaryCheckButton/colors/button_unchecked_color = Color(0.98039216, 1, 0.9882353, 1)

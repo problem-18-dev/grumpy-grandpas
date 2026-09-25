@@ -5,12 +5,12 @@ signal teams_changed
 
 const DEFAULT_PLAYER_AMOUNT := 3
 
-## Team being edited. A fresh draft, not yet in GameManager, when "New team" is selected.
 var _team: TeamResource
 
 @onready var empty: Control = $Empty
 @onready var existing: Control = $Existing
 @onready var item_list: ItemList = %ItemList
+@onready var confirmation_dialog: ConfirmationDialog = %ConfirmationDialog
 
 # Adjustments
 @onready var name_edit: LineEdit = %NameEdit
@@ -33,7 +33,7 @@ func _ready() -> void:
 			difficulty,
 		)
 
-	_show_editor(not GameManager.get_teams().is_empty())
+	_show_editor(not CustomGameSaveManager.get_teams().is_empty())
 
 
 func _show_editor(is_shown: bool) -> void:
@@ -47,14 +47,14 @@ func _show_editor(is_shown: bool) -> void:
 func _refresh_list() -> void:
 	item_list.clear()
 
-	for team in GameManager.get_teams():
+	for team in CustomGameSaveManager.get_teams():
 		_add_row(team.name, team, _color_icon(team.get_color()))
 
-	if not GameManager.is_full():
+	if not CustomGameSaveManager.teams_is_full():
 		_add_row("New team", _new_team())
 
 	# Keep the edited team selected, fall back to last row when it got removed
-	var row := GameManager.get_teams().find(_team)
+	var row := CustomGameSaveManager.get_teams().find(_team)
 	_select_row(row if row >= 0 else item_list.item_count - 1)
 
 
@@ -91,13 +91,16 @@ func _select_row(row: int) -> void:
 	player_health.value = _team.player_health
 	cpu_check.button_pressed = _team.is_cpu
 	cpu_difficulty_option.select(_team.cpu_difficulty)
-	remove_button.visible = GameManager.get_teams().has(_team)
+
+	var team_exists := CustomGameSaveManager.get_teams().has(_team)
+	remove_button.visible = team_exists
+	confirm_button.text = "Update" if team_exists else "Confirm"
 
 	_update_confirm_state()
 
 
 func _new_team() -> TeamResource:
-	var taken_colors := GameManager.get_teams().map(
+	var taken_colors := CustomGameSaveManager.get_teams().map(
 		func(t: TeamResource) -> int:
 			return t.color,
 	)
@@ -136,7 +139,7 @@ func _resize_players(team: TeamResource, amount: int) -> void:
 
 
 func _other_teams() -> Array:
-	return GameManager.get_teams().filter(
+	return CustomGameSaveManager.get_teams().filter(
 		func(team: TeamResource) -> bool:
 			return team != _team,
 	)
@@ -173,8 +176,7 @@ func _on_name_edit_text_changed(_new_text: String) -> void:
 
 
 func _on_remove_button_pressed() -> void:
-	GameManager.remove_team(_team)
-	_refresh_list()
+	confirmation_dialog.popup()
 
 
 func _on_confirm_button_pressed() -> void:
@@ -185,9 +187,14 @@ func _on_confirm_button_pressed() -> void:
 	_team.cpu_difficulty = cpu_difficulty_option.get_selected_id() as TeamResource.CPUDifficulty
 	_resize_players(_team, int(player_amount.value))
 
-	if not GameManager.get_teams().has(_team):
-		GameManager.add_team(_team)
+	if not CustomGameSaveManager.get_teams().has(_team):
+		CustomGameSaveManager.add_team(_team)
 
 	_refresh_list()
+	teams_changed.emit()
 
+
+func _on_confirmation_dialog_confirmed() -> void:
+	CustomGameSaveManager.remove_team(_team)
+	_refresh_list()
 	teams_changed.emit()

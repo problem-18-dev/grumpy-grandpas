@@ -26,7 +26,7 @@ func _ready() -> void:
 func _update_team_list() -> void:
 	item_list.clear()
 
-	for team in GameManager.get_teams():
+	for team in CustomGameSaveManager.get_teams():
 		_add_row(team.name, team, _color_icon(team.get_color()))
 
 	_select_row(0)
@@ -110,6 +110,10 @@ func _on_gender_option_item_selected(index: int) -> void:
 
 
 func _on_arrow_pressed(next: int) -> void:
+	if _players.is_empty():
+		push_warning("No players")
+		return
+
 	_selected_player_pointer += next
 	_selected_player_pointer = wrapi(_selected_player_pointer, 0, _players.size())
 	_selected_player = _players[_selected_player_pointer]

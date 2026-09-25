@@ -167,9 +167,26 @@ scale = 1.1
 rotation_in_deg = 1.0
 pressed_scale = 0.9
 
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="Existing/HBoxContainer/MarginContainer/HBoxContainer" unique_id=357983046]
+unique_name_in_owner = true
+oversampling_override = 1.0
+title = "Hold on!"
+initial_position = 1
+size = Vector2i(317, 128)
+unresizable = true
+always_on_top = true
+popup_window = true
+content_scale_mode = 1
+content_scale_stretch = 1
+accessibility_name = "Team Remove Confirmation"
+ok_button_text = "Yes"
+dialog_text = "Are you sure to remove TEAM_NAME?"
+cancel_button_text = "No"
+
 [connection signal="pressed" from="Empty/VBoxContainer/FirstNewTeamButton" to="." method="_on_first_new_team_button_pressed"]
 [connection signal="item_selected" from="Existing/HBoxContainer/TeamsContainer/ItemList" to="." method="_select_row"]
 [connection signal="text_changed" from="Existing/HBoxContainer/MarginContainer/VBoxContainer/NameEdit" to="." method="_on_name_edit_text_changed"]
 [connection signal="toggled" from="Existing/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/CPUCheck" to="." method="_on_cpu_check_toggled"]
 [connection signal="pressed" from="Existing/HBoxContainer/MarginContainer/HBoxContainer/RemoveButton" to="." method="_on_remove_button_pressed"]
 [connection signal="pressed" from="Existing/HBoxContainer/MarginContainer/HBoxContainer/ConfirmButton" to="." method="_on_confirm_button_pressed"]
+[connection signal="confirmed" from="Existing/HBoxContainer/MarginContainer/HBoxContainer/ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]

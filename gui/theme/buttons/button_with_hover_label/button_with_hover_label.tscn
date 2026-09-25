@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dw3ch4hyrdf8s"]
+
+[ext_resource type="PackedScene" uid="uid://bgmr6t3g43dl2" path="res://gui/theme/buttons/primary_button.tscn" id="1_4n2kf"]
+[ext_resource type="Script" uid="uid://b50ykr5ys7coy" path="res://gui/theme/buttons/button_with_hover_label/button_with_hover_label.gd" id="1_ahrf7"]
+
+[node name="ButtonWithHoverLabel" type="HBoxContainer" unique_id=575913915]
+offset_right = 133.0
+offset_bottom = 39.0
+theme_override_constants/separation = 16
+script = ExtResource("1_ahrf7")
+
+[node name="Button" parent="." unique_id=635616468 instance=ExtResource("1_4n2kf")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="." unique_id=2035770851]
+visible = false
+custom_minimum_size = Vector2(32, 0)
+custom_maximum_size = Vector2(128, -1)
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "This is a test."
+vertical_alignment = 1
+
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]

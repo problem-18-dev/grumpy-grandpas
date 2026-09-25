@@ -1,4 +1,4 @@
-class_name GamePresets
+class_name GameConfigurator
 extends RefCounted
 
 const TEAM_DEFAULT_BLUE_UID = "uid://ch58ix0v1k12m"
@@ -33,3 +33,12 @@ static func load_preset(new_preset: Preset) -> void:
 	for team_uid: String in preset["teams"]:
 		GameManager.add_team(load(team_uid).duplicate_deep())
 	GameManager.set_catalogue(load(preset["catalogue"]).duplicate_deep())
+
+
+## TODO: Level
+static func load_custom(teams: Array[TeamResource], catalogue: CatalogueResource) -> void:
+	GameManager.reset()
+
+	for team in teams:
+		GameManager.add_team(team.duplicate_deep())
+	GameManager.set_catalogue(catalogue.duplicate_deep())

@@ -20,9 +20,13 @@ const MAIN_MENU_UID := "uid://b2d8kklebnhfj"
 
 func _ready() -> void:
 	_group_buttons()
-
 	teams_button.button_pressed = true
 	_on_team_settings_teams_changed()
+
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("debug_quit"):
+		_on_back_button_pressed()
 
 
 func _group_buttons() -> void:
@@ -40,7 +44,7 @@ func _on_back_button_pressed() -> void:
 
 
 func _on_team_settings_teams_changed() -> void:
-	var teams := GameManager.get_teams()
+	var teams := CustomGameSaveManager.get_teams()
 	players_button.disabled = teams.is_empty()
 	items_button.disabled = teams.is_empty()
 	level_button.disabled = teams.size() < 2

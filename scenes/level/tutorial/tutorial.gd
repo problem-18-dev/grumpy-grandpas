@@ -39,6 +39,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		return
 
 	if event.is_action_pressed("debug_quit"):
+		InputGate.allow_all()
 		get_tree().change_scene_to_file(MAIN_MENU_UID)
 
 
@@ -47,7 +48,7 @@ func restart() -> void:
 		return
 	_is_preparing = true
 
-	GamePresets.load_preset(GamePresets.Preset.TUTORIAL)
+	GameConfigurator.load_preset(GameConfigurator.Preset.TUTORIAL)
 	InputGate.block_all()
 
 	_clear_entities()

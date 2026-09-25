@@ -14,6 +14,11 @@ func _ready() -> void:
 	audio_button.button_pressed = true
 
 
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("debug_quit"):
+		_on_back_button_pressed()
+
+
 func _group_buttons() -> void:
 	var button_group := ButtonGroup.new()
 	button_group.pressed.connect(_on_button_group_button_pressed)

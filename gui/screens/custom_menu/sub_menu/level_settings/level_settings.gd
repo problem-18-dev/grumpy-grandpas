@@ -17,6 +17,11 @@ func _update_title() -> void:
 
 
 func _on_play_button_pressed() -> void:
+	CustomGameSaveManager.set_level(LEVELS[_pointer])
+
+	var game_data := CustomGameSaveManager.get_all()
+	GameConfigurator.load_custom(game_data.teams, game_data.catalogue)
+
 	get_tree().change_scene_to_file(GAME_UID)
 
 

@@ -16,6 +16,7 @@ func _ready() -> void:
 	)
 	_update_list(weapons_list, weapons_without_default)
 	_update_list(tools_list, QUICKPLAY_CATALOGUE.tools)
+	CustomGameSaveManager.set_catalogue(_catalogue)
 
 
 func _update_list(list: ItemList, items: Array[ItemResource]) -> void:
@@ -38,7 +39,7 @@ func _update_catalogue(
 	else:
 		catalogue_list.append(item)
 
-	GameManager.set_catalogue(_catalogue)
+	CustomGameSaveManager.set_catalogue(_catalogue)
 
 
 func _on_tools_list_multi_selected(index: int, selected: bool) -> void:
