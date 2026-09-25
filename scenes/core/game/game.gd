@@ -16,6 +16,7 @@ const MAIN_MENU_UID := "uid://b2d8kklebnhfj"
 
 var _level_paths: Dictionary[Level, String] = { Level.MATCH: "uid://cd2ib37t0cgmf" }
 var _current_level: BaseLevel
+var _current_inventory: Inventory
 
 @onready var level_root: Node2D = %LevelRoot
 @onready var inventory_root: Control = %InventoryRoot
@@ -142,6 +143,10 @@ func _on_turn_manager_transition_finished() -> void:
 func _on_turn_manager_turn_ended() -> void:
 	players_manager.deactivate_player()
 
+	if _current_inventory:
+		_current_inventory.queue_free()
+		_current_inventory = null
+
 
 func _on_players_manager_inventory_requested(
 	locked_items: Array[ItemResource],
@@ -151,13 +156,15 @@ func _on_players_manager_inventory_requested(
 		return
 
 	players_manager.deactivate_player()
-	var inventory: Inventory = load(INVENTORY_UID).instantiate()
-	inventory_root.add_child(inventory)
-	inventory.closed.connect(_on_inventory_closed)
-	inventory.open(locked_items, current_item)
+	_current_inventory = load(INVENTORY_UID).instantiate()
+	inventory_root.add_child(_current_inventory)
+	_current_inventory.closed.connect(_on_inventory_closed)
+	_current_inventory.open(locked_items, current_item)
 
 
 func _on_inventory_closed(new_item: ItemResource = null) -> void:
+	_current_inventory = null
+
 	players_manager.activate_player()
 
 	if new_item:

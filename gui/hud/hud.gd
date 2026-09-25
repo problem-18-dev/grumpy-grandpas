@@ -5,6 +5,7 @@ const WHITE_COLOR := Color(1.0, 1.0, 1.0, 1.0)
 
 @onready var message_label: Label = %MessageLabel
 @onready var turn_timer_label: Label = %TurnTimerLabel
+@onready var turn_timer_panel: Panel = $MarginContainer/TurnTimerPanel
 
 
 func set_message(message: String, duration := 0.0, color := WHITE_COLOR) -> void:
@@ -18,4 +19,5 @@ func set_message(message: String, duration := 0.0, color := WHITE_COLOR) -> void
 
 
 func set_turn_timer(value: int) -> void:
+	turn_timer_panel.show()
 	turn_timer_label.text = str(value)

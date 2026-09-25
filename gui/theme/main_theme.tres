@@ -641,6 +641,18 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ci82s"]
+bg_color = Color(0.6509804, 0.23921569, 0.34117648, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.98039216, 1, 0.9882353, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [resource]
 default_font = ExtResource("3_qc27g")
 default_font_size = 16
@@ -836,3 +848,5 @@ TernaryLabel/constants/shadow_offset_x = -2
 TernaryLabel/constants/shadow_offset_y = 2
 TernaryLabel/font_sizes/font_size = 20
 TernaryLabel/fonts/font = ExtResource("3_qc27g")
+TimerPanel/base_type = &"Panel"
+TimerPanel/styles/panel = SubResource("StyleBoxFlat_ci82s")

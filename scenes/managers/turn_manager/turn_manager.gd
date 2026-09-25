@@ -11,10 +11,10 @@ signal turn_started
 @export var turn_duration := 40
 @export var short_turn_duration := 3
 @export_group("Transition")
-@export var transition_duration := 2
+@export var transition_duration := 2.0
 
 var _turn_time_remaining: int
-var _transition_time_remaining: int
+var _transition_time_remaining: float
 
 @onready var turn_timer: Timer = $TurnTimer
 @onready var transition_timer: Timer = $TransitionTimer
@@ -55,7 +55,7 @@ func _on_turn_timer_timeout() -> void:
 
 
 func _on_transition_timer_timeout() -> void:
-	_transition_time_remaining -= 1
+	_transition_time_remaining -= transition_timer.wait_time
 
 	if _transition_time_remaining < 0:
 		transition_timer.stop()

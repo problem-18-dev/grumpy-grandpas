@@ -4,9 +4,9 @@
 
 [node name="TurnManager" type="Node" unique_id=1078894919]
 script = ExtResource("1_0ywio")
-transition_duration = 1
 
 [node name="TransitionTimer" type="Timer" parent="." unique_id=1552965466]
+wait_time = 0.5
 
 [node name="TurnTimer" type="Timer" parent="." unique_id=2136705067]
 
