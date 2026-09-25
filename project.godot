@@ -12,16 +12,21 @@ config_version=5
 
 config/name="Grumpy Grandpas"
 config/description="Game #7 in the Problem 18 challenge."
-config/version="0.1.0"
+config/version="0.2.0"
 run/main_scene="uid://b2d8kklebnhfj"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 run/max_fps=360
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://dop24gtilblnf"
+
 [autoload]
 
 PhantomCameraManager="*uid://duq6jhf6unyis"
 EventSystem="*uid://bua75md0s3twb"
+SettingsManager="*uid://7ee0bfk17l0v"
 GameManager="*uid://dqdpyitl02jn0"
 Utils="*uid://dbq3stovb548p"
 InputGate="*uid://bax366m6vreny"

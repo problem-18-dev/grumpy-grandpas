@@ -51,6 +51,7 @@ theme_override_constants/separation = 16
 unique_name_in_owner = true
 layout_mode = 2
 disabled = true
+toggle_mode = true
 text = "Level
 "
 
@@ -58,16 +59,20 @@ text = "Level
 unique_name_in_owner = true
 layout_mode = 2
 disabled = true
+toggle_mode = true
 text = "Items"
 
 [node name="PlayersButton" parent="Main/MenuContainer/Buttons" unique_id=792813643 instance=ExtResource("1_i4ukh")]
 unique_name_in_owner = true
 layout_mode = 2
 disabled = true
+toggle_mode = true
 text = "Players"
 
 [node name="TeamsButton" parent="Main/MenuContainer/Buttons" unique_id=273280326 instance=ExtResource("1_i4ukh")]
+unique_name_in_owner = true
 layout_mode = 2
+toggle_mode = true
 text = "Teams"
 
 [node name="BackButton" parent="Main/MenuContainer/Buttons" unique_id=1948873593 instance=ExtResource("1_i4ukh")]
@@ -80,7 +85,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="ContentLabel" type="Label" parent="Main/ContentContainer" unique_id=1084464677]
+[node name="ContentTitleLabel" type="Label" parent="Main/ContentContainer" unique_id=1084464677]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"PrimaryLabel"
@@ -122,10 +127,6 @@ layout_mode = 1
 [node name="DebugOverlay" parent="." unique_id=567403883 instance=ExtResource("2_8pk88")]
 layout_mode = 1
 
-[connection signal="pressed" from="Main/MenuContainer/Buttons/LevelButton" to="." method="_on_button_pressed" binds= ["level"]]
-[connection signal="pressed" from="Main/MenuContainer/Buttons/ItemsButton" to="." method="_on_button_pressed" binds= ["items"]]
-[connection signal="pressed" from="Main/MenuContainer/Buttons/PlayersButton" to="." method="_on_button_pressed" binds= ["players"]]
-[connection signal="pressed" from="Main/MenuContainer/Buttons/TeamsButton" to="." method="_on_button_pressed" binds= ["teams"]]
 [connection signal="pressed" from="Main/MenuContainer/Buttons/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="teams_changed" from="Main/ContentContainer/MarginContainer/SubMenuPanel/TeamSettings" to="." method="_on_team_settings_teams_changed"]
 [connection signal="visibility_changed" from="Main/ContentContainer/MarginContainer/SubMenuPanel/PlayersSettings" to="Main/ContentContainer/MarginContainer/SubMenuPanel/PlayersSettings" method="_on_visibility_changed"]

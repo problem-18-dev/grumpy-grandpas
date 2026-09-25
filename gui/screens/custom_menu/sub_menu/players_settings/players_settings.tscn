@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://carvs44rglc1" path="res://gui/screens/custom_menu/sub_menu/players_settings/players_settings.gd" id="1_sr8uc"]
 [ext_resource type="Texture2D" uid="uid://c5s0wwqdt0u8v" path="res://scenes/projectile/rocket.png" id="2_vjvey"]
 [ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="3_mc1b8"]
+[ext_resource type="PackedScene" uid="uid://cxqi4fxuqa7a6" path="res://gui/components/buttons/button_tween_component.tscn" id="4_0d5wj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjvey"]
 bg_color = Color(0.21176471, 0.20784314, 0.3019608, 1)
@@ -167,8 +168,14 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+offset_transform_enabled = true
 theme_type_variation = &"SecondaryButton"
 text = "Confirm"
+
+[node name="ButtonTweenComponent" parent="HBoxContainer/MarginContainer/ConfirmButton" unique_id=1702153834 instance=ExtResource("4_0d5wj")]
+scale = 1.1
+rotation_in_deg = 1.0
+pressed_scale = 0.9
 
 [connection signal="item_selected" from="HBoxContainer/TeamsContainer/ItemList" to="." method="_select_row"]
 [connection signal="pressed" from="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PreviousPlayerButton" to="." method="_on_arrow_pressed" binds= [-1]]

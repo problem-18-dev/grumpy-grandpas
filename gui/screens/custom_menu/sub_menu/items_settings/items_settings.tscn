@@ -24,7 +24,7 @@ theme_override_constants/separation = 16
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 64
+theme_override_constants/separation = 16
 alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1080316905]
@@ -47,6 +47,7 @@ allow_reselect = true
 allow_search = false
 auto_width = true
 fixed_column_width = 164
+fixed_icon_size = Vector2i(16, 16)
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1478999502]
 layout_mode = 2
@@ -67,6 +68,7 @@ select_mode = 2
 allow_search = false
 auto_width = true
 fixed_column_width = 164
+fixed_icon_size = Vector2i(16, 16)
 
 [connection signal="multi_selected" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/WeaponsList" to="." method="_on_weapons_list_multi_selected"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ToolsList" to="." method="_on_tools_list_item_selected"]

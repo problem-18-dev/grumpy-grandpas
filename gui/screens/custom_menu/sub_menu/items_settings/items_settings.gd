@@ -1,6 +1,7 @@
 extends HBoxContainer
 
-const QUICKPLAY_CATALOGUE = preload("uid://bl3irmmkftpba")
+const QUICKPLAY_CATALOGUE := preload("uid://bl3irmmkftpba")
+const PLACEHOLDER_ICON := preload("uid://cgwgxskut17iw")
 
 var _catalogue: CatalogueResource = QUICKPLAY_CATALOGUE.duplicate_deep()
 
@@ -19,7 +20,7 @@ func _ready() -> void:
 
 func _update_list(list: ItemList, items: Array[ItemResource]) -> void:
 	for item in items:
-		var index := list.add_item(item.name)
+		var index := list.add_item(item.name, PLACEHOLDER_ICON)
 		list.set_item_metadata(index, item)
 		list.select(index, false)
 

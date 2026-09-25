@@ -78,7 +78,7 @@ next_phase = 2
 
 [node name="Jump" type="Node" parent="Systems/StateMachine" unique_id=734381602]
 script = ExtResource("9_bxuk6")
-announcements = Array[String](["You can jump when idle using X"])
+announcements = Array[String](["You can jump when idle using X."])
 key_requirements = Array[int]([88])
 next_phase = 3
 

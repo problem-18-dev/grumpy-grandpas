@@ -55,6 +55,32 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ly4pv"]
+bg_color = Color(1, 0.92156863, 0.2, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lb1tq"]
+bg_color = Color(1, 0.92156863, 0.2, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psdg5"]
+bg_color = Color(0.21176471, 0.20784314, 0.3019608, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.21176471, 0.20784314, 0.3019608, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wcgdq"]
 content_margin_left = 6.0
 content_margin_top = 4.0
@@ -316,7 +342,7 @@ shadow_color = Color(0.13333334, 0.14509805, 0.2, 1)
 shadow_size = 2
 shadow_offset = Vector2(-3, 3)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psdg5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lide0"]
 content_margin_left = 12.0
 content_margin_top = 8.0
 content_margin_right = 12.0
@@ -372,6 +398,51 @@ corner_radius_bottom_left = 4
 shadow_color = Color(0.13333334, 0.14509805, 0.2, 1)
 shadow_size = 2
 shadow_offset = Vector2(-3, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_to5cp"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.59987193, 0.21329686, 0.31189123, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cvhfs"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.59987193, 0.21329686, 0.31189123, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u7sev"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.59987193, 0.21329686, 0.31189123, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tcjfr"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.59987193, 0.21329686, 0.31189123, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tk2cf"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.59987193, 0.21329686, 0.31189123, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_higs5"]
 bg_color = Color(0.6509804, 0.23921569, 0.34117648, 1)
@@ -492,7 +563,7 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pohtv"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
+bg_color = Color(0.9565013, 0.35457075, 0.54997754, 0)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -540,6 +611,7 @@ corner_radius_bottom_left = 8
 [resource]
 default_font = ExtResource("3_qc27g")
 default_font_size = 16
+BoxContainer/constants/separation = 16
 CaptionLabel/base_type = &"Label"
 CaptionLabel/colors/font_color = Color(0.98039216, 1, 0.9882353, 1)
 CaptionLabel/colors/font_shadow_color = Color(0.13333334, 0.14509805, 0.2, 1)
@@ -575,6 +647,11 @@ FeedbackButton/colors/font_pressed_color = Color(1, 0.92156863, 0.2, 1)
 FeedbackButton/constants/outline_size = 4
 FeedbackButton/font_sizes/font_size = 20
 FeedbackButton/fonts/font = ExtResource("3_qc27g")
+HBoxContainer/constants/separation = 4
+HSlider/constants/center_grabber = 1
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_ly4pv")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_lb1tq")
+HSlider/styles/slider = SubResource("StyleBoxFlat_psdg5")
 InventoryItemButton/base_type = &"Button"
 InventoryItemButton/colors/font_color = Color(0.98039216, 1, 0.9882353, 1)
 InventoryItemButton/colors/font_disabled_color = Color(0.98039216, 1, 0.9882353, 1)
@@ -628,14 +705,24 @@ PrimaryButton/font_sizes/font_size = 16
 PrimaryButton/fonts/font = ExtResource("1_psdg5")
 PrimaryButton/styles/disabled = SubResource("StyleBoxFlat_qc27g")
 PrimaryButton/styles/focus = SubResource("StyleBoxFlat_1a5sv")
-PrimaryButton/styles/hover = SubResource("StyleBoxFlat_psdg5")
+PrimaryButton/styles/hover = SubResource("StyleBoxFlat_lide0")
 PrimaryButton/styles/normal = SubResource("StyleBoxFlat_ru1rn")
 PrimaryButton/styles/pressed = SubResource("StyleBoxFlat_o3n7b")
 PrimaryCheckButton/base_type = &"CheckButton"
 PrimaryCheckButton/colors/button_checked_color = Color(1, 0.92156863, 0.2, 1)
 PrimaryCheckButton/colors/button_unchecked_color = Color(0.98039216, 1, 0.9882353, 1)
+PrimaryCheckButton/colors/font_color = Color(0.98039216, 1, 0.9882353, 1)
+PrimaryCheckButton/colors/font_focus_color = Color(1, 0.92156863, 0.2, 1)
+PrimaryCheckButton/colors/font_hover_color = Color(1, 0.92156863, 0.2, 1)
+PrimaryCheckButton/colors/font_hover_pressed_color = Color(1, 0.92156863, 0.2, 1)
+PrimaryCheckButton/colors/font_pressed_color = Color(1, 0.92156863, 0.2, 1)
 PrimaryCheckButton/font_sizes/font_size = 12
 PrimaryCheckButton/fonts/font = ExtResource("1_psdg5")
+PrimaryCheckButton/styles/focus = SubResource("StyleBoxFlat_to5cp")
+PrimaryCheckButton/styles/hover = SubResource("StyleBoxFlat_cvhfs")
+PrimaryCheckButton/styles/hover_pressed = SubResource("StyleBoxFlat_u7sev")
+PrimaryCheckButton/styles/normal = SubResource("StyleBoxFlat_tcjfr")
+PrimaryCheckButton/styles/pressed = SubResource("StyleBoxFlat_tk2cf")
 PrimaryLabel/base_type = &"Label"
 PrimaryLabel/colors/font_color = Color(0.98039216, 1, 0.9882353, 1)
 PrimaryLabel/colors/font_shadow_color = Color(0.13333334, 0.14509805, 0.2, 1)

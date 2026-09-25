@@ -82,7 +82,7 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -252.0
-offset_right = 173.0
+offset_right = 176.0
 grow_vertical = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="Main/Menu" unique_id=224336582]
@@ -99,25 +99,19 @@ theme_override_constants/separation = 16
 [node name="QuickplayButton" parent="Main/Menu/MarginContainer/VBoxContainer" unique_id=325206655 instance=ExtResource("2_aaccu")]
 unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../TutorialButton")
+toggle_mode = true
 text = "Quickplay"
 
 [node name="TutorialButton" parent="Main/Menu/MarginContainer/VBoxContainer" unique_id=405920122 instance=ExtResource("2_aaccu")]
 layout_mode = 2
-focus_neighbor_top = NodePath("../QuickplayButton")
-focus_neighbor_bottom = NodePath("../CustomButton")
 text = "Tutorial"
 
 [node name="CustomButton" parent="Main/Menu/MarginContainer/VBoxContainer" unique_id=1097023995 instance=ExtResource("2_aaccu")]
 layout_mode = 2
-focus_neighbor_top = NodePath("../TutorialButton")
-focus_neighbor_bottom = NodePath("../SettingsButton")
 text = "Custom"
 
 [node name="SettingsButton" parent="Main/Menu/MarginContainer/VBoxContainer" unique_id=624488429 instance=ExtResource("2_aaccu")]
 layout_mode = 2
-focus_neighbor_top = NodePath("../CustomButton")
-disabled = true
 text = "Settings"
 
 [node name="Feedback" type="CenterContainer" parent="Main" unique_id=493768047]
@@ -156,3 +150,4 @@ layout_mode = 1
 [connection signal="pressed" from="Main/Menu/MarginContainer/VBoxContainer/QuickplayButton" to="." method="_on_quickplay_button_pressed"]
 [connection signal="pressed" from="Main/Menu/MarginContainer/VBoxContainer/TutorialButton" to="." method="_on_tutorial_button_pressed"]
 [connection signal="pressed" from="Main/Menu/MarginContainer/VBoxContainer/CustomButton" to="." method="_on_custom_button_pressed"]
+[connection signal="pressed" from="Main/Menu/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]

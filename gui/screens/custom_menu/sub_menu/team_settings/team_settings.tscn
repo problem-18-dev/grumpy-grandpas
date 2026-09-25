@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cjx5udp3tn2do"]
 
 [ext_resource type="Script" uid="uid://cfx0qstq2qnp3" path="res://gui/screens/custom_menu/sub_menu/team_settings/team_settings.gd" id="1_rn8jk"]
+[ext_resource type="PackedScene" uid="uid://cxqi4fxuqa7a6" path="res://gui/components/buttons/button_tween_component.tscn" id="2_c7apf"]
 
 [node name="TeamSettings" type="HBoxContainer" unique_id=424706770]
 anchors_preset = 15
@@ -38,8 +39,14 @@ text = "No teams created"
 [node name="FirstNewTeamButton" type="Button" parent="Empty/VBoxContainer" unique_id=1506597200]
 layout_mode = 2
 size_flags_horizontal = 4
+offset_transform_enabled = true
 theme_type_variation = &"SecondaryButton"
 text = "New team"
+
+[node name="ButtonTweenComponent" parent="Empty/VBoxContainer/FirstNewTeamButton" unique_id=1702153834 instance=ExtResource("2_c7apf")]
+scale = 1.1
+rotation_in_deg = 1.0
+pressed_scale = 0.9
 
 [node name="Existing" type="Control" parent="." unique_id=1641385564]
 layout_mode = 2
@@ -151,8 +158,14 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+offset_transform_enabled = true
 theme_type_variation = &"SecondaryButton"
 text = "Confirm"
+
+[node name="ButtonTweenComponent" parent="Existing/HBoxContainer/MarginContainer/HBoxContainer/ConfirmButton" unique_id=1655304027 instance=ExtResource("2_c7apf")]
+scale = 1.1
+rotation_in_deg = 1.0
+pressed_scale = 0.9
 
 [connection signal="pressed" from="Empty/VBoxContainer/FirstNewTeamButton" to="." method="_on_first_new_team_button_pressed"]
 [connection signal="item_selected" from="Existing/HBoxContainer/TeamsContainer/ItemList" to="." method="_select_row"]

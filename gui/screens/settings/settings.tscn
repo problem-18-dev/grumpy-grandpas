@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://dniqe8bmxsu7q"]
+
+[ext_resource type="Script" uid="uid://c348r2nlvflq3" path="res://gui/screens/settings/settings.gd" id="1_25ro0"]
+[ext_resource type="PackedScene" uid="uid://bocfnvrwcsq33" path="res://gui/components/background/background.tscn" id="1_biaq7"]
+[ext_resource type="PackedScene" uid="uid://bgmr6t3g43dl2" path="res://gui/theme/buttons/primary_button.tscn" id="2_25ro0"]
+[ext_resource type="PackedScene" uid="uid://riji8vjlm8de" path="res://gui/screens/settings/sub_menus/audio_settings.tscn" id="4_tcjfr"]
+[ext_resource type="PackedScene" uid="uid://drkkxlses2ss3" path="res://scenes/debug/debug_overlay.tscn" id="6_0wdkn"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_oiv2d"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_0wdkn"]
+
+[node name="Settings" type="Control" unique_id=348063604]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_25ro0")
+
+[node name="Background" parent="." unique_id=1194628109 instance=ExtResource("1_biaq7")]
+layout_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=518933988]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuContainer" type="MarginContainer" parent="HBoxContainer" unique_id=154054935]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 32
+
+[node name="SettingsLabel" type="Label" parent="HBoxContainer/MenuContainer" unique_id=1725447595]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"TernaryLabel"
+text = "Settings"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MenuContainer" unique_id=955083159]
+layout_mode = 2
+alignment = 2
+
+[node name="AudioButton" parent="HBoxContainer/MenuContainer/VBoxContainer" unique_id=635616468 instance=ExtResource("2_25ro0")]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_oiv2d")
+text = "Audio"
+
+[node name="BackButton" parent="HBoxContainer/MenuContainer/VBoxContainer" unique_id=1378935694 instance=ExtResource("2_25ro0")]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"SecondaryButton"
+toggle_mode = true
+button_group = SubResource("ButtonGroup_0wdkn")
+text = "Back"
+
+[node name="ContentContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=2122218056]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="TitleLabel" type="Label" parent="HBoxContainer/ContentContainer" unique_id=1654317554]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"PrimaryLabel"
+text = "Audio"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/ContentContainer" unique_id=1088335629]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"SecondaryMarginContainer"
+
+[node name="SubMenuPanel" type="Panel" parent="HBoxContainer/ContentContainer/MarginContainer" unique_id=1859217938]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"PrimaryPanel"
+
+[node name="AudioSettings" parent="HBoxContainer/ContentContainer/MarginContainer/SubMenuPanel" unique_id=110200945 instance=ExtResource("4_tcjfr")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="MarginContainer" parent="." unique_id=1840923755 instance=ExtResource("6_0wdkn")]
+layout_mode = 0
+
+[connection signal="pressed" from="HBoxContainer/MenuContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

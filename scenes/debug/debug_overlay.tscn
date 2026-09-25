@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://en6lm42na48a" path="res://scenes/debug/debug_overlay.gd" id="1_dytaf"]
 
-[node name="MarginContainer" type="MarginContainer" unique_id=1840923755]
+[node name="DebugOverlay" type="MarginContainer" unique_id=1840923755]
 offset_right = 69.0
 offset_bottom = 40.0
 theme_type_variation = &"SecondaryMarginContainer"
@@ -18,10 +18,10 @@ theme_override_constants/separation = 0
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"DebugLabel"
-text = "FPS: "
+text = "FPS: 145"
 
 [node name="BuildLabel" type="Label" parent="VBoxContainer" unique_id=1518510492]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"DebugLabel"
-text = "Build: 0.1.0"
+text = "Build: 0.2.0"

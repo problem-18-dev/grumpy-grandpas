@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://c5s0wwqdt0u8v" path="res://scenes/projectile/rocket.png" id="1_sr7wq"]
 [ext_resource type="Script" uid="uid://dmj4pfmcyxl27" path="res://gui/screens/custom_menu/sub_menu/level_settings/level_settings.gd" id="1_vj8i1"]
+[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="3_vj8i1"]
+[ext_resource type="PackedScene" uid="uid://cxqi4fxuqa7a6" path="res://gui/components/buttons/button_tween_component.tscn" id="4_iyj34"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjvey"]
 bg_color = Color(0.21176471, 0.20784314, 0.3019608, 1)
@@ -76,6 +78,20 @@ grow_vertical = 2
 theme_type_variation = &"InventoryPanel"
 theme_override_styles/panel = SubResource("StyleBoxFlat_vjvey")
 
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/LevelFrame/LevelPanel" unique_id=1352526711]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 2.0
+offset_right = -4.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_vj8i1")
+expand_mode = 1
+
 [node name="LevelFramePanel" type="Panel" parent="VBoxContainer/HBoxContainer/LevelFrame" unique_id=682131015]
 layout_mode = 1
 anchors_preset = 15
@@ -98,7 +114,15 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+offset_transform_enabled = true
 theme_type_variation = &"SecondaryButton"
 text = "Play"
 
+[node name="ButtonTweenComponent" parent="VBoxContainer/PlayButton" unique_id=1702153834 instance=ExtResource("4_iyj34")]
+scale = 1.1
+rotation_in_deg = 1.0
+pressed_scale = 0.9
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/PreviousPlayerButton" to="." method="_on_arrow_pressed" binds= [-1]]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/NextPlayerButton" to="." method="_on_arrow_pressed" binds= [1]]
 [connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
