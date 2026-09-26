@@ -9,6 +9,9 @@ extends PlayerState
 @export var override_weapon := false:
 	set(value):
 		override_weapon = value
+		if not value:
+			hitscan_only = false
+			projectile_only = false
 		notify_property_list_changed()
 @export var hitscan_only := false
 @export var projectile_only := false
@@ -19,107 +22,82 @@ var space_state: PhysicsDirectSpaceState2D
 @onready var cpu_hitscan_module: CPUHitscanModule = $CPUHitscanModule
 
 
+func _validate_property(property: Dictionary) -> void:
+	if property.name in ["hitscan_only", "projectile_only"]:
+		property.usage = PROPERTY_USAGE_DEFAULT if override_weapon else PROPERTY_USAGE_NO_EDITOR
+
+
 func enter(data := { }) -> void:
 	EventSystem.busy.busy_started.emit(player)
 
-	var weapon: ItemResource
-	if data.has("item"):
-		weapon = data.get("item")
-	else:
-		weapon = _get_random_weapon()
+	# Wait for game to be idle.
+	await get_tree().process_frame
+	space_state = player.get_world_2d().direct_space_state
 
-	player.equip_item(weapon)
-	_find_shot(weapon.aimable_resource)
+	var item: ItemResource = data.get("item")
+	if item:
+		if not await _try_weapon(item):
+			player.finish()
+		return
+
+	# Prefer a direct hitscan shot, fall back to a projectile shot.
+	var catalogue := GameManager.get_catalogue()
+	if not projectile_only and await _try_weapon(_pick_unlocked(catalogue.get_hitscan_weapons())):
+		return
+	if not hitscan_only and await _try_weapon(_pick_unlocked(catalogue.get_projectile_weapons())):
+		return
+
+	player.finish()
 
 
 func exit() -> void:
-	_reset()
-
-
-func _validate_property(property: Dictionary) -> void:
-	var validation_names := ["hitscan_only", "projectile_only"]
-	if property.name in validation_names:
-		property.usage = PROPERTY_USAGE_DEFAULT if override_weapon else PROPERTY_USAGE_NO_EDITOR
-
-	if not override_weapon:
-		hitscan_only = false
-		projectile_only = false
-
-
-func _find_shot(weapon: AimableResource) -> void:
-	# Wait for game to be idle
-	await get_tree().process_frame
-
-	space_state = player.get_world_2d().direct_space_state
-
-	var shot: PlayerCPUWeaponModule.CPUShot
-	if weapon is ProjectileWeaponResource:
-		shot = await cpu_projectile_module.find_shot(weapon)
-
-	elif weapon is HitscanWeaponResource:
-		shot = cpu_hitscan_module.find_shot(weapon)
-
-	await get_tree().create_timer(thinking_time).timeout
-
-	_handle_shot(shot)
-
-
-func _get_random_weapon() -> ItemResource:
-	var locked_items := player.team.get_locked_items()
-	var catalogue := GameManager.get_catalogue()
-	var available_items: Array[ItemResource] = catalogue.weapons.filter(
-		func(weapon: ItemResource) -> bool:
-			var is_unlocked := not locked_items.has(weapon)
-
-			if not is_unlocked:
-				return false
-
-			if hitscan_only:
-				return weapon.aimable_resource is HitscanWeaponResource
-
-			if projectile_only:
-				return weapon.aimable_resource is ProjectileWeaponResource
-
-			return true,
-	)
-
-	return available_items.pick_random()
-
-
-func _handle_shot(shot: PlayerCPUWeaponModule.CPUShot) -> void:
-	if not shot:
-		player.finish()
-		return
-
-	shot = _adjust_shot_angle(shot)
-
-	if shot is CPUProjectileModule.CPUProjectileShot:
-		player.aimable_holder.cpu_shoot(shot.angle, shot.force)
-		return
-
-	player.aimable_holder.cpu_shoot(shot.angle)
-
-
-func _adjust_shot_angle(shot: PlayerCPUWeaponModule.CPUShot) -> PlayerCPUWeaponModule.CPUShot:
-	var shot_angle := shot.angle
-	var angle_range := _get_angle_range()
-	shot_angle += randf_range(-angle_range, angle_range)
-	shot.angle = shot_angle
-	return shot
-
-
-func _reset() -> void:
 	cpu_hitscan_module.reset()
 	cpu_projectile_module.reset()
 
 
-func _get_angle_range() -> float:
+## Finds a shot for the weapon, and if one exists equips it and shoots.
+func _try_weapon(weapon: ItemResource) -> bool:
+	if not weapon:
+		return false
+
+	var aimable := weapon.aimable_resource
+	var shot: PlayerCPUWeaponModule.CPUShot
+	if aimable is ProjectileWeaponResource:
+		shot = await cpu_projectile_module.find_shot(aimable)
+	elif aimable is HitscanWeaponResource:
+		shot = cpu_hitscan_module.find_shot(aimable)
+
+	if not shot:
+		return false
+
+	player.equip_item(weapon)
+	await get_tree().create_timer(thinking_time).timeout
+
+	# Most shots land near the aim, with occasional wild misses
+	var angle := shot.angle + randfn(0.0, _get_angle_deviation())
+	if shot is CPUProjectileModule.CPUProjectileShot:
+		player.aimable_holder.cpu_shoot(angle, shot.force)
+	else:
+		player.aimable_holder.cpu_shoot(angle)
+	return true
+
+
+func _pick_unlocked(weapons: Array[ItemResource]) -> ItemResource:
+	var locked_items := player.team.get_locked_items()
+	var unlocked := weapons.filter(
+		func(w: ItemResource) -> bool:
+			return not locked_items.has(w),
+	)
+	return unlocked.pick_random()
+
+
+func _get_angle_deviation() -> float:
 	var difficulty := player.team.cpu_difficulty
 
 	match difficulty:
 		TeamResource.CPUDifficulty.MEDIUM:
-			return deg_to_rad(20)
-		TeamResource.CPUDifficulty.HARD:
 			return deg_to_rad(10)
+		TeamResource.CPUDifficulty.HARD:
+			return deg_to_rad(5)
 		_:
-			return deg_to_rad(30)
+			return deg_to_rad(15)

@@ -131,8 +131,6 @@ func _determine_best_shot(weapon: ProjectileWeaponResource) -> CPUProjectileShot
 			best_shot = shot
 			best_score = score
 
-	print("Projectile score: %s" % best_score)
-
 	return best_shot
 
 

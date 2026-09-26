@@ -77,8 +77,8 @@ func register_aim_angle(delta: float) -> void:
 
 	_rotate_aimable()
 
-#region CPU
 
+#region CPU
 ## Only to be used by CPU teams. Immediately angles and shoots the current aimable.
 func cpu_shoot(angle: float, force := 0.0) -> void:
 	if not equipped_aimable:
@@ -96,6 +96,7 @@ func cpu_shoot(angle: float, force := 0.0) -> void:
 
 	equipped_aimable.shoot()
 #endregion
+
 
 func _change_state(new_state: HolderState) -> void:
 	match new_state:

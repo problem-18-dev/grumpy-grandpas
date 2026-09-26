@@ -10,3 +10,17 @@ extends Resource
 
 func get_all() -> Dictionary[String, Array]:
 	return { "weapons": weapons, "tools": tools }
+
+
+func get_hitscan_weapons() -> Array[ItemResource]:
+	return weapons.filter(
+		func(w: ItemResource) -> bool:
+			return w.aimable_resource is HitscanWeaponResource,
+	)
+
+
+func get_projectile_weapons() -> Array[ItemResource]:
+	return weapons.filter(
+		func(w: ItemResource) -> bool:
+			return w.aimable_resource is ProjectileWeaponResource,
+	)

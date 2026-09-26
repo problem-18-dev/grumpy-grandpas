@@ -4,6 +4,7 @@ extends HBoxContainer
 signal teams_changed
 
 const DEFAULT_PLAYER_AMOUNT := 3
+const CONFIRMATION_DIALOG_TEXT := "Are you sure to remove team %s?"
 
 var _team: TeamResource
 
@@ -176,6 +177,7 @@ func _on_name_edit_text_changed(_new_text: String) -> void:
 
 
 func _on_remove_button_pressed() -> void:
+	confirmation_dialog.dialog_text = CONFIRMATION_DIALOG_TEXT % _team.name
 	confirmation_dialog.popup()
 
 
