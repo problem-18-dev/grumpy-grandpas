@@ -11,6 +11,7 @@
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
 			"tasks": [
+				"995bc10a-3e1f-4982-a7f8-b8a127816528",
 				"5a23c18d-6b49-4c8f-a580-a58311ca397e",
 				"e31e55b2-7b3d-49ce-9b96-ce54bbc3e1a5",
 				"ba1e0c1e-3604-45e0-9027-60476ffe97b2",
@@ -663,6 +664,13 @@
 			"uuid": "8c6c4c93-4108-4e7c-b829-5213f6a9a427",
 			"title": "[Bug] Sometimes player is freed before removed from team",
 			"description": "Drowning problem.\n",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "995bc10a-3e1f-4982-a7f8-b8a127816528",
+			"title": "[Feat] Improve camera following multiple targets",
+			"description": "",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
 		}

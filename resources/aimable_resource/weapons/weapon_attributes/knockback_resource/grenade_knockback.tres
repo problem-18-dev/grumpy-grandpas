@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://bd6lxv2h53b83" path="res://resources/aimable_resource/weapons/weapon_attributes/knockback_resource/knockback_resource.gd" id="1_ghg50"]
 
 [sub_resource type="Curve" id="Curve_f8b3h"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
-point_count = 3
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(0.8, 0.6), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 4
 metadata/_snap_enabled = true
 
 [resource]
 script = ExtResource("1_ghg50")
 max_range = 56.0
-base_force = 125.0
+base_force = 175.0
 falloff_curve = SubResource("Curve_f8b3h")
 metadata/_custom_type_script = "uid://bd6lxv2h53b83"

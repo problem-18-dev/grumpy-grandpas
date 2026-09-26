@@ -3,10 +3,12 @@ class_name Explosion
 extends Node2D
 
 const HURTBOX_COLLISION_MASK := 4
+const SLOW_DOWN_TIME_BASIS := 0.7
 
 @export var explosion_resource: ExplosionResource
 
 @onready var timer: Timer = $Timer
+@onready var explosion_particles: CPUParticles2D = $ExplosionParticles
 
 
 func prepare(resource: ExplosionResource) -> void:
@@ -18,6 +20,11 @@ func explode(explode_position: Vector2) -> void:
 	EventSystem.busy.busy_started.emit(self)
 	EventSystem.camera.request_follow.emit(self, GameCamera.Priority.MID)
 	EventSystem.camera.shake.emit(explosion_resource.shake_noise, explosion_resource.shake_duration)
+
+	explosion_particles.initial_velocity_min = explosion_resource.carve_radius
+	explosion_particles.initial_velocity_max = explosion_resource.carve_radius * 2
+	explosion_particles.emitting = true
+
 	timer.start()
 
 	_damage_targets()
@@ -43,6 +50,8 @@ func _damage_targets() -> void:
 
 		var damage := explosion_resource.damage.calculate(distance_to_target)
 		collider.hit(damage)
+
+	Utils.slow_down_time(SLOW_DOWN_TIME_BASIS - 0.05 * collisions.size())
 
 
 func _knockback_targets() -> void:

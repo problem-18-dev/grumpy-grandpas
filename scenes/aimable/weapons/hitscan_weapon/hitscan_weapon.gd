@@ -6,6 +6,7 @@ var _resource: HitscanWeaponResource
 
 @onready var hitscan_ray_cast: RayCast2D = $HitscanRayCast
 @onready var cooldown_timer: Timer = $CooldownTimer
+@onready var world_hit_particles: CPUParticles2D = $WorldHitParticles
 
 
 func _ready() -> void:
@@ -56,12 +57,17 @@ func shoot() -> void:
 		var to: Vector2 = collider.global_position
 		collider.knockback(knockback_force, from.angle_to_point(to))
 
+		Utils.slow_down_time()
+
 	if collider.is_in_group("terrain"):
 		var terrain: DestructiblePolygon2D = get_tree().get_first_node_in_group("terrain")
 
 		if terrain:
 			var carve_polygon := DestructiblePolygon2D.build_circle_polygon(_resource.carve_radius)
 			terrain.destruct(carve_polygon, collision_point)
+			world_hit_particles.global_position = collision_point
+			world_hit_particles.rotation = hitscan_ray_cast.get_collision_normal().angle()
+			world_hit_particles.emitting = true
 
 	_start_cooldown()
 

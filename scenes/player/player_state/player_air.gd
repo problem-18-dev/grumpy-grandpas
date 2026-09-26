@@ -5,9 +5,13 @@ extends PlayerState
 @export var jump_backwards_force := -400.0
 @export var jump_backwards_velocity := 25.0
 @export_group("Falling")
-@export var fall_minimum_velocity := 700.0
+@export var fall_minimum_velocity := 650.0
 @export var fall_damage := 15
 @export var fall_damage_duration := 2.5
+@export_group("Tweening")
+@export var landing_scale := 0.0125
+@export var landing_offset := 8
+@export var duration := 0.25
 
 var _highest_falling_speed := 0.0
 var _has_fallen := false
@@ -54,11 +58,21 @@ func _handle_landing() -> void:
 		_fall_damage()
 		return
 
+	_tween_landing()
+
 	if not is_zero_approx(player.get_direction()):
 		finished.emit(PlayerState.WALK)
 		return
 
 	finished.emit(PlayerState.IDLE)
+
+
+func _tween_landing() -> void:
+	var tween := create_tween().set_trans(Tween.TRANS_BOUNCE).set_parallel()
+	tween.tween_property(player.sprite, "scale:y", player.sprite.scale.y, duration).from(
+		player.sprite.scale.y - landing_scale
+	)
+	tween.tween_property(player.sprite, "offset:y", 0, duration).from(landing_offset)
 
 
 func _fall_damage() -> void:

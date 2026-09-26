@@ -2,11 +2,37 @@
 
 [ext_resource type="Script" uid="uid://dy150m30is53o" path="res://scenes/explosion/explosion.gd" id="1_plwnx"]
 
+[sub_resource type="Curve" id="Curve_plwnx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.099999905), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_12s4q"]
+offsets = PackedFloat32Array(0, 0.18122977, 0.41747573, 0.8381877)
+colors = PackedColorArray(0.8627451, 0.2627451, 0.35686275, 1, 0.9607843, 0.5372549, 0.19215687, 1, 1, 0.92156863, 0.2, 1, 0.98039216, 1, 0.9882353, 1)
+
 [node name="Explosion" type="Node2D" unique_id=96602040]
 script = ExtResource("1_plwnx")
 
 [node name="Timer" type="Timer" parent="." unique_id=349980183]
 wait_time = 2.0
 one_shot = true
+
+[node name="ExplosionParticles" type="CPUParticles2D" parent="." unique_id=86082942]
+emitting = false
+amount = 96
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 0.3
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 90.0
+initial_velocity_max = 180.0
+angular_velocity_min = 111.15
+angular_velocity_max = 111.15
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_plwnx")
+color_ramp = SubResource("Gradient_12s4q")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

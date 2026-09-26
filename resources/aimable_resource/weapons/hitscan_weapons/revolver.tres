@@ -13,7 +13,7 @@ metadata/_snap_enabled = true
 
 [sub_resource type="Resource" id="Resource_urvlt"]
 script = ExtResource("2_m2ymo")
-base_force = 175.0
+base_force = 200.0
 falloff_curve = SubResource("Curve_oid3l")
 metadata/_custom_type_script = "uid://bd6lxv2h53b83"
 

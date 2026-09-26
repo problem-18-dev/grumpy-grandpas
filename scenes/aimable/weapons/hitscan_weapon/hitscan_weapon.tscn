@@ -55,6 +55,10 @@ _data = {
 &"equip": SubResource("Animation_bbni1")
 }
 
+[sub_resource type="Curve" id="Curve_oshpv"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.49999994), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="HitscanWeapon" type="Node2D" unique_id=1920489024]
 script = ExtResource("1_dt0h1")
 metadata/_edit_group_ = true
@@ -77,3 +81,16 @@ autoplay = &"equip"
 
 [node name="CooldownTimer" type="Timer" parent="." unique_id=126672430]
 one_shot = true
+
+[node name="WorldHitParticles" type="CPUParticles2D" parent="." unique_id=1757035117]
+emitting = false
+amount = 32
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 0.3
+gravity = Vector2(0, 0)
+initial_velocity_min = 45.0
+initial_velocity_max = 90.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_oshpv")

@@ -3,6 +3,7 @@ class_name Projectile
 extends CharacterBody2D
 
 const EXPLOSION = preload("uid://dchrvlerl7kne")
+const SPIN_VELOCITY_MAX := 15.0
 
 @export var resource: ProjectileResource
 
@@ -64,7 +65,8 @@ func _explode() -> void:
 
 
 func _handle_gravity(delta: float) -> void:
-	velocity += get_gravity() * delta
+	if not is_on_floor():
+		velocity += get_gravity() * delta
 
 
 func _handle_collision(collision: KinematicCollision2D) -> void:
@@ -80,7 +82,19 @@ func _handle_collision(collision: KinematicCollision2D) -> void:
 
 
 func _handle_rotation() -> void:
-	rotation = velocity.angle()
+	if not resource.spin_enabled:
+		rotation = velocity.angle()
+		return
+
+	var spin_speed: float
+	if velocity.length() < SPIN_VELOCITY_MAX:
+		spin_speed = 0
+	else:
+		spin_speed = minf(resource.spin_speed, absf(velocity.x)) * signf(velocity.x)
+
+	print(spin_speed, " ", velocity.length())
+
+	rotation_degrees += spin_speed * get_physics_process_delta_time()
 
 
 func _on_life_time_timer_timeout() -> void:

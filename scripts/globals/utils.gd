@@ -31,3 +31,9 @@ func get_entities_container() -> Node2D:
 	var entities := get_tree().get_first_node_in_group("entities")
 	assert(entities, "Attempting to use entities container, but it doesn't exist.")
 	return entities
+
+
+func slow_down_time(time_scale := 0.5, duration := 0.25) -> void:
+	Engine.time_scale = time_scale
+	await get_tree().create_timer(duration, true, false, true).timeout
+	Engine.time_scale = 1.0
