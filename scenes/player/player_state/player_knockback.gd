@@ -20,6 +20,7 @@ func enter(data := { }) -> void:
 		return
 
 	EventSystem.busy.busy_started.emit(player)
+	EventSystem.camera.request_follow.emit(player, GameCamera.Priority.HIGH)
 
 	var angle: float = data.get("angle")
 	var force: float = data.get("force")
@@ -50,4 +51,5 @@ func _finish() -> void:
 	_finished = true
 	player.sprite.rotation = 0
 	EventSystem.busy.busy_finished.emit(player)
+	EventSystem.camera.revoke_follow.emit(player)
 	finished.emit(PlayerState.INACTIVE)

@@ -64,47 +64,38 @@ func _update_camera() -> void:
 	if _manual_override:
 		return
 
+	for target: Variant in targets.keys():  # Variant, typed Node2D errors on freed instances
+		if not is_instance_valid(target):
+			targets.erase(target)
+
 	# Nothing registered, keep following whatever we had until a new target arrives.
 	if targets.is_empty():
 		return
 
-	# If only one target available, follow no matter what.
-	if targets.size() == 1:
-		if not is_instance_valid(targets.keys()[0]):
-			_update_zoom()
-			return
+	# Follow every target sharing the highest priority, lower ones wait their turn.
+	var highest_priority: Priority = targets \
+			.values() \
+			.map(
+		func(t: Dictionary) -> Priority:
+			return t.priority,
+	) \
+			.max()
+	var new_targets: Array[Node2D] = []
+	new_targets.assign(
+		targets.keys().filter(
+			func(t: Node2D) -> bool:
+				return targets[t].priority == highest_priority,
+		)
+	)
 
-		var new_target: Node2D = targets.keys()[0]
-		if new_target != follow_target:
-			_change_target(new_target)
+	_adjust_zoom(Zoom.FAR if new_targets.size() > 1 else targets[new_targets[0]].zoom)
 
-		_update_zoom()
+	if new_targets == follow_targets:
 		return
 
-	var highest_priority_target: Node2D = follow_target if targets.has(follow_target) else null
-
-	# Change target to follow based on priority, doesn't change if no higher priority
-	for next_target in targets:
-		if not highest_priority_target:
-			highest_priority_target = next_target
-			continue
-
-		if _priority_of(next_target) > _priority_of(highest_priority_target):
-			highest_priority_target = next_target
-
-	if highest_priority_target != follow_target:
-		_change_target(highest_priority_target)
-
-	_update_zoom()
-
-
-## Zoom always follows whoever we are currently following, so it cannot drift out of sync.
-func _update_zoom() -> void:
-	if not targets.has(follow_target):
-		return
-
-	var new_zoom: Zoom = targets[follow_target].get("zoom")
-	_adjust_zoom(new_zoom)
+	follow_targets = new_targets
+	_start_stall()
+	_log()
 
 
 func _adjust_zoom(new_zoom: Zoom) -> void:
@@ -120,26 +111,27 @@ func _adjust_zoom(new_zoom: Zoom) -> void:
 	_zoom_tween.tween_property(self, "zoom", Vector2.ONE * ZOOM[new_zoom], ZOOM_TWEEN_DURATION)
 
 
-func _change_target(new_target: Node2D) -> void:
-	follow_target = new_target
-	_start_stall()
-	_log()
-
-
-func _priority_of(target: Node2D) -> Priority:
-	return targets[target].get("priority")
-
-
 func _start_stall() -> void:
 	stall_timer.start()
 	update_timer.stop()
 
 
 func _log() -> void:
-	if not follow_target:
-		return
+	print(
+		"Moving camera to %s"
+		% follow_targets.map(
+			func(t: Node2D) -> String:
+				return t.name,
+		)
+	)
 
-	print("Moving camera to %s" % follow_target.name)
+
+## Addon only drops exiting targets from its internal list, leaving the freed node in follow_targets.
+func _follow_target_tree_exiting(target: Node) -> void:
+	super(target)
+	targets.erase(target)
+	follow_targets = follow_targets.filter(func(t: Node2D) -> bool: return t != target)
+	_update_camera()
 
 
 func _on_request_follow(
@@ -166,7 +158,7 @@ func _on_shake(new_noise: PhantomCameraNoise2D, duration: float) -> void:
 func _on_request_manual(manual_position: Vector2) -> void:
 	_manual_override = true
 	manual_target.global_position = manual_position
-	follow_target = manual_target
+	follow_targets = [manual_target]
 
 
 func _on_revoke_manual() -> void:

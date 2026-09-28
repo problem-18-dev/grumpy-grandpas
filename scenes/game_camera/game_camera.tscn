@@ -11,7 +11,8 @@ transition = 5
 [node name="GameCamera" type="Node2D" unique_id=190906775]
 top_level = true
 script = ExtResource("1_tkp5u")
-follow_mode = 2
+manual_target_speed = 200.0
+follow_mode = 3
 tween_resource = SubResource("Resource_ouxo3")
 tween_on_load = false
 follow_damping = true
