@@ -11,7 +11,6 @@
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
 			"tasks": [
-				"6d469440-baab-4bee-8ebe-9e21e8ddeca3",
 				"d8aba449-0705-44a1-8b87-58b0ad9c1a6c",
 				"ad904723-9b3c-4063-a2b8-6c29f3952c84",
 				"5a23c18d-6b49-4c8f-a580-a58311ca397e",
@@ -33,6 +32,7 @@
 			"tasks": [
 				"093fd4eb-0925-4110-b4f0-e7123d22f5d3",
 				"166815bc-5eef-4fe9-bd40-4fb123840471",
+				"6d469440-baab-4bee-8ebe-9e21e8ddeca3",
 				"13fe63cb-550f-42d6-8497-cdf1411fbf83",
 				"a0bd5e3c-e002-4502-8b3e-b1a700217adc",
 				"a50f5b3e-d1e8-4982-8561-b33645d79a67",

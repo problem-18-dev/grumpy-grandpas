@@ -134,9 +134,10 @@ func _on_turn_manager_time_changed(time: int) -> void:
 
 
 func _on_turn_manager_transition_finished() -> void:
-	_current_level.cleanup()
+	_current_level.bounds.cleanup_projectiles()
 	await players_manager.damage_players()
 	await players_manager.kill_marked_players()
+	_current_level.bounds.cleanup_players()
 	_continue()
 
 

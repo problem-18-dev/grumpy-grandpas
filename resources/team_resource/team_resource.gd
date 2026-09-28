@@ -21,7 +21,6 @@ const TEAM_COLORS := {
 	TeamColor.YELLOW: Color(1.0, 0.922, 0.2, 1.0),
 }
 
-
 @export_group("Properties")
 @export var name := ""
 @export var color: TeamColor = TeamColor.RED
@@ -57,10 +56,7 @@ func kill_player(player: Player) -> void:
 	_active_players.erase(player)
 
 
-func next_player(after: Player) -> void:
-	if _active_players.front() == after:
-		return
-
+func next_player() -> void:
 	_active_players.push_back(_active_players.pop_front())
 
 

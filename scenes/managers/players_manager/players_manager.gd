@@ -24,6 +24,7 @@ func reset() -> void:
 	players_marked_for_death.clear()
 	players_to_damage.clear()
 
+
 #region Players
 func spawn_players(spawn_points: Array[SpawnGenerator.SpawnPoint]) -> void:
 	assert(spawn_points.size() > 0, "No spawn points provided.")
@@ -102,12 +103,13 @@ func damage_players() -> void:
 	players_to_damage = []
 #endregion
 
+
 #region Team
 func next_team() -> void:
 	if active_team != _current_team():
 		return
 
-	active_team.next_player(active_player)
+	active_team.next_player()
 	teams.push_back(teams.pop_front())
 
 
@@ -131,6 +133,7 @@ func get_winner() -> TeamResource:
 
 	return teams[0] if teams.size() == 1 else null
 #endregion
+
 
 #region Items
 func unlock_item(by: Player, type: PickuppableResource.Type) -> void:
@@ -169,6 +172,7 @@ func _unlock_tool() -> void:
 func _heal_player(player_to_heal: Player) -> void:
 	player_to_heal.heal()
 #endregion
+
 
 func _current_team() -> TeamResource:
 	return teams.front()
@@ -221,7 +225,7 @@ func _on_player_damage_accumulated(player: Player) -> void:
 func _on_player_drowned(player: Player) -> void:
 	players_marked_for_death.erase(player)
 	players_to_damage.erase(player)
-	active_team.kill_player(player)
+	player.team.kill_player(player)
 
 	if active_team.has_lost():
 		teams.erase(active_team)

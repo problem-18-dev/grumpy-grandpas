@@ -4,6 +4,8 @@ extends Node2D
 
 signal projectile_exited
 
+@onready var bounds: BoundsArea = %BoundsArea
+
 
 @abstract func get_spawn_points() -> Array[SpawnGenerator.SpawnPoint]
 
@@ -12,6 +14,3 @@ signal projectile_exited
 
 
 @abstract func get_bounds() -> Array[int]
-
-
-@abstract func cleanup() -> void

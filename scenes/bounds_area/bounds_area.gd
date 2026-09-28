@@ -3,28 +3,38 @@ extends Area2D
 
 signal projectile_exited
 
-var _present_entities: Array[Node2D] = []
+var _players: Array[Player] = []
+var _projectiles: Array[Projectile] = []
 
 
-func cleanup() -> void:
-	_present_entities.map(_free_present_entity)
-	_present_entities.clear()
+func cleanup_players() -> void:
+	_players = _players.filter(_filter_valid)
+
+	for player: Player in _players:
+		player.queue_free()
+
+	_players.clear()
 
 
-func _free_present_entity(entity: Variant) -> void:
-	if not is_instance_valid(entity):
-		return
+func cleanup_projectiles() -> void:
+	_projectiles = _projectiles.filter(_filter_valid)
 
-	if entity is Projectile:
-		entity.destroy()
+	for projectile: Projectile in _projectiles:
+		projectile.destroy()
 
-	if entity is Player:
-		entity.queue_free()
+	_projectiles.clear()
+
+
+func _filter_valid(instance: Node2D) -> bool:
+	return is_instance_valid(instance)
 
 
 func _on_body_entered(body: Node2D) -> void:
-	_present_entities.append(body)
+	if body is Player:
+		_players.append(body)
+		return
 
 	if body is Projectile:
+		_projectiles.append(body)
 		body.cancel()
 		projectile_exited.emit()

@@ -51,6 +51,7 @@ position = Vector2(6, -157)
 rotation = -0.7680989
 
 [node name="BoundsArea" parent="." unique_id=1365056220 instance=ExtResource("7_tj2m0")]
+unique_name_in_owner = true
 
 [node name="Top" parent="BoundsArea" index="0" unique_id=145456361]
 position = Vector2(352, -512)
