@@ -4,6 +4,10 @@ extends PlayerState
 
 @export_group("Thinking")
 @export var thinking_time := 1.75
+@export_group("Difficulty")
+@export var easy_difficulty_angle := 16.5
+@export var medium_difficulty_angle := 11.5
+@export var hard_difficulty_angle := 6.5
 
 @export_group("Debug")
 @export var override_weapon := false:
@@ -96,8 +100,8 @@ func _get_angle_deviation() -> float:
 
 	match difficulty:
 		TeamResource.CPUDifficulty.MEDIUM:
-			return deg_to_rad(10)
+			return deg_to_rad(medium_difficulty_angle)
 		TeamResource.CPUDifficulty.HARD:
-			return deg_to_rad(5)
+			return deg_to_rad(hard_difficulty_angle)
 		_:
-			return deg_to_rad(15)
+			return deg_to_rad(easy_difficulty_angle)
