@@ -92,8 +92,6 @@ func _handle_rotation() -> void:
 	else:
 		spin_speed = minf(resource.spin_speed, absf(velocity.x)) * signf(velocity.x)
 
-	print(spin_speed, " ", velocity.length())
-
 	rotation_degrees += spin_speed * get_physics_process_delta_time()
 
 

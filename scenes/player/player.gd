@@ -18,7 +18,7 @@ var is_cpu: bool
 var team: TeamResource
 var player_name: String
 
-var _equipped_item: ItemResource = CATALOGUE.default_weapon
+var equipped_item: ItemResource = CATALOGUE.default_weapon
 var _ammo_remaining := 0
 var _damage_accumulated := 0
 var _aimable_life_time_remaining := 0.0
@@ -38,15 +38,16 @@ var _last_direction := RIGHT_DIRECTION
 
 
 func _ready() -> void:
-	_set_ammo(_equipped_item.aimable_resource.ammo)
+	_set_ammo(equipped_item.aimable_resource.ammo)
 
 
 func _physics_process(_delta: float) -> void:
 	_flip_sprite()
 
+
 #region Equipping
 func equip_item(item: ItemResource) -> void:
-	_equipped_item = item
+	equipped_item = item
 
 	var new_player_state := PlayerState.IDLE
 
@@ -68,16 +69,17 @@ func unequip_item() -> void:
 
 
 func reequip_item() -> void:
-	if _equipped_item.aimable_resource:
-		aimable_holder.equip_aimable(_equipped_item.aimable_resource, _last_direction)
+	if equipped_item.aimable_resource:
+		aimable_holder.equip_aimable(equipped_item.aimable_resource, _last_direction)
 
-	if _equipped_item.set_player_state_on_equip:
-		state_machine.transition_to_state(_equipped_item.player_state)
+	if equipped_item.set_player_state_on_equip:
+		state_machine.transition_to_state(equipped_item.player_state)
 
 
 func get_aimable() -> AimableResource:
-	return _equipped_item.aimable_resource
+	return equipped_item.aimable_resource
 #endregion
+
 
 #region Direction
 func get_direction() -> float:
@@ -90,6 +92,7 @@ func get_direction() -> float:
 func register_last_direction(new_last_direction: float) -> void:
 	_last_direction = LEFT_DIRECTION if new_last_direction < 0 else RIGHT_DIRECTION
 #endregion
+
 
 #region Control
 func activate() -> void:
@@ -145,10 +148,12 @@ func setup(player_team: TeamResource, player: PlayerResource) -> void:
 	player_name = player.name
 #endregion
 
+
 #region Inventory
 func request_inventory() -> void:
-	inventory_requested.emit(_equipped_item)
+	inventory_requested.emit(equipped_item)
 #endregion
+
 
 #region Damage & Healing
 func heal(amount := 25) -> void:
@@ -168,6 +173,7 @@ func register_damage(amount: int) -> void:
 	_damage_accumulated += amount
 	damage_accumulated.emit(self)
 #endregion
+
 
 func _flip_sprite() -> void:
 	if is_zero_approx(velocity.x):
@@ -203,8 +209,8 @@ func _on_aimable_holder_aimable_used(player_state: String, state_data: Dictionar
 
 func _on_aimable_holder_aimable_fired() -> void:
 	# If ammo remaining is equal to resource ammo => first shot
-	if _ammo_remaining == _equipped_item.aimable_resource.ammo:
-		var life_time := _equipped_item.aimable_resource.life_time
+	if _ammo_remaining == equipped_item.aimable_resource.ammo:
+		var life_time := equipped_item.aimable_resource.life_time
 
 		if life_time > 0:
 			_aimable_life_time_remaining = life_time
@@ -214,9 +220,8 @@ func _on_aimable_holder_aimable_fired() -> void:
 
 	EventSystem.busy.busy_started.emit(self)
 
-	if _ammo_remaining > 0:
-		if is_cpu:
-			state_machine.transition_to_state(PlayerState.CPU, { "item": _equipped_item })
+	if _ammo_remaining > 0 and is_cpu:
+		state_machine.transition_to_state(PlayerState.CPU, { "reuse": true })
 		return
 
 	finish()

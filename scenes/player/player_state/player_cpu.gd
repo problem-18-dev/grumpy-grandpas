@@ -34,9 +34,9 @@ func enter(data := { }) -> void:
 	await get_tree().process_frame
 	space_state = player.get_world_2d().direct_space_state
 
-	var item: ItemResource = data.get("item")
-	if item:
-		if not await _try_weapon(item):
+	var reuse_weapon: bool = data.get("reuse", false)
+	if reuse_weapon:
+		if not await _try_weapon(player.equipped_item):
 			player.finish()
 		return
 
