@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://nykqtti0wwvp" path="res://resources/aimable_resource/weapons/weapon_attributes/damage_resource/damage_resource.gd" id="1_1d7ja"]
 
 [sub_resource type="Curve" id="Curve_3gpky"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.3, 0.90000004), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
 point_count = 3
 metadata/_snap_enabled = true
 
 [resource]
 script = ExtResource("1_1d7ja")
-max_range = 64.0
-base_damage = 50
+max_range = 52.0
+base_damage = 45
 falloff_curve = SubResource("Curve_3gpky")
 metadata/_custom_type_script = "uid://nykqtti0wwvp"

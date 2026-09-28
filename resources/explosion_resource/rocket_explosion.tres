@@ -13,7 +13,7 @@ metadata/_custom_type_script = "uid://dimvdouy8g0sv"
 
 [resource]
 script = ExtResource("1_yvaho")
-carve_radius = 64.0
+carve_radius = 52.0
 damage = ExtResource("1_x7mmj")
 knockback = ExtResource("2_a6eqi")
 shake_duration = 0.3

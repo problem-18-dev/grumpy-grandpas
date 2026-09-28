@@ -2,8 +2,8 @@ extends PlayerState
 
 @export_group("Properties")
 @export var knockback_weight := 200.0
-@export var upward_force := 1.0
-@export var inactive_speed := 10.0
+@export var upward_force := 2.0
+@export var inactive_speed := 80.0
 @export_group("Spinning")
 @export var spin_speed := 360.0
 
@@ -23,9 +23,10 @@ func enter(data := { }) -> void:
 
 	var angle: float = data.get("angle")
 	var force: float = data.get("force")
-	var direction := Vector2.from_angle(angle)
-	direction.y -= upward_force
-	player.velocity += direction.normalized() * force
+	var direction := Vector2.from_angle(angle).normalized()
+
+	player.velocity.x = direction.x * force
+	player.velocity.y = (direction.y - upward_force) * force
 
 
 func _physics_update(delta: float) -> void:

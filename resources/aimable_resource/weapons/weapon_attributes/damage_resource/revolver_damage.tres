@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://nykqtti0wwvp" path="res://resources/aimable_resource/weapons/weapon_attributes/damage_resource/damage_resource.gd" id="1_kchvt"]
 
 [sub_resource type="Curve" id="Curve_kchvt"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.6, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.3), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4, 0.90000004), 0.0, 0.0, 0, 0, Vector2(1, 0.3), 0.0, 0.0, 0, 0]
 point_count = 3
 metadata/_snap_enabled = true
 
