@@ -12,6 +12,8 @@ const SETTINGS_UID := "uid://dniqe8bmxsu7q"
 func _ready() -> void:
 	_load_saves()
 
+	quickplay_button.grab_focus.call_deferred()
+
 
 func _load_saves() -> void:
 	CustomGameSaveManager.load_settings()

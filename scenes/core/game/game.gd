@@ -6,6 +6,7 @@ enum Level {
 }
 
 const INVENTORY_UID := "uid://bkrmhl1oip2je"
+const PAUSE_UID := "uid://c88tu6f6g83br"
 
 @export var initial_level := Level.MATCH
 @export_group("Intro")
@@ -19,6 +20,7 @@ var _current_inventory: Inventory
 
 @onready var level_root: Node2D = %LevelRoot
 @onready var inventory_root: Control = %InventoryRoot
+@onready var pause_root: Control = %PauseRoot
 @onready var hud: HUD = %HUD
 
 @onready var busy_manager: BusyManager = %BusyManager
@@ -37,8 +39,11 @@ func _ready() -> void:
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if not OS.is_debug_build():
+	if not OS.is_debug_build() or get_tree().paused:
 		return
+
+	if event.is_action_pressed(&"quit"):
+		_pause()
 
 	if event.is_action_pressed("debug_quit"):
 		SceneLoader.load_scene(SceneLoader.Scenes.MENU)
@@ -102,6 +107,13 @@ func _introduce_teams() -> void:
 		await players_manager.show_team(team, intro_duration_per_team)
 
 	hud.set_message("")
+
+
+func _pause() -> void:
+	get_tree().paused = true
+
+	var pause: PauseOverlay = load(PAUSE_UID).instantiate()
+	pause_root.add_child(pause)
 
 
 func _continue() -> void:

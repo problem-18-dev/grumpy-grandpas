@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://db72ssn7bo0t5"]
+
+[ext_resource type="Script" uid="uid://vlgoqam8sh85" path="res://gui/pause/team_panel/team_panel.gd" id="1_eeqi2"]
+
+[sub_resource type="Gradient" id="Gradient_kuvof"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.16862746, 0.85882354, 0.44705883, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_njbup"]
+gradient = SubResource("Gradient_kuvof")
+width = 16
+
+[node name="PauseTeamPanel" type="Panel" unique_id=2074689313]
+custom_minimum_size = Vector2(32, 48)
+custom_maximum_size = Vector2(32, 48)
+offset_right = 32.0
+offset_bottom = 48.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+size_flags_horizontal = 3
+theme_type_variation = &"SmallPanel"
+script = ExtResource("1_eeqi2")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=742741539]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"PrimaryMarginContainer"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=816911090]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="TeamColor" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=1645723174]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+custom_maximum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("GradientTexture1D_njbup")
+
+[node name="PlayersLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1803430506]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "4"
+horizontal_alignment = 1
+vertical_alignment = 1

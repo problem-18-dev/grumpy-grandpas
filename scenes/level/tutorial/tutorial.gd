@@ -3,6 +3,7 @@ extends Node
 
 const HUD_UID := "uid://c5q7bwqmijr3e"
 const INVENTORY_UID := "uid://bkrmhl1oip2je"
+const PAUSE_UID := "uid://c88tu6f6g83br"
 const TEAM_TUTORIAL_BLUE = preload("uid://cgtof6pv3rtlo")
 const TEAM_TUTORIAL_RED = preload("uid://ci6lhhlkv6opp")
 const TUTORIAL_LEVEL = preload("uid://bw3v314eg0rgg")
@@ -18,6 +19,7 @@ var _is_preparing := false
 @onready var hud: HUD = %HUD
 @onready var level_root: Node2D = %LevelRoot
 @onready var entity_root: Node2D = %EntityRoot
+@onready var pause_root: Control = %PauseRoot
 @onready var keycaps_container: VBoxContainer = %KeycapsContainer
 @onready var inventory_root: Control = %InventoryRoot
 @onready var continue_label: Label = %ContinueLabel
@@ -33,12 +35,18 @@ func _ready() -> void:
 	state_machine.start(TutorialState.PHASES[initial_phase])
 
 
+func _exit_tree() -> void:
+	InputGate.allow_all()
+
+
 func _unhandled_key_input(event: InputEvent) -> void:
-	if not OS.is_debug_build():
+	if not OS.is_debug_build() or get_tree().paused:
 		return
 
+	if event.is_action_pressed(&"quit"):
+		_pause()
+
 	if event.is_action_pressed("debug_quit"):
-		InputGate.allow_all()
 		SceneLoader.load_scene(SceneLoader.Scenes.MENU)
 
 
@@ -139,6 +147,13 @@ func _start() -> void:
 		_tutorial_level.get_player_spawn(),
 	)
 	players_manager.spawn_player_at(red.player_resources[0], red, _tutorial_level.get_enemy_spawn())
+
+
+func _pause() -> void:
+	get_tree().paused = true
+
+	var pause: PauseOverlay = load(PAUSE_UID).instantiate()
+	pause_root.add_child(pause)
 
 
 func _on_players_manager_inventory_requested(

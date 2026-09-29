@@ -80,6 +80,18 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkoii"]
+bg_color = Color(0.21568628, 0.21568628, 0.21568628, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.98039216, 1, 0.9882353, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ly4pv"]
 bg_color = Color(1, 0.92156863, 0.2, 1)
 corner_radius_top_left = 4
@@ -612,6 +624,18 @@ shadow_color = Color(0.13333334, 0.14509805, 0.2, 1)
 shadow_size = 2
 shadow_offset = Vector2(-2, 2)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ci82s"]
+bg_color = Color(0.6509804, 0.23921569, 0.34117648, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.98039216, 1, 0.9882353, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjbk5"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 corner_radius_top_left = 8
@@ -665,18 +689,6 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ci82s"]
-bg_color = Color(0.6509804, 0.23921569, 0.34117648, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.98039216, 1, 0.9882353, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
 [resource]
 default_font = ExtResource("3_qc27g")
 default_font_size = 16
@@ -713,6 +725,8 @@ DeleteButton/styles/focus = SubResource("StyleBoxFlat_kqkcb")
 DeleteButton/styles/hover = SubResource("StyleBoxFlat_oar58")
 DeleteButton/styles/normal = SubResource("StyleBoxFlat_2ku4m")
 DeleteButton/styles/pressed = SubResource("StyleBoxFlat_rsedq")
+DisabledPanel/base_type = &"Panel"
+DisabledPanel/styles/panel = SubResource("StyleBoxFlat_qkoii")
 FeedbackButton/base_type = &"LinkButton"
 FeedbackButton/colors/font_color = Color(0.98039216, 1, 0.9882353, 1)
 FeedbackButton/colors/font_hover_color = Color(1, 0.92156863, 0.2, 1)
@@ -853,6 +867,8 @@ SecondaryMarginContainer/constants/margin_bottom = 12
 SecondaryMarginContainer/constants/margin_left = 12
 SecondaryMarginContainer/constants/margin_right = 12
 SecondaryMarginContainer/constants/margin_top = 12
+SmallPanel/base_type = &"Panel"
+SmallPanel/styles/panel = SubResource("StyleBoxFlat_ci82s")
 SpinBoxInnerLineEdit/base_type = &"LineEdit"
 TeamList/base_type = &"ItemList"
 TeamList/colors/font_color = Color(0.98039216, 1, 0.9882353, 1)
@@ -878,5 +894,3 @@ TernaryLabel/constants/shadow_offset_x = -2
 TernaryLabel/constants/shadow_offset_y = 2
 TernaryLabel/font_sizes/font_size = 20
 TernaryLabel/fonts/font = ExtResource("3_qc27g")
-TimerPanel/base_type = &"Panel"
-TimerPanel/styles/panel = SubResource("StyleBoxFlat_ci82s")

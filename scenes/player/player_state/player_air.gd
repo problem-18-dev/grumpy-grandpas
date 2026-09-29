@@ -81,6 +81,6 @@ func _fall_damage() -> void:
 	EventSystem.busy.busy_started.emit(player)
 	player.velocity = Vector2.ZERO
 	player.register_damage(fall_damage)
-	await get_tree().create_timer(fall_damage_duration).timeout
+	await get_tree().create_timer(fall_damage_duration, false).timeout
 	EventSystem.busy.busy_finished.emit(player)
 	finished.emit(PlayerState.INACTIVE)

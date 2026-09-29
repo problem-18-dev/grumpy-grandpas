@@ -22,6 +22,7 @@ var _team: TeamResource
 @onready var cpu_difficulty_option: OptionButton = %CPUDifficultyOption
 @onready var remove_button: Button = %RemoveButton
 @onready var confirm_button: Button = %ConfirmButton
+@onready var first_new_team_button: Button = %FirstNewTeamButton
 
 
 func _ready() -> void:
@@ -35,6 +36,16 @@ func _ready() -> void:
 		)
 
 	_show_editor(not CustomGameSaveManager.get_teams().is_empty())
+
+	_focus_button()
+
+
+func _focus_button() -> void:
+	if empty.visible:
+		first_new_team_button.grab_focus.call_deferred()
+		return
+
+	name_edit.grab_focus.call_deferred()
 
 
 func _show_editor(is_shown: bool) -> void:
@@ -166,6 +177,7 @@ func _sanitize_name(text: String) -> String:
 
 func _on_first_new_team_button_pressed() -> void:
 	_show_editor(true)
+	name_edit.grab_focus.call_deferred()
 
 
 func _on_cpu_check_toggled(toggled_on: bool) -> void:

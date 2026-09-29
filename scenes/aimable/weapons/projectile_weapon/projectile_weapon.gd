@@ -71,7 +71,7 @@ func process_input(pressed: bool, released: bool, charge_force := 0.0) -> void:
 		charge_sprite.scale.x = charge_scale
 		charge_sprite.show()
 		_charge_time_left = _resource.charge_time * (1.0 - charge_scale)
-		await get_tree().create_timer(PRE_DEFINED_FORCE_TIME).timeout
+		await get_tree().create_timer(PRE_DEFINED_FORCE_TIME, false).timeout
 		shoot()
 		charge_sprite.hide()
 		return

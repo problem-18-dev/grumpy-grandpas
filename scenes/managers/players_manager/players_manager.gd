@@ -122,7 +122,7 @@ func show_team(team: TeamResource, duration := 0.0) -> void:
 	if is_zero_approx(duration):
 		return
 
-	await get_tree().create_timer(duration).timeout
+	await get_tree().create_timer(duration, false).timeout
 	EventSystem.camera.revoke_follow.emit(player)
 
 

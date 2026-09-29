@@ -13,11 +13,10 @@ const SCENES := {
 	Scenes.MENU: "uid://b2d8kklebnhfj",
 }
 
-var loaded_resource: PackedScene
-var scene_path: String
-var progress: Array = []
-
-var _active_loading_screen: LoadingScreen
+var _progress: Array[float] = []
+var _loaded_resource: PackedScene
+var _scene_path: String
+var _loading_screen: LoadingScreen
 
 
 func _ready() -> void:
@@ -25,38 +24,40 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	var load_status := ResourceLoader.load_threaded_get_status(scene_path, progress)
-	_active_loading_screen.set_progress(progress[0])
+	var load_status := ResourceLoader.load_threaded_get_status(_scene_path, _progress)
+	_loading_screen.set_progress(_progress[0])
 
 	match load_status:
 		ResourceLoader.THREAD_LOAD_INVALID_RESOURCE, ResourceLoader.THREAD_LOAD_FAILED:
 			set_process(false)
 		ResourceLoader.THREAD_LOAD_LOADED:
 			set_process(false)
-			loaded_resource = ResourceLoader.load_threaded_get(scene_path)
+			_loaded_resource = ResourceLoader.load_threaded_get(_scene_path)
 
-			await _active_loading_screen.finish()
-			_active_loading_screen = null
+			await _loading_screen.finish()
+			_loading_screen = null
 
-			get_tree().change_scene_to_packed(loaded_resource)
+			get_tree().change_scene_to_packed(_loaded_resource)
 
 
 func load_scene(scene: Scenes) -> void:
-	scene_path = SCENES[scene]
+	await get_tree().process_frame
 
-	_active_loading_screen = LOADING_SCREEN.instantiate()
-	add_child(_active_loading_screen)
+	_scene_path = SCENES[scene]
+	_loading_screen = LOADING_SCREEN.instantiate()
 
-	await _active_loading_screen.screen_ready
+	get_tree().unload_current_scene()
+	add_child(_loading_screen)
+	await _loading_screen.screen_ready
 
-	_start_load()
+	_start_loading()
 
 
-func _start_load() -> void:
+func _start_loading() -> void:
 	# Makes it more fun
 	await get_tree().create_timer(0.25).timeout
 
-	var state := ResourceLoader.load_threaded_request(scene_path, "", true)
+	var state := ResourceLoader.load_threaded_request(_scene_path, "", true)
 
 	if state == OK:
 		set_process(true)

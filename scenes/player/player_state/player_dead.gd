@@ -25,7 +25,7 @@ func _die() -> void:
 	player.name_label.text = "%s (dead)" % player.name
 
 	# TODO: replace this with animation
-	await get_tree().create_timer(pre_death_timer).timeout
+	await get_tree().create_timer(pre_death_timer, false).timeout
 
 	_disable_player()
 	_explode()
@@ -49,5 +49,5 @@ func _disable_player() -> void:
 
 
 func _cleanup() -> void:
-	await get_tree().create_timer(post_death_timer).timeout
+	await get_tree().create_timer(post_death_timer, false).timeout
 	player.died.emit(player)

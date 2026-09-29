@@ -12,6 +12,7 @@ const MAIN_MENU_UID = "uid://b2d8kklebnhfj"
 func _ready() -> void:
 	_group_buttons()
 	audio_button.button_pressed = true
+	audio_button.grab_focus.call_deferred()
 
 
 func _unhandled_key_input(event: InputEvent) -> void:

@@ -49,9 +49,11 @@ process_mode = 3
 
 [node name="BusyManager" parent="Systems" unique_id=952442597 instance=ExtResource("2_sp44e")]
 unique_name_in_owner = true
+process_mode = 1
 
 [node name="PlayersManager" parent="Systems" unique_id=1956244340 node_paths=PackedStringArray("spawn_target") instance=ExtResource("4_cqum7")]
 unique_name_in_owner = true
+process_mode = 1
 spawn_target = NodePath("../../World/EntityRoot")
 
 [node name="PickuppableManager" parent="Systems" unique_id=180867956 node_paths=PackedStringArray("spawn_target") instance=ExtResource("5_dns2n")]
@@ -60,9 +62,11 @@ spawn_target = NodePath("../../World/EntityRoot")
 
 [node name="CameraManager" parent="Systems" unique_id=22320113 instance=ExtResource("16_m6xsd")]
 unique_name_in_owner = true
+process_mode = 1
 
 [node name="StateMachine" parent="Systems" unique_id=1355297057 instance=ExtResource("6_ce2oi")]
 unique_name_in_owner = true
+process_mode = 1
 auto_start = false
 
 [node name="Intro" type="Node" parent="Systems/StateMachine" unique_id=1111250492]
@@ -194,6 +198,7 @@ process_mode = 2
 layer = 10
 
 [node name="PauseRoot" type="Control" parent="PauseLayer" unique_id=817513710]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

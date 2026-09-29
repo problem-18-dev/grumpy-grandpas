@@ -18,13 +18,16 @@ process_mode = 3
 
 [node name="BusyManager" parent="Systems" unique_id=952442597 instance=ExtResource("2_hk36i")]
 unique_name_in_owner = true
+process_mode = 1
 
 [node name="TurnManager" parent="Systems" unique_id=299448507 instance=ExtResource("3_l2mu6")]
 unique_name_in_owner = true
+process_mode = 1
 transition_duration = 1.25
 
 [node name="PlayersManager" parent="Systems" unique_id=1956244340 node_paths=PackedStringArray("spawn_target") instance=ExtResource("4_t6juh")]
 unique_name_in_owner = true
+process_mode = 1
 spawn_target = NodePath("../../World/EntityRoot")
 
 [node name="PickuppableManager" parent="Systems" unique_id=180867956 node_paths=PackedStringArray("spawn_target") instance=ExtResource("5_0c8qe")]
@@ -33,6 +36,7 @@ spawn_target = NodePath("../../World/EntityRoot")
 
 [node name="CameraManager" parent="Systems" unique_id=22320113 instance=ExtResource("6_l2mu6")]
 unique_name_in_owner = true
+process_mode = 1
 
 [node name="World" type="Node2D" parent="." unique_id=735254960]
 process_mode = 1

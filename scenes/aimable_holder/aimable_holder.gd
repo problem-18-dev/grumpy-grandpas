@@ -87,7 +87,7 @@ func cpu_shoot(angle: float, force := 0.0) -> void:
 	_aim_angle = angle
 	_rotate_aimable()
 
-	await get_tree().create_timer(aiming_time).timeout
+	await get_tree().create_timer(aiming_time, false).timeout
 
 	if equipped_aimable is ProjectileWeapon:
 		assert(not is_zero_approx(force), "Manually shooting a projectile weapon without force.")

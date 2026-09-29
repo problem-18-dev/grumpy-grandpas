@@ -42,6 +42,7 @@ _data = {
 }
 
 [node name="LoadingScreen" type="CanvasLayer" unique_id=879552328]
+layer = 999
 script = ExtResource("1_l6xwm")
 
 [node name="Background" parent="." unique_id=1194628109 instance=ExtResource("2_jhoyh")]

@@ -8,8 +8,7 @@ signal turn_ended
 signal turn_started
 
 @export_group("Turn")
-@export var turn_duration := 40
-@export var short_turn_duration := 3
+@export var turn_duration := 25
 @export_group("Transition")
 @export var transition_duration := 2.0
 

@@ -11,6 +11,7 @@ offsets = PackedFloat32Array(0, 0.18122977, 0.41747573, 0.8381877)
 colors = PackedColorArray(0.8627451, 0.2627451, 0.35686275, 1, 0.9607843, 0.5372549, 0.19215687, 1, 1, 0.92156863, 0.2, 1, 0.98039216, 1, 0.9882353, 1)
 
 [node name="Explosion" type="Node2D" unique_id=96602040]
+process_mode = 1
 script = ExtResource("1_plwnx")
 
 [node name="Timer" type="Timer" parent="." unique_id=349980183]

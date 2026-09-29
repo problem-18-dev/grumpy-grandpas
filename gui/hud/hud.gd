@@ -8,12 +8,16 @@ const WHITE_COLOR := Color(1.0, 1.0, 1.0, 1.0)
 @onready var turn_timer_panel: Panel = $MarginContainer/TurnTimerPanel
 
 
+func _ready() -> void:
+	turn_timer_panel.hide()
+
+
 func set_message(message: String, duration := 0.0, color := WHITE_COLOR) -> void:
 	message_label.text = message
 	message_label.add_theme_color_override("font_color", color)
 
 	if duration > 0:
-		await get_tree().create_timer(duration).timeout
+		await get_tree().create_timer(duration, false).timeout
 		message_label.text = ""
 		message_label.remove_theme_color_override("font_color")
 

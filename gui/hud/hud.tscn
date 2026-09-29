@@ -32,12 +32,12 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="TurnTimerPanel" type="Panel" parent="MarginContainer" unique_id=949396638]
-visible = false
+unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 32)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-theme_type_variation = &"TimerPanel"
+theme_type_variation = &"SmallPanel"
 
 [node name="TurnTimerLabel" type="Label" parent="MarginContainer/TurnTimerPanel" unique_id=843818426]
 unique_name_in_owner = true

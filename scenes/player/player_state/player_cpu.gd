@@ -75,7 +75,7 @@ func _try_weapon(weapon: ItemResource) -> bool:
 		return false
 
 	player.equip_item(weapon)
-	await get_tree().create_timer(thinking_time).timeout
+	await get_tree().create_timer(thinking_time, false).timeout
 
 	# Most shots land near the aim, with occasional wild misses
 	var angle := shot.angle + randfn(0.0, _get_angle_deviation())
