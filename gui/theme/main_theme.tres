@@ -492,6 +492,30 @@ shadow_color = Color(0.13333334, 0.14509805, 0.2, 1)
 shadow_size = 2
 shadow_offset = Vector2(-4, 4)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_njbup"]
+bg_color = Color(0.6509804, 0.23921569, 0.34117648, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.98039216, 1, 0.9882353, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cdett"]
+bg_color = Color(1, 0.92156863, 0.2, 1)
+border_color = Color(0.98039216, 1, 0.9882353, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ebgq4"]
 content_margin_left = 12.0
 content_margin_top = 8.0
@@ -796,6 +820,12 @@ PrimaryMarginContainer/constants/margin_right = 16
 PrimaryMarginContainer/constants/margin_top = 16
 PrimaryPanel/base_type = &"Panel"
 PrimaryPanel/styles/panel = SubResource("StyleBoxFlat_higs5")
+ProgressBar/colors/font_color = Color(0.98039216, 1, 0.9882353, 1)
+ProgressBar/colors/font_outline_color = Color(0.13333334, 0.14509805, 0.2, 1)
+ProgressBar/constants/outline_size = 2
+ProgressBar/fonts/font = ExtResource("3_qc27g")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_njbup")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_cdett")
 SecondaryButton/base_type = &"Button"
 SecondaryButton/colors/font_color = Color(0.98039216, 1, 0.9882353, 1)
 SecondaryButton/colors/font_disabled_color = Color(0.98039216, 1, 0.9882353, 1)

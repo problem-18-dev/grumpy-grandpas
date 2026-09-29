@@ -20,11 +20,11 @@ func _load_saves() -> void:
 
 func _on_quickplay_button_pressed() -> void:
 	GameConfigurator.load_preset(GameConfigurator.Preset.QUICK_PLAY)
-	get_tree().change_scene_to_file(GAME_UID)
+	SceneLoader.load_scene(SceneLoader.Scenes.GAME)
 
 
 func _on_tutorial_button_pressed() -> void:
-	get_tree().change_scene_to_file(TUTORIAL_UID)
+	SceneLoader.load_scene(SceneLoader.Scenes.TUTORIAL)
 
 
 func _on_custom_button_pressed() -> void:

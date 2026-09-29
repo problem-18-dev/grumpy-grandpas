@@ -6,7 +6,6 @@ enum Level {
 }
 
 const INVENTORY_UID := "uid://bkrmhl1oip2je"
-const MAIN_MENU_UID := "uid://b2d8kklebnhfj"
 
 @export var initial_level := Level.MATCH
 @export_group("Intro")
@@ -30,6 +29,9 @@ var _current_inventory: Inventory
 
 
 func _ready() -> void:
+	if not OS.is_debug_build():
+		skip_team_intro = false
+
 	await load_level(initial_level)
 	_start_level()
 
@@ -39,7 +41,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		return
 
 	if event.is_action_pressed("debug_quit"):
-		get_tree().change_scene_to_file(MAIN_MENU_UID)
+		SceneLoader.load_scene(SceneLoader.Scenes.MENU)
 
 
 func load_level(new_scene: Level) -> void:

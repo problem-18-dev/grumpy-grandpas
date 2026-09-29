@@ -3,7 +3,6 @@ extends Node
 
 const HUD_UID := "uid://c5q7bwqmijr3e"
 const INVENTORY_UID := "uid://bkrmhl1oip2je"
-const MAIN_MENU_UID := "uid://b2d8kklebnhfj"
 const TEAM_TUTORIAL_BLUE = preload("uid://cgtof6pv3rtlo")
 const TEAM_TUTORIAL_RED = preload("uid://ci6lhhlkv6opp")
 const TUTORIAL_LEVEL = preload("uid://bw3v314eg0rgg")
@@ -40,7 +39,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("debug_quit"):
 		InputGate.allow_all()
-		get_tree().change_scene_to_file(MAIN_MENU_UID)
+		SceneLoader.load_scene(SceneLoader.Scenes.MENU)
 
 
 func restart() -> void:
@@ -82,7 +81,7 @@ func show_announcement(text: String) -> void:
 	hud.set_message(text)
 
 
-func create_keycaps(... letters: Array) -> void:
+func create_keycaps(...letters: Array) -> void:
 	clear_keycaps()
 
 	for letter: String in letters:

@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://brt1lxrovstmi"]
+
+[ext_resource type="Script" uid="uid://cobkhdunanv7c" path="res://gui/screens/loading_screen/loading_screen.gd" id="1_l6xwm"]
+[ext_resource type="PackedScene" uid="uid://bocfnvrwcsq33" path="res://gui/components/background/background.tscn" id="2_jhoyh"]
+[ext_resource type="PackedScene" uid="uid://drkkxlses2ss3" path="res://scenes/debug/debug_overlay.tscn" id="3_jhoyh"]
+
+[sub_resource type="Animation" id="Animation_jhoyh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Foreground:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.13333334, 0.14509805, 0.2, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_l6xwm"]
+resource_name = "transition"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Foreground:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.13333334, 0.14509805, 0.2, 1), Color(0.13333334, 0.14509805, 0.2, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jhoyh"]
+_data = {
+&"RESET": SubResource("Animation_jhoyh"),
+&"transition": SubResource("Animation_l6xwm")
+}
+
+[node name="LoadingScreen" type="CanvasLayer" unique_id=879552328]
+script = ExtResource("1_l6xwm")
+
+[node name="Background" parent="." unique_id=1194628109 instance=ExtResource("2_jhoyh")]
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1057495992]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"PrimaryMarginContainer"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1350248829]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="LoadingLabel" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1979198426]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"TernaryLabel"
+text = "Loading"
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/HBoxContainer" unique_id=781713287]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+max_value = 1.0
+
+[node name="Foreground" type="ColorRect" parent="." unique_id=1006901152]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13333334, 0.14509805, 0.2, 0)
+
+[node name="DebugOverlay" parent="." unique_id=1840923755 instance=ExtResource("3_jhoyh")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1573145037]
+libraries/ = SubResource("AnimationLibrary_jhoyh")

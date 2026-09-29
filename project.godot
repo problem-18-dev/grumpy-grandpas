@@ -25,6 +25,7 @@ buses/default_bus_layout="uid://dop24gtilblnf"
 [autoload]
 
 PhantomCameraManager="*uid://duq6jhf6unyis"
+SceneLoader="*uid://cuim7hdg13vln"
 EventSystem="*uid://bua75md0s3twb"
 GameManager="*uid://dqdpyitl02jn0"
 Utils="*uid://dbq3stovb548p"
