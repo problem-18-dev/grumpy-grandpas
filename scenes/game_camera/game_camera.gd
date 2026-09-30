@@ -81,7 +81,11 @@ func _update_camera() -> void:
 		_update_zoom()
 		return
 
-	var highest_priority_target: Node2D = follow_target if targets.has(follow_target) else null
+	var highest_priority_target: Node2D = (
+		follow_target
+		if (follow_target and targets.has(follow_target))
+		else null
+	)
 
 	# Change target to follow based on priority, doesn't change if no higher priority
 	for next_target in targets:
@@ -100,6 +104,10 @@ func _update_camera() -> void:
 
 ## Zoom always follows whoever we are currently following, so it cannot drift out of sync.
 func _update_zoom() -> void:
+	if not follow_target:
+		_adjust_zoom(Zoom.NORMAL)
+		return
+
 	if not targets.has(follow_target):
 		return
 

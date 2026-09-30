@@ -116,14 +116,22 @@ func next_team() -> void:
 func show_team(team: TeamResource, duration := 0.0) -> void:
 	assert(teams.has(team), "Showing team that isn't in the match.")
 
-	var player: Player = team.get_players().pick_random()
-	EventSystem.camera.request_follow.emit(player, GameCamera.Priority.HIGH, GameCamera.Zoom.NEAR)
-
-	if is_zero_approx(duration):
+	var players := team.get_players()
+	if players.is_empty():
 		return
 
-	await get_tree().create_timer(duration, false).timeout
-	EventSystem.camera.revoke_follow.emit(player)
+	var stay := is_zero_approx(duration)
+	var per_player := 1.0 if stay else duration / players.size()
+
+	for player in players:
+		await _show_player(player, per_player)
+
+	if stay:
+		EventSystem.camera.request_follow.emit(
+			players[0],
+			GameCamera.Priority.HIGH,
+			GameCamera.Zoom.NEAR,
+		)
 
 
 func get_winner() -> TeamResource:
@@ -198,6 +206,12 @@ func _damage_player(player: Player) -> void:
 	EventSystem.camera.request_follow.emit(player, GameCamera.Priority.HIGH, GameCamera.Zoom.NEAR)
 	player.apply_damage()
 	await player.damage_applied
+	EventSystem.camera.revoke_follow.emit(player)
+
+
+func _show_player(player: Player, duration := 1.0) -> void:
+	EventSystem.camera.request_follow.emit(player, GameCamera.Priority.HIGH, GameCamera.Zoom.NEAR)
+	await get_tree().create_timer(duration, false).timeout
 	EventSystem.camera.revoke_follow.emit(player)
 
 

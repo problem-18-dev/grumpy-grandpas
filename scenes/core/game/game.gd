@@ -103,7 +103,7 @@ func _introduce_teams() -> void:
 		return
 
 	for team in players_manager.teams:
-		hud.set_message("Introducing %s" % team.name, 0.0, team.get_color())
+		hud.set_message("Introducing Team %s" % team.name, 0.0, team.get_color())
 		await players_manager.show_team(team, intro_duration_per_team)
 
 	hud.set_message("")
