@@ -11,6 +11,9 @@
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
 			"tasks": [
+				"7f7a74e4-227c-4221-8d5e-df9f69f35a88",
+				"abdfdbbd-ab90-427c-b15a-8ee6ff33dafa",
+				"9cdfed70-3da8-42b9-9a78-d0d8cb165ddc",
 				"e31e55b2-7b3d-49ce-9b96-ce54bbc3e1a5",
 				"ba1e0c1e-3604-45e0-9027-60476ffe97b2",
 				"995bc10a-3e1f-4982-a7f8-b8a127816528"
@@ -27,6 +30,7 @@
 			"tasks": [
 				"093fd4eb-0925-4110-b4f0-e7123d22f5d3",
 				"ad904723-9b3c-4063-a2b8-6c29f3952c84",
+				"719e12fb-4132-4d34-aa12-c525938c06e8",
 				"5a23c18d-6b49-4c8f-a580-a58311ca397e",
 				"8c6c4c93-4108-4e7c-b829-5213f6a9a427",
 				"d8aba449-0705-44a1-8b87-58b0ad9c1a6c",
@@ -710,6 +714,34 @@
 		{
 			"uuid": "a0bd5e3c-e002-4502-8b3e-b1a700217adc",
 			"title": "[Bug] AI keeps shooting more than allowed when ammo available",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "719e12fb-4132-4d34-aa12-c525938c06e8",
+			"title": "[Bug] AI aims at dead enemies",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "7f7a74e4-227c-4221-8d5e-df9f69f35a88",
+			"title": "[Bug] Turn switching broken, need to investigate",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "9cdfed70-3da8-42b9-9a78-d0d8cb165ddc",
+			"title": "[Feat] Improve custom game saving",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "abdfdbbd-ab90-427c-b15a-8ee6ff33dafa",
+			"title": "[Bug] Tutorial plays twice :(",
 			"description": "",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []

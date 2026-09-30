@@ -162,6 +162,11 @@ func _create_shot(
 
 	for collision in explosion_collisions:
 		var collider: HurtboxComponent = collision.collider
+
+		# Ignore if target doesn't accept hurt
+		if not collider.enabled:
+			continue
+
 		var distance := query_position.distance_to(collider.global_position)
 
 		if collider.is_in_group(cpu.player.team.get_id()):

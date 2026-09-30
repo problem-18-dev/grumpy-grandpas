@@ -74,7 +74,10 @@ func _try_weapon(weapon: ItemResource) -> bool:
 	if not shot:
 		return false
 
-	player.equip_item(weapon)
+	if weapon == player.equipped_item:
+		player.reequip_item()
+	else:
+		player.equip_item(weapon)
 	await get_tree().create_timer(thinking_time, false).timeout
 
 	# Most shots land near the aim, with occasional wild misses
