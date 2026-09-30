@@ -4,6 +4,15 @@ extends TutorialState
 @onready var players_manager: PlayersManager = %PlayersManager
 
 
+func exit() -> void:
+	super()
+
+	if busy_manager.busy_ended.is_connected(_on_busy_manager_busy_ended):
+		busy_manager.busy_ended.disconnect(_on_busy_manager_busy_ended)
+	if players_manager.player_drowned.is_connected(_on_player_drowned):
+		players_manager.player_drowned.disconnect(_on_player_drowned)
+
+
 func _start() -> void:
 	super()
 	InputGate.allow_some(["move_left", "move_right", "jump", "up", "down", "camera", "shoot"])
