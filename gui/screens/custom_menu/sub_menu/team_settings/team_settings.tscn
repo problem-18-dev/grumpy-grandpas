@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cfx0qstq2qnp3" path="res://gui/screens/custom_menu/sub_menu/team_settings/team_settings.gd" id="1_rn8jk"]
 [ext_resource type="PackedScene" uid="uid://cxqi4fxuqa7a6" path="res://gui/components/buttons/button_tween_component.tscn" id="2_c7apf"]
+[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="3_vas65"]
 
 [node name="TeamSettings" type="HBoxContainer" unique_id=424706770]
 anchors_preset = 15
@@ -76,9 +77,12 @@ theme_type_variation = &"TeamList"
 allow_search = false
 auto_width = true
 wraparound_items = false
+item_count = 1
 same_column_width = true
 fixed_column_width = 120
 fixed_icon_size = Vector2i(12, 12)
+item_0/text = "Test"
+item_0/icon = ExtResource("3_vas65")
 
 [node name="MarginContainer" type="MarginContainer" parent="Existing/HBoxContainer" unique_id=1385754532]
 layout_mode = 2

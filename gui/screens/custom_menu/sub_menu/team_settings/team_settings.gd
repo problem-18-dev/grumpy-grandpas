@@ -26,6 +26,8 @@ var _team: TeamResource
 
 
 func _ready() -> void:
+	item_list.clear()
+
 	for team_color: int in TeamResource.TeamColor.values():
 		color_option.add_item(TeamResource.TeamColor.keys()[team_color].capitalize(), team_color)
 
@@ -138,15 +140,25 @@ func _resize_players(team: TeamResource, amount: int) -> void:
 		func(player: PlayerResource) -> String:
 			return player.name,
 	)
-	var free_names := PlayerResource.RANDOM_NAMES.filter(
+	var free_grandpa_names := PlayerResource.GRANDPA_NAMES.filter(
 		func(n: String) -> bool:
 			return n not in used_names,
 	)
-	free_names.shuffle()
+	var free_grandma_names := PlayerResource.GRANDMA_NAMES.filter(
+		func(n: String) -> bool:
+			return n not in used_names,
+	)
+	var names := [free_grandpa_names, free_grandma_names]
+
+	var gender: PlayerResource.Gender = [
+		PlayerResource.Gender.GRANDPA,
+		PlayerResource.Gender.GRANDMA,
+	].pick_random()
 
 	while team.player_resources.size() < amount:
 		var player := PlayerResource.new()
-		player.name = free_names.pop_back()
+		player.gender = gender
+		player.name = names[gender].pop_back()
 		team.player_resources.append(player)
 
 
@@ -166,6 +178,7 @@ func _update_confirm_state() -> void:
 			func(team: TeamResource) -> bool:
 				return team.get_id() == team_id,
 		)
+		or team_id == _team.get_id()
 	)
 
 
