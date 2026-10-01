@@ -11,7 +11,6 @@
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
 			"tasks": [
-				"9cdfed70-3da8-42b9-9a78-d0d8cb165ddc",
 				"e31e55b2-7b3d-49ce-9b96-ce54bbc3e1a5",
 				"ba1e0c1e-3604-45e0-9027-60476ffe97b2",
 				"995bc10a-3e1f-4982-a7f8-b8a127816528"
@@ -27,6 +26,8 @@
 			"title": "Done",
 			"tasks": [
 				"093fd4eb-0925-4110-b4f0-e7123d22f5d3",
+				"5461c799-8e08-4c92-b445-201bc564e213",
+				"79ddecfd-1187-4270-aada-cec31109058e",
 				"7f7a74e4-227c-4221-8d5e-df9f69f35a88",
 				"ad904723-9b3c-4063-a2b8-6c29f3952c84",
 				"abdfdbbd-ab90-427c-b15a-8ee6ff33dafa",
@@ -733,15 +734,22 @@
 			"steps": []
 		},
 		{
-			"uuid": "9cdfed70-3da8-42b9-9a78-d0d8cb165ddc",
-			"title": "[Feat] Improve custom game saving",
+			"uuid": "abdfdbbd-ab90-427c-b15a-8ee6ff33dafa",
+			"title": "[Bug] Tutorial plays twice :(",
 			"description": "",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
 		},
 		{
-			"uuid": "abdfdbbd-ab90-427c-b15a-8ee6ff33dafa",
-			"title": "[Bug] Tutorial plays twice :(",
+			"uuid": "79ddecfd-1187-4270-aada-cec31109058e",
+			"title": "[Feat] Improve explosion knockback",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "5461c799-8e08-4c92-b445-201bc564e213",
+			"title": "[Feat] Improve hitscan knockback",
 			"description": "",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []

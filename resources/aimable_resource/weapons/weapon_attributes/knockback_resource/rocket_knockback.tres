@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bd6lxv2h53b83" path="res://resources/aimable_resource/weapons/weapon_attributes/knockback_resource/knockback_resource.gd" id="1_wle0a"]
 
 [sub_resource type="Curve" id="Curve_rw44o"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.2, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.7), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.2, 0.90000004), 0.0, 0.0, 0, 0, Vector2(1, 0.8), 0.0, 0.0, 0, 0]
 point_count = 3
 metadata/_snap_enabled = true
 
