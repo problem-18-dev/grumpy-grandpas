@@ -78,11 +78,10 @@ func _start_level() -> void:
 	await _introduce_teams()
 
 	var new_player := players_manager.activate_player()
-	var team := players_manager.active_team
 	hud.set_message(
 		"Time for %s!" % new_player.player_name,
 		intro_duration_per_player,
-		team.get_color(),
+		players_manager.active_team.get_color(),
 	)
 	turn_manager.start_turn()
 
@@ -170,7 +169,7 @@ func _on_players_manager_inventory_requested(
 	if busy_manager.is_busy():
 		return
 
-	players_manager.deactivate_player()
+	players_manager.pause_player()
 	_current_inventory = load(INVENTORY_UID).instantiate()
 	inventory_root.add_child(_current_inventory)
 	_current_inventory.closed.connect(_on_inventory_closed)
@@ -180,7 +179,7 @@ func _on_players_manager_inventory_requested(
 func _on_inventory_closed(new_item: ItemResource = null) -> void:
 	_current_inventory = null
 
-	players_manager.activate_player()
+	players_manager.resume_player()
 
 	if new_item:
 		players_manager.player_equip(new_item)

@@ -121,7 +121,7 @@ func finish() -> void:
 
 
 func reset() -> void:
-	_ammo_remaining = 0
+	_set_ammo(_get_full_ammo())
 	_damage_accumulated = 0
 	_aimable_life_time_remaining = 0
 	aimable_life_time_timer.stop()
@@ -182,6 +182,11 @@ func _flip_sprite() -> void:
 	sprite.flip_h = velocity.x < 0
 
 
+func _get_full_ammo() -> int:
+	var aimable := equipped_item.aimable_resource
+	return aimable.ammo if aimable else 0
+
+
 func _set_ammo(amount: int) -> void:
 	_ammo_remaining = amount
 
@@ -220,8 +225,9 @@ func _on_aimable_holder_aimable_fired() -> void:
 
 	EventSystem.busy.busy_started.emit(self)
 
-	if _ammo_remaining > 0 and is_cpu:
-		state_machine.transition_to_state(PlayerState.CPU, { "reuse": true })
+	if _ammo_remaining > 0:
+		if is_cpu:
+			state_machine.transition_to_state(PlayerState.CPU, { "reuse": true })
 		return
 
 	finish()

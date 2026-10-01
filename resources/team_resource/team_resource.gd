@@ -48,16 +48,14 @@ func add_player(player: Player) -> void:
 	_active_players.append(player)
 
 
-func current_player() -> Player:
-	return _active_players.front()
-
-
 func kill_player(player: Player) -> void:
 	_active_players.erase(player)
 
 
-func next_player() -> void:
+## Pushes front player to back, returns player pushed to back
+func next_player() -> Player:
 	_active_players.push_back(_active_players.pop_front())
+	return _active_players.back()
 
 
 func has_lost() -> bool:

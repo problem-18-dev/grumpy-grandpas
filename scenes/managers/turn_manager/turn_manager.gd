@@ -14,12 +14,14 @@ signal turn_started
 
 var _turn_time_remaining: int
 var _transition_time_remaining: float
+var _transitioning := false
 
 @onready var turn_timer: Timer = $TurnTimer
 @onready var transition_timer: Timer = $TransitionTimer
 
 
 func reset() -> void:
+	_transitioning = false
 	_turn_time_remaining = turn_duration
 	_transition_time_remaining = transition_duration
 	turn_timer.stop()
@@ -27,18 +29,24 @@ func reset() -> void:
 
 
 func start_turn() -> void:
-	_turn_time_remaining = turn_duration
-	_transition_time_remaining = transition_duration
+	reset()
 	turn_timer.start()
 	time_changed.emit(_turn_time_remaining)
 
 
 func finish_turn() -> void:
+	if _transitioning:
+		return
+
+	_transitioning = true
 	turn_timer.stop()
 	transition_timer.start()
 
 
 func hold_turn() -> void:
+	if _transitioning:
+		return
+
 	turn_timer.stop()
 
 

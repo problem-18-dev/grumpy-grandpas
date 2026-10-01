@@ -32,8 +32,7 @@ func spawn_players(spawn_points: Array[SpawnGenerator.SpawnPoint]) -> void:
 
 	for team in GameManager.get_teams():
 		for player_resource in team.player_resources:
-			var spawn_data: SpawnGenerator.SpawnPoint = spawn_points.pick_random()
-			spawn_points.erase(spawn_data)
+			var spawn_data: SpawnGenerator.SpawnPoint = spawn_points.pop_back()
 			spawn_player_at(player_resource, team, spawn_data)
 
 
@@ -60,7 +59,7 @@ func spawn_player_at(
 func activate_player() -> Player:
 	deactivate_player()
 	active_team = _current_team()
-	active_player = active_team.current_player()
+	active_player = active_team.next_player()
 	active_player.reset()
 	active_player.activate()
 	EventSystem.camera.request_follow.emit(active_player, GameCamera.Priority.LOW)
@@ -74,6 +73,16 @@ func deactivate_player() -> void:
 	EventSystem.camera.revoke_follow.emit(active_player)
 	active_player.deactivate()
 	active_player = null
+
+
+func pause_player() -> void:
+	if is_instance_valid(active_player):
+		active_player.deactivate()
+
+
+func resume_player() -> void:
+	if is_instance_valid(active_player):
+		active_player.activate()
 
 
 func player_equip(item: ItemResource) -> void:
@@ -109,7 +118,6 @@ func next_team() -> void:
 	if active_team != _current_team():
 		return
 
-	active_team.next_player()
 	teams.push_back(teams.pop_front())
 
 
@@ -241,9 +249,11 @@ func _on_player_drowned(player: Player) -> void:
 	players_to_damage.erase(player)
 	player.team.kill_player(player)
 
-	if active_team.has_lost():
-		teams.erase(active_team)
-		active_team = null
+	if player.team.has_lost():
+		teams.erase(player.team)
+
+		if player.team == active_team:
+			active_team = null
 
 	if player == active_player:
 		EventSystem.camera.revoke_follow.emit(player)

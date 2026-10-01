@@ -35,5 +35,5 @@ scene = "uid://cc45g8xgg4lyo"
 texture = ExtResource("4_iomhp")
 crosshair_distance = 75.0
 ammo = 2
-life_time = 3.0
+life_time = 5.0
 metadata/_custom_type_script = "uid://c8teyaijtqeex"
