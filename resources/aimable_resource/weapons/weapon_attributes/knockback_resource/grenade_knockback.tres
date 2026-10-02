@@ -3,9 +3,10 @@
 [ext_resource type="Script" uid="uid://bd6lxv2h53b83" path="res://resources/aimable_resource/weapons/weapon_attributes/knockback_resource/knockback_resource.gd" id="1_ghg50"]
 
 [sub_resource type="Curve" id="Curve_f8b3h"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.8), 0.0, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.25, 0.9), 0.0, 0.0, 0, 0, Vector2(1, 0.59999996), 0.0, 0.0, 0, 0]
+point_count = 3
 metadata/_snap_enabled = true
+metadata/_snap_count = 100
 
 [resource]
 script = ExtResource("1_ghg50")
