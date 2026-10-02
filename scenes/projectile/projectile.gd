@@ -50,6 +50,7 @@ func fire(start_position: Vector2, angle_in_rad: float, force: float) -> void:
 
 
 func destroy() -> void:
+	_is_fired = false
 	EventSystem.busy.busy_finished.emit(self)
 	EventSystem.camera.revoke_follow.emit(self)
 	queue_free()
@@ -60,6 +61,10 @@ func cancel() -> void:
 
 
 func _explode() -> void:
+	# Hitbox, collision and life time can all trigger in the same frame, explode only once.
+	if not _is_fired:
+		return
+
 	Utils.create_explosion(resource.explosion, global_position)
 	destroy()
 

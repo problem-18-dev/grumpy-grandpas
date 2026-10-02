@@ -10,7 +10,6 @@ const TEAM_PANEL_UID := "uid://db72ssn7bo0t5"
 
 func _ready() -> void:
 	_render_teams()
-
 	continue_button.grab_focus.call_deferred()
 
 

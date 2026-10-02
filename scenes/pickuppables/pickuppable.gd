@@ -56,7 +56,6 @@ func spawn(spawn_position: Vector2) -> void:
 
 func _on_pickup_component_picked_up(by: Player) -> void:
 	assert(resource, "Picked up without resource.")
-	print("Picked up %s by %s" % [resource.name, by.name])
 
 	picked_up.emit(by, resource.type)
 	EventSystem.camera.revoke_follow.emit(self)

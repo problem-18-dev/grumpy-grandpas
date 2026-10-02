@@ -21,7 +21,6 @@ func _physics_update(delta: float) -> void:
 
 
 func _die() -> void:
-	print("%s has died" % player.name)
 	player.name_label.text = "%s (dead)" % player.name
 
 	# TODO: replace this with animation

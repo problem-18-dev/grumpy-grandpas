@@ -9,3 +9,7 @@ func set_limits(bounds: Array[int]) -> void:
 	game_camera.limit_right = bounds[1]
 	game_camera.limit_bottom = bounds[2]
 	game_camera.limit_left = bounds[3]
+
+
+func wait_until_settled() -> void:
+	await game_camera.wait_until_settled()

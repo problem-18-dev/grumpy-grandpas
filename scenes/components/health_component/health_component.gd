@@ -14,9 +14,13 @@ var _dead := false
 @onready var health := max_health
 
 
+func is_dead() -> bool:
+	return _dead
+
+
 func add_health(amount: int) -> void:
 	var new_health := health + amount
-	new_health = mini(max_health, health)
+	new_health = mini(max_health, new_health)
 
 	health_changed.emit(new_health, mini(amount, max_health - health))
 	health = new_health

@@ -39,6 +39,10 @@ func set_turn_timer(value: int, is_urgent: bool) -> void:
 
 
 func set_item(item: ItemResource) -> void:
+	if item == null:
+		item_container.hide()
+		return
+
 	item_name_label.text = item.name
 	item_texture.texture = item.icon
 	item_container.show()
@@ -51,6 +55,7 @@ func set_item_ammo(current_ammo: int, max_ammo: int) -> void:
 		return
 
 	ammo_label.text = _get_ammo_label(current_ammo, max_ammo)
+	ammo_label.show()
 
 
 func show_camera_shortcut() -> void:

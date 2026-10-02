@@ -27,8 +27,6 @@ func setup(new_spawn_follow: PathFollow2D) -> void:
 
 
 func spawn(pickuppable_resource: PickuppableResource, spawn_position: Vector2) -> void:
-	print("Spawning %s" % pickuppable_resource.name)
-
 	var pickuppable: Pickuppable = PICKUPPABLE.instantiate()
 	pickuppable.picked_up.connect(picked_up.emit)
 	pickuppable.setup(pickuppable_resource)

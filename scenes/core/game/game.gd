@@ -14,16 +14,21 @@ const HUD_UID := "uid://c5q7bwqmijr3e"
 @export var skip_team_intro := false
 @export var intro_duration_per_team := 5.0
 @export var intro_duration_per_player := 2.5
+@export_group("Outro")
+@export var winner_showcase_duration := 3.0
 
 var _level_paths: Dictionary[Level, String] = { Level.MATCH: "uid://cd2ib37t0cgmf" }
 var _current_level: BaseLevel
 var _current_inventory: Inventory
 var _current_hud: HUD
+var _game_ended := false
 
 @onready var level_root: Node2D = %LevelRoot
 @onready var inventory_root: Control = %InventoryRoot
 @onready var hud_root: Control = %HUDRoot
 @onready var pause_root: Control = %PauseRoot
+@onready var background: TextureRect = %Background
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @onready var busy_manager: BusyManager = %BusyManager
 @onready var turn_manager: TurnManager = %TurnManager
@@ -35,6 +40,7 @@ var _current_hud: HUD
 func _ready() -> void:
 	if not OS.is_debug_build():
 		skip_team_intro = false
+		background.hide()
 
 	await load_level(initial_level)
 	load_hud()
@@ -42,7 +48,7 @@ func _ready() -> void:
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if not OS.is_debug_build() or get_tree().paused:
+	if not OS.is_debug_build() or get_tree().paused or _game_ended:
 		return
 
 	if event.is_action_pressed(&"quit"):
@@ -85,8 +91,12 @@ func _start_level() -> void:
 	players_manager.spawn_players(spawn_points)
 	await _introduce_teams()
 
-	var new_player := players_manager.activate_player()
+	var new_player := players_manager.select_player()
+	await camera_manager.wait_until_settled()
+
+	players_manager.resume_player()
 	_update_hud(new_player)
+
 	_current_hud.set_message(
 		"Time for %s!" % new_player.player_name,
 		intro_duration_per_player,
@@ -95,15 +105,28 @@ func _start_level() -> void:
 	turn_manager.start_turn()
 
 
+func _end_level() -> void:
+	_current_hud.hide_camera_shortcut()
+	_current_hud.set_item(null)
+	await get_tree().create_timer(winner_showcase_duration, false, false, true).timeout
+	animation_player.play("fade")
+	await animation_player.animation_finished
+	SceneLoader.load_scene(SceneLoader.Scenes.MENU)
+
+
 func _announce_winner() -> void:
+	_game_ended = true
+
 	var winner := players_manager.get_winner()
 
 	if winner:
 		players_manager.show_team(winner)
 		_current_hud.set_message("%s has won!" % winner.name)
+		_end_level()
 		return
 
 	_current_hud.set_message("No winners this time!")
+	_end_level()
 
 
 func _introduce_teams() -> void:
@@ -129,10 +152,14 @@ func _continue() -> void:
 		_announce_winner()
 		return
 
-	busy_manager.reset()
 	await pickuppable_manager.attempt_spawn()
+
 	players_manager.next_team()
-	var new_player := players_manager.activate_player()
+	var new_player := players_manager.select_player()
+	await camera_manager.wait_until_settled()
+
+	busy_manager.reset()
+	players_manager.resume_player()
 	_update_hud(new_player)
 	_current_hud.set_message("Time for %s!" % new_player.name, 3.0)
 	turn_manager.start_turn()
@@ -165,8 +192,12 @@ func _on_turn_manager_time_changed(time: int, is_urgent: bool) -> void:
 
 func _on_turn_manager_transition_finished() -> void:
 	_current_level.bounds.cleanup_projectiles()
-	await players_manager.damage_players()
-	await players_manager.kill_marked_players()
+
+	# Deaths explode and hurt others, so resolve until nothing is left pending.
+	while players_manager.has_pending_events():
+		await players_manager.damage_players()
+		await players_manager.kill_marked_players()
+
 	_current_level.bounds.cleanup_players()
 	_continue()
 

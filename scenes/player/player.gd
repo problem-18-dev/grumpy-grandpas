@@ -126,7 +126,6 @@ func finish() -> void:
 
 func reset() -> void:
 	_set_ammo(_get_full_ammo())
-	_damage_accumulated = 0
 	_aimable_life_time_remaining = 0
 	aimable_life_time_timer.stop()
 
@@ -164,13 +163,16 @@ func heal(amount := 25) -> void:
 	health.add_health(amount)
 
 
-func apply_damage() -> void:
-	if _damage_accumulated <= 0:
-		return
+## Returns whether damage was dealt, only then will damage_applied follow.
+func apply_damage() -> bool:
+	var amount := _damage_accumulated
+	_damage_accumulated = 0
 
-	print("Damaging %s by %s" % [name, _damage_accumulated])
-	health.take_health(_damage_accumulated)
-	reset()
+	if amount <= 0 or health.is_dead():
+		return false
+
+	health.take_health(amount)
+	return true
 
 
 func register_damage(amount: int) -> void:

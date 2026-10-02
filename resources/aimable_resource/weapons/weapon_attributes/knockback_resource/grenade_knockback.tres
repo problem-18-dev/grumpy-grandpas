@@ -9,6 +9,6 @@ metadata/_snap_enabled = true
 
 [resource]
 script = ExtResource("1_ghg50")
-max_range = 38.0
+max_range = 42.0
 falloff_curve = SubResource("Curve_f8b3h")
 metadata/_custom_type_script = "uid://bd6lxv2h53b83"

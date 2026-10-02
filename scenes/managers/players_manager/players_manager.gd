@@ -61,11 +61,16 @@ func spawn_player_at(
 
 
 func activate_player() -> Player:
+	var player := select_player()
+	player.activate()
+	return player
+
+
+func select_player() -> Player:
 	deactivate_player()
 	active_team = _current_team()
 	active_player = active_team.next_player()
 	active_player.reset()
-	active_player.activate()
 	EventSystem.camera.request_follow.emit(active_player, GameCamera.Priority.LOW)
 	return active_player
 
@@ -94,26 +99,23 @@ func player_equip(item: ItemResource) -> void:
 
 
 func kill_marked_players() -> void:
-	if players_marked_for_death.is_empty():
-		return
+	while not players_marked_for_death.is_empty():
+		var player: Player = players_marked_for_death.pop_front()
 
-	for player in players_marked_for_death:
-		if not is_instance_valid(player):
-			continue
-
-		await _kill_player(player)
-
-	players_marked_for_death = []
+		if is_instance_valid(player):
+			await _kill_player(player)
 
 
 func damage_players() -> void:
-	if players_to_damage.is_empty():
-		return
+	while not players_to_damage.is_empty():
+		var player: Player = players_to_damage.pop_front()
 
-	for player in players_to_damage:
-		await _damage_player(player)
+		if is_instance_valid(player):
+			await _damage_player(player)
 
-	players_to_damage = []
+
+func has_pending_events() -> bool:
+	return not players_to_damage.is_empty() or not players_marked_for_death.is_empty()
 #endregion
 
 
@@ -216,8 +218,10 @@ func _kill_player(player: Player) -> void:
 
 func _damage_player(player: Player) -> void:
 	EventSystem.camera.request_follow.emit(player, GameCamera.Priority.HIGH, GameCamera.Zoom.NEAR)
-	player.apply_damage()
-	await player.damage_applied
+
+	if player.apply_damage():
+		await player.damage_applied
+
 	EventSystem.camera.revoke_follow.emit(player)
 
 
