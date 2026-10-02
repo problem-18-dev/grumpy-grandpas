@@ -1,7 +1,7 @@
 class_name TurnManager
 extends Node
 
-signal time_changed(time: int)
+signal time_changed(time: int, is_urgent: bool)
 signal transition_started
 signal transition_finished
 signal turn_ended
@@ -9,6 +9,7 @@ signal turn_started
 
 @export_group("Turn")
 @export var turn_duration := 25
+@export var urgent_below := 8
 @export_group("Transition")
 @export var transition_duration := 2.0
 
@@ -31,7 +32,7 @@ func reset() -> void:
 func start_turn() -> void:
 	reset()
 	turn_timer.start()
-	time_changed.emit(_turn_time_remaining)
+	time_changed.emit(_turn_time_remaining, false)
 
 
 func finish_turn() -> void:
@@ -58,7 +59,7 @@ func _on_turn_timer_timeout() -> void:
 		finish_turn()
 		return
 
-	time_changed.emit(_turn_time_remaining)
+	time_changed.emit(_turn_time_remaining, _turn_time_remaining < urgent_below)
 
 
 func _on_transition_timer_timeout() -> void:

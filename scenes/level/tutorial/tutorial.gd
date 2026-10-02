@@ -14,12 +14,13 @@ const KEYCAP = preload("uid://bb8fs5vr1xjp")
 @export var initial_phase := TutorialState.Phase.INTRO
 
 var _tutorial_level: TutorialLevel
+var _current_hud: HUD
 var _is_preparing := false
 
-@onready var hud: HUD = %HUD
 @onready var level_root: Node2D = %LevelRoot
 @onready var entity_root: Node2D = %EntityRoot
 @onready var pause_root: Control = %PauseRoot
+@onready var hud_root: Control = %HUDRoot
 @onready var keycaps_container: VBoxContainer = %KeycapsContainer
 @onready var inventory_root: Control = %InventoryRoot
 @onready var continue_label: Label = %ContinueLabel
@@ -60,6 +61,7 @@ func restart() -> void:
 
 	_clear_entities()
 	await _load_level()
+	_load_hud()
 	_load_systems()
 	_start()
 
@@ -86,7 +88,7 @@ func activate_player() -> void:
 
 
 func show_announcement(text: String) -> void:
-	hud.set_message(text)
+	_current_hud.set_message(text)
 
 
 func create_keycaps(...letters: Array) -> void:
@@ -115,6 +117,10 @@ func lower_enemy_health() -> void:
 		player.health.take_health(99)
 
 
+func update_hud(item: ItemResource) -> void:
+	_current_hud.set_item(item)
+
+
 func _clear_entities() -> void:
 	for child: Node2D in entity_root.get_children():
 		child.queue_free()
@@ -130,6 +136,15 @@ func _load_level() -> void:
 	_tutorial_level = tutorial_level
 	_tutorial_level.projectile_exited.connect(_on_projectile_exited)
 	level_root.add_child(_tutorial_level)
+
+
+func _load_hud() -> void:
+	if _current_hud:
+		_current_hud.queue_free()
+		_current_hud = null
+
+	_current_hud = load(HUD_UID).instantiate()
+	hud_root.add_child(_current_hud)
 
 
 func _load_systems() -> void:
@@ -187,3 +202,7 @@ func _on_inventory_closed(new_item: ItemResource = null) -> void:
 
 func _on_projectile_exited() -> void:
 	retry_phase()
+
+
+func _on_players_manager_player_item_equipped(current_item: ItemResource, _player: Player) -> void:
+	update_hud(current_item)

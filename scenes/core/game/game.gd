@@ -7,6 +7,7 @@ enum Level {
 
 const INVENTORY_UID := "uid://bkrmhl1oip2je"
 const PAUSE_UID := "uid://c88tu6f6g83br"
+const HUD_UID := "uid://c5q7bwqmijr3e"
 
 @export var initial_level := Level.MATCH
 @export_group("Intro")
@@ -17,11 +18,12 @@ const PAUSE_UID := "uid://c88tu6f6g83br"
 var _level_paths: Dictionary[Level, String] = { Level.MATCH: "uid://cd2ib37t0cgmf" }
 var _current_level: BaseLevel
 var _current_inventory: Inventory
+var _current_hud: HUD
 
 @onready var level_root: Node2D = %LevelRoot
 @onready var inventory_root: Control = %InventoryRoot
+@onready var hud_root: Control = %HUDRoot
 @onready var pause_root: Control = %PauseRoot
-@onready var hud: HUD = %HUD
 
 @onready var busy_manager: BusyManager = %BusyManager
 @onready var turn_manager: TurnManager = %TurnManager
@@ -35,6 +37,7 @@ func _ready() -> void:
 		skip_team_intro = false
 
 	await load_level(initial_level)
+	load_hud()
 	_start_level()
 
 
@@ -64,6 +67,11 @@ func load_level(new_scene: Level) -> void:
 	load_systems()
 
 
+func load_hud() -> void:
+	_current_hud = load(HUD_UID).instantiate()
+	hud_root.add_child(_current_hud)
+
+
 func load_systems() -> void:
 	busy_manager.reset()
 	turn_manager.reset()
@@ -78,7 +86,8 @@ func _start_level() -> void:
 	await _introduce_teams()
 
 	var new_player := players_manager.activate_player()
-	hud.set_message(
+	_update_hud(new_player)
+	_current_hud.set_message(
 		"Time for %s!" % new_player.player_name,
 		intro_duration_per_player,
 		players_manager.active_team.get_color(),
@@ -91,10 +100,10 @@ func _announce_winner() -> void:
 
 	if winner:
 		players_manager.show_team(winner)
-		hud.set_message("%s has won!" % winner.name)
+		_current_hud.set_message("%s has won!" % winner.name)
 		return
 
-	hud.set_message("No winners this time!")
+	_current_hud.set_message("No winners this time!")
 
 
 func _introduce_teams() -> void:
@@ -102,10 +111,10 @@ func _introduce_teams() -> void:
 		return
 
 	for team in players_manager.teams:
-		hud.set_message("Introducing Team %s" % team.name, 0.0, team.get_color())
+		_current_hud.set_message("Introducing Team %s" % team.name, 0.0, team.get_color())
 		await players_manager.show_team(team, intro_duration_per_team)
 
-	hud.set_message("")
+	_current_hud.set_message("")
 
 
 func _pause() -> void:
@@ -124,8 +133,16 @@ func _continue() -> void:
 	await pickuppable_manager.attempt_spawn()
 	players_manager.next_team()
 	var new_player := players_manager.activate_player()
-	hud.set_message("Time for %s!" % new_player.name, 3.0)
+	_update_hud(new_player)
+	_current_hud.set_message("Time for %s!" % new_player.name, 3.0)
 	turn_manager.start_turn()
+
+
+func _update_hud(player: Player) -> void:
+	assert(_current_hud, "Updating HUD but no HUD available.")
+
+	_current_hud.set_item(player.equipped_item)
+	_current_hud.show_camera_shortcut()
 
 
 func _on_pickuppable_manager_picked_up(by: Player, type: PickuppableResource.Type) -> void:
@@ -142,8 +159,8 @@ func _on_busy_manager_busy_ended() -> void:
 	turn_manager.finish_turn()
 
 
-func _on_turn_manager_time_changed(time: int) -> void:
-	hud.set_turn_timer(time)
+func _on_turn_manager_time_changed(time: int, is_urgent: bool) -> void:
+	_current_hud.set_turn_timer(time, is_urgent)
 
 
 func _on_turn_manager_transition_finished() -> void:
@@ -178,12 +195,29 @@ func _on_players_manager_inventory_requested(
 
 func _on_inventory_closed(new_item: ItemResource = null) -> void:
 	_current_inventory = null
-
 	players_manager.resume_player()
 
-	if new_item:
-		players_manager.player_equip(new_item)
+	if not new_item:
+		return
+
+	players_manager.player_equip(new_item)
 
 
 func _on_projectile_exited() -> void:
 	turn_manager.finish_turn()
+
+
+func _on_players_manager_player_ammo_changed(
+	ammo_remaining: int,
+	current_item: ItemResource,
+	_player: Player,
+) -> void:
+	if not _current_hud:
+		push_warning("Player ammo change HUD adjustment, but no current hud.")
+		return
+
+	_current_hud.set_item_ammo(ammo_remaining, current_item.aimable_resource.ammo)
+
+
+func _on_players_manager_player_item_equipped(_current_item: ItemResource, player: Player) -> void:
+	_update_hud(player)

@@ -40,7 +40,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0.39215687)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_pug2j"]
@@ -66,28 +66,20 @@ _data = {
 }
 
 [node name="Keycap" type="Control" unique_id=2061330245]
+custom_minimum_size = Vector2(54, 24)
+custom_maximum_size = Vector2(54, 24)
+propagate_maximum_size = true
 layout_mode = 3
 anchors_preset = 0
+offset_right = 24.0
+offset_bottom = 24.0
 script = ExtResource("1_eoj7w")
 text = "Space"
 
 [node name="Background" type="Panel" parent="." unique_id=712333341]
-modulate = Color(1, 1, 1, 0.39215687)
-custom_minimum_size = Vector2(24, 24)
-custom_maximum_size = Vector2(64, 24)
-propagate_maximum_size = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -27.0
-offset_top = -12.0
-offset_right = 27.0
-offset_bottom = 12.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_right = 54.0
+offset_bottom = 24.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_override_styles/panel = SubResource("StyleBoxFlat_1xhu4")
 
@@ -109,15 +101,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_r7fx0")
 
 [node name="Label" type="Label" parent="Background/Foreground" unique_id=1199483029]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -5.5
-offset_top = -7.5
-offset_right = 5.5
-offset_bottom = 7.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"PlayerNameLabel"

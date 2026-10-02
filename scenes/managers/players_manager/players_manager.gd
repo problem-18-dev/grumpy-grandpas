@@ -4,6 +4,8 @@ extends Node
 signal inventory_requested(locked_items: Array[ItemResource], current_item: ItemResource)
 signal player_died(player: Player)
 signal player_drowned(player: Player)
+signal player_item_equipped(current_item: ItemResource, player: Player)
+signal player_ammo_changed(ammo_remaining: int, current_item: ItemResource, player: Player)
 
 const PLAYER := preload("uid://bmag23mf230r3")
 
@@ -51,7 +53,9 @@ func spawn_player_at(
 	player.damage_accumulated.connect(_on_player_damage_accumulated)
 	player.inventory_requested.connect(_on_player_inventory_requested)
 	player.drowned.connect(_on_player_drowned)
-	player.firing_finished.connect(deactivate_player)
+	player.item_equipped.connect(player_item_equipped.emit.bind(player))
+	player.ammo_changed.connect(player_ammo_changed.emit.bind(player))
+	player.firing_finished.connect(_on_player_firing_finished.bind(player))
 
 	_get_or_create_team(team).add_player(player)
 
@@ -237,6 +241,12 @@ func _on_player_marked_for_death(player: Player) -> void:
 			break
 
 
+func _on_player_firing_finished(player: Player) -> void:
+	# A late finish from a previous player must not deactivate whoever is active now.
+	if player == active_player:
+		deactivate_player()
+
+
 func _on_player_damage_accumulated(player: Player) -> void:
 	if players_to_damage.has(player):
 		return
@@ -257,9 +267,9 @@ func _on_player_drowned(player: Player) -> void:
 
 	if player == active_player:
 		EventSystem.camera.revoke_follow.emit(player)
+		active_player = null
 
 	player_drowned.emit(player)
-	active_player = null
 
 
 func _on_player_inventory_requested(current_item: ItemResource) -> void:

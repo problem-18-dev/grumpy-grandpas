@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://cw3y8hipohxda" path="res://scenes/managers/pickuppable_manager/pickuppable_manager.tscn" id="5_0c8qe"]
 [ext_resource type="PackedScene" uid="uid://drkkxlses2ss3" path="res://scenes/debug/debug_overlay.tscn" id="6_22cy2"]
 [ext_resource type="PackedScene" uid="uid://d35ssjbiwjytu" path="res://scenes/managers/camera_manager/camera_manager.tscn" id="6_l2mu6"]
-[ext_resource type="PackedScene" uid="uid://c5q7bwqmijr3e" path="res://gui/hud/hud.tscn" id="8_t6juh"]
 
 [node name="Game" type="Node" unique_id=1409832964]
 process_mode = 3
@@ -52,16 +51,13 @@ unique_name_in_owner = true
 process_mode = 1
 
 [node name="HUDRoot" type="Control" parent="HUDLayer" unique_id=1532385107]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="HUD" parent="HUDLayer/HUDRoot" unique_id=673953980 instance=ExtResource("8_t6juh")]
-unique_name_in_owner = true
-layout_mode = 1
 
 [node name="InventoryLayer" type="CanvasLayer" parent="." unique_id=1412375788]
 process_mode = 1
@@ -129,4 +125,6 @@ layout_mode = 1
 [connection signal="transition_finished" from="Systems/TurnManager" to="." method="_on_turn_manager_transition_finished"]
 [connection signal="turn_ended" from="Systems/TurnManager" to="." method="_on_turn_manager_turn_ended"]
 [connection signal="inventory_requested" from="Systems/PlayersManager" to="." method="_on_players_manager_inventory_requested"]
+[connection signal="player_ammo_changed" from="Systems/PlayersManager" to="." method="_on_players_manager_player_ammo_changed"]
+[connection signal="player_item_equipped" from="Systems/PlayersManager" to="." method="_on_players_manager_player_item_equipped"]
 [connection signal="picked_up" from="Systems/PickuppableManager" to="." method="_on_pickuppable_manager_picked_up"]

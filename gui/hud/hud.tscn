@@ -1,6 +1,20 @@
 [gd_scene format=3 uid="uid://c5q7bwqmijr3e"]
 
 [ext_resource type="Script" uid="uid://sxkabhbydj0y" path="res://gui/hud/hud.gd" id="1_34rqw"]
+[ext_resource type="PackedScene" uid="uid://bb8fs5vr1xjp" path="res://scenes/tutorial/keycap/keycap.tscn" id="2_4w87a"]
+[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="2_rllpj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34rqw"]
+bg_color = Color(0.21176471, 0.20784314, 0.3019608, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.98039216, 1, 0.9882353, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="HUD" type="Control" unique_id=673953980]
 layout_mode = 3
@@ -59,3 +73,77 @@ theme_type_variation = &"TernaryLabel"
 text = "32"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1205182323]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 8
+
+[node name="ItemContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=999701084]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/ItemContainer" unique_id=1875948835]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer/ItemContainer/HBoxContainer" unique_id=1150573529]
+custom_minimum_size = Vector2(64, 40)
+custom_maximum_size = Vector2(64, 40)
+layout_mode = 2
+theme_type_variation = &"InventoryPanel"
+theme_override_styles/panel = SubResource("StyleBoxFlat_34rqw")
+
+[node name="ItemTexture" type="TextureRect" parent="MarginContainer/HBoxContainer/ItemContainer/HBoxContainer/Panel" unique_id=1450224068]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.0
+offset_top = -6.0
+offset_right = 25.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.1837464
+texture = ExtResource("2_rllpj")
+expand_mode = 1
+
+[node name="AmmoLabel" type="Label" parent="MarginContainer/HBoxContainer/ItemContainer/HBoxContainer" unique_id=453581521]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+theme_type_variation = &"CaptionLabel"
+text = "1/2"
+
+[node name="ItemNameLabel" type="Label" parent="MarginContainer/HBoxContainer/ItemContainer" unique_id=357396745]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "Shotgun"
+
+[node name="CameraContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1007659659]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 8
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/CameraContainer" unique_id=1875173304]
+layout_mode = 2
+theme_type_variation = &"CaptionLabel"
+text = "Camera"
+
+[node name="Keycap" parent="MarginContainer/HBoxContainer/CameraContainer" unique_id=2061330245 instance=ExtResource("2_4w87a")]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+text = "C"
+should_animate = false

@@ -7,9 +7,10 @@ signal damage_accumulated(player: Player)
 signal damage_applied
 signal died
 signal drowned(player: Player)
+signal item_equipped(equipped_item: ItemResource)
+signal ammo_changed(ammo_remaining: int, eqipped_item: ItemResource)
 signal firing_finished
 
-const CATALOGUE := preload("uid://gr6x0tlr2xog")
 const LEFT_DIRECTION := -1
 const RIGHT_DIRECTION := 1
 const FLOOR_MAX_ANGLE := 80
@@ -17,8 +18,8 @@ const FLOOR_MAX_ANGLE := 80
 var is_cpu: bool
 var team: TeamResource
 var player_name: String
+var equipped_item: ItemResource
 
-var equipped_item: ItemResource = CATALOGUE.default_weapon
 var _ammo_remaining := 0
 var _damage_accumulated := 0
 var _aimable_life_time_remaining := 0.0
@@ -38,6 +39,7 @@ var _last_direction := RIGHT_DIRECTION
 
 
 func _ready() -> void:
+	equipped_item = GameManager.get_catalogue().default_weapon
 	_set_ammo(equipped_item.aimable_resource.ammo)
 
 
@@ -48,6 +50,7 @@ func _physics_process(_delta: float) -> void:
 #region Equipping
 func equip_item(item: ItemResource) -> void:
 	equipped_item = item
+	item_equipped.emit(item)
 
 	var new_player_state := PlayerState.IDLE
 
@@ -116,6 +119,7 @@ func drown() -> void:
 
 
 func finish() -> void:
+	aimable_life_time_timer.stop()
 	firing_finished.emit()
 	EventSystem.busy.busy_finished.emit(self)
 
@@ -224,6 +228,7 @@ func _on_aimable_holder_aimable_fired() -> void:
 	_ammo_remaining -= 1
 
 	EventSystem.busy.busy_started.emit(self)
+	ammo_changed.emit(_ammo_remaining, equipped_item)
 
 	if _ammo_remaining > 0:
 		if is_cpu:

@@ -21,18 +21,18 @@ polygon = PackedVector2Array(-80, 200, -48, 136, 80, 152, 208, 136, 336, 152, 46
 [node name="BoundsArea" parent="." unique_id=1365056220 instance=ExtResource("7_tadih")]
 
 [node name="Top" parent="BoundsArea" index="0" unique_id=145456361]
-position = Vector2(168, -64)
+position = Vector2(168, -81)
 rotation = 3.1415927
 
 [node name="Right" parent="BoundsArea" index="1" unique_id=292086785]
-position = Vector2(576, 224)
+position = Vector2(587, 224)
 rotation = -1.5707964
 
 [node name="Bottom" parent="BoundsArea" index="2" unique_id=1700487279]
 position = Vector2(168, 344)
 
 [node name="Left" parent="BoundsArea" index="3" unique_id=2119979601]
-position = Vector2(-192, 256)
+position = Vector2(-218, 256)
 rotation = 1.5707964
 
 [node name="PlayerSpawnMarker" type="Marker2D" parent="." unique_id=2050232590]

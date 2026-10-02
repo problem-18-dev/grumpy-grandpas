@@ -17,7 +17,7 @@ enum Zoom {
 const ZOOM := { Zoom.NEAR: 1.2, Zoom.NORMAL: 1.0, Zoom.FAR: 0.9 }
 const ZOOM_TWEEN_DURATION := 0.5
 
-@export var manual_target_speed := 150.0
+@export var manual_target_speed := 200.0
 
 var targets: Dictionary[Node2D, Dictionary]
 
@@ -89,6 +89,9 @@ func _update_camera() -> void:
 
 	# Change target to follow based on priority, doesn't change if no higher priority
 	for next_target in targets:
+		if not is_instance_valid(next_target):
+			continue
+
 		if not highest_priority_target:
 			highest_priority_target = next_target
 			continue
@@ -173,6 +176,7 @@ func _on_shake(new_noise: PhantomCameraNoise2D, duration: float) -> void:
 
 func _on_request_manual(manual_position: Vector2) -> void:
 	_manual_override = true
+	_adjust_zoom(Zoom.FAR)
 	manual_target.global_position = manual_position
 	follow_target = manual_target
 

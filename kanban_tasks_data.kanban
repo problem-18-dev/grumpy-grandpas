@@ -11,6 +11,7 @@
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
 			"tasks": [
+				"a1a7e1b6-2492-40c2-a01d-e04ae9a39347",
 				"e31e55b2-7b3d-49ce-9b96-ce54bbc3e1a5",
 				"ba1e0c1e-3604-45e0-9027-60476ffe97b2",
 				"995bc10a-3e1f-4982-a7f8-b8a127816528"
@@ -27,8 +28,11 @@
 			"tasks": [
 				"093fd4eb-0925-4110-b4f0-e7123d22f5d3",
 				"5461c799-8e08-4c92-b445-201bc564e213",
+				"ace8ef60-29dd-4458-a18a-88837563e47f",
+				"202c7dbe-61be-4172-9fbc-17fe0ed6f440",
 				"79ddecfd-1187-4270-aada-cec31109058e",
 				"7f7a74e4-227c-4221-8d5e-df9f69f35a88",
+				"dc319a87-e67d-4051-8aa8-f35a9bc4b648",
 				"ad904723-9b3c-4063-a2b8-6c29f3952c84",
 				"abdfdbbd-ab90-427c-b15a-8ee6ff33dafa",
 				"719e12fb-4132-4d34-aa12-c525938c06e8",
@@ -679,7 +683,7 @@
 		},
 		{
 			"uuid": "995bc10a-3e1f-4982-a7f8-b8a127816528",
-			"title": "[Feat] Improve camera following multiple targets",
+			"title": "[Extra] Improve camera following multiple targets",
 			"description": "",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
@@ -751,6 +755,34 @@
 			"uuid": "5461c799-8e08-4c92-b445-201bc564e213",
 			"title": "[Feat] Improve hitscan knockback",
 			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "dc319a87-e67d-4051-8aa8-f35a9bc4b648",
+			"title": "[Feat] Add weapon HUD",
+			"description": "Bottom left simple icon which weapon and how much ammo",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "202c7dbe-61be-4172-9fbc-17fe0ed6f440",
+			"title": "[Feat] Add buttons HUD",
+			"description": "Next to the weapon, display a keycap alongside what said keycap does.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "ace8ef60-29dd-4458-a18a-88837563e47f",
+			"title": "[Feat] Turn urgent",
+			"description": "Make turn timer blink if time's running low\n",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "a1a7e1b6-2492-40c2-a01d-e04ae9a39347",
+			"title": "[Feat] Winner HUD",
+			"description": "Simple \"restart\" or \"continue\" type of hud to move on after a team won.",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
 		}
