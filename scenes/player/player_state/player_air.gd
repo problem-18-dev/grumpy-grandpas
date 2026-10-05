@@ -78,9 +78,9 @@ func _tween_landing() -> void:
 func _fall_damage() -> void:
 	_has_fallen = true
 
-	EventSystem.busy.busy_started.emit(player)
+	player.is_busy = true
 	player.velocity = Vector2.ZERO
 	player.register_damage(fall_damage)
 	await get_tree().create_timer(fall_damage_duration, false).timeout
-	EventSystem.busy.busy_finished.emit(player)
+	player.is_busy = false
 	finished.emit(PlayerState.INACTIVE)

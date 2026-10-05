@@ -16,6 +16,7 @@ const RIGHT_DIRECTION := 1
 const FLOOR_MAX_ANGLE := 80
 
 var is_cpu: bool
+var is_busy: bool
 var team: TeamResource
 var player_name: String
 var equipped_item: ItemResource
@@ -45,7 +46,6 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	_flip_sprite()
-
 
 #region Equipping
 func equip_item(item: ItemResource) -> void:
@@ -83,7 +83,6 @@ func get_aimable() -> AimableResource:
 	return equipped_item.aimable_resource
 #endregion
 
-
 #region Direction
 func get_direction() -> float:
 	if InputGate.has_multiple(["move_left", "move_right"]):
@@ -95,7 +94,6 @@ func get_direction() -> float:
 func register_last_direction(new_last_direction: float) -> void:
 	_last_direction = LEFT_DIRECTION if new_last_direction < 0 else RIGHT_DIRECTION
 #endregion
-
 
 #region Control
 func activate() -> void:
@@ -121,7 +119,7 @@ func drown() -> void:
 func finish() -> void:
 	aimable_life_time_timer.stop()
 	firing_finished.emit()
-	EventSystem.busy.busy_finished.emit(self)
+	is_busy = false
 
 
 func reset() -> void:
@@ -151,12 +149,10 @@ func setup(player_team: TeamResource, player: PlayerResource) -> void:
 	player_name = player.name
 #endregion
 
-
 #region Inventory
 func request_inventory() -> void:
 	inventory_requested.emit(equipped_item)
 #endregion
-
 
 #region Damage & Healing
 func heal(amount := 25) -> void:
@@ -179,7 +175,6 @@ func register_damage(amount: int) -> void:
 	_damage_accumulated += amount
 	damage_accumulated.emit(self)
 #endregion
-
 
 func _flip_sprite() -> void:
 	if is_zero_approx(velocity.x):
@@ -229,7 +224,7 @@ func _on_aimable_holder_aimable_fired() -> void:
 
 	_ammo_remaining -= 1
 
-	EventSystem.busy.busy_started.emit(self)
+	is_busy = true
 	ammo_changed.emit(_ammo_remaining, equipped_item)
 
 	if _ammo_remaining > 0:

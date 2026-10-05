@@ -65,7 +65,6 @@ func load_level(new_scene: Level) -> void:
 		await get_tree().process_frame
 
 	_current_level = load(_level_paths[new_scene]).instantiate()
-	_current_level.projectile_exited.connect(_on_projectile_exited)
 	level_root.add_child(_current_level)
 
 	await get_tree().process_frame
@@ -79,7 +78,6 @@ func load_hud() -> void:
 
 
 func load_systems() -> void:
-	busy_manager.reset()
 	turn_manager.reset()
 	players_manager.reset()
 	pickuppable_manager.setup(_current_level.get_spawn_follow())
@@ -158,7 +156,7 @@ func _continue() -> void:
 	var new_player := players_manager.select_player()
 	await camera_manager.wait_until_settled()
 
-	busy_manager.reset()
+	busy_manager.start()
 	players_manager.resume_player()
 	_update_hud(new_player)
 	_current_hud.set_message("Time for %s!" % new_player.name, 3.0)
@@ -232,10 +230,6 @@ func _on_inventory_closed(new_item: ItemResource = null) -> void:
 		return
 
 	players_manager.player_equip(new_item)
-
-
-func _on_projectile_exited() -> void:
-	turn_manager.finish_turn()
 
 
 func _on_players_manager_player_ammo_changed(

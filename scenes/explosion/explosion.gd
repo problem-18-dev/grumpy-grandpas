@@ -17,7 +17,6 @@ func prepare(resource: ExplosionResource) -> void:
 
 func explode(explode_position: Vector2) -> void:
 	global_position = explode_position
-	EventSystem.busy.busy_started.emit(self)
 	EventSystem.camera.request_follow.emit(self, GameCamera.Priority.MID)
 	EventSystem.camera.shake.emit(explosion_resource.shake_noise, explosion_resource.shake_duration)
 
@@ -81,6 +80,5 @@ func _carve_terrain() -> void:
 
 
 func _on_timer_timeout() -> void:
-	EventSystem.busy.busy_finished.emit(self)
 	EventSystem.camera.revoke_follow.emit(self)
 	queue_free()

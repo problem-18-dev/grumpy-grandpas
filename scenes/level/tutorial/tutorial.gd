@@ -91,7 +91,7 @@ func show_announcement(text: String) -> void:
 	_current_hud.set_message(text)
 
 
-func create_keycaps(...letters: Array) -> void:
+func create_keycaps(... letters: Array) -> void:
 	clear_keycaps()
 
 	for letter: String in letters:
@@ -109,7 +109,7 @@ func clear_keycaps() -> void:
 
 
 func lower_enemy_health() -> void:
-	for player: Player in get_tree().get_nodes_in_group("players"):
+	for player: Player in get_tree().get_nodes_in_group("player"):
 		if player.team.get_id() != TEAM_TUTORIAL_RED.get_id():
 			continue
 
@@ -148,7 +148,7 @@ func _load_hud() -> void:
 
 
 func _load_systems() -> void:
-	busy_manager.reset()
+	busy_manager.stop()
 	players_manager.reset()
 	camera_manager.set_limits(_tutorial_level.get_bounds())
 

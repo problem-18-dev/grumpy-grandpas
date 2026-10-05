@@ -1,12 +1,16 @@
-[gd_scene format=3 uid="uid://c6rdv182qtrpo"]
+[gd_scene format=3 uid="uid://clmby7f35fvxj"]
 
-[ext_resource type="Script" uid="uid://lymj0de4rogu" path="res://scenes/managers/busy_manager/busy_manager.gd" id="1_21r03"]
+[ext_resource type="Script" uid="uid://dwkk24dvlqi4h" path="res://scenes/managers/busy_manager/busy_manager.gd" id="1_erd4k"]
 
-[node name="BusyManager" type="Node" unique_id=521475468]
-script = ExtResource("1_21r03")
+[node name="BusyManager" type="Node" unique_id=1994587194]
+script = ExtResource("1_erd4k")
 
-[node name="SettleTimer" type="Timer" parent="." unique_id=1227406159]
-wait_time = 0.5
+[node name="PollingTimer" type="Timer" parent="." unique_id=1791440943]
+process_callback = 0
+
+[node name="SettleTimer" type="Timer" parent="." unique_id=2052930040]
+process_callback = 0
 one_shot = true
 
+[connection signal="timeout" from="PollingTimer" to="." method="_on_polling_timer_timeout"]
 [connection signal="timeout" from="SettleTimer" to="." method="_on_settle_timer_timeout"]

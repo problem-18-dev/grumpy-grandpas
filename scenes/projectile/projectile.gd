@@ -39,7 +39,6 @@ func prepare(projectile_resource: ProjectileResource) -> void:
 
 
 func fire(start_position: Vector2, angle_in_rad: float, force: float) -> void:
-	EventSystem.busy.busy_started.emit(self)
 	EventSystem.camera.request_follow.emit(self, GameCamera.Priority.MID, GameCamera.Zoom.FAR)
 
 	global_position = start_position
@@ -51,7 +50,6 @@ func fire(start_position: Vector2, angle_in_rad: float, force: float) -> void:
 
 func destroy() -> void:
 	_is_fired = false
-	EventSystem.busy.busy_finished.emit(self)
 	EventSystem.camera.revoke_follow.emit(self)
 	queue_free()
 
