@@ -87,7 +87,7 @@ func _determine_best_shot(weapon: HitscanWeaponResource) -> CPUHitscanShot:
 
 
 func _get_enemies() -> Array[Player]:
-	var players := get_tree().get_nodes_in_group("players")
+	var players := get_tree().get_nodes_in_group("player")
 
 	# Enemy = Different team id and hurtbox enabled
 	var enemies := players.filter(

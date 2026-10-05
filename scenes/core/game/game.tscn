@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://ciimkqey5k0nn"]
 
 [ext_resource type="Script" uid="uid://ddhhtvwb1c10u" path="res://scenes/core/game/game.gd" id="1_uf3vs"]
-[ext_resource type="PackedScene" uid="uid://c6rdv182qtrpo" path="res://scenes/managers/busy_manager/busy_manager.tscn" id="2_hk36i"]
 [ext_resource type="PackedScene" uid="uid://cmrioaepcqauw" path="res://scenes/managers/turn_manager/turn_manager.tscn" id="3_l2mu6"]
 [ext_resource type="PackedScene" uid="uid://dbdar1owhc1hg" path="res://scenes/managers/players_manager/players_manager.tscn" id="4_t6juh"]
 [ext_resource type="PackedScene" uid="uid://cw3y8hipohxda" path="res://scenes/managers/pickuppable_manager/pickuppable_manager.tscn" id="5_0c8qe"]
 [ext_resource type="PackedScene" uid="uid://drkkxlses2ss3" path="res://scenes/debug/debug_overlay.tscn" id="6_22cy2"]
 [ext_resource type="PackedScene" uid="uid://d35ssjbiwjytu" path="res://scenes/managers/camera_manager/camera_manager.tscn" id="6_l2mu6"]
+[ext_resource type="PackedScene" uid="uid://clmby7f35fvxj" path="res://scenes/managers/busy_manager/busy_manager.tscn" id="6_t6juh"]
 [ext_resource type="PackedScene" uid="uid://bocfnvrwcsq33" path="res://gui/components/background/background.tscn" id="7_l2mu6"]
 
 [sub_resource type="Animation" id="Animation_l2mu6"]
@@ -78,10 +78,6 @@ skip_team_intro = true
 [node name="Systems" type="Node" parent="." unique_id=630301451]
 process_mode = 3
 
-[node name="BusyManager" parent="Systems" unique_id=952442597 instance=ExtResource("2_hk36i")]
-unique_name_in_owner = true
-process_mode = 1
-
 [node name="TurnManager" parent="Systems" unique_id=299448507 instance=ExtResource("3_l2mu6")]
 unique_name_in_owner = true
 process_mode = 1
@@ -99,6 +95,9 @@ spawn_target = NodePath("../../World/EntityRoot")
 [node name="CameraManager" parent="Systems" unique_id=22320113 instance=ExtResource("6_l2mu6")]
 unique_name_in_owner = true
 process_mode = 1
+
+[node name="BusyManager" parent="Systems" unique_id=1994587194 instance=ExtResource("6_t6juh")]
+unique_name_in_owner = true
 
 [node name="World" type="Node2D" parent="." unique_id=735254960]
 process_mode = 1
@@ -189,8 +188,6 @@ layout_mode = 1
 process_mode = 3
 libraries/ = SubResource("AnimationLibrary_0c8qe")
 
-[connection signal="busy_ended" from="Systems/BusyManager" to="." method="_on_busy_manager_busy_ended"]
-[connection signal="busy_started" from="Systems/BusyManager" to="." method="_on_busy_manager_busy_started"]
 [connection signal="time_changed" from="Systems/TurnManager" to="." method="_on_turn_manager_time_changed"]
 [connection signal="transition_finished" from="Systems/TurnManager" to="." method="_on_turn_manager_transition_finished"]
 [connection signal="turn_ended" from="Systems/TurnManager" to="." method="_on_turn_manager_turn_ended"]
@@ -198,3 +195,5 @@ libraries/ = SubResource("AnimationLibrary_0c8qe")
 [connection signal="player_ammo_changed" from="Systems/PlayersManager" to="." method="_on_players_manager_player_ammo_changed"]
 [connection signal="player_item_equipped" from="Systems/PlayersManager" to="." method="_on_players_manager_player_item_equipped"]
 [connection signal="picked_up" from="Systems/PickuppableManager" to="." method="_on_pickuppable_manager_picked_up"]
+[connection signal="busy_ended" from="Systems/BusyManager" to="." method="_on_busy_manager_busy_ended"]
+[connection signal="busy_started" from="Systems/BusyManager" to="." method="_on_busy_manager_busy_started"]

@@ -19,7 +19,7 @@ func enter(data := { }) -> void:
 		finished.emit(PlayerState.INACTIVE)
 		return
 
-	EventSystem.busy.busy_started.emit(player)
+	player.is_busy = true
 
 	var angle: float = data.get("angle")
 	var force: float = data.get("force")
@@ -49,5 +49,5 @@ func _physics_update(delta: float) -> void:
 func _finish() -> void:
 	_finished = true
 	player.sprite.rotation = 0
-	EventSystem.busy.busy_finished.emit(player)
+	player.is_busy = false
 	finished.emit(PlayerState.INACTIVE)

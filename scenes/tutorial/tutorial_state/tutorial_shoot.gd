@@ -11,6 +11,8 @@ func exit() -> void:
 
 	if busy_manager.busy_ended.is_connected(_on_busy_manager_busy_ended):
 		busy_manager.busy_ended.disconnect(_on_busy_manager_busy_ended)
+	busy_manager.stop()
+
 	if players_manager.player_drowned.is_connected(_on_player_drowned):
 		players_manager.player_drowned.disconnect(_on_player_drowned)
 
@@ -20,6 +22,8 @@ func _start() -> void:
 	InputGate.allow_some(["move_left", "move_right", "jump", "up", "down", "camera", "shoot"])
 	tutorial.create_keycaps("space")
 	tutorial.update_hud(GameManager.get_catalogue().default_weapon)
+
+	busy_manager.start()
 
 	if not busy_manager.busy_ended.is_connected(_on_busy_manager_busy_ended):
 		busy_manager.busy_ended.connect(_on_busy_manager_busy_ended, CONNECT_ONE_SHOT)

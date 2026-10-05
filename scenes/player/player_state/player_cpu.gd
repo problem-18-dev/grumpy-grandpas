@@ -32,7 +32,7 @@ func _validate_property(property: Dictionary) -> void:
 
 
 func enter(data := { }) -> void:
-	EventSystem.busy.busy_started.emit(player)
+	player.is_busy = true
 
 	# Wait for game to be idle.
 	await get_tree().process_frame

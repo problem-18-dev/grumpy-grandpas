@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://sno2lalbj3mf"]
 
 [ext_resource type="Script" uid="uid://br8uuawbi5xkh" path="res://scenes/level/tutorial/tutorial.gd" id="1_r2p7n"]
-[ext_resource type="PackedScene" uid="uid://c6rdv182qtrpo" path="res://scenes/managers/busy_manager/busy_manager.tscn" id="2_sp44e"]
+[ext_resource type="PackedScene" uid="uid://clmby7f35fvxj" path="res://scenes/managers/busy_manager/busy_manager.tscn" id="2_sp44e"]
 [ext_resource type="PackedScene" uid="uid://dbdar1owhc1hg" path="res://scenes/managers/players_manager/players_manager.tscn" id="4_cqum7"]
 [ext_resource type="PackedScene" uid="uid://cw3y8hipohxda" path="res://scenes/managers/pickuppable_manager/pickuppable_manager.tscn" id="5_dns2n"]
 [ext_resource type="PackedScene" uid="uid://drkkxlses2ss3" path="res://scenes/debug/debug_overlay.tscn" id="6_bxuk6"]
@@ -43,6 +43,7 @@ _data = {
 [node name="Tutorial" type="Node" unique_id=1409832964]
 process_mode = 3
 script = ExtResource("1_r2p7n")
+initial_phase = 5
 
 [node name="Systems" type="Node" parent="." unique_id=630301451]
 process_mode = 3

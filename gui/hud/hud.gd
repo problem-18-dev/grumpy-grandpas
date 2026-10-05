@@ -20,6 +20,8 @@ var _timer_blink_tween: Tween
 
 func _ready() -> void:
 	turn_timer_panel.hide()
+	item_container.hide()
+	camera_container.hide()
 
 
 func set_message(message: String, duration := 0.0, color := WHITE_COLOR) -> void:
