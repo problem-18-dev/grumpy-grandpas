@@ -26,7 +26,7 @@ var _damage_accumulated := 0
 var _aimable_life_time_remaining := 0.0
 var _last_direction := RIGHT_DIRECTION
 
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var sprite: PlayerSprite = $Sprite
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var aimable_holder: AimableHolder = $AimableHolder
 @onready var state_machine: StateMachine = $StateMachine
@@ -69,6 +69,7 @@ func equip_item(item: ItemResource) -> void:
 
 func unequip_item() -> void:
 	aimable_holder.remove_aimable()
+	sprite.rotate_head(0)
 
 
 func reequip_item() -> void:
@@ -141,6 +142,7 @@ func setup(player_team: TeamResource, player: PlayerResource) -> void:
 	aimable_holder.is_cpu = team.is_cpu
 	is_cpu = team.is_cpu
 
+	sprite.setup(player.gender, team.get_color())
 	name_label.add_theme_color_override("font_color", team.get_color())
 	name_label.text = player.name
 	health_label.add_theme_color_override("font_color", team.get_color())
@@ -180,7 +182,7 @@ func _flip_sprite() -> void:
 	if is_zero_approx(velocity.x):
 		return
 
-	sprite.flip_h = velocity.x < 0
+	sprite.flip(velocity.x < 0)
 
 
 func _get_full_ammo() -> int:
@@ -209,6 +211,10 @@ func _on_health_component_died() -> void:
 	marked_for_death.emit(self)
 
 
+func _on_damage_indicator_finished() -> void:
+	damage_applied.emit(self)
+
+
 func _on_aimable_holder_aimable_used(player_state: String, state_data: Dictionary) -> void:
 	state_machine.transition_to_state(player_state, state_data)
 
@@ -235,13 +241,13 @@ func _on_aimable_holder_aimable_fired() -> void:
 	finish()
 
 
-func _on_damage_indicator_finished() -> void:
-	damage_applied.emit(self)
-
-
 func _on_aimable_life_time_timer_timeout() -> void:
 	_aimable_life_time_remaining -= 1
 
 	if _aimable_life_time_remaining <= 0:
 		aimable_life_time_timer.stop()
 		finish()
+
+
+func _on_aimable_holder_aimable_rotated(angle: float) -> void:
+	sprite.rotate_head(angle)

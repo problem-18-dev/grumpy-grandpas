@@ -9,7 +9,8 @@ const BUILD_VERSION: String = "application/config/version"
 
 func _ready() -> void:
 	build_label.text = "Build: %s" % ProjectSettings.get_setting(BUILD_VERSION)
+	_on_fps_timer_timeout()
 
 
-func _process(_delta: float) -> void:
+func _on_fps_timer_timeout() -> void:
 	fps_label.text = "FPS: %s" % floori(Engine.get_frames_per_second())

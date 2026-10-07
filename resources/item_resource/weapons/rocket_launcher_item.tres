@@ -8,6 +8,5 @@
 script = ExtResource("1_wglb7")
 name = "Rocket Launcher"
 icon = ExtResource("2_dg75q")
-is_aimable = true
 aimable_resource = ExtResource("1_ukjmj")
 metadata/_custom_type_script = "uid://cp1j8tubsspi2"

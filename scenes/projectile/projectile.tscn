@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://vh6un5fax3ox" path="res://scenes/projectile/projectile.gd" id="1_2dulq"]
 [ext_resource type="PackedScene" uid="uid://c8af6ylft6mlg" path="res://scenes/components/hitbox_component/hitbox_component.tscn" id="2_2dulq"]
 [ext_resource type="Resource" uid="uid://brymaul5h4b5a" path="res://resources/projectile_resource/rocket.tres" id="2_lw0th"]
-[ext_resource type="Texture2D" uid="uid://c5s0wwqdt0u8v" path="res://scenes/projectile/rocket.png" id="3_tldn6"]
+[ext_resource type="Texture2D" uid="uid://cxk1amtfmy77q" path="res://scenes/projectile/assets/rocket/rocket.png" id="3_tldn6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lgqa7"]
 radius = 8.0
@@ -15,7 +15,7 @@ script = ExtResource("1_2dulq")
 resource = ExtResource("2_lw0th")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1307171759]
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_tldn6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1157895186]

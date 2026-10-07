@@ -3,6 +3,7 @@ extends Node2D
 
 signal aimable_fired(life_time: float)
 signal aimable_used(player_state: String, state_data: Dictionary)
+signal aimable_rotated(angle: float)
 
 enum HolderState {
 	ENABLED,
@@ -77,8 +78,8 @@ func register_aim_angle(delta: float) -> void:
 
 	_rotate_aimable()
 
-
 #region CPU
+
 ## Only to be used by CPU teams. Immediately angles and shoots the current aimable.
 func cpu_shoot(angle: float, force := 0.0) -> void:
 	_aim_angle = angle
@@ -96,7 +97,6 @@ func cpu_shoot(angle: float, force := 0.0) -> void:
 
 	equipped_aimable.shoot()
 #endregion
-
 
 func _change_state(new_state: HolderState) -> void:
 	match new_state:
@@ -120,9 +120,10 @@ func _flip(should_flip: bool) -> void:
 func _rotate_aimable() -> void:
 	if _is_flipped:
 		aimable_pivot.rotation = PI - _aim_angle
-		return
+	else:
+		aimable_pivot.rotation = 0 + _aim_angle
 
-	aimable_pivot.rotation = 0 + _aim_angle
+	aimable_rotated.emit(_aim_angle)
 
 
 func _on_aimable_used(player_state: String, state_data: Dictionary) -> void:

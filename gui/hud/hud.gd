@@ -48,6 +48,11 @@ func set_item(item: ItemResource) -> void:
 	item_name_label.text = item.name
 	item_texture.texture = item.icon
 	item_container.show()
+
+	if not item.aimable_resource:
+		ammo_label.hide()
+		return
+
 	set_item_ammo(item.aimable_resource.ammo, item.aimable_resource.ammo)
 
 

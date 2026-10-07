@@ -1,0 +1,151 @@
+[gd_scene format=3 uid="uid://c0ccrnnsrmte7"]
+
+[ext_resource type="Script" uid="uid://bhw31f6hsnrdk" path="res://scenes/player/player_sprite/player_sprite.gd" id="1_02ceg"]
+[ext_resource type="Texture2D" uid="uid://dmyyadvvs6q0q" path="res://scenes/player/assets/grandma/grandma_foot.png" id="2_yu18d"]
+[ext_resource type="Texture2D" uid="uid://4hcehbouow2i" path="res://scenes/player/assets/grandma/grandma_leg.png" id="3_iba4x"]
+[ext_resource type="Texture2D" uid="uid://c2lunf8m1j3dt" path="res://scenes/player/assets/grandma/grandma_head.png" id="4_rdwgo"]
+[ext_resource type="Texture2D" uid="uid://w1dqe4ieqgyl" path="res://scenes/player/assets/grandma/grandma_body.png" id="5_4vbhq"]
+[ext_resource type="Texture2D" uid="uid://dr5wap7yr8vnd" path="res://scenes/player/assets/grandma/grandma_stick.png" id="6_hlhel"]
+[ext_resource type="Texture2D" uid="uid://dpt1iq7g4fkbo" path="res://scenes/player/assets/grandma/grandma_hand.png" id="7_c53yt"]
+
+[sub_resource type="Animation" id="Animation_eglwa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Arm:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(18, -1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(11, -16)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BodySprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_s16k0"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Arm:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(18, -1), Vector2(18, 3), Vector2(18, -1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(11, -16), Vector2(11, -12), Vector2(11, -16)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BodySprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(9, 0), Vector2(9, 4), Vector2(9, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_327w0"]
+resource_name = "walk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Arm:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(18, -1), Vector2(25, -1), Vector2(0, -1), Vector2(18, -1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eglwa"]
+_data = {
+&"RESET": SubResource("Animation_eglwa"),
+&"idle": SubResource("Animation_s16k0"),
+&"walk": SubResource("Animation_327w0")
+}
+
+[node name="PlayerSprite" type="Node2D" unique_id=1839067509]
+script = ExtResource("1_02ceg")
+
+[node name="Foot" type="Node2D" parent="." unique_id=141303994]
+position = Vector2(0, 37)
+
+[node name="FootSprite" type="Sprite2D" parent="Foot" unique_id=953389421]
+position = Vector2(9, -38)
+texture = ExtResource("2_yu18d")
+
+[node name="LegSprite" type="Sprite2D" parent="." unique_id=1789160869]
+position = Vector2(9, 0)
+texture = ExtResource("3_iba4x")
+
+[node name="Head" type="Node2D" parent="." unique_id=120429093]
+position = Vector2(11, -16)
+
+[node name="HeadSprite" type="Sprite2D" parent="Head" unique_id=186361459]
+position = Vector2(-3, 15)
+texture = ExtResource("4_rdwgo")
+
+[node name="BodySprite" type="Sprite2D" parent="." unique_id=645420046]
+position = Vector2(9, 0)
+texture = ExtResource("5_4vbhq")
+
+[node name="Arm" type="Node2D" parent="." unique_id=980358694]
+position = Vector2(18, -1)
+
+[node name="StickSprite" type="Sprite2D" parent="Arm" unique_id=1350164057]
+position = Vector2(-9, 0)
+texture = ExtResource("6_hlhel")
+
+[node name="HandSprite" type="Sprite2D" parent="Arm" unique_id=1042117032]
+position = Vector2(-8, 0)
+texture = ExtResource("7_c53yt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=663945971]
+callback_mode_process = 0
+libraries/ = SubResource("AnimationLibrary_eglwa")

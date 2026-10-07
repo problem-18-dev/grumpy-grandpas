@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://brymaul5h4b5a" path="res://resources/projectile_resource/rocket.tres" id="1_1n6u7"]
 [ext_resource type="Script" uid="uid://pp6wnjxndi6r" path="res://resources/aimable_resource/weapons/projectile_weapons/projectile_weapon_resource.gd" id="2_crfpw"]
-[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="3_2bg5f"]
+[ext_resource type="Texture2D" uid="uid://dhkf48klugd2t" path="res://scenes/aimable/weapons/projectile_weapon/assets/rocket_launcher.png" id="3_1n6u7"]
 
 [resource]
 script = ExtResource("2_crfpw")
@@ -10,5 +10,5 @@ min_force = 250.0
 charge_time = 1.75
 projectile_resource = ExtResource("1_1n6u7")
 scene = "uid://cupft37g0c1yp"
-texture = ExtResource("3_2bg5f")
+texture = ExtResource("3_1n6u7")
 metadata/_custom_type_script = "uid://pp6wnjxndi6r"

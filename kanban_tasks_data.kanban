@@ -11,7 +11,15 @@
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
 			"tasks": [
-				"e31e55b2-7b3d-49ce-9b96-ce54bbc3e1a5"
+				"e31e55b2-7b3d-49ce-9b96-ce54bbc3e1a5",
+				"e9a7a500-413e-40b5-a55a-7ffb28aaf763",
+				"6e9e6be7-9615-4c4c-a76d-38f9f320e978",
+				"d8190bc2-e3f8-4bc9-855a-1ae63d68f6bb",
+				"60be79b3-3d17-4fa6-86d0-eb06a425f524",
+				"7a07ccaf-28d4-4965-9856-7f91d7b877a9",
+				"c9fb8bb8-7165-44bb-90d1-888187157265",
+				"7f1e1b03-df2b-440e-b27c-a719305661fd",
+				"4167a575-2806-4aad-aefd-eb5ca48dc588"
 			]
 		},
 		{
@@ -24,7 +32,9 @@
 			"title": "Done",
 			"tasks": [
 				"093fd4eb-0925-4110-b4f0-e7123d22f5d3",
+				"9399bb19-d26d-4f51-b0d3-6ce8478ebd34",
 				"5461c799-8e08-4c92-b445-201bc564e213",
+				"aaff9a46-5966-416b-82ac-4a1fcbc7c889",
 				"ba1e0c1e-3604-45e0-9027-60476ffe97b2",
 				"a1a7e1b6-2492-40c2-a01d-e04ae9a39347",
 				"ace8ef60-29dd-4458-a18a-88837563e47f",
@@ -775,6 +785,76 @@
 			"uuid": "a1a7e1b6-2492-40c2-a01d-e04ae9a39347",
 			"title": "[Feat] Winner HUD",
 			"description": "Simple \"restart\" or \"continue\" type of hud to move on after a team won.",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "aaff9a46-5966-416b-82ac-4a1fcbc7c889",
+			"title": "[Feat] Rocket art",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "e9a7a500-413e-40b5-a55a-7ffb28aaf763",
+			"title": "[Feat] Grenade art",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "6e9e6be7-9615-4c4c-a76d-38f9f320e978",
+			"title": "[Feat] Rocket launcher art",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "9399bb19-d26d-4f51-b0d3-6ce8478ebd34",
+			"title": "[Feat] Grenade launcher art",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "d8190bc2-e3f8-4bc9-855a-1ae63d68f6bb",
+			"title": "[Feat] Shotgun art",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "60be79b3-3d17-4fa6-86d0-eb06a425f524",
+			"title": "[Feat] Revolver art",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "7a07ccaf-28d4-4965-9856-7f91d7b877a9",
+			"title": "[Feat] Jetpack art",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "c9fb8bb8-7165-44bb-90d1-888187157265",
+			"title": "[Feat] Grapple hook art",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "7f1e1b03-df2b-440e-b27c-a719305661fd",
+			"title": "[Feat] Level background art",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "4167a575-2806-4aad-aefd-eb5ca48dc588",
+			"title": "[Feat] Terrain pattern art",
+			"description": "",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
 		}

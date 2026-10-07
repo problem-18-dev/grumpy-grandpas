@@ -9,8 +9,8 @@ extends PlayerState
 @export var fall_damage := 15
 @export var fall_damage_duration := 2.5
 @export_group("Tweening")
-@export var landing_scale := 0.0125
-@export var landing_offset := 8
+@export var landing_scale := 0.025
+@export var landing_offset := 2
 @export var duration := 0.25
 
 var _highest_falling_speed := 0.0
@@ -72,12 +72,11 @@ func _tween_landing() -> void:
 	tween.tween_property(player.sprite, "scale:y", player.sprite.scale.y, duration).from(
 		player.sprite.scale.y - landing_scale
 	)
-	tween.tween_property(player.sprite, "offset:y", 0, duration).from(landing_offset)
+	tween.tween_property(player.sprite, "position:y", 0, duration).from(landing_offset)
 
 
 func _fall_damage() -> void:
 	_has_fallen = true
-
 	player.is_busy = true
 	player.velocity = Vector2.ZERO
 	player.register_damage(fall_damage)

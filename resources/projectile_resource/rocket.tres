@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://b6h6omya6ajsc" path="res://resources/explosion_resource/rocket_explosion.tres" id="1_2lqe6"]
 [ext_resource type="Script" uid="uid://d4gc80blia3ku" path="res://resources/projectile_resource/projectile_resource.gd" id="1_bkuvr"]
-[ext_resource type="Texture2D" uid="uid://c5s0wwqdt0u8v" path="res://scenes/projectile/rocket.png" id="2_jxn76"]
+[ext_resource type="Texture2D" uid="uid://cxk1amtfmy77q" path="res://scenes/projectile/assets/rocket/rocket.png" id="3_2lqe6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lgqa7"]
 radius = 8.0
@@ -10,7 +10,7 @@ radius = 8.0
 [resource]
 script = ExtResource("1_bkuvr")
 name = "Rocket"
-texture = ExtResource("2_jxn76")
+texture = ExtResource("3_2lqe6")
 collision_shape = SubResource("CircleShape2D_lgqa7")
 life_time = 4.5
 explosion = ExtResource("1_2lqe6")

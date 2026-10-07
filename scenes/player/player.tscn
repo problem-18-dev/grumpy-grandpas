@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bmag23mf230r3"]
 
 [ext_resource type="Script" uid="uid://bygd8nvt570om" path="res://scenes/player/player.gd" id="1_8afob"]
-[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="2_dovo2"]
+[ext_resource type="PackedScene" uid="uid://c0ccrnnsrmte7" path="res://scenes/player/player_sprite/player_sprite.tscn" id="2_8ydkj"]
 [ext_resource type="PackedScene" uid="uid://b5lt7b36vsg8j" path="res://scenes/aimable_holder/aimable_holder.tscn" id="3_5gtgg"]
 [ext_resource type="PackedScene" uid="uid://o6nlyis18n62" path="res://scenes/core/state_machine/state_machine.tscn" id="3_gmlin"]
 [ext_resource type="PackedScene" uid="uid://bweymkygntx8t" path="res://scenes/components/hurtbox_component/hurtbox_component.tscn" id="3_qek5x"]
@@ -22,10 +22,11 @@
 [ext_resource type="Script" uid="uid://dxllbk0hyl02n" path="res://scenes/player/player_state/player_cpu/player_cpu_hitscan_module.gd" id="18_lgqa7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1xhu4"]
+height = 36.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5gtgg"]
 radius = 12.0
-height = 32.0
+height = 36.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1829503951 groups=["player"]]
 collision_mask = 2
@@ -33,9 +34,10 @@ floor_max_angle = 1.3962634
 floor_snap_length = 4.0
 script = ExtResource("1_8afob")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1621448688]
-scale = Vector2(0.15625, 0.23437501)
-texture = ExtResource("2_dovo2")
+[node name="Sprite" parent="." unique_id=1839067509 instance=ExtResource("2_8ydkj")]
+position = Vector2(0, -1.9073486e-06)
+rotation = 0.0010231376
+scale = Vector2(0.4, 0.4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1830283869]
 shape = SubResource("CapsuleShape2D_1xhu4")
@@ -111,9 +113,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -41.0
+offset_top = -44.0
 offset_right = 20.0
-offset_bottom = -1.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -138,13 +140,14 @@ vertical_alignment = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -34.0
-offset_bottom = -34.0
+offset_top = -38.0
+offset_bottom = -38.0
 grow_horizontal = 2
 grow_vertical = 2
 float_height = 16.0
 
 [connection signal="aimable_fired" from="AimableHolder" to="." method="_on_aimable_holder_aimable_fired"]
+[connection signal="aimable_rotated" from="AimableHolder" to="." method="_on_aimable_holder_aimable_rotated"]
 [connection signal="aimable_used" from="AimableHolder" to="." method="_on_aimable_holder_aimable_used"]
 [connection signal="timeout" from="AimableLifeTimeTimer" to="." method="_on_aimable_life_time_timer_timeout"]
 [connection signal="hurt" from="HurtboxComponent" to="." method="_on_hurtbox_component_hurt"]

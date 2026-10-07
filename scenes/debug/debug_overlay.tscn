@@ -25,3 +25,10 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"DebugLabel"
 text = "Build: 0.2.0"
+
+[node name="FPSTimer" type="Timer" parent="." unique_id=1642256445]
+wait_time = 0.5
+autostart = true
+ignore_time_scale = true
+
+[connection signal="timeout" from="FPSTimer" to="." method="_on_fps_timer_timeout"]
