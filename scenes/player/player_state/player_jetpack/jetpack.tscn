@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bdu5l4gnqo52i"]
+
+[ext_resource type="Script" uid="uid://4qkxqqcl8kxk" path="res://scenes/player/player_state/player_jetpack/jetpack.gd" id="1_3km1f"]
+[ext_resource type="Texture2D" uid="uid://ih8y7rpl8ybl" path="res://scenes/aimable/tools/jetpack/assets/jetpack_state.png" id="1_fra3b"]
+
+[sub_resource type="Curve" id="Curve_3km1f"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.49999994), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_578vf"]
+offsets = PackedFloat32Array(0, 0.13915858, 0.30097088, 0.48867315)
+colors = PackedColorArray(0.85882354, 0.29411766, 0.23921569, 1, 0.94982076, 0.51111114, 0.19721696, 1, 0.9607843, 0.5372549, 0.19215687, 1, 1, 0.92156863, 0.2, 1)
+
+[node name="Jetpack" type="Node2D" unique_id=1427303546]
+script = ExtResource("1_3km1f")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=919954620]
+texture = ExtResource("1_fra3b")
+offset = Vector2(8, 0)
+
+[node name="JetpackParticles" type="CPUParticles2D" parent="." unique_id=1818386651]
+position = Vector2(-30, 30)
+amount = 128
+randomness = 0.2
+lifetime_randomness = 0.2
+local_coords = true
+emission_shape = 1
+emission_sphere_radius = 11.36
+direction = Vector2(0, 1)
+spread = 10.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 16.0
+initial_velocity_max = 16.0
+angle_max = 360.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_3km1f")
+color_ramp = SubResource("Gradient_578vf")

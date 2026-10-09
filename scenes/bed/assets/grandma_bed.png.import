@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpt1iq7g4fkbo"
-path="res://.godot/imported/grandma_hand.png-fac570d27445cbc3b84b2199ea6c0a7a.ctex"
+uid="uid://c83nxotgh647t"
+path="res://.godot/imported/grandma_bed.png-c325b7ffc2e7e99f4758205fd8299a27.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/player/assets/grandma/grandma_hand.png"
-dest_files=["res://.godot/imported/grandma_hand.png-fac570d27445cbc3b84b2199ea6c0a7a.ctex"]
+source_file="res://scenes/bed/assets/grandma_bed.png"
+dest_files=["res://.godot/imported/grandma_bed.png-c325b7ffc2e7e99f4758205fd8299a27.ctex"]
 
 [params]
 

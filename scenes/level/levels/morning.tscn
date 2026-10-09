@@ -1,0 +1,120 @@
+[gd_scene format=3 uid="uid://b7lhehbekbl74"]
+
+[ext_resource type="Script" uid="uid://dpjstawxawa7x" path="res://scenes/level/match.gd" id="1_vr1kg"]
+[ext_resource type="PackedScene" uid="uid://c1nx228cdqcdb" path="res://scenes/water/water.tscn" id="2_3ky7b"]
+[ext_resource type="Texture2D" uid="uid://dcym3af315ake" path="res://scenes/level/assets/sun.png" id="2_urqi7"]
+[ext_resource type="PackedScene" uid="uid://d0okm02wagiv7" path="res://scenes/terrain/terrain.tscn" id="3_urqi7"]
+[ext_resource type="Script" uid="uid://qp7wd878ywhm" path="res://scenes/managers/spawn_generator/spawn_generator.gd" id="5_tyt7p"]
+[ext_resource type="PackedScene" uid="uid://3nsota473q6r" path="res://scenes/bounds_area/bounds_area.tscn" id="6_ji0f5"]
+
+[sub_resource type="Gradient" id="Gradient_vr1kg"]
+offsets = PackedFloat32Array(0.20127797, 0.72523963, 0.8977636, 1)
+colors = PackedColorArray(1, 0.92156863, 0.2, 1, 0.9607843, 0.5372549, 0.19215687, 1, 0.6039216, 0.3137255, 0.16862746, 1, 0.4862745, 0.2627451, 0.21176471, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3ky7b"]
+gradient = SubResource("Gradient_vr1kg")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="Curve2D" id="Curve2D_tj2m0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 6, -157, 0, 0, 0, 0, 153, -299, 0, 0, 0, 0, 707, -320, 0, 0, 0, 0, 1207, -341, 0, 0, 0, 0, 1659, -96, 0, 0, 0, 0, 716, -15, 0, 0, 0, 0, 307, 0, 0, 0, 0, 0, 3, -96)
+}
+point_count = 8
+
+[node name="Morning" type="Node2D" unique_id=909882963]
+script = ExtResource("1_vr1kg")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=314494983]
+modulate = Color(0.7019608, 0.7019608, 0.7019608, 1)
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -632.0
+offset_top = -568.0
+offset_right = 1616.0
+offset_bottom = 424.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.0015149014
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource("GradientTexture2D_3ky7b")
+
+[node name="Sun" type="Sprite2D" parent="." unique_id=81888606]
+position = Vector2(-312, 264)
+rotation = -0.0015149014
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_urqi7")
+
+[node name="Water" parent="." unique_id=1073738961 instance=ExtResource("2_3ky7b")]
+position = Vector2(496, 528)
+size = Vector2(2600, 480)
+
+[node name="Terrain" parent="." unique_id=654413745 instance=ExtResource("3_urqi7")]
+position = Vector2(-196, 0)
+
+[node name="Polygon2D" type="Polygon2D" parent="Terrain" unique_id=1283410831]
+modulate = Color(0.4070965, 0.104482956, 0.0781137, 1)
+texture_repeat = 2
+position = Vector2(0, -152)
+color = Color(0.98039216, 1, 0.9882353, 1)
+polygon = PackedVector2Array(273, 228, 67, 309, 477, 401, 467, 306, 437, 241, 653, 189, 841, 230, 905, 329, 983, 268, 1202, 320, 952, 439, 806, 461, 740, 307, 555, 458, -22, 445, -100, 256, 62, 184)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Terrain" unique_id=1607990955]
+modulate = Color(0.4070965, 0.104482956, 0.0781137, 1)
+texture_repeat = 2
+position = Vector2(188, -312)
+color = Color(0.98039216, 1, 0.9882353, 1)
+polygon = PackedVector2Array(144.60973, 66.368904, -10.390247, 118.368904, 235.60973, 189.3689, 299.60974, 102.368904)
+
+[node name="Polygon2D3" type="Polygon2D" parent="Terrain" unique_id=1971940719]
+modulate = Color(0.4070965, 0.104482956, 0.0781137, 1)
+texture_repeat = 2
+position = Vector2(844, -168)
+color = Color(0.98039216, 1, 0.9882353, 1)
+polygon = PackedVector2Array(245.4604, -2.1265826, 243.4604, 82.87342, -199.5396, 81.87342)
+
+[node name="Polygon2D4" type="Polygon2D" parent="Terrain" unique_id=246587635]
+modulate = Color(0.4070965, 0.104482956, 0.0781137, 1)
+texture_repeat = 2
+position = Vector2(1372, -24)
+color = Color(0.98039216, 1, 0.9882353, 1)
+polygon = PackedVector2Array(245.4604, -2.1265826, 243.4604, 82.87342, -199.5396, 81.87342, 150.68115, 49.911465, 8.775696, 8.807804)
+uv = PackedVector2Array(245.4604, -2.1265826, 243.4604, 82.87342, -199.5396, 81.87342, 150.68115, 49.911465, 8.775696, 8.807804)
+
+[node name="SpawnGenerator" type="Node2D" parent="." unique_id=40225150 node_paths=PackedStringArray("spawn_path_follow")]
+script = ExtResource("5_tyt7p")
+spawn_path_follow = NodePath("../SpawnPath/SpawnFollow")
+spawn_attempts = 160
+
+[node name="SpawnPath" type="Path2D" parent="." unique_id=579392240]
+position = Vector2(-251, 0)
+curve = SubResource("Curve2D_tj2m0")
+
+[node name="SpawnFollow" type="PathFollow2D" parent="SpawnPath" unique_id=1939929917]
+position = Vector2(6, -157)
+rotation = -0.7680989
+
+[node name="BoundsArea" parent="." unique_id=1365056220 instance=ExtResource("6_ji0f5")]
+unique_name_in_owner = true
+
+[node name="Top" parent="BoundsArea" index="0" unique_id=145456361]
+position = Vector2(352, -512)
+rotation = 3.1415927
+
+[node name="Right" parent="BoundsArea" index="1" unique_id=292086785]
+position = Vector2(1528, 40)
+rotation = -1.5707964
+
+[node name="Bottom" parent="BoundsArea" index="2" unique_id=1700487279]
+position = Vector2(384, 352)
+
+[node name="Left" parent="BoundsArea" index="3" unique_id=2119979601]
+position = Vector2(-576, -40)
+rotation = 1.5707964
+
+[connection signal="projectile_exited" from="BoundsArea" to="." method="_on_bounds_area_projectile_exited"]
+
+[editable path="BoundsArea"]

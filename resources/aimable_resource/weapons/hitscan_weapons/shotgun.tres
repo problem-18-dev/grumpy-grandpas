@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bd6lxv2h53b83" path="res://resources/aimable_resource/weapons/weapon_attributes/knockback_resource/knockback_resource.gd" id="2_hsbrr"]
 [ext_resource type="Script" uid="uid://c8teyaijtqeex" path="res://resources/aimable_resource/weapons/hitscan_weapons/hitscan_weapon_resource.gd" id="3_hudle"]
 [ext_resource type="Script" uid="uid://dimvdouy8g0sv" path="res://addons/phantom_camera/scripts/resources/phantom_camera_noise_2d.gd" id="4_hsbrr"]
-[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="4_iomhp"]
+[ext_resource type="Texture2D" uid="uid://2hppdjhcb127" path="res://scenes/aimable/weapons/hitscan_weapon/assets/shotgun.png" id="5_hsbrr"]
 
 [sub_resource type="Curve" id="Curve_tnynk"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.25, 0.75), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
@@ -33,7 +33,9 @@ shake_noise = SubResource("Resource_q27wl")
 carve_radius = 12
 cooldown = 0.75
 scene = "uid://cc45g8xgg4lyo"
-texture = ExtResource("4_iomhp")
+texture = ExtResource("5_hsbrr")
+position_offset = Vector2(24, 0)
+muzzle_offset = Vector2(12, 0)
 crosshair_distance = 75.0
 ammo = 2
 life_time = 5.0

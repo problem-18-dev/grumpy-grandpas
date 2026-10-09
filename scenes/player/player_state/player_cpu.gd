@@ -74,6 +74,10 @@ func _try_weapon(weapon: ItemResource) -> bool:
 	if not shot:
 		return false
 
+	var is_left := cos(shot.angle) < 0.0
+	player.register_last_direction(Player.LEFT_DIRECTION if is_left else Player.RIGHT_DIRECTION)
+	player.sprite.flip(is_left)
+
 	if weapon == player.equipped_item:
 		player.reequip_item()
 	else:
@@ -82,6 +86,7 @@ func _try_weapon(weapon: ItemResource) -> bool:
 
 	# Most shots land near the aim, with occasional wild misses
 	var angle := shot.angle + randfn(0.0, _get_angle_deviation())
+
 	if shot is CPUProjectileModule.CPUProjectileShot:
 		player.aimable_holder.cpu_shoot(angle, shot.force)
 	else:

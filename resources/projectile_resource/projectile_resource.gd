@@ -15,6 +15,8 @@ const DEFAULT_SPIN_SPEED := 360.0
 @export_group("Spinning")
 @export var spin_enabled: bool
 @export var spin_speed := DEFAULT_SPIN_SPEED
+@export_group("Blinking")
+@export var blink_enabled := false
 @export_group("Lifetime")
 @export var life_time := DEFAULT_LIFE_TIME
 @export_group("Explosion")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvds5wprns3ro"
-path="res://.godot/imported/body.png-179146af89eba679adf37552d984b2d8.ctex"
+uid="uid://dcym3af315ake"
+path="res://.godot/imported/sun.png-27fd77b8d61f82fb3f4f85f8887885b7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/player/assets/body.png"
-dest_files=["res://.godot/imported/body.png-179146af89eba679adf37552d984b2d8.ctex"]
+source_file="res://scenes/level/assets/sun.png"
+dest_files=["res://.godot/imported/sun.png-27fd77b8d61f82fb3f4f85f8887885b7.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

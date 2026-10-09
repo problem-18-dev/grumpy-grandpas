@@ -3,8 +3,8 @@
 [ext_resource type="Resource" uid="uid://cgv44d5pek3j5" path="res://resources/aimable_resource/weapons/weapon_attributes/damage_resource/revolver_damage.tres" id="1_sbwkc"]
 [ext_resource type="Script" uid="uid://bd6lxv2h53b83" path="res://resources/aimable_resource/weapons/weapon_attributes/knockback_resource/knockback_resource.gd" id="2_m2ymo"]
 [ext_resource type="Script" uid="uid://c8teyaijtqeex" path="res://resources/aimable_resource/weapons/hitscan_weapons/hitscan_weapon_resource.gd" id="3_q27wl"]
-[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="4_bnhag"]
 [ext_resource type="Script" uid="uid://dimvdouy8g0sv" path="res://addons/phantom_camera/scripts/resources/phantom_camera_noise_2d.gd" id="4_m2ymo"]
+[ext_resource type="Texture2D" uid="uid://d02ma1r0qrwv4" path="res://scenes/aimable/weapons/hitscan_weapon/assets/revolver.png" id="5_m2ymo"]
 
 [sub_resource type="Curve" id="Curve_oid3l"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.25, 0.9), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
@@ -31,7 +31,8 @@ knockback = SubResource("Resource_urvlt")
 shake_noise = SubResource("Resource_kvlxm")
 carve_radius = 10
 scene = "uid://cc45g8xgg4lyo"
-texture = ExtResource("4_bnhag")
-muzzle_offset = Vector2(20, 0)
+texture = ExtResource("5_m2ymo")
+position_offset = Vector2(16, 0)
+muzzle_offset = Vector2(10, 0)
 crosshair_distance = 200.0
 metadata/_custom_type_script = "uid://c8teyaijtqeex"

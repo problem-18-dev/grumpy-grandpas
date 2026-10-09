@@ -2,14 +2,15 @@ class_name Game
 extends Node
 
 enum Level {
-	MATCH,
+	MORNING,
+	AFTERNOON,
+	EVENING,
 }
 
 const INVENTORY_UID := "uid://bkrmhl1oip2je"
 const PAUSE_UID := "uid://c88tu6f6g83br"
 const HUD_UID := "uid://c5q7bwqmijr3e"
 
-@export var initial_level := Level.MATCH
 @export_group("Intro")
 @export var skip_team_intro := false
 @export var intro_duration_per_team := 5.0
@@ -17,7 +18,11 @@ const HUD_UID := "uid://c5q7bwqmijr3e"
 @export_group("Outro")
 @export var winner_showcase_duration := 3.0
 
-var _level_paths: Dictionary[Level, String] = { Level.MATCH: "uid://cd2ib37t0cgmf" }
+var _level_paths: Dictionary[Level, String] = {
+	Level.MORNING: "uid://b7lhehbekbl74",
+	Level.AFTERNOON: "uid://clbc7raqq3wva",
+	Level.EVENING: "uid://d1s80yll26wxw",
+}
 var _current_level: BaseLevel
 var _current_inventory: Inventory
 var _current_hud: HUD
@@ -42,7 +47,7 @@ func _ready() -> void:
 		skip_team_intro = false
 		background.hide()
 
-	await load_level(initial_level)
+	await load_level(GameManager.level)
 	load_hud()
 	_start_level()
 
@@ -65,6 +70,7 @@ func load_level(new_scene: Level) -> void:
 		await get_tree().process_frame
 
 	_current_level = load(_level_paths[new_scene]).instantiate()
+	_current_level.projectile_exited.connect(_on_projectile_exited)
 	level_root.add_child(_current_level)
 
 	await get_tree().process_frame
@@ -150,7 +156,9 @@ func _continue() -> void:
 		_announce_winner()
 		return
 
-	await pickuppable_manager.attempt_spawn()
+	var pickuppable := await pickuppable_manager.attempt_spawn()
+	if pickuppable:
+		_current_hud.set_message("A %s has spawned!" % pickuppable.name)
 
 	players_manager.next_team()
 	var new_player := players_manager.select_player()
@@ -246,3 +254,7 @@ func _on_players_manager_player_ammo_changed(
 
 func _on_players_manager_player_item_equipped(_current_item: ItemResource, player: Player) -> void:
 	_update_hud(player)
+
+
+func _on_projectile_exited() -> void:
+	turn_manager.finish_turn()

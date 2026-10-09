@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PickuppableResource" format=3 uid="uid://cgq3uliy6ml4v"]
+
+[ext_resource type="Script" uid="uid://djft4707qktxi" path="res://resources/pickuppable_resource/pickuppable_resource.gd" id="1_bobch"]
+[ext_resource type="Texture2D" uid="uid://c7rk72vlrsblp" path="res://scenes/pickuppables/assets/health_crate.png" id="2_bobch"]
+
+[resource]
+script = ExtResource("1_bobch")
+name = "Health Crate"
+texture = ExtResource("2_bobch")
+type = 2
+pickup_radius = 20.0
+metadata/_custom_type_script = "uid://djft4707qktxi"

@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://cc45g8xgg4lyo"]
 
 [ext_resource type="Script" uid="uid://dha6yc6frgkta" path="res://scenes/aimable/weapons/hitscan_weapon/hitscan_weapon.gd" id="1_dt0h1"]
-[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="2_vs2a1"]
+[ext_resource type="Resource" uid="uid://dx1m0w6av86ds" path="res://resources/aimable_resource/weapons/hitscan_weapons/revolver.tres" id="2_snu0r"]
 [ext_resource type="PackedScene" uid="uid://dtyiwvrh6enql" path="res://scenes/weapon_crosshair/weapon_crosshair.tscn" id="3_gtmvm"]
+[ext_resource type="Texture2D" uid="uid://d02ma1r0qrwv4" path="res://scenes/aimable/weapons/hitscan_weapon/assets/revolver.png" id="3_snu0r"]
 
 [sub_resource type="Animation" id="Animation_m8n6t"]
 length = 0.001
@@ -60,18 +61,22 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.49999994), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="HitscanWeapon" type="Node2D" unique_id=1920489024]
+position = Vector2(16, 0)
 script = ExtResource("1_dt0h1")
+aimable_resource = ExtResource("2_snu0r")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1059637923]
-scale = Vector2(0.3, 0.1)
-texture = ExtResource("2_vs2a1")
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("3_snu0r")
 
 [node name="Crosshair" parent="." unique_id=1621916684 instance=ExtResource("3_gtmvm")]
 modulate = Color(1, 0.54901963, 0.7411765, 0)
+position = Vector2(200, 0)
 
 [node name="HitscanRayCast" type="RayCast2D" parent="." unique_id=678515810]
-target_position = Vector2(50, 0)
+position = Vector2(10, 0)
+target_position = Vector2(350, 0)
 collision_mask = 6
 collide_with_areas = true
 

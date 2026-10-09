@@ -1,5 +1,8 @@
+@tool
 class_name AimableHolder
 extends Node2D
+
+const REVOLVER = preload("uid://dx1m0w6av86ds")
 
 signal aimable_fired(life_time: float)
 signal aimable_used(player_state: String, state_data: Dictionary)
@@ -82,7 +85,8 @@ func register_aim_angle(delta: float) -> void:
 
 ## Only to be used by CPU teams. Immediately angles and shoots the current aimable.
 func cpu_shoot(angle: float, force := 0.0) -> void:
-	_aim_angle = angle
+	# World angle -> the holder's aim angle, which is mirrored when flipped.
+	_aim_angle = wrapf(PI - angle, -PI, PI) if _is_flipped else angle
 	_rotate_aimable()
 
 	await get_tree().create_timer(aiming_time, false).timeout

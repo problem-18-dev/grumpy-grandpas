@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PickuppableResource" format=3 uid="uid://bqhw1r7by1gjk"]
+
+[ext_resource type="Script" uid="uid://djft4707qktxi" path="res://resources/pickuppable_resource/pickuppable_resource.gd" id="1_knl88"]
+[ext_resource type="Texture2D" uid="uid://cvnjaks5aqk0x" path="res://scenes/pickuppables/assets/tool_crate.png" id="2_knl88"]
+
+[resource]
+script = ExtResource("1_knl88")
+name = "Toolbox"
+texture = ExtResource("2_knl88")
+type = 1
+metadata/_custom_type_script = "uid://djft4707qktxi"

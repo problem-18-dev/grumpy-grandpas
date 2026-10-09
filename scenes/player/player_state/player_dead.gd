@@ -39,6 +39,7 @@ func _explode() -> void:
 func _spawn_bed() -> void:
 	var bed: Node2D = load(BED_UID).instantiate()
 	player.add_child(bed)
+	bed.setup(player.gender, player.team.get_color())
 
 
 func _disable_player() -> void:

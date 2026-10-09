@@ -28,7 +28,9 @@ func reset() -> void:
 func _sample_shot(weapon: HitscanWeaponResource, enemy: Player) -> void:
 	var enemy_position := enemy.global_position
 	var angle := cpu.player.global_position.angle_to_point(enemy_position)
-	var fire_position := cpu.player.global_position + weapon.muzzle_offset.rotated(angle)
+	var fire_position := cpu.player.global_position + weapon.position_offset + weapon \
+			.muzzle_offset \
+			.rotated(angle)
 
 	var query := PhysicsRayQueryParameters2D.create(
 		fire_position,

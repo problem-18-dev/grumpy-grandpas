@@ -18,6 +18,7 @@ const PRESETS := {
 	Preset.QUICK_PLAY: {
 		"teams": [TEAM_DEFAULT_BLUE_UID, TEAM_DEFAULT_RED_UID],
 		"catalogue": QUICKPLAY_CATALOGUE_UID,
+		"level": Game.Level.EVENING,
 	},
 	Preset.TUTORIAL: {
 		"teams": [TEAM_TUTORIAL_BLUE_UID, TEAM_TUTORIAL_RED_UID],
@@ -34,11 +35,19 @@ static func load_preset(new_preset: Preset) -> void:
 		GameManager.add_team(load(team_uid).duplicate_deep())
 	GameManager.set_catalogue(load(preset["catalogue"]).duplicate_deep())
 
+	if preset.has("level"):
+		GameManager.level = preset["level"]
+
 
 ## TODO: Level
-static func load_custom(teams: Array[TeamResource], catalogue: CatalogueResource) -> void:
+static func load_custom(
+	teams: Array[TeamResource],
+	catalogue: CatalogueResource,
+	level: Game.Level,
+) -> void:
 	GameManager.reset()
 
 	for team in teams:
 		GameManager.add_team(team.duplicate_deep())
 	GameManager.set_catalogue(catalogue.duplicate_deep())
+	GameManager.level = level

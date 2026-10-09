@@ -1,30 +1,36 @@
+@tool
 class_name PlayerSprite
 extends Node2D
 
 const GENDER_SPRITES := {
 	PlayerResource.Gender.GRANDMA: {
-		"foot": preload("uid://dmyyadvvs6q0q"),
-		"leg": preload("uid://4hcehbouow2i"),
-		"head": preload("uid://c2lunf8m1j3dt"),
-		"body": preload("uid://w1dqe4ieqgyl"),
-		"hand": preload("uid://dpt1iq7g4fkbo"),
-		"stick": preload("uid://dr5wap7yr8vnd"),
+		"foot": preload("uid://ci6lv3oxer4rl"),
+		"leg": preload("uid://bsmychmwlhy21"),
+		"head": preload("uid://cosdsctdfc8wg"),
+		"body": preload("uid://bol6nclry3c1n"),
+		"arm": preload("uid://3pc2kow8trq3"),
+		"stick": preload("uid://bnwcx2373y3gr"),
 	},
 	PlayerResource.Gender.GRANDPA: {
-		"foot": preload("uid://cbem3m68tko5r"),
-		"leg": preload("uid://ds6oyddyfvcc6"),
-		"head": preload("uid://c4ildcihg11ok"),
-		"body": preload("uid://td7hdwa1u7lb"),
-		"hand": preload("uid://blxw8c7m7hljd"),
-		"stick": preload("uid://duc7xjifhvhho"),
+		"foot": preload("uid://brc6nvf8lkc8g"),
+		"leg": preload("uid://d38mbcvu6cy77"),
+		"head": preload("uid://c04o52lluftcm"),
+		"body": preload("uid://cr4pf6lpd8uup"),
+		"arm": preload("uid://c221t012t3gdk"),
+		"stick": preload("uid://5b8w8qsvu6nu"),
 	},
 }
+
+@export_group("Manual")
+@export var manual_gender: PlayerResource.Gender
+@export var manual_color: TeamResource.TeamColor
 
 var player: Player
 
 @onready var foot: Node2D = $Foot
 @onready var head: Node2D = $Head
 @onready var arm: Node2D = $Arm
+@onready var extra: Node2D = $Extra
 @onready var foot_sprite: Sprite2D = $Foot/FootSprite
 @onready var leg_sprite: Sprite2D = $LegSprite
 @onready var head_sprite: Sprite2D = $Head/HeadSprite
@@ -36,25 +42,34 @@ var player: Player
 
 
 func _ready() -> void:
+	if Engine.is_editor_hint() and manual_gender and manual_color:
+		setup(manual_gender, TeamResource.TEAM_COLORS[manual_color])
+
+	if not owner:
+		return
+
 	await owner.ready
 	assert(owner is Player, "PlayerSprite must be used under Player.")
 	player = owner
 
 
 func _physics_process(_delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+
 	_handle_feet_rotation()
 	_handle_movement_animation()
 
 
-func setup(gender: PlayerResource.Gender, color: Color) -> void:
+func setup(gender: PlayerResource.Gender, team_color: Color) -> void:
 	foot_sprite.texture = GENDER_SPRITES[gender].foot
 	leg_sprite.texture = GENDER_SPRITES[gender].leg
 	head_sprite.texture = GENDER_SPRITES[gender].head
 	body_sprite.texture = GENDER_SPRITES[gender].body
 	stick_sprite.texture = GENDER_SPRITES[gender].stick
-	hand_sprite.texture = GENDER_SPRITES[gender].hand
+	hand_sprite.texture = GENDER_SPRITES[gender].arm
 
-	body_sprite.modulate = color
+	body_sprite.modulate = team_color
 
 
 func rotate_head(angle: float) -> void:
@@ -62,7 +77,20 @@ func rotate_head(angle: float) -> void:
 
 
 func flip(value: bool) -> void:
-	scale.x = -0.4 if value else 0.4
+	scale.x = -0.25 if value else 0.25
+
+
+func toggle_arm(value: bool) -> void:
+	arm.visible = value
+
+
+func set_extra(extra_to_add: Node2D) -> void:
+	extra.add_child(extra_to_add)
+
+
+func clear_extra() -> void:
+	for child in extra.get_children():
+		child.queue_free()
 
 
 func _handle_feet_rotation() -> void:

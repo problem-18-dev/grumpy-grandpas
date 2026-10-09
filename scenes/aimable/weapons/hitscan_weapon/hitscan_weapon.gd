@@ -3,6 +3,7 @@ class_name HitscanWeapon
 extends Aimable
 
 var _resource: HitscanWeaponResource
+var _recoil_tween: Tween
 
 @onready var hitscan_ray_cast: RayCast2D = $HitscanRayCast
 @onready var cooldown_timer: Timer = $CooldownTimer
@@ -35,6 +36,9 @@ func shoot() -> void:
 
 	fired.emit()
 	EventSystem.camera.shake.emit(_resource.shake_noise, _resource.shake_duration)
+
+	if _resource.ammo > 1:
+		_tween_recoil()
 
 	if not hitscan_ray_cast.is_colliding():
 		return
@@ -74,3 +78,13 @@ func shoot() -> void:
 
 func _start_cooldown() -> void:
 	cooldown_timer.start(_resource.cooldown)
+
+
+func _tween_recoil() -> void:
+	if _recoil_tween:
+		_recoil_tween.kill()
+
+	var recoil_direction := Vector2.from_angle(sprite.global_rotation) * -1
+	_recoil_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
+	_recoil_tween.tween_property(sprite, "offset", recoil_direction * 30, 0.05)
+	_recoil_tween.tween_property(sprite, "offset", Vector2.ZERO, 0.05)

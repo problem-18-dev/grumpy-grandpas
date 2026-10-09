@@ -2,9 +2,14 @@
 
 [ext_resource type="Script" uid="uid://crokm4it7fa58" path="res://scenes/aimable/weapons/projectile_weapon/projectile_weapon.gd" id="1_36w1u"]
 [ext_resource type="PackedScene" uid="uid://dtyiwvrh6enql" path="res://scenes/weapon_crosshair/weapon_crosshair.tscn" id="2_36w1u"]
-[ext_resource type="Resource" uid="uid://c4jjtdxl0q3k3" path="res://resources/aimable_resource/weapons/projectile_weapons/rocket_launcher.tres" id="2_vmpcj"]
-[ext_resource type="Texture2D" uid="uid://dhkf48klugd2t" path="res://scenes/aimable/weapons/projectile_weapon/assets/rocket_launcher.png" id="3_vmpcj"]
-[ext_resource type="Texture2D" uid="uid://cm24glhqd6vrd" path="res://scenes/aimable/weapons/projectile_weapon/charge_texture.png" id="4_57x6w"]
+[ext_resource type="Texture2D" uid="uid://cb18uh2lcrf47" path="res://scenes/aimable/weapons/projectile_weapon/assets/grenade.png" id="3_vmpcj"]
+
+[sub_resource type="Gradient" id="Gradient_rmqex"]
+colors = PackedColorArray(0.9607843, 0.5372549, 0.19215687, 1, 0.85882354, 0.29411766, 0.23921569, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hcl0x"]
+gradient = SubResource("Gradient_rmqex")
+width = 64
 
 [sub_resource type="Animation" id="Animation_m8n6t"]
 length = 0.001
@@ -58,18 +63,19 @@ _data = {
 }
 
 [node name="ProjectileWeapon" type="Node2D" unique_id=160514180]
+position = Vector2(16, 0)
 script = ExtResource("1_36w1u")
-aimable_resource = ExtResource("2_vmpcj")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1557535622]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_vmpcj")
 
 [node name="ChargeSprite" type="Sprite2D" parent="." unique_id=1164316923]
 visible = false
-position = Vector2(24, 0)
-texture = ExtResource("4_57x6w")
+position = Vector2(8, 0)
+scale = Vector2(1, 6)
+texture = SubResource("GradientTexture1D_hcl0x")
 offset = Vector2(32, 0)
 
 [node name="Crosshair" parent="." unique_id=1621916684 instance=ExtResource("2_36w1u")]
@@ -77,7 +83,7 @@ modulate = Color(1, 0.54901963, 0.7411765, 0)
 position = Vector2(100, 0)
 
 [node name="MuzzleOffsetMarker" type="Marker2D" parent="." unique_id=168618166]
-position = Vector2(24, 0)
+position = Vector2(8, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=748989]
 libraries/ = SubResource("AnimationLibrary_w2b3l")

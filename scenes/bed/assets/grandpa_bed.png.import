@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5s0wwqdt0u8v"
-path="res://.godot/imported/rocket.png-79893a6a213dcc8e9a4ae14a59bc55ac.ctex"
+uid="uid://desicq2abuxra"
+path="res://.godot/imported/grandpa_bed.png-080ac1a1c7db764c60abe80e352fc27f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/projectile/rocket.png"
-dest_files=["res://.godot/imported/rocket.png-79893a6a213dcc8e9a4ae14a59bc55ac.ctex"]
+source_file="res://scenes/bed/assets/grandpa_bed.png"
+dest_files=["res://.godot/imported/grandpa_bed.png-080ac1a1c7db764c60abe80e352fc27f.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

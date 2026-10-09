@@ -1,5 +1,7 @@
 extends PlayerState
 
+const JETPACK_PACKED := preload("uid://bdu5l4gnqo52i")
+
 @export_group("Properties")
 @export var vertical_speed := -200.0
 @export var horizontal_speed := 50.0
@@ -7,18 +9,36 @@ extends PlayerState
 @export var weight := 0.15
 
 var _is_flying := false
+var _jetpack: Jetpack
 
 
 func enter(_data := { }) -> void:
 	player.unequip_item()
+	player.sprite.toggle_arm(false)
+
+	_jetpack = JETPACK_PACKED.instantiate()
+	player.sprite.set_extra(_jetpack)
+	_jetpack.start().idle()
+
+
+func exit() -> void:
+	player.sprite.toggle_arm(true)
+	player.sprite.clear_extra()
 
 
 func _key_input(event: InputEvent) -> void:
+	if event.is_action_pressed(&"shoot"):
+		_jetpack.fly()
+
+	if event.is_action_released(&"shoot"):
+		_jetpack.idle()
+
 	if not player.is_on_floor() or not player.velocity.is_zero_approx():
 		return
 
-	if event.is_action_pressed("inventory"):
+	if event.is_action_pressed(&"inventory"):
 		player.request_inventory()
+		return
 
 
 func _physics_update(delta: float) -> void:

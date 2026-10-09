@@ -41,13 +41,14 @@ func reset() -> void:
 		child.queue_free()
 
 
-# TODO: Dismiss shot if result in suicide
 func _sample_shot(weapon: ProjectileWeaponResource, angle: float, force: float) -> void:
 	var projectile := weapon.projectile_resource
 	var delta := get_physics_process_delta_time()
 	var max_sampling_iterations := mini(max_iterations, ceili(projectile.life_time / delta))
 
-	var query_position := cpu.player.global_position + weapon.muzzle_offset.rotated(angle)
+	var query_position := cpu.player.global_position + weapon.position_offset + weapon \
+			.muzzle_offset \
+			.rotated(angle)
 	var last_free_position := query_position
 	var velocity := Vector2.from_angle(angle) * force
 	var sample_iteration := 0

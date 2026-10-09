@@ -15,18 +15,18 @@
 [ext_resource type="Script" uid="uid://n6aq4lhmi1g5" path="res://scenes/player/player_state/player_dead.gd" id="12_gx1jg"]
 [ext_resource type="Script" uid="uid://b7bl74jsxu3on" path="res://scenes/player/player_state/player_drown.gd" id="13_kvlxm"]
 [ext_resource type="Script" uid="uid://bea0lrgqy0cag" path="res://scenes/player/player_state/player_grapple_hook.gd" id="13_ugbui"]
-[ext_resource type="Script" uid="uid://drtsbr2w8ifar" path="res://scenes/player/player_state/player_jetpack.gd" id="14_fcs02"]
+[ext_resource type="Script" uid="uid://drtsbr2w8ifar" path="res://scenes/player/player_state/player_jetpack/player_jetpack.gd" id="14_fcs02"]
 [ext_resource type="PackedScene" uid="uid://dyfpao2c8xfpn" path="res://scenes/components/damage_indicator/damage_indicator.tscn" id="16_myrg7"]
 [ext_resource type="Script" uid="uid://bo7oittgiumdi" path="res://scenes/player/player_state/player_cpu/player_cpu_projectile_module.gd" id="17_lgqa7"]
 [ext_resource type="Script" uid="uid://dkygro7a81njo" path="res://scenes/player/player_state/player_cpu.gd" id="17_uf5tr"]
 [ext_resource type="Script" uid="uid://dxllbk0hyl02n" path="res://scenes/player/player_state/player_cpu/player_cpu_hitscan_module.gd" id="18_lgqa7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1xhu4"]
-height = 36.0
+height = 46.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5gtgg"]
 radius = 12.0
-height = 36.0
+height = 46.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1829503951 groups=["player"]]
 collision_mask = 2
@@ -35,9 +35,7 @@ floor_snap_length = 4.0
 script = ExtResource("1_8afob")
 
 [node name="Sprite" parent="." unique_id=1839067509 instance=ExtResource("2_8ydkj")]
-position = Vector2(0, -1.9073486e-06)
-rotation = 0.0010231376
-scale = Vector2(0.4, 0.4)
+manual_color = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1830283869]
 shape = SubResource("CapsuleShape2D_1xhu4")
@@ -59,6 +57,7 @@ shape = SubResource("CapsuleShape2D_5gtgg")
 debug_color = Color(0, 1, 0, 0.392)
 
 [node name="HealthComponent" parent="." unique_id=779439910 instance=ExtResource("7_0owmy")]
+max_health = 10
 
 [node name="StateMachine" parent="." unique_id=1355297057 node_paths=PackedStringArray("initial_state") instance=ExtResource("3_gmlin")]
 initial_state = NodePath("Inactive")

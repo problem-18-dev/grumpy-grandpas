@@ -4,10 +4,14 @@
 [ext_resource type="PackedScene" uid="uid://cmrioaepcqauw" path="res://scenes/managers/turn_manager/turn_manager.tscn" id="3_l2mu6"]
 [ext_resource type="PackedScene" uid="uid://dbdar1owhc1hg" path="res://scenes/managers/players_manager/players_manager.tscn" id="4_t6juh"]
 [ext_resource type="PackedScene" uid="uid://cw3y8hipohxda" path="res://scenes/managers/pickuppable_manager/pickuppable_manager.tscn" id="5_0c8qe"]
+[ext_resource type="Script" uid="uid://djft4707qktxi" path="res://resources/pickuppable_resource/pickuppable_resource.gd" id="5_s15yy"]
 [ext_resource type="PackedScene" uid="uid://drkkxlses2ss3" path="res://scenes/debug/debug_overlay.tscn" id="6_22cy2"]
+[ext_resource type="Resource" uid="uid://cgq3uliy6ml4v" path="res://resources/pickuppable_resource/health_crate.tres" id="6_eupnm"]
 [ext_resource type="PackedScene" uid="uid://d35ssjbiwjytu" path="res://scenes/managers/camera_manager/camera_manager.tscn" id="6_l2mu6"]
 [ext_resource type="PackedScene" uid="uid://clmby7f35fvxj" path="res://scenes/managers/busy_manager/busy_manager.tscn" id="6_t6juh"]
+[ext_resource type="Resource" uid="uid://bqhw1r7by1gjk" path="res://resources/pickuppable_resource/tool_crate.tres" id="7_77u24"]
 [ext_resource type="PackedScene" uid="uid://bocfnvrwcsq33" path="res://gui/components/background/background.tscn" id="7_l2mu6"]
+[ext_resource type="Resource" uid="uid://cigipvuxrk2eo" path="res://resources/pickuppable_resource/weapon_crate.tres" id="8_tjx75"]
 
 [sub_resource type="Animation" id="Animation_l2mu6"]
 length = 0.001
@@ -91,6 +95,8 @@ spawn_target = NodePath("../../World/EntityRoot")
 [node name="PickuppableManager" parent="Systems" unique_id=180867956 node_paths=PackedStringArray("spawn_target") instance=ExtResource("5_0c8qe")]
 unique_name_in_owner = true
 spawn_target = NodePath("../../World/EntityRoot")
+spawn_chance = 1.0
+spawn_resources = Array[ExtResource("5_s15yy")]([ExtResource("6_eupnm"), ExtResource("7_77u24"), ExtResource("8_tjx75")])
 
 [node name="CameraManager" parent="Systems" unique_id=22320113 instance=ExtResource("6_l2mu6")]
 unique_name_in_owner = true
@@ -172,11 +178,7 @@ layer = 30
 [node name="DebugRoot" type="Control" parent="DebugLayer" unique_id=2022143443]
 unique_name_in_owner = true
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 mouse_filter = 2
 mouse_behavior_recursive = 1
 mouse_default_cursor_shape = 1

@@ -21,6 +21,7 @@ func _ready() -> void:
 	if not aimable_resource:
 		return
 
+	position = aimable_resource.position_offset
 	sprite.texture = aimable_resource.texture
 	crosshair.position = Vector2(aimable_resource.crosshair_distance, 0)
 
@@ -34,7 +35,6 @@ func prepare(new_aimable_resource: AimableResource) -> void:
 
 ## Flips the weapon's sprite
 func flip(should_flip: bool) -> void:
-	sprite.flip_h = should_flip
 	sprite.flip_v = should_flip
 	crosshair.flip_v = should_flip
 

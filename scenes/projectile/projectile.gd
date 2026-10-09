@@ -8,6 +8,7 @@ const SPIN_VELOCITY_MAX := 15.0
 @export var resource: ProjectileResource
 
 var _is_fired := false
+var _time_remaining := 0.0
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
@@ -22,6 +23,7 @@ func _ready() -> void:
 	sprite.texture = resource.texture
 	collision_shape.shape = resource.collision_shape
 	hitbox_collision_shape.shape = resource.collision_shape
+	sprite.material.set_shader_parameter("end_time", resource.life_time)
 
 
 func _physics_process(delta: float) -> void:
@@ -30,6 +32,7 @@ func _physics_process(delta: float) -> void:
 
 	_handle_gravity(delta)
 	_handle_rotation()
+	_handle_blinking(delta)
 	var collision := move_and_collide(velocity * delta)
 	_handle_collision(collision)
 
@@ -45,6 +48,7 @@ func fire(start_position: Vector2, angle_in_rad: float, force: float) -> void:
 	rotation = angle_in_rad
 	velocity = Vector2.RIGHT.rotated(angle_in_rad) * force
 	life_time_timer.start(resource.life_time)
+	_time_remaining = resource.life_time
 	_is_fired = true
 
 
@@ -96,6 +100,14 @@ func _handle_rotation() -> void:
 		spin_speed = minf(resource.spin_speed, absf(velocity.x)) * signf(velocity.x)
 
 	rotation_degrees += spin_speed * get_physics_process_delta_time()
+
+
+func _handle_blinking(delta: float) -> void:
+	if not resource.blink_enabled:
+		return
+
+	_time_remaining -= delta
+	sprite.material.set_shader_parameter("time", resource.life_time - _time_remaining)
 
 
 func _on_life_time_timer_timeout() -> void:

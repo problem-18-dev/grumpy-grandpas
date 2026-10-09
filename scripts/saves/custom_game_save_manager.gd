@@ -38,7 +38,7 @@ static func set_catalogue(catalogue: CatalogueResource) -> void:
 	_save()
 
 
-static func set_level(level: String) -> void:
+static func set_level(level: Game.Level) -> void:
 	save.level = level
 	_save()
 

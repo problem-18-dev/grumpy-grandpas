@@ -26,7 +26,7 @@ func setup(new_spawn_follow: PathFollow2D) -> void:
 	spawn_follow = new_spawn_follow
 
 
-func spawn(pickuppable_resource: PickuppableResource, spawn_position: Vector2) -> void:
+func spawn(pickuppable_resource: PickuppableResource, spawn_position: Vector2) -> Pickuppable:
 	var pickuppable: Pickuppable = PICKUPPABLE.instantiate()
 	pickuppable.picked_up.connect(picked_up.emit)
 	pickuppable.setup(pickuppable_resource)
@@ -34,9 +34,10 @@ func spawn(pickuppable_resource: PickuppableResource, spawn_position: Vector2) -
 	pickuppable.spawn(spawn_position)
 
 	await pickuppable.spawned
+	return pickuppable
 
 
-func attempt_spawn() -> void:
+func attempt_spawn() -> Pickuppable:
 	assert(spawn_follow, "Attempting spawn without path follow")
 	assert(spawn_target, "No spawn target provided")
 
@@ -62,7 +63,7 @@ func attempt_spawn() -> void:
 	if not offset_position:
 		return
 
-	await spawn(pickuppable_to_spawn, offset_position)
+	return await spawn(pickuppable_to_spawn, offset_position)
 
 
 func _should_spawn() -> bool:

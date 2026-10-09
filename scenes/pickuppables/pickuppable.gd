@@ -14,7 +14,6 @@ const MIN_BOUNCE_SPEED := 40.0
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var spawn_timer: Timer = $SpawnTimer
 @onready var wait_timer: Timer = $WaitTimer
-@onready var label: Label = $Label
 @onready var pickup_collision_shape: CollisionShape2D = $PickupComponent/PickupCollisionShape
 
 
@@ -23,7 +22,6 @@ func _ready() -> void:
 		return
 
 	sprite.texture = resource.texture
-	label.text = resource.name
 	floor_max_angle = Player.FLOOR_MAX_ANGLE
 	pickup_collision_shape.shape.radius = resource.pickup_radius
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfnyjnka0kqdf"
-path="res://.godot/imported/bitmap.png-13f509055235e16be34982da0370e5d8.ctex"
+uid="uid://b720d0m7xgev4"
+path="res://.godot/imported/grapple_hook.png-82e62a337468126fcd9c034b6d8c2af8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/player/assets/bitmap.png"
-dest_files=["res://.godot/imported/bitmap.png-13f509055235e16be34982da0370e5d8.ctex"]
+source_file="res://scenes/aimable/tools/grapple_hook/grapple_hook.png"
+dest_files=["res://.godot/imported/grapple_hook.png-82e62a337468126fcd9c034b6d8c2af8.ctex"]
 
 [params]
 

@@ -14,12 +14,14 @@ signal firing_finished
 const LEFT_DIRECTION := -1
 const RIGHT_DIRECTION := 1
 const FLOOR_MAX_ANGLE := 80
+const HEAL_AMOUNT := 25
 
 var is_cpu: bool
 var is_busy: bool
 var team: TeamResource
 var player_name: String
 var equipped_item: ItemResource
+var gender: PlayerResource.Gender
 
 var _ammo_remaining := 0
 var _damage_accumulated := 0
@@ -137,6 +139,7 @@ func spawn(spawn_position: Vector2, floor_normal: Vector2) -> void:
 
 func setup(player_team: TeamResource, player: PlayerResource) -> void:
 	team = player_team
+	gender = player.gender
 	hurtbox.add_to_group(team.get_id())
 
 	aimable_holder.is_cpu = team.is_cpu
@@ -157,8 +160,8 @@ func request_inventory() -> void:
 #endregion
 
 #region Damage & Healing
-func heal(amount := 25) -> void:
-	health.add_health(amount)
+func heal() -> void:
+	health.add_health(HEAL_AMOUNT)
 
 
 ## Returns whether damage was dealt, only then will damage_applied follow.

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c8oa0xucver5d" path="res://scenes/level/tutorial/tutorial_level.gd" id="1_tujrl"]
 [ext_resource type="PackedScene" uid="uid://c1nx228cdqcdb" path="res://scenes/water/water.tscn" id="2_kv3ij"]
 [ext_resource type="PackedScene" uid="uid://d0okm02wagiv7" path="res://scenes/terrain/terrain.tscn" id="3_e4khr"]
+[ext_resource type="Texture2D" uid="uid://dlv6w88cxhv03" path="res://scenes/terrain/assets/terrain_pattern.png" id="4_tujrl"]
 [ext_resource type="PackedScene" uid="uid://3nsota473q6r" path="res://scenes/bounds_area/bounds_area.tscn" id="7_tadih"]
 
 [node name="Tutorial" type="Node2D" unique_id=1672131671]
@@ -16,6 +17,10 @@ size = Vector2(1024, 128)
 position = Vector2(-16, 120)
 
 [node name="Polygon2D" type="Polygon2D" parent="Terrain" unique_id=1955730074]
+modulate = Color(0.68235296, 0.7529412, 0.84705883, 1)
+texture_repeat = 2
+texture = ExtResource("4_tujrl")
+texture_scale = Vector2(3, 3)
 polygon = PackedVector2Array(-80, 200, -48, 136, 80, 152, 208, 136, 336, 152, 464, 136, 496, 200)
 
 [node name="BoundsArea" parent="." unique_id=1365056220 instance=ExtResource("7_tadih")]

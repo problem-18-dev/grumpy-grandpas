@@ -4,6 +4,7 @@ const DEFAULT_CATALOGUE: CatalogueResource = preload("uid://gr6x0tlr2xog")
 
 var teams: Array[TeamResource] = []
 var catalogue: CatalogueResource = DEFAULT_CATALOGUE
+var level: Game.Level
 
 
 func reset() -> void:

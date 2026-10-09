@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://c0v8vjr33360s" path="res://resources/projectile_resource/grenade.tres" id="1_nedrb"]
 [ext_resource type="Script" uid="uid://pp6wnjxndi6r" path="res://resources/aimable_resource/weapons/projectile_weapons/projectile_weapon_resource.gd" id="2_808hy"]
-[ext_resource type="Texture2D" uid="uid://c5s0wwqdt0u8v" path="res://scenes/projectile/rocket.png" id="3_6omh8"]
+[ext_resource type="Texture2D" uid="uid://cb18uh2lcrf47" path="res://scenes/aimable/weapons/projectile_weapon/assets/grenade.png" id="3_nedrb"]
 
 [resource]
 script = ExtResource("2_808hy")
@@ -11,6 +11,7 @@ max_force = 750.0
 charge_time = 1.5
 projectile_resource = ExtResource("1_nedrb")
 scene = "uid://cupft37g0c1yp"
-texture = ExtResource("3_6omh8")
-muzzle_offset = Vector2(16, 0)
+texture = ExtResource("3_nedrb")
+position_offset = Vector2(16, 0)
+muzzle_offset = Vector2(8, 0)
 metadata/_custom_type_script = "uid://pp6wnjxndi6r"

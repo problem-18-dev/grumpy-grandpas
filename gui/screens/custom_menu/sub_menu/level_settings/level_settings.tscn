@@ -1,12 +1,17 @@
 [gd_scene format=3 uid="uid://ciopl4v4mn33e"]
 
-[ext_resource type="Texture2D" uid="uid://c5s0wwqdt0u8v" path="res://scenes/projectile/rocket.png" id="1_sr7wq"]
 [ext_resource type="Script" uid="uid://dmj4pfmcyxl27" path="res://gui/screens/custom_menu/sub_menu/level_settings/level_settings.gd" id="1_vj8i1"]
-[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="3_vj8i1"]
+[ext_resource type="Texture2D" uid="uid://hrxgwt1ackg3" path="res://gui/assets/icons/chevron_left.png" id="2_iyj34"]
+[ext_resource type="Texture2D" uid="uid://dcym3af315ake" path="res://scenes/level/assets/sun.png" id="3_tlqvx"]
 [ext_resource type="PackedScene" uid="uid://cxqi4fxuqa7a6" path="res://gui/components/buttons/button_tween_component.tscn" id="4_iyj34"]
+[ext_resource type="Texture2D" uid="uid://0utme7chj341" path="res://gui/assets/icons/chevron_right.png" id="4_tlqvx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjvey"]
 bg_color = Color(0.21176471, 0.20784314, 0.3019608, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mc1b8"]
 bg_color = Color(0.21176471, 0.20784314, 0.3019608, 1)
@@ -55,8 +60,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 offset_transform_enabled = true
-offset_transform_rotation = 3.1415927
-icon = ExtResource("1_sr7wq")
+theme_type_variation = &"IconButton"
+icon = ExtResource("2_iyj34")
 
 [node name="LevelFrame" type="Control" parent="VBoxContainer/HBoxContainer" unique_id=1128944526]
 custom_minimum_size = Vector2(192, 128)
@@ -69,27 +74,23 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"InventoryPanel"
 theme_override_styles/panel = SubResource("StyleBoxFlat_vjvey")
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/LevelFrame/LevelPanel" unique_id=1352526711]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 2.0
-offset_right = -4.0
-offset_bottom = -2.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_vj8i1")
+texture = ExtResource("3_tlqvx")
 expand_mode = 1
 
 [node name="LevelFramePanel" type="Panel" parent="VBoxContainer/HBoxContainer/LevelFrame" unique_id=682131015]
@@ -107,7 +108,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_mc1b8")
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-icon = ExtResource("1_sr7wq")
+theme_type_variation = &"IconButton"
+icon = ExtResource("4_tlqvx")
 
 [node name="PlayButton" type="Button" parent="VBoxContainer" unique_id=400087715]
 unique_name_in_owner = true
