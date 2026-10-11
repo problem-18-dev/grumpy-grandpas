@@ -8,7 +8,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tncby"]
 shader = ExtResource("1_fnbuj")
-shader_parameter/end_time = 5.0
+shader_parameter/end_time = 4.5
 shader_parameter/start_freq = 1.0
 shader_parameter/end_freq = 12.5
 shader_parameter/time = 0.0

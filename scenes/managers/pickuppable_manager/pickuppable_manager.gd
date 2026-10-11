@@ -3,7 +3,7 @@ extends Node2D
 
 signal picked_up(by: Player, type: PickuppableResource.Type)
 
-const PICKUPPABLE = preload("uid://3i8oy7ede3he")
+const PICKUPPABLE := preload("uid://3i8oy7ede3he")
 const RAY_LENGTH := 1000
 const HURTBOX_COLLISION_MASK := 4
 

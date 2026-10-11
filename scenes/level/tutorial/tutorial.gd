@@ -4,12 +4,12 @@ extends Node
 const HUD_UID := "uid://c5q7bwqmijr3e"
 const INVENTORY_UID := "uid://bkrmhl1oip2je"
 const PAUSE_UID := "uid://c88tu6f6g83br"
-const TEAM_TUTORIAL_BLUE = preload("uid://cgtof6pv3rtlo")
-const TEAM_TUTORIAL_RED = preload("uid://ci6lhhlkv6opp")
-const TUTORIAL_LEVEL = preload("uid://bw3v314eg0rgg")
-const CRATE = preload("uid://cigipvuxrk2eo")
-const TUTORIAL_CATALOGUE = preload("uid://c0onk6kmhoekl")
-const KEYCAP = preload("uid://bb8fs5vr1xjp")
+const TEAM_TUTORIAL_BLUE := preload("uid://cgtof6pv3rtlo")
+const TEAM_TUTORIAL_RED := preload("uid://ci6lhhlkv6opp")
+const TUTORIAL_LEVEL := preload("uid://bw3v314eg0rgg")
+const CRATE := preload("uid://cigipvuxrk2eo")
+const TUTORIAL_CATALOGUE := preload("uid://c0onk6kmhoekl")
+const KEYCAP := preload("uid://bb8fs5vr1xjp")
 
 @export var initial_phase := TutorialState.Phase.INTRO
 
@@ -162,6 +162,7 @@ func _start() -> void:
 		_tutorial_level.get_player_spawn(),
 	)
 	players_manager.spawn_player_at(red.player_resources[0], red, _tutorial_level.get_enemy_spawn())
+	players_manager.activate_player()
 
 
 func _pause() -> void:

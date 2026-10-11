@@ -68,17 +68,15 @@ size = Vector2(2600, 480)
 position = Vector2(-196, 0)
 
 [node name="Polygon2D" type="Polygon2D" parent="Terrain" unique_id=1389728682]
-modulate = Color(0.20392157, 0.09411765, 0.4745098, 1)
 texture_repeat = 2
 position = Vector2(0, -152)
-color = Color(0.98039216, 1, 0.9882353, 1)
+color = Color(0.09019608, 0.02745098, 0.23921569, 1)
 polygon = PackedVector2Array(-292, 80, -244, 192, -188, 88, 196, 408, 524, -168, 620, -48, 700, 16, 620, 144, 716, 216, 980, 200, 1052, 24, 1284, 96, 1212, 232, 1388, 280, 1572, 272, 1628, 32, 1436, -48, 1428, 120, 1364, -104, 1620, -128, 1772, 32, 1716, 272, 1700, 416, 1620, 480, 1476, 536, -212, 528)
 
 [node name="Polygon2D2" type="Polygon2D" parent="Terrain" unique_id=50021707]
-modulate = Color(0.20392157, 0.09411765, 0.4745098, 1)
 texture_repeat = 2
 position = Vector2(0, -152)
-color = Color(0.98039216, 1, 0.9882353, 1)
+color = Color(0.09019608, 0.02745098, 0.23921569, 1)
 polygon = PackedVector2Array(4, -104, 132, 32, 260, -96)
 
 [node name="SpawnGenerator" type="Node2D" parent="." unique_id=40225150 node_paths=PackedStringArray("spawn_path_follow")]

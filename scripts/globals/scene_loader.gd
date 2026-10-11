@@ -57,7 +57,7 @@ func _start_loading() -> void:
 	# Makes it more fun
 	await get_tree().create_timer(0.25).timeout
 
-	var state := ResourceLoader.load_threaded_request(_scene_path, "", true)
+	var state := ResourceLoader.load_threaded_request(_scene_path, "")
 
 	if state == OK:
 		set_process(true)
