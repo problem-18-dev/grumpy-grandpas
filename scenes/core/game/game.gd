@@ -216,6 +216,26 @@ func _on_turn_manager_turn_ended() -> void:
 		_current_inventory = null
 
 
+func _on_players_manager_player_ammo_changed(
+	ammo_remaining: int,
+	current_item: ItemResource,
+	_player: Player,
+) -> void:
+	if not _current_hud:
+		push_warning("Player ammo change HUD adjustment, but no current hud.")
+		return
+
+	_current_hud.set_item_ammo(ammo_remaining, current_item.aimable_resource.ammo)
+
+
+func _on_players_manager_player_item_equipped(_current_item: ItemResource, player: Player) -> void:
+	_update_hud(player)
+
+
+func _on_players_manager_player_firing_finished(_player: Player) -> void:
+	busy_manager.poll()
+
+
 func _on_players_manager_inventory_requested(
 	locked_items: Array[ItemResource],
 	current_item: ItemResource,
@@ -238,22 +258,6 @@ func _on_inventory_closed(new_item: ItemResource = null) -> void:
 		return
 
 	players_manager.player_equip(new_item)
-
-
-func _on_players_manager_player_ammo_changed(
-	ammo_remaining: int,
-	current_item: ItemResource,
-	_player: Player,
-) -> void:
-	if not _current_hud:
-		push_warning("Player ammo change HUD adjustment, but no current hud.")
-		return
-
-	_current_hud.set_item_ammo(ammo_remaining, current_item.aimable_resource.ammo)
-
-
-func _on_players_manager_player_item_equipped(_current_item: ItemResource, player: Player) -> void:
-	_update_hud(player)
 
 
 func _on_projectile_exited() -> void:

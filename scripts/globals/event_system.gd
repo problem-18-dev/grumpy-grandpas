@@ -1,7 +1,6 @@
 extends Node
 
 var camera: Camera = Camera.new()
-var busy: Busy = Busy.new()
 
 
 class Camera:
@@ -10,10 +9,3 @@ class Camera:
 	signal shake(noise: PhantomCameraNoise2D, duration: float)
 	signal request_manual(manual_position: Vector2)
 	signal revoke_manual
-
-
-class Busy:
-	## Add node to list of busy events in the round
-	signal busy_started(node: Node2D)
-	## Remove node from list of busy events in the round
-	signal busy_finished(node: Node2D)

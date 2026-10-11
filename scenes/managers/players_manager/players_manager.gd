@@ -6,6 +6,7 @@ signal player_died(player: Player)
 signal player_drowned(player: Player)
 signal player_item_equipped(current_item: ItemResource, player: Player)
 signal player_ammo_changed(ammo_remaining: int, current_item: ItemResource, player: Player)
+signal player_firing_finished(player: Player)
 
 const PLAYER := preload("uid://bmag23mf230r3")
 
@@ -242,9 +243,9 @@ func _on_player_marked_for_death(player: Player) -> void:
 
 
 func _on_player_firing_finished(player: Player) -> void:
-	# A late finish from a previous player must not deactivate whoever is active now.
 	if player == active_player:
 		deactivate_player()
+		player_firing_finished.emit(player)
 
 
 func _on_player_damage_accumulated(player: Player) -> void:

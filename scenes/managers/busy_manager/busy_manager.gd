@@ -38,6 +38,11 @@ func start() -> void:
 	_change_state(BusyState.IDLE)
 
 
+## Manually initialize polling
+func poll() -> void:
+	_change_state(BusyState.POLLING)
+
+
 ## Premature stop of busy polling and settling
 func stop() -> void:
 	_change_state(BusyState.STOPPED)
