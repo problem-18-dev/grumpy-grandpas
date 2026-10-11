@@ -2,11 +2,11 @@
 
 [ext_resource type="Resource" uid="uid://bswdgh0ektx48" path="res://resources/aimable_resource/weapons/hitscan_weapons/shotgun.tres" id="1_k8af0"]
 [ext_resource type="Script" uid="uid://cp1j8tubsspi2" path="res://resources/item_resource/item_resource.gd" id="1_q3odo"]
-[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="2_0iatj"]
+[ext_resource type="Texture2D" uid="uid://2hppdjhcb127" path="res://scenes/aimable/weapons/hitscan_weapon/assets/shotgun.png" id="2_2fdq6"]
 
 [resource]
 script = ExtResource("1_q3odo")
 name = "Shotgun"
-icon = ExtResource("2_0iatj")
+icon = ExtResource("2_2fdq6")
 aimable_resource = ExtResource("1_k8af0")
 metadata/_custom_type_script = "uid://cp1j8tubsspi2"

@@ -71,8 +71,12 @@ scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_snu0r")
 
 [node name="Crosshair" parent="." unique_id=1621916684 instance=ExtResource("3_gtmvm")]
-modulate = Color(1, 0.54901963, 0.7411765, 0)
+modulate = Color(0.9647059, 1, 0.9764706, 0)
 position = Vector2(200, 0)
+
+[node name="RangeRayCast" type="RayCast2D" parent="." unique_id=181474331]
+target_position = Vector2(200, 0)
+collision_mask = 2
 
 [node name="HitscanRayCast" type="RayCast2D" parent="." unique_id=678515810]
 position = Vector2(10, 0)

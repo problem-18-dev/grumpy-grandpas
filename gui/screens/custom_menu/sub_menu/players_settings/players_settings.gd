@@ -10,7 +10,7 @@ var _initialized := false
 
 @onready var item_list: ItemList = %ItemList
 @onready var player_name_label: Label = %PlayerNameLabel
-@onready var player_texture: TextureRect = %PlayerTexture
+@onready var player_icon: PlayerIcon = %PlayerIcon
 
 # Adjustments
 @onready var name_edit: LineEdit = %NameEdit
@@ -62,7 +62,7 @@ func _update_fields() -> void:
 	name_edit.text = _selected_player.name
 	gender_option.select(PlayerResource.Gender.values()[_selected_player.gender])
 	player_name_label.text = _selected_player.name
-	player_texture.modulate = _team.get_color()
+	player_icon.setup(_selected_player.gender, _team.get_color())
 
 
 func _update_confirm() -> void:

@@ -45,11 +45,8 @@ func _ready() -> void:
 	if Engine.is_editor_hint() and manual_gender and manual_color:
 		setup(manual_gender, TeamResource.TEAM_COLORS[manual_color])
 
-	if not owner:
-		return
-
 	await owner.ready
-	assert(owner is Player, "PlayerSprite must be used under Player.")
+	assert(owner is Player, "Sprite requires player.")
 	player = owner
 
 

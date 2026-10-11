@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://ddpuj4jaf5x2u"]
+
+[ext_resource type="Script" uid="uid://cwf7o4eswok48" path="res://gui/components/player_icon/player_icon.gd" id="1_rmvvv"]
+[ext_resource type="Texture2D" uid="uid://ci6lv3oxer4rl" path="res://scenes/player/assets/grandma/grandma_foot.png" id="2_fgtah"]
+[ext_resource type="Texture2D" uid="uid://bsmychmwlhy21" path="res://scenes/player/assets/grandma/grandma_leg.png" id="3_8rsch"]
+[ext_resource type="Texture2D" uid="uid://cosdsctdfc8wg" path="res://scenes/player/assets/grandma/grandma_head.png" id="4_7e0hd"]
+[ext_resource type="Texture2D" uid="uid://bol6nclry3c1n" path="res://scenes/player/assets/grandma/grandma_body.png" id="5_a7n3p"]
+[ext_resource type="Texture2D" uid="uid://3pc2kow8trq3" path="res://scenes/player/assets/grandma/grandma_arm.png" id="6_schh5"]
+[ext_resource type="Texture2D" uid="uid://bnwcx2373y3gr" path="res://scenes/player/assets/grandma/grandma_stick.png" id="7_a47xt"]
+
+[node name="PlayerIcon" type="Control" unique_id=153416695]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rmvvv")
+manual_gender = 1
+manual_color = 1
+
+[node name="Foot" type="TextureRect" parent="." unique_id=638934396]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -90.0
+offset_right = 60.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_fgtah")
+
+[node name="Leg" type="TextureRect" parent="." unique_id=724515355]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -90.0
+offset_right = 60.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_8rsch")
+
+[node name="Head" type="TextureRect" parent="." unique_id=1975944781]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -90.0
+offset_right = 60.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_7e0hd")
+
+[node name="Body" type="TextureRect" parent="." unique_id=1579076624]
+modulate = Color(0.267, 0.553, 0.906, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -90.0
+offset_right = 60.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_a7n3p")
+
+[node name="Hand" type="TextureRect" parent="." unique_id=451767771]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -90.0
+offset_right = 60.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_schh5")
+
+[node name="Stick" type="TextureRect" parent="." unique_id=91507525]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -90.0
+offset_right = 60.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_a47xt")

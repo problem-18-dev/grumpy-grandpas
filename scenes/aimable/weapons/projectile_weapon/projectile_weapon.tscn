@@ -79,8 +79,12 @@ texture = SubResource("GradientTexture1D_hcl0x")
 offset = Vector2(32, 0)
 
 [node name="Crosshair" parent="." unique_id=1621916684 instance=ExtResource("2_36w1u")]
-modulate = Color(1, 0.54901963, 0.7411765, 0)
+modulate = Color(0.96304065, 0.9999996, 0.9778678, 0)
 position = Vector2(100, 0)
+
+[node name="RangeRayCast" type="RayCast2D" parent="." unique_id=1688629513]
+position = Vector2(10, 0)
+collision_mask = 2
 
 [node name="MuzzleOffsetMarker" type="Marker2D" parent="." unique_id=168618166]
 position = Vector2(8, 0)

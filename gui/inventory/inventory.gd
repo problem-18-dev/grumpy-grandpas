@@ -24,7 +24,7 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("inventory"):
+	if event.is_action_pressed(&"inventory") or event.is_action_pressed(&"quit"):
 		closed.emit()
 		queue_free()
 		get_viewport().set_input_as_handled()

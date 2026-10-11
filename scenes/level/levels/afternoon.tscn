@@ -18,14 +18,14 @@ fill_to = Vector2(0, 0)
 
 [sub_resource type="Curve2D" id="Curve2D_tj2m0"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -229, -192, 0, 0, 0, 0, 153, -299, 0, 0, 0, 0, 1207, -341, 0, 0, 0, 0, 1659, -240, 0, 0, 0, 0, 787, -216, 0, 0, 0, 0, 243, 88)
+"points": PackedVector2Array(0, 0, 0, 0, 267, -96, 0, 0, 0, 0, 1195, -88, 0, 0, 0, 0, 891, -40, 0, 0, 0, 0, 763, 176, 0, 0, 0, 0, 563, -40, 0, 0, 0, 0, 283, -40)
 }
 point_count = 6
 
 [node name="Afternoon" type="Node2D" unique_id=909882963]
 script = ExtResource("1_juhli")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=327578472]
+[node name="Background" type="TextureRect" parent="." unique_id=327578472]
 modulate = Color(0.7019608, 0.7019608, 0.7019608, 1)
 anchors_preset = 14
 anchor_top = 0.5
@@ -43,8 +43,8 @@ texture = SubResource("GradientTexture2D_juhli")
 
 [node name="Sun" type="Sprite2D" parent="." unique_id=1831293875]
 modulate = Color(0.9607843, 0.5372549, 0.19215687, 1)
-position = Vector2(1096, -216)
-scale = Vector2(0.25, 0.25)
+position = Vector2(288, -64)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_2cr66")
 
 [node name="Water" parent="." unique_id=1073738961 instance=ExtResource("2_ugwqg")]
@@ -56,21 +56,31 @@ position = Vector2(-196, 0)
 
 [node name="Polygon2D" type="Polygon2D" parent="Terrain" unique_id=444729972]
 texture_repeat = 2
-position = Vector2(0, -152)
+position = Vector2(220, -72)
 color = Color(0.39215687, 0.23137255, 0.03529412, 1)
-polygon = PackedVector2Array(-28, 272, 52, 440, 268, 432, 492, 312, 580, 240, 700, 96, 820, 0, 1036, -24, 1228, 216, 1252, 384, 1444, 368, 1468, 208, 1420, 72, 1628, 136, 1604, 416, 1348, 568, 964, 576, 836, 456, 484, 592, 12, 664, -140, 480)
+antialiased = true
+polygon = PackedVector2Array(176, 184, 368, 184, 432, 248, 464, 312, 488, 352, 120, 368, 80, 312, 112, 248)
 
-[node name="Polygon2D2" type="Polygon2D" parent="Terrain" unique_id=2121788347]
+[node name="Polygon2D2" type="Polygon2D" parent="Terrain" unique_id=1065920752]
 texture_repeat = 2
-position = Vector2(0, -152)
+position = Vector2(668, -120)
 color = Color(0.39215687, 0.23137255, 0.03529412, 1)
-polygon = PackedVector2Array(-212, 64, -92, 136, -108, 288, -164, 384, -292, 216)
+antialiased = true
+polygon = PackedVector2Array(88, 352, 200, 384, 488, 408, 424, 248, 360, 184, 296, 120, 248, 264)
 
-[node name="Polygon2D3" type="Polygon2D" parent="Terrain" unique_id=562509653]
+[node name="Polygon2D3" type="Polygon2D" parent="Terrain" unique_id=1571205607]
 texture_repeat = 2
-position = Vector2(0, -152)
+position = Vector2(532, -240)
 color = Color(0.39215687, 0.23137255, 0.03529412, 1)
-polygon = PackedVector2Array(388, 88, 324, 88, 260, 24, 260, -40, 324, -104, 388, -104, 452, -40, 452, 24)
+antialiased = true
+polygon = PackedVector2Array(176, 240, 112, 304, 240, 304)
+
+[node name="Polygon2D4" type="Polygon2D" parent="Terrain" unique_id=179928726]
+texture_repeat = 2
+position = Vector2(84, -240)
+color = Color(0.39215687, 0.23137255, 0.03529412, 1)
+antialiased = true
+polygon = PackedVector2Array(112, 240, 112, 304, 240, 304, 240, 240)
 
 [node name="SpawnGenerator" type="Node2D" parent="." unique_id=40225150 node_paths=PackedStringArray("spawn_path_follow")]
 script = ExtResource("5_jbrgk")
@@ -82,25 +92,25 @@ position = Vector2(-251, 0)
 curve = SubResource("Curve2D_tj2m0")
 
 [node name="SpawnFollow" type="PathFollow2D" parent="SpawnPath" unique_id=1939929917]
-position = Vector2(-229, -192)
-rotation = -0.2731058
+position = Vector2(267, -96)
+rotation = 0.008620475
 
 [node name="BoundsArea" parent="." unique_id=1365056220 instance=ExtResource("6_orpvo")]
 unique_name_in_owner = true
 
 [node name="Top" parent="BoundsArea" index="0" unique_id=145456361]
-position = Vector2(352, -512)
+position = Vector2(352, -192)
 rotation = 3.1415927
 
 [node name="Right" parent="BoundsArea" index="1" unique_id=292086785]
-position = Vector2(1520, 40)
+position = Vector2(1152, 40)
 rotation = -1.5707964
 
 [node name="Bottom" parent="BoundsArea" index="2" unique_id=1700487279]
-position = Vector2(384, 352)
+position = Vector2(384, 336)
 
 [node name="Left" parent="BoundsArea" index="3" unique_id=2119979601]
-position = Vector2(-576, -40)
+position = Vector2(-192, -40)
 rotation = 1.5707964
 
 [connection signal="projectile_exited" from="BoundsArea" to="." method="_on_bounds_area_projectile_exited"]

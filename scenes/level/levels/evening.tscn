@@ -16,16 +16,16 @@ gradient = SubResource("Gradient_y7213")
 fill_from = Vector2(0, 1)
 fill_to = Vector2(0, 0)
 
-[sub_resource type="Curve2D" id="Curve2D_tj2m0"]
+[sub_resource type="Curve2D" id="Curve2D_vigc8"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -229, -320, 0, 0, 0, 0, 195, -424, 0, 0, 0, 0, 1747, -408, 0, 0, 0, 0, 1331, -296, 0, 0, 0, 0, 1435, -8, 0, 0, 0, 0, 1619, 0, 0, 0, 0, 0, 595, -376, 0, 0, 0, 0, 195, 32, 0, 0, 0, 0, -221, -240)
+"points": PackedVector2Array(0, 0, 0, 0, 75, -248, 0, 0, 0, 0, 1427, -256, 0, 0, 0, 0, 555, -40, 0, 0, 0, 0, 427, 136, 0, 0, 0, 0, 91, -64)
 }
-point_count = 9
+point_count = 5
 
 [node name="Evening" type="Node2D" unique_id=909882963]
 script = ExtResource("1_y7213")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1845008681]
+[node name="Background" type="TextureRect" parent="." unique_id=1845008681]
 modulate = Color(0.7019608, 0.7019608, 0.7019608, 1)
 anchors_preset = 14
 anchor_top = 0.5
@@ -42,8 +42,8 @@ size_flags_vertical = 3
 texture = SubResource("GradientTexture2D_vigc8")
 
 [node name="Moon" type="Sprite2D" parent="." unique_id=263228195]
-position = Vector2(-32, -448)
-scale = Vector2(0.25, 0.25)
+position = Vector2(704, -144)
+scale = Vector2(0.125, 0.125)
 texture = ExtResource("2_5bsr8")
 
 [node name="StarParticles" type="CPUParticles2D" parent="." unique_id=455055137]
@@ -71,13 +71,15 @@ position = Vector2(-196, 0)
 texture_repeat = 2
 position = Vector2(0, -152)
 color = Color(0.09019608, 0.02745098, 0.23921569, 1)
-polygon = PackedVector2Array(-292, 80, -244, 192, -188, 88, 196, 408, 524, -168, 620, -48, 700, 16, 620, 144, 716, 216, 980, 200, 1052, 24, 1284, 96, 1212, 232, 1388, 280, 1572, 272, 1628, 32, 1436, -48, 1428, 120, 1364, -104, 1620, -128, 1772, 32, 1716, 272, 1700, 416, 1620, 480, 1476, 536, -212, 528)
+antialiased = true
+polygon = PackedVector2Array(-4, 328, -4, 168, 52, 136, 84, 232, 188, 240, 196, 336, 452, 344, 644, 280, 516, 160, 660, 136, 772, 136, 652, 192, 716, 216, 980, 200, 1135.6443, 190.27222, 1100, 24, 1156, 88, 1220, 88, 1284, 24, 1260, 184, 1388, 168, 1316, 312, 1172, 456, 84, 520)
 
 [node name="Polygon2D2" type="Polygon2D" parent="Terrain" unique_id=50021707]
 texture_repeat = 2
-position = Vector2(0, -152)
+position = Vector2(204, 72)
 color = Color(0.09019608, 0.02745098, 0.23921569, 1)
-polygon = PackedVector2Array(4, -104, 132, 32, 260, -96)
+antialiased = true
+polygon = PackedVector2Array(4, -104, 136, -8, 260, -96)
 
 [node name="SpawnGenerator" type="Node2D" parent="." unique_id=40225150 node_paths=PackedStringArray("spawn_path_follow")]
 script = ExtResource("5_yaypq")
@@ -86,28 +88,28 @@ spawn_attempts = 160
 
 [node name="SpawnPath" type="Path2D" parent="." unique_id=579392240]
 position = Vector2(-251, 0)
-curve = SubResource("Curve2D_tj2m0")
+curve = SubResource("Curve2D_vigc8")
 
 [node name="SpawnFollow" type="PathFollow2D" parent="SpawnPath" unique_id=1939929917]
-position = Vector2(-229, -320)
-rotation = -0.24053425
+position = Vector2(75, -248)
+rotation = -0.005917091
 
 [node name="BoundsArea" parent="." unique_id=1365056220 instance=ExtResource("6_no3ag")]
 unique_name_in_owner = true
 
 [node name="Top" parent="BoundsArea" index="0" unique_id=145456361]
-position = Vector2(352, -584)
+position = Vector2(384, -312)
 rotation = 3.1415927
 
 [node name="Right" parent="BoundsArea" index="1" unique_id=292086785]
-position = Vector2(1656, 40)
+position = Vector2(1408, 40)
 rotation = -1.5707964
 
 [node name="Bottom" parent="BoundsArea" index="2" unique_id=1700487279]
-position = Vector2(384, 352)
+position = Vector2(384, 408)
 
 [node name="Left" parent="BoundsArea" index="3" unique_id=2119979601]
-position = Vector2(-576, -40)
+position = Vector2(-384, -32)
 rotation = 1.5707964
 
 [connection signal="projectile_exited" from="BoundsArea" to="." method="_on_bounds_area_projectile_exited"]

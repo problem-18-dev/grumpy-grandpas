@@ -2,12 +2,11 @@
 
 [ext_resource type="Script" uid="uid://cp1j8tubsspi2" path="res://resources/item_resource/item_resource.gd" id="1_el7jw"]
 [ext_resource type="Resource" uid="uid://dx1m0w6av86ds" path="res://resources/aimable_resource/weapons/hitscan_weapons/revolver.tres" id="1_krd8y"]
-[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="2_sl410"]
+[ext_resource type="Texture2D" uid="uid://cmy0363f0juwo" path="res://scenes/aimable/weapons/hitscan_weapon/assets/revolver_icon.png" id="2_kndqj"]
 
 [resource]
 script = ExtResource("1_el7jw")
 name = "Revolver"
-icon = ExtResource("2_sl410")
-unlocked = false
+icon = ExtResource("2_kndqj")
 aimable_resource = ExtResource("1_krd8y")
 metadata/_custom_type_script = "uid://cp1j8tubsspi2"

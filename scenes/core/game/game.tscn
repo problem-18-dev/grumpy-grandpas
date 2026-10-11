@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://drkkxlses2ss3" path="res://scenes/debug/debug_overlay.tscn" id="6_22cy2"]
 [ext_resource type="Resource" uid="uid://cgq3uliy6ml4v" path="res://resources/pickuppable_resource/health_crate.tres" id="6_eupnm"]
 [ext_resource type="PackedScene" uid="uid://d35ssjbiwjytu" path="res://scenes/managers/camera_manager/camera_manager.tscn" id="6_l2mu6"]
-[ext_resource type="PackedScene" uid="uid://clmby7f35fvxj" path="res://scenes/managers/busy_manager/busy_manager.tscn" id="6_t6juh"]
+[ext_resource type="PackedScene" uid="uid://c6rdv182qtrpo" path="res://scenes/managers/busy_manager/busy_manager.tscn" id="6_t6juh"]
 [ext_resource type="Resource" uid="uid://bqhw1r7by1gjk" path="res://resources/pickuppable_resource/tool_crate.tres" id="7_77u24"]
 [ext_resource type="PackedScene" uid="uid://bocfnvrwcsq33" path="res://gui/components/background/background.tscn" id="7_l2mu6"]
 [ext_resource type="Resource" uid="uid://cigipvuxrk2eo" path="res://resources/pickuppable_resource/weapon_crate.tres" id="8_tjx75"]

@@ -51,7 +51,7 @@ custom_minimum_size = Vector2(48, 32)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-theme_type_variation = &"SmallPanel"
+theme_type_variation = &"InventoryPanel"
 
 [node name="TurnTimerLabel" type="Label" parent="MarginContainer/TurnTimerPanel" unique_id=843818426]
 unique_name_in_owner = true
@@ -99,21 +99,23 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_34rqw")
 
 [node name="ItemTexture" type="TextureRect" parent="MarginContainer/HBoxContainer/ItemContainer/HBoxContainer/Panel" unique_id=1450224068]
 unique_name_in_owner = true
+custom_maximum_size = Vector2(-1, 24)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -27.0
-offset_top = -6.0
-offset_right = 25.0
-offset_bottom = 16.0
+offset_left = -26.0
+offset_top = -11.0
+offset_right = 26.0
+offset_bottom = 11.0
 grow_horizontal = 2
 grow_vertical = 2
-rotation = -0.1837464
+pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = ExtResource("2_rllpj")
-expand_mode = 1
+expand_mode = 4
+stretch_mode = 5
 
 [node name="AmmoLabel" type="Label" parent="MarginContainer/HBoxContainer/ItemContainer/HBoxContainer" unique_id=453581521]
 unique_name_in_owner = true

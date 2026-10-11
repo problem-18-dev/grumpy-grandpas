@@ -2,11 +2,11 @@
 
 [ext_resource type="Resource" uid="uid://c3pppa4dayl" path="res://resources/aimable_resource/tools/grapple_hook.tres" id="1_3isqd"]
 [ext_resource type="Script" uid="uid://cp1j8tubsspi2" path="res://resources/item_resource/item_resource.gd" id="1_q0q3h"]
-[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="2_jjhyi"]
+[ext_resource type="Texture2D" uid="uid://b720d0m7xgev4" path="res://scenes/aimable/tools/grapple_hook/grapple_hook.png" id="2_3isqd"]
 
 [resource]
 script = ExtResource("1_q0q3h")
 name = "Grapple Hook"
-icon = ExtResource("2_jjhyi")
+icon = ExtResource("2_3isqd")
 aimable_resource = ExtResource("1_3isqd")
 metadata/_custom_type_script = "uid://cp1j8tubsspi2"

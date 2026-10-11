@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://carvs44rglc1" path="res://gui/screens/custom_menu/sub_menu/players_settings/players_settings.gd" id="1_sr8uc"]
 [ext_resource type="Texture2D" uid="uid://hrxgwt1ackg3" path="res://gui/assets/icons/chevron_left.png" id="2_p7cg1"]
-[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="3_mc1b8"]
 [ext_resource type="PackedScene" uid="uid://cxqi4fxuqa7a6" path="res://gui/components/buttons/button_tween_component.tscn" id="4_0d5wj"]
+[ext_resource type="PackedScene" uid="uid://ddpuj4jaf5x2u" path="res://gui/components/player_icon/player_icon.tscn" id="4_p7cg1"]
 [ext_resource type="Texture2D" uid="uid://0utme7chj341" path="res://gui/assets/icons/chevron_right.png" id="5_p7cg1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjvey"]
@@ -118,7 +118,7 @@ text = "Player"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PlayerTexture" type="TextureRect" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerFrame/PlayerPanel" unique_id=1516106487]
+[node name="PlayerIcon" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerFrame/PlayerPanel" unique_id=153416695 instance=ExtResource("4_p7cg1")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -126,20 +126,19 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -28.0
-offset_top = -20.0
-offset_right = 28.0
-offset_bottom = 52.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_mc1b8")
-expand_mode = 1
+offset_left = -4.0
+offset_top = 28.0
+offset_right = -4.0
+offset_bottom = 28.0
+scale = Vector2(0.5, 0.5)
 
 [node name="PlayerFramePanel" type="Panel" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PlayerFrame" unique_id=682131015]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3

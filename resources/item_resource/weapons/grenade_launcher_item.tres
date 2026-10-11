@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://cp1j8tubsspi2" path="res://resources/item_resource/item_resource.gd" id="1_1e7vt"]
 [ext_resource type="Resource" uid="uid://b7ajnb4kraktd" path="res://resources/aimable_resource/weapons/projectile_weapons/grenade_launcher.tres" id="1_25dtg"]
-[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="1_p02ti"]
+[ext_resource type="Texture2D" uid="uid://cb18uh2lcrf47" path="res://scenes/aimable/weapons/projectile_weapon/assets/grenade.png" id="2_gbbn7"]
 
 [resource]
 script = ExtResource("1_1e7vt")
 name = "Grenade"
-icon = ExtResource("1_p02ti")
+icon = ExtResource("2_gbbn7")
 aimable_resource = ExtResource("1_25dtg")
 metadata/_custom_type_script = "uid://cp1j8tubsspi2"

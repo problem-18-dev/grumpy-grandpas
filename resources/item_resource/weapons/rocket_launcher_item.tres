@@ -2,11 +2,11 @@
 
 [ext_resource type="Resource" uid="uid://c4jjtdxl0q3k3" path="res://resources/aimable_resource/weapons/projectile_weapons/rocket_launcher.tres" id="1_ukjmj"]
 [ext_resource type="Script" uid="uid://cp1j8tubsspi2" path="res://resources/item_resource/item_resource.gd" id="1_wglb7"]
-[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="2_dg75q"]
+[ext_resource type="Texture2D" uid="uid://dhkf48klugd2t" path="res://scenes/aimable/weapons/projectile_weapon/assets/rocket_launcher.png" id="2_ie7ge"]
 
 [resource]
 script = ExtResource("1_wglb7")
 name = "Rocket Launcher"
-icon = ExtResource("2_dg75q")
+icon = ExtResource("2_ie7ge")
 aimable_resource = ExtResource("1_ukjmj")
 metadata/_custom_type_script = "uid://cp1j8tubsspi2"

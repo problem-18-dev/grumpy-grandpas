@@ -20,7 +20,6 @@ func _ready() -> void:
 
 	_resource = aimable_resource as ProjectileWeaponResource
 	assert(_resource.projectile_resource, "Using projectile weapon without projectile resource")
-
 	muzzle_offset_marker.position = _resource.muzzle_offset
 	charge_sprite.hide()
 	charge_sprite.position = _resource.muzzle_offset

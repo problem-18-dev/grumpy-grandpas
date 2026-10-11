@@ -15,6 +15,7 @@ var _is_enabled := false
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var crosshair: Crosshair = $Crosshair
+@onready var range_ray_cast: RayCast2D = $RangeRayCast
 
 
 func _ready() -> void:
@@ -23,7 +24,25 @@ func _ready() -> void:
 
 	position = aimable_resource.position_offset
 	sprite.texture = aimable_resource.texture
-	crosshair.position = Vector2(aimable_resource.crosshair_distance, 0)
+
+	range_ray_cast.position = Vector2.ZERO
+	range_ray_cast.target_position = Vector2.RIGHT * aimable_resource.crosshair_distance
+	range_ray_cast.force_update_transform()
+
+	crosshair.position = range_ray_cast.position + range_ray_cast.target_position
+
+
+func _physics_process(_delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+
+	range_ray_cast.force_raycast_update()
+
+	if range_ray_cast.is_colliding():
+		crosshair.position = to_local(range_ray_cast.get_collision_point())
+		return
+
+	crosshair.position = range_ray_cast.position + range_ray_cast.target_position
 
 
 func prepare(new_aimable_resource: AimableResource) -> void:
