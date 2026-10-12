@@ -1,19 +1,35 @@
 [gd_resource type="Resource" script_class="TeamResource" format=3 uid="uid://bk7c7sch2hnip"]
 
 [ext_resource type="Script" uid="uid://cp1j8tubsspi2" path="res://resources/item_resource/item_resource.gd" id="1_ivtx6"]
+[ext_resource type="Resource" uid="uid://dy5rkwn75f8ov" path="res://resources/item_resource/weapons/revolver_item.tres" id="2_5a8lm"]
 [ext_resource type="Script" uid="uid://ccrc8sl42duol" path="res://resources/player_resource/player_resource.gd" id="2_krw1k"]
 [ext_resource type="Script" uid="uid://05fqs75xukhe" path="res://resources/team_resource/team_resource.gd" id="3_dprou"]
+[ext_resource type="Resource" uid="uid://dg268oqi3o2lj" path="res://resources/item_resource/tools/jetpack_item.tres" id="3_jlk4y"]
 
 [sub_resource type="Resource" id="Resource_x618w"]
 script = ExtResource("2_krw1k")
-name = "Gamer"
+name = "Gerald"
+metadata/_custom_type_script = "uid://ccrc8sl42duol"
+
+[sub_resource type="Resource" id="Resource_s15yy"]
+script = ExtResource("2_krw1k")
+name = "Viktor"
+metadata/_custom_type_script = "uid://ccrc8sl42duol"
+
+[sub_resource type="Resource" id="Resource_eupnm"]
+script = ExtResource("2_krw1k")
+name = "Mason"
+metadata/_custom_type_script = "uid://ccrc8sl42duol"
+
+[sub_resource type="Resource" id="Resource_77u24"]
+script = ExtResource("2_krw1k")
+name = "Simon"
 metadata/_custom_type_script = "uid://ccrc8sl42duol"
 
 [resource]
 script = ExtResource("3_dprou")
-name = "Grandmas"
-player_health = 200
-player_resources = Array[ExtResource("2_krw1k")]([SubResource("Resource_x618w")])
-is_cpu = true
-cpu_difficulty = 1
+name = "Grandpas"
+color = 1
+player_resources = Array[ExtResource("2_krw1k")]([SubResource("Resource_x618w"), SubResource("Resource_s15yy"), SubResource("Resource_eupnm"), SubResource("Resource_77u24")])
+locked_items = Array[ExtResource("1_ivtx6")]([ExtResource("2_5a8lm"), ExtResource("3_jlk4y")])
 metadata/_custom_type_script = "uid://05fqs75xukhe"
