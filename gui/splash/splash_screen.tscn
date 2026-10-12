@@ -1,0 +1,258 @@
+[gd_scene format=3 uid="uid://qktcibxbcvy3"]
+
+[ext_resource type="Texture2D" uid="uid://cdxmoh1kxrhus" path="res://assets/logo_light.png" id="1_ei31p"]
+[ext_resource type="Script" uid="uid://drj225lhsy3sc" path="res://gui/splash/splash_screen.gd" id="1_qflf7"]
+[ext_resource type="AudioStream" uid="uid://6exkn12dy4ru" path="res://assets/splash_boom.wav" id="2_qflf7"]
+[ext_resource type="AudioStream" uid="uid://ds8akjumt04uq" path="res://assets/sfx/weapons/explosion.wav" id="4_isnbf"]
+[ext_resource type="Texture2D" uid="uid://cxk1amtfmy77q" path="res://scenes/projectile/assets/rocket/rocket.png" id="4_lggem"]
+
+[sub_resource type="Curve" id="Curve_isnbf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.099999905), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_y1yjf"]
+offsets = PackedFloat32Array(0, 0.18122977, 0.41747573, 0.8381877)
+colors = PackedColorArray(0.8627451, 0.2627451, 0.35686275, 1, 0.9607843, 0.5372549, 0.19215687, 1, 1, 0.92156863, 0.2, 1, 0.98039216, 1, 0.9882353, 1)
+
+[sub_resource type="Animation" id="Animation_qflf7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Foreground:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.0627451, 0.047058824, 0.03137255, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RocketAnimation/RocketAnimation:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(716, 46.99997)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RocketAnimation/ExplosionParticles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("RocketAnimation/ExplosionSoundPlayer:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("RocketAnimation/RocketAnimation:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_lggem"]
+resource_name = "fade_in"
+length = 5.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Foreground:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 21.856627, 1),
+"update": 0,
+"values": [Color(0.0627451, 0.047058824, 0.03137255, 1), Color(0.054595537, 0.04287581, 0.027182985, 0.8627451), Color(0.05490196, 0.043137256, 0.02745098, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RocketAnimation/RocketAnimation:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.4333333, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(716, 46.99997), Vector2(716, 46.99997), Vector2(387, 158)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RocketAnimation/ExplosionParticles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("RocketAnimation/ExplosionSoundPlayer:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("RocketAnimation/RocketAnimation:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2.01),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(5.25),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"to_main_menu"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_isnbf"]
+_data = {
+&"RESET": SubResource("Animation_qflf7"),
+&"fade_in": SubResource("Animation_lggem")
+}
+
+[node name="SplashScreen" type="Control" unique_id=1344230862]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qflf7")
+
+[node name="Background" type="ColorRect" parent="." unique_id=183342663]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0627451, 0.047058824, 0.03137255, 1)
+
+[node name="Logo" type="TextureRect" parent="." unique_id=1024033162]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -90.0
+offset_right = 160.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ei31p")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Foreground" type="ColorRect" parent="." unique_id=70910441]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0627451, 0.047058824, 0.03137255, 1)
+
+[node name="RocketAnimation" type="Control" parent="." unique_id=971032633]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RocketAnimation" type="TextureRect" parent="RocketAnimation" unique_id=2046716445]
+layout_mode = 0
+offset_left = 716.0
+offset_top = 46.99997
+offset_right = 748.0
+offset_bottom = 78.99994
+rotation = 2.6179938
+texture = ExtResource("4_lggem")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ExplosionSoundPlayer" type="AudioStreamPlayer" parent="RocketAnimation" unique_id=49287482]
+stream = ExtResource("4_isnbf")
+bus = &"SFX"
+
+[node name="ExplosionParticles" type="CPUParticles2D" parent="RocketAnimation" unique_id=1352127428]
+position = Vector2(320, 180)
+emitting = false
+amount = 96
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 0.3
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 90.0
+initial_velocity_max = 180.0
+angular_velocity_min = 111.15
+angular_velocity_max = 111.15
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_isnbf")
+color_ramp = SubResource("Gradient_y1yjf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1873031290]
+libraries/ = SubResource("AnimationLibrary_isnbf")
+autoplay = &"fade_in"
+
+[node name="SplashMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1843500607]
+stream = ExtResource("2_qflf7")
+volume_db = -5.0
+autoplay = true
+bus = &"Music"
