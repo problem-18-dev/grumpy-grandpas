@@ -18,7 +18,7 @@ const PRESETS := {
 	Preset.QUICK_PLAY: {
 		"teams": [TEAM_DEFAULT_BLUE_UID, TEAM_DEFAULT_RED_UID],
 		"catalogue": QUICKPLAY_CATALOGUE_UID,
-		"level": Game.Level.EVENING,
+		"level": Game.Level.AFTERNOON,
 	},
 	Preset.TUTORIAL: {
 		"teams": [TEAM_TUTORIAL_BLUE_UID, TEAM_TUTORIAL_RED_UID],
@@ -39,7 +39,6 @@ static func load_preset(new_preset: Preset) -> void:
 		GameManager.level = preset["level"]
 
 
-## TODO: Level
 static func load_custom(
 	teams: Array[TeamResource],
 	catalogue: CatalogueResource,

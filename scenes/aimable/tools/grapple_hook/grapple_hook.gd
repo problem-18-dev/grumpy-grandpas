@@ -36,6 +36,7 @@ func shoot() -> void:
 	if not collider:
 		return
 
+	AudioManager.play_sfx(_resource.shoot_sound)
 	var collision_point := hitscan_ray_cast.get_collision_point()
 	var collision_normal := hitscan_ray_cast.get_collision_normal()
 	var hook := _attach_hook(collision_point, collision_normal)

@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d0okm02wagiv7" path="res://scenes/terrain/terrain.tscn" id="3_urqi7"]
 [ext_resource type="Script" uid="uid://qp7wd878ywhm" path="res://scenes/managers/spawn_generator/spawn_generator.gd" id="5_tyt7p"]
 [ext_resource type="PackedScene" uid="uid://3nsota473q6r" path="res://scenes/bounds_area/bounds_area.tscn" id="6_ji0f5"]
+[ext_resource type="AudioStream" uid="uid://dtlsh3y3fssu4" path="res://assets/music/morning_bg.wav" id="7_3ky7b"]
 
 [sub_resource type="Gradient" id="Gradient_vr1kg"]
 offsets = PackedFloat32Array(0.20127797, 0.72523963, 0.8977636, 1)
@@ -115,6 +116,11 @@ position = Vector2(384, 376)
 [node name="Left" parent="BoundsArea" index="3" unique_id=2119979601]
 position = Vector2(-448, -40)
 rotation = 1.5707964
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1368881041]
+stream = ExtResource("7_3ky7b")
+autoplay = true
+bus = &"Music"
 
 [connection signal="projectile_exited" from="BoundsArea" to="." method="_on_bounds_area_projectile_exited"]
 

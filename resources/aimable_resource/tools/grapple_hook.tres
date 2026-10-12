@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b5msh0ehbjbla" path="res://resources/aimable_resource/tools/grapple_hook_resource.gd" id="1_s55ta"]
 [ext_resource type="Texture2D" uid="uid://b720d0m7xgev4" path="res://scenes/aimable/tools/grapple_hook/grapple_hook.png" id="2_iek8l"]
+[ext_resource type="AudioStream" uid="uid://biynuunrfhy10" path="res://assets/sfx/tools/grapple_hook.wav" id="2_w8qgp"]
 
 [resource]
 script = ExtResource("1_s55ta")
@@ -9,5 +10,6 @@ scene = "uid://dhlbbn1yfaxa0"
 texture = ExtResource("2_iek8l")
 muzzle_offset = Vector2(19, 0)
 crosshair_distance = 150.0
+shoot_sound = ExtResource("2_w8qgp")
 ammo = 0
 metadata/_custom_type_script = "uid://b5msh0ehbjbla"

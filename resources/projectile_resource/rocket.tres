@@ -2,6 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://b6h6omya6ajsc" path="res://resources/explosion_resource/rocket_explosion.tres" id="1_2lqe6"]
 [ext_resource type="Script" uid="uid://d4gc80blia3ku" path="res://resources/projectile_resource/projectile_resource.gd" id="1_bkuvr"]
+[ext_resource type="AudioStream" uid="uid://cjyxud764x8e7" path="res://assets/sfx/weapons/rocket_loop.wav" id="2_rw44o"]
 [ext_resource type="Texture2D" uid="uid://cxk1amtfmy77q" path="res://scenes/projectile/assets/rocket/rocket.png" id="3_2lqe6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lgqa7"]
@@ -12,6 +13,7 @@ script = ExtResource("1_bkuvr")
 name = "Rocket"
 texture = ExtResource("3_2lqe6")
 collision_shape = SubResource("CircleShape2D_lgqa7")
+flying_sound = ExtResource("2_rw44o")
 life_time = 4.5
 explosion = ExtResource("1_2lqe6")
 metadata/_custom_type_script = "uid://d4gc80blia3ku"

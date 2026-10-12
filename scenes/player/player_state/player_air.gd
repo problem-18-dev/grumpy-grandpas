@@ -79,6 +79,10 @@ func _fall_damage() -> void:
 	_has_fallen = true
 	player.is_busy = true
 	player.velocity = Vector2.ZERO
+
+	var hurt_sound := SfxConfig.get_player_sound(player.gender, SfxConfig.PlayerSoundType.HURT)
+	AudioManager.play_sfx(hurt_sound)
+
 	player.register_damage(fall_damage)
 	await get_tree().create_timer(fall_damage_duration, false).timeout
 	player.is_busy = false

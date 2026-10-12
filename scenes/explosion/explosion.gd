@@ -2,6 +2,7 @@
 class_name Explosion
 extends Node2D
 
+const EXPLOSION_SOUND_UID := "uid://ds8akjumt04uq"
 const HURTBOX_COLLISION_MASK := 4
 const SLOW_DOWN_TIME_BASIS := 0.7
 
@@ -19,6 +20,7 @@ func explode(explode_position: Vector2) -> void:
 	global_position = explode_position
 	EventSystem.camera.request_follow.emit(self, GameCamera.Priority.MID)
 	EventSystem.camera.shake.emit(explosion_resource.shake_noise, explosion_resource.shake_duration)
+	AudioManager.play_sfx(load(EXPLOSION_SOUND_UID))
 
 	explosion_particles.initial_velocity_min = explosion_resource.carve_radius
 	explosion_particles.initial_velocity_max = explosion_resource.carve_radius * 2

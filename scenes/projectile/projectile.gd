@@ -14,6 +14,7 @@ var _time_remaining := 0.0
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var life_time_timer: Timer = $LifeTimeTimer
 @onready var hitbox_collision_shape: CollisionShape2D = $HitboxComponent/CollisionShape2D
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
 
 func _ready() -> void:
@@ -43,6 +44,8 @@ func prepare(projectile_resource: ProjectileResource) -> void:
 
 func fire(start_position: Vector2, angle_in_rad: float, force: float) -> void:
 	EventSystem.camera.request_follow.emit(self, GameCamera.Priority.MID, GameCamera.Zoom.FAR)
+	audio_stream_player.stream = resource.flying_sound
+	audio_stream_player.play()
 
 	global_position = start_position
 	rotation = angle_in_rad

@@ -74,7 +74,6 @@ func load_level(new_scene: Level) -> void:
 	level_root.add_child(_current_level)
 
 	await get_tree().process_frame
-
 	load_systems()
 
 
@@ -156,18 +155,19 @@ func _continue() -> void:
 		_announce_winner()
 		return
 
-	var pickuppable := await pickuppable_manager.attempt_spawn()
+	var pickuppable := pickuppable_manager.attempt_spawn()
 	if pickuppable:
 		_current_hud.set_message("A %s has spawned!" % pickuppable.name)
+		await pickuppable_manager.finished_spawning
 
 	players_manager.next_team()
 	var new_player := players_manager.select_player()
+	_current_hud.set_message("Time for %s!" % new_player.name, 3.0)
 	await camera_manager.wait_until_settled()
 
 	busy_manager.start()
 	players_manager.resume_player()
 	_update_hud(new_player)
-	_current_hud.set_message("Time for %s!" % new_player.name, 3.0)
 	turn_manager.start_turn()
 
 

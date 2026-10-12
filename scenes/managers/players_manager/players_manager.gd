@@ -71,6 +71,8 @@ func select_player() -> Player:
 	active_team = _current_team()
 	active_player = active_team.next_player()
 	active_player.reset()
+	_player_play_sound(active_player, SfxConfig.PlayerSoundType.START)
+
 	EventSystem.camera.request_follow.emit(active_player, GameCamera.Priority.LOW)
 	return active_player
 
@@ -224,8 +226,14 @@ func _damage_player(player: Player) -> void:
 
 func _show_player(player: Player, duration := 1.0) -> void:
 	EventSystem.camera.request_follow.emit(player, GameCamera.Priority.HIGH, GameCamera.Zoom.NEAR)
+	_player_play_sound(player, SfxConfig.PlayerSoundType.HELLO)
 	await get_tree().create_timer(duration, false).timeout
 	EventSystem.camera.revoke_follow.emit(player)
+
+
+func _player_play_sound(player: Player, type: SfxConfig.PlayerSoundType) -> void:
+	var hello_sound := SfxConfig.get_player_sound(player.gender, type)
+	AudioManager.play_sfx(hello_sound)
 
 
 func _on_player_marked_for_death(player: Player) -> void:

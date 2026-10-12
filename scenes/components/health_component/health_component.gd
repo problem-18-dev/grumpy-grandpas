@@ -18,6 +18,11 @@ func is_dead() -> bool:
 	return _dead
 
 
+func set_max_health_and_reset(new_max_health: int) -> void:
+	max_health = new_max_health
+	health = max_health
+
+
 func add_health(amount: int) -> void:
 	var new_health := health + amount
 	new_health = mini(max_health, new_health)

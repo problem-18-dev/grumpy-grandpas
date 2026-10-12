@@ -31,6 +31,7 @@ EventSystem="*uid://bua75md0s3twb"
 GameManager="*uid://dqdpyitl02jn0"
 Utils="*uid://dbq3stovb548p"
 InputGate="*uid://bax366m6vreny"
+AudioManager="*uid://csyxg6as6bkld"
 
 [debug]
 

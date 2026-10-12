@@ -4,6 +4,7 @@
 [ext_resource type="Resource" uid="uid://cgq3uliy6ml4v" path="res://resources/pickuppable_resource/health_crate.tres" id="2_17fu7"]
 [ext_resource type="Texture2D" uid="uid://c7rk72vlrsblp" path="res://scenes/pickuppables/assets/health_crate.png" id="3_17fu7"]
 [ext_resource type="PackedScene" uid="uid://qgyb80iok8p7" path="res://scenes/components/pickup_component/pickup_component.tscn" id="4_d8i2i"]
+[ext_resource type="AudioStream" uid="uid://bktv56fgvr3um" path="res://assets/sfx/common/pickuppable_spawn.wav" id="5_pgtal"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0m844"]
 size = Vector2(26, 25)
@@ -36,6 +37,10 @@ one_shot = true
 
 [node name="WaitTimer" type="Timer" parent="." unique_id=1363905357]
 one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1547240995]
+stream = ExtResource("5_pgtal")
+bus = &"SFX"
 
 [connection signal="picked_up" from="PickupComponent" to="." method="_on_pickup_component_picked_up"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

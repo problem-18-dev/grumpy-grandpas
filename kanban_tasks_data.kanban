@@ -23,6 +23,10 @@
 			"tasks": [
 				"d8190bc2-e3f8-4bc9-855a-1ae63d68f6bb",
 				"60be79b3-3d17-4fa6-86d0-eb06a425f524",
+				"a1101802-c12b-4716-9353-5f78d96ef6e4",
+				"071128ef-095e-45d8-8e1c-0fde2e1f3c35",
+				"aa563d2e-9389-46ae-bd22-c0fb7c512bb3",
+				"532fad5e-8dd3-4dcc-b499-5f04c0d6546a",
 				"e31e55b2-7b3d-49ce-9b96-ce54bbc3e1a5",
 				"7f1e1b03-df2b-440e-b27c-a719305661fd",
 				"4167a575-2806-4aad-aefd-eb5ca48dc588",
@@ -125,6 +129,90 @@
 			"description": "",
 			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
 			"steps": []
+		},
+		{
+			"uuid": "532fad5e-8dd3-4dcc-b499-5f04c0d6546a",
+			"title": "[Feat] Add GUI sounds",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": [
+				{
+					"details": "Hover",
+					"done": true
+				},
+				{
+					"details": "Press",
+					"done": true
+				}
+			]
+		},
+		{
+			"uuid": "a1101802-c12b-4716-9353-5f78d96ef6e4",
+			"title": "[Feat] Add weapon sounds",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": [
+				{
+					"details": "Revolver shot",
+					"done": true
+				},
+				{
+					"details": "Shotgun shot\n",
+					"done": true
+				},
+				{
+					"details": "Shotgun reload",
+					"done": true
+				},
+				{
+					"details": "Rocket shot",
+					"done": true
+				},
+				{
+					"details": "Explosion",
+					"done": true
+				},
+				{
+					"details": "Rocket fly",
+					"done": true
+				}
+			]
+		},
+		{
+			"uuid": "071128ef-095e-45d8-8e1c-0fde2e1f3c35",
+			"title": "[Feat] Add tool sounds",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": [
+				{
+					"details": "Grapple hook attach",
+					"done": true
+				},
+				{
+					"details": "Jetpack idle",
+					"done": true
+				},
+				{
+					"details": "Jetpack boost",
+					"done": true
+				}
+			]
+		},
+		{
+			"uuid": "aa563d2e-9389-46ae-bd22-c0fb7c512bb3",
+			"title": "[Feat] Add level sounds",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": [
+				{
+					"details": "Wind",
+					"done": true
+				},
+				{
+					"details": "Evening",
+					"done": true
+				}
+			]
 		}
 	],
 	"layout": {

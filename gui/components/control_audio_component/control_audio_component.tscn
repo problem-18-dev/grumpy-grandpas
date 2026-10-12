@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cgiqfrya03ywm"]
+
+[ext_resource type="Script" uid="uid://i3bqxp1j755p" path="res://gui/components/control_audio_component/control_audio_component.gd" id="1_3hf00"]
+
+[node name="ControlAudioComponent" type="Node" unique_id=1497351568]
+script = ExtResource("1_3hf00")

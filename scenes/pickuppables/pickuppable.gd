@@ -15,6 +15,7 @@ const MIN_BOUNCE_SPEED := 40.0
 @onready var spawn_timer: Timer = $SpawnTimer
 @onready var wait_timer: Timer = $WaitTimer
 @onready var pickup_collision_shape: CollisionShape2D = $PickupComponent/PickupCollisionShape
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
 
 func _ready() -> void:
@@ -44,6 +45,7 @@ func setup(new_resource: PickuppableResource) -> void:
 
 func spawn(spawn_position: Vector2) -> void:
 	EventSystem.camera.request_follow.emit(self, GameCamera.Priority.HIGH, GameCamera.Zoom.NEAR)
+	audio_stream_player.play()
 	wait_timer.start()
 
 	var shape: RectangleShape2D = collision_shape.shape

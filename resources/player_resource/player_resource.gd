@@ -33,5 +33,4 @@ const GRANDMA_NAMES: Array[String] = [
 
 @export_group("Properties")
 @export var name: String
-@export var health := 100
 @export var gender := Gender.GRANDPA

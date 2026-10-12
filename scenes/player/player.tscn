@@ -19,7 +19,9 @@
 [ext_resource type="PackedScene" uid="uid://dyfpao2c8xfpn" path="res://scenes/components/damage_indicator/damage_indicator.tscn" id="16_myrg7"]
 [ext_resource type="Script" uid="uid://bo7oittgiumdi" path="res://scenes/player/player_state/player_cpu/player_cpu_projectile_module.gd" id="17_lgqa7"]
 [ext_resource type="Script" uid="uid://dkygro7a81njo" path="res://scenes/player/player_state/player_cpu.gd" id="17_uf5tr"]
+[ext_resource type="AudioStream" uid="uid://nlt111d7m46v" path="res://assets/sfx/tools/jetpack.wav" id="17_yj68g"]
 [ext_resource type="Script" uid="uid://dxllbk0hyl02n" path="res://scenes/player/player_state/player_cpu/player_cpu_hitscan_module.gd" id="18_lgqa7"]
+[ext_resource type="AudioStream" uid="uid://cxqyn5p1d44ia" path="res://assets/sfx/weapons/equip_weapon.wav" id="21_3j4b4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1xhu4"]
 height = 46.0
@@ -27,6 +29,16 @@ height = 46.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5gtgg"]
 radius = 12.0
 height = 46.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ioxgp"]
+random_pitch = 1.0594631
+streams_count = 1
+stream_0/stream = ExtResource("17_yj68g")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_yj68g"]
+random_pitch = 1.0594631
+streams_count = 1
+stream_0/stream = ExtResource("21_3j4b4")
 
 [node name="Player" type="CharacterBody2D" unique_id=1829503951 groups=["player"]]
 collision_mask = 2
@@ -57,7 +69,6 @@ shape = SubResource("CapsuleShape2D_5gtgg")
 debug_color = Color(0, 1, 0, 0.392)
 
 [node name="HealthComponent" parent="." unique_id=779439910 instance=ExtResource("7_0owmy")]
-max_health = 10
 
 [node name="StateMachine" parent="." unique_id=1355297057 node_paths=PackedStringArray("initial_state") instance=ExtResource("3_gmlin")]
 initial_state = NodePath("Inactive")
@@ -95,6 +106,10 @@ script = ExtResource("13_ugbui")
 
 [node name="Jetpack" type="Node" parent="StateMachine" unique_id=1454097151]
 script = ExtResource("14_fcs02")
+
+[node name="JetpackSoundPlayer" type="AudioStreamPlayer" parent="StateMachine/Jetpack" unique_id=1522760999]
+stream = SubResource("AudioStreamRandomizer_ioxgp")
+bus = &"SFX"
 
 [node name="CPU" type="Node" parent="StateMachine" unique_id=2145201964]
 script = ExtResource("17_uf5tr")
@@ -144,6 +159,11 @@ offset_bottom = -38.0
 grow_horizontal = 2
 grow_vertical = 2
 float_height = 16.0
+
+[node name="EquipSoundPlayer" type="AudioStreamPlayer" parent="." unique_id=1230286791]
+stream = SubResource("AudioStreamRandomizer_yj68g")
+pitch_scale = 1.1
+bus = &"SFX"
 
 [connection signal="aimable_fired" from="AimableHolder" to="." method="_on_aimable_holder_aimable_fired"]
 [connection signal="aimable_rotated" from="AimableHolder" to="." method="_on_aimable_holder_aimable_rotated"]

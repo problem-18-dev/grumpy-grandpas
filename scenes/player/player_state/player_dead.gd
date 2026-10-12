@@ -23,13 +23,25 @@ func _physics_update(delta: float) -> void:
 func _die() -> void:
 	player.name_label.text = "%s (dead)" % player.name
 
-	# TODO: replace this with animation
 	await get_tree().create_timer(pre_death_timer, false).timeout
 
 	_disable_player()
+	await _play_sound()
 	_explode()
 	_spawn_bed()
 	_cleanup()
+
+
+func _disable_player() -> void:
+	player.sprite.hide()
+	player.hurtbox.enabled = false
+	player.collision_layer = 0 # Disable all layers
+
+
+func _play_sound() -> void:
+	var hurt_sound := SfxConfig.get_player_sound(player.gender, SfxConfig.PlayerSoundType.DEATH)
+	var sfx_player := AudioManager.play_sfx(hurt_sound)
+	await sfx_player.finished
 
 
 func _explode() -> void:
@@ -40,12 +52,6 @@ func _spawn_bed() -> void:
 	var bed: Node2D = load(BED_UID).instantiate()
 	player.add_child(bed)
 	bed.setup(player.gender, player.team.get_color())
-
-
-func _disable_player() -> void:
-	player.sprite.hide()
-	player.hurtbox.enabled = false
-	player.collision_layer = 0 # Disable all layers
 
 
 func _cleanup() -> void:

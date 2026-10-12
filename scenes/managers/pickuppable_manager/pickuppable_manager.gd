@@ -2,6 +2,7 @@ class_name PickuppableManager
 extends Node2D
 
 signal picked_up(by: Player, type: PickuppableResource.Type)
+signal finished_spawning
 
 const PICKUPPABLE := preload("uid://3i8oy7ede3he")
 const RAY_LENGTH := 1000
@@ -26,7 +27,7 @@ func setup(new_spawn_follow: PathFollow2D) -> void:
 	spawn_follow = new_spawn_follow
 
 
-func spawn(pickuppable_resource: PickuppableResource, spawn_position: Vector2) -> Pickuppable:
+func spawn(pickuppable_resource: PickuppableResource, spawn_position: Vector2) -> void:
 	var pickuppable: Pickuppable = PICKUPPABLE.instantiate()
 	pickuppable.picked_up.connect(picked_up.emit)
 	pickuppable.setup(pickuppable_resource)
@@ -34,36 +35,37 @@ func spawn(pickuppable_resource: PickuppableResource, spawn_position: Vector2) -
 	pickuppable.spawn(spawn_position)
 
 	await pickuppable.spawned
-	return pickuppable
+	finished_spawning.emit()
 
 
-func attempt_spawn() -> Pickuppable:
+func attempt_spawn() -> PickuppableResource:
 	assert(spawn_follow, "Attempting spawn without path follow")
 	assert(spawn_target, "No spawn target provided")
 
 	if spawn_resources.is_empty():
 		push_warning("No spawn resources assigned, skipping.")
-		return
+		return null
 
 	if not _should_spawn():
-		return
+		return null
 
 	_space_state = get_world_2d().direct_space_state
 
 	var world_position := _get_world_position()
 	if not world_position:
-		return
+		return null
 
 	var players_nearby := _check_players_nearby(world_position)
 	if players_nearby:
-		return
+		return null
 
 	var pickuppable_to_spawn: PickuppableResource = spawn_resources.pick_random()
 	var offset_position := _get_offset_position(world_position, pickuppable_to_spawn)
 	if not offset_position:
-		return
+		return null
 
-	return await spawn(pickuppable_to_spawn, offset_position)
+	spawn(pickuppable_to_spawn, offset_position)
+	return pickuppable_to_spawn
 
 
 func _should_spawn() -> bool:

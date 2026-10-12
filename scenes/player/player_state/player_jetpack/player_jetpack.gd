@@ -8,6 +8,8 @@ const JETPACK_PACKED := preload("uid://bdu5l4gnqo52i")
 @export var decceleration_speed := 50.0
 @export var weight := 0.15
 
+@onready var jetpack_sound_player: AudioStreamPlayer = $JetpackSoundPlayer
+
 var _is_flying := false
 var _jetpack: Jetpack
 
@@ -24,6 +26,7 @@ func enter(_data := { }) -> void:
 func exit() -> void:
 	player.sprite.toggle_arm(true)
 	player.sprite.clear_extra()
+	jetpack_sound_player.stop()
 
 
 func _key_input(event: InputEvent) -> void:
@@ -42,6 +45,7 @@ func _key_input(event: InputEvent) -> void:
 
 
 func _physics_update(delta: float) -> void:
+	_handle_audio()
 	_handle_horizontal_movement()
 	_handle_vertical_movement(delta)
 	player.move_and_slide()
@@ -67,3 +71,14 @@ func _handle_vertical_movement(delta: float) -> void:
 		return
 
 	player.velocity.y = lerpf(player.velocity.y, vertical_speed, weight)
+
+
+func _handle_audio() -> void:
+	if player.is_on_floor():
+		jetpack_sound_player.stop()
+		return
+
+	if jetpack_sound_player.playing:
+		return
+
+	jetpack_sound_player.play()

@@ -9,6 +9,8 @@ const DEFAULT_CROSSHAIR_DISTANCE := 100.0
 @export var position_offset := Vector2.ZERO
 @export var muzzle_offset := Vector2(24, 0)
 @export var crosshair_distance := DEFAULT_CROSSHAIR_DISTANCE
+@export_group("Sound")
+@export var shoot_sound: AudioStream
 @export_group("Firing")
 @export var ammo := 1
 @export var life_time := 0.0

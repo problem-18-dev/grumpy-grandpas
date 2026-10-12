@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bgmr6t3g43dl2"]
 
 [ext_resource type="PackedScene" uid="uid://cxqi4fxuqa7a6" path="res://gui/components/buttons/button_tween_component.tscn" id="1_jwe2v"]
+[ext_resource type="PackedScene" uid="uid://cgiqfrya03ywm" path="res://gui/components/control_audio_component/control_audio_component.tscn" id="2_1quoj"]
 
 [node name="Button" type="Button" unique_id=635616468]
 custom_minimum_size = Vector2(128, 0)
@@ -13,3 +14,5 @@ text = "Button
 "
 
 [node name="ButtonTweenComponent" parent="." unique_id=1702153834 instance=ExtResource("1_jwe2v")]
+
+[node name="ControlAudioComponent" parent="." unique_id=1497351568 instance=ExtResource("2_1quoj")]

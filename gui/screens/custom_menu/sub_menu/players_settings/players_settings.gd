@@ -64,6 +64,12 @@ func _update_fields() -> void:
 	player_name_label.text = _selected_player.name
 	player_icon.setup(_selected_player.gender, _team.get_color())
 
+	var hello_sound := SfxConfig.get_player_sound(
+		_selected_player.gender,
+		SfxConfig.PlayerSoundType.HELLO,
+	)
+	AudioManager.play_sfx(hello_sound)
+
 
 func _update_confirm() -> void:
 	var new_name := name_edit.text.strip_edges()
@@ -97,6 +103,7 @@ func _on_confirm_button_pressed() -> void:
 func _on_visibility_changed() -> void:
 	if not visible or _initialized:
 		return
+	_initialized = true
 
 	for gender: int in PlayerResource.Gender.values():
 		gender_option.add_item(PlayerResource.Gender.keys()[gender].capitalize(), gender)

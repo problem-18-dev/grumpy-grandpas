@@ -36,6 +36,7 @@ func shoot() -> void:
 
 	fired.emit()
 	EventSystem.camera.shake.emit(_resource.shake_noise, _resource.shake_duration)
+	AudioManager.play_sfx(_resource.shoot_sound)
 
 	if _resource.ammo > 1:
 		_tween_recoil()

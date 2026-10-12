@@ -43,5 +43,8 @@ one_shot = true
 shape = SubResource("CircleShape2D_lgqa7")
 debug_color = Color(1, 0.8, 0, 0.4)
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=813906342]
+bus = &"SFX"
+
 [connection signal="timeout" from="LifeTimeTimer" to="." method="_on_life_time_timer_timeout"]
 [connection signal="hit" from="HitboxComponent" to="." method="_on_hitbox_component_hit"]

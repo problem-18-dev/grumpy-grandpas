@@ -39,6 +39,7 @@ var _last_direction := RIGHT_DIRECTION
 @onready var damage_indicator: DamageIndicator = $DamageIndicator
 @onready var floor_ray_cast: RayCast2D = $FloorRayCast
 @onready var aimable_life_time_timer: Timer = $AimableLifeTimeTimer
+@onready var equip_sound_player: AudioStreamPlayer = $EquipSoundPlayer
 
 
 func _ready() -> void:
@@ -52,6 +53,7 @@ func _physics_process(_delta: float) -> void:
 #region Equipping
 func equip_item(item: ItemResource) -> void:
 	equipped_item = item
+	equip_sound_player.play()
 	item_equipped.emit(item)
 
 	var new_player_state := PlayerState.IDLE
@@ -141,6 +143,7 @@ func setup(player_team: TeamResource, player: PlayerResource) -> void:
 	team = player_team
 	gender = player.gender
 	hurtbox.add_to_group(team.get_id())
+	health.set_max_health_and_reset(team.player_health)
 
 	aimable_holder.is_cpu = team.is_cpu
 	is_cpu = team.is_cpu
@@ -149,7 +152,7 @@ func setup(player_team: TeamResource, player: PlayerResource) -> void:
 	name_label.add_theme_color_override("font_color", team.get_color())
 	name_label.text = player.name
 	health_label.add_theme_color_override("font_color", team.get_color())
-	health_label.text = str(player.health)
+	health_label.text = str(team.player_health)
 	name = player.name
 	player_name = player.name
 #endregion
@@ -171,6 +174,9 @@ func apply_damage() -> bool:
 
 	if amount <= 0 or health.is_dead():
 		return false
+
+	var hurt_sound := SfxConfig.get_player_sound(gender, SfxConfig.PlayerSoundType.HURT)
+	AudioManager.play_sfx(hurt_sound)
 
 	health.take_health(amount)
 	return true
@@ -226,6 +232,9 @@ func _on_aimable_holder_aimable_fired() -> void:
 	# If ammo remaining is equal to resource ammo => first shot
 	if _ammo_remaining == equipped_item.aimable_resource.ammo:
 		var life_time := equipped_item.aimable_resource.life_time
+
+		var shoot_sound := SfxConfig.get_player_sound(gender, SfxConfig.PlayerSoundType.SHOOT)
+		AudioManager.play_sfx(shoot_sound)
 
 		if life_time > 0:
 			_aimable_life_time_remaining = life_time
