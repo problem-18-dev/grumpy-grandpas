@@ -48,6 +48,8 @@ func _physics_update(delta: float) -> void:
 
 func _finish() -> void:
 	_finished = true
+	var last_direction := Player.LEFT_DIRECTION if player.velocity.x < 0 else Player.RIGHT_DIRECTION
+	player.register_last_direction(last_direction)
 	player.sprite.rotation = 0
 	player.is_busy = false
 	finished.emit(PlayerState.INACTIVE)
