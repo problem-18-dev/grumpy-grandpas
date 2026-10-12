@@ -4,6 +4,7 @@ extends PlayerState
 @export var drown_speed := 30.0
 
 @onready var drown_timer: Timer = $DrownTimer
+@onready var drown_sound_player: AudioStreamPlayer = $DrownSoundPlayer
 
 
 func enter(_data := { }) -> void:
@@ -11,6 +12,7 @@ func enter(_data := { }) -> void:
 	player.unequip_item()
 	player.velocity = Vector2.DOWN * drown_speed
 
+	_sound_drown()
 	_check_sink_limit()
 
 	player.drowned.emit(player)
@@ -19,6 +21,10 @@ func enter(_data := { }) -> void:
 func _physics_update(_delta: float) -> void:
 	player.move_and_slide()
 	_handle_collision()
+
+
+func _sound_drown() -> void:
+	drown_sound_player.play()
 
 
 func _check_sink_limit() -> void:

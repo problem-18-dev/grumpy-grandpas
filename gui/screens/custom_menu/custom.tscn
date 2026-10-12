@@ -2,12 +2,22 @@
 
 [ext_resource type="Script" uid="uid://bm1gecsgv155u" path="res://gui/screens/custom_menu/custom.gd" id="1_8yr1g"]
 [ext_resource type="PackedScene" uid="uid://bgmr6t3g43dl2" path="res://gui/theme/buttons/primary_button.tscn" id="1_i4ukh"]
-[ext_resource type="PackedScene" uid="uid://bocfnvrwcsq33" path="res://gui/components/background/background.tscn" id="2_3qtxa"]
 [ext_resource type="PackedScene" uid="uid://drkkxlses2ss3" path="res://scenes/debug/debug_overlay.tscn" id="2_8pk88"]
+[ext_resource type="Texture2D" uid="uid://ddtimfe8p578h" path="res://scenes/level/assets/moon.png" id="2_onn8v"]
+[ext_resource type="Texture2D" uid="uid://b88ernq0epa1q" path="res://scenes/level/assets/star.png" id="3_0xqy4"]
 [ext_resource type="PackedScene" uid="uid://cjx5udp3tn2do" path="res://gui/screens/custom_menu/sub_menu/team_settings/team_settings.tscn" id="3_8k1xx"]
 [ext_resource type="PackedScene" uid="uid://efwlcdg8ac6s" path="res://gui/screens/custom_menu/sub_menu/players_settings/players_settings.tscn" id="4_bxqnp"]
 [ext_resource type="PackedScene" uid="uid://dr3lq3vsm38gw" path="res://gui/screens/custom_menu/sub_menu/items_settings/items_settings.tscn" id="5_mbx4c"]
 [ext_resource type="PackedScene" uid="uid://ciopl4v4mn33e" path="res://gui/screens/custom_menu/sub_menu/level_settings/level_settings.tscn" id="5_tp35x"]
+[ext_resource type="AudioStream" uid="uid://cmvvl4gm0udoe" path="res://assets/music/evening_bg.wav" id="10_6r3nh"]
+
+[sub_resource type="Gradient" id="Gradient_y7213"]
+colors = PackedColorArray(0.21176471, 0.20784314, 0.3019608, 1, 0.38431373, 0.45882353, 0.7294118, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kum45"]
+gradient = SubResource("Gradient_y7213")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
 
 [node name="Custom" type="Control" unique_id=508400026]
 layout_mode = 3
@@ -18,8 +28,39 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8yr1g")
 
-[node name="TextureRect" parent="." unique_id=1194628109 instance=ExtResource("2_3qtxa")]
+[node name="Background" type="TextureRect" parent="." unique_id=2029970041]
+modulate = Color(0.7019608, 0.7019608, 0.7019608, 1)
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource("GradientTexture2D_kum45")
+
+[node name="BackgroundLevel" type="Node2D" parent="." unique_id=1092117158]
+
+[node name="Moon" type="Sprite2D" parent="BackgroundLevel" unique_id=1362633392]
+position = Vector2(585, 37.999992)
+rotation = -2.6179938
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_onn8v")
+
+[node name="StarParticles" type="CPUParticles2D" parent="BackgroundLevel" unique_id=378774452]
+position = Vector2(320, 180)
+amount = 32
+texture = ExtResource("3_0xqy4")
+lifetime = 30.0
+preprocess = 10.0
+lifetime_randomness = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(320, 180)
+gravity = Vector2(0, 0)
+angle_max = 360.0
+scale_amount_min = 0.25
+scale_amount_max = 0.25
 
 [node name="Main" type="HBoxContainer" parent="." unique_id=1430341905]
 layout_mode = 1
@@ -126,6 +167,11 @@ layout_mode = 1
 
 [node name="DebugOverlay" parent="." unique_id=567403883 instance=ExtResource("2_8pk88")]
 layout_mode = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1517419380]
+stream = ExtResource("10_6r3nh")
+autoplay = true
+bus = &"Music"
 
 [connection signal="pressed" from="Main/MenuContainer/Buttons/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="teams_changed" from="Main/ContentContainer/MarginContainer/SubMenuPanel/TeamSettings" to="." method="_on_team_settings_teams_changed"]

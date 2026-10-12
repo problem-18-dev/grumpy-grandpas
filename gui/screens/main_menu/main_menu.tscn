@@ -2,8 +2,23 @@
 
 [ext_resource type="Script" uid="uid://v4ljgfmhlemg" path="res://gui/screens/main_menu/main_menu.gd" id="1_gfa36"]
 [ext_resource type="PackedScene" uid="uid://bgmr6t3g43dl2" path="res://gui/theme/buttons/primary_button.tscn" id="2_aaccu"]
-[ext_resource type="PackedScene" uid="uid://bocfnvrwcsq33" path="res://gui/components/background/background.tscn" id="2_eq11g"]
 [ext_resource type="PackedScene" uid="uid://drkkxlses2ss3" path="res://scenes/debug/debug_overlay.tscn" id="3_eq11g"]
+[ext_resource type="Texture2D" uid="uid://ddtimfe8p578h" path="res://scenes/level/assets/moon.png" id="3_tbka1"]
+[ext_resource type="Texture2D" uid="uid://b88ernq0epa1q" path="res://scenes/level/assets/star.png" id="4_sb3cb"]
+[ext_resource type="PackedScene" uid="uid://ddpuj4jaf5x2u" path="res://gui/components/player_icon/player_icon.tscn" id="5_tbka1"]
+[ext_resource type="PackedScene" uid="uid://d0okm02wagiv7" path="res://scenes/terrain/terrain.tscn" id="6_f6c5s"]
+[ext_resource type="Texture2D" uid="uid://cmy0363f0juwo" path="res://scenes/aimable/weapons/hitscan_weapon/assets/revolver_icon.png" id="6_sb3cb"]
+[ext_resource type="AudioStream" uid="uid://cmvvl4gm0udoe" path="res://assets/music/evening_bg.wav" id="7_1blwc"]
+[ext_resource type="Texture2D" uid="uid://dhkf48klugd2t" path="res://scenes/aimable/weapons/projectile_weapon/assets/rocket_launcher.png" id="7_f6c5s"]
+[ext_resource type="Texture2D" uid="uid://2hppdjhcb127" path="res://scenes/aimable/weapons/hitscan_weapon/assets/shotgun.png" id="8_ec5r2"]
+
+[sub_resource type="Gradient" id="Gradient_f6c5s"]
+colors = PackedColorArray(0.21176471, 0.20784314, 0.3019608, 1, 0.38431373, 0.45882353, 0.7294118, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ec5r2"]
+gradient = SubResource("Gradient_f6c5s")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
 
 [sub_resource type="Animation" id="Animation_6wy0j"]
 length = 0.001
@@ -51,8 +66,97 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gfa36")
 
-[node name="Background" parent="." unique_id=1194628109 instance=ExtResource("2_eq11g")]
+[node name="Background" type="TextureRect" parent="." unique_id=1321624520]
+modulate = Color(0.7019608, 0.7019608, 0.7019608, 1)
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource("GradientTexture2D_ec5r2")
+
+[node name="BackgroundLevel" type="Node2D" parent="." unique_id=1023021877]
+
+[node name="Moon" type="Sprite2D" parent="BackgroundLevel" unique_id=1977059261]
+position = Vector2(50.000004, 44)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("3_tbka1")
+
+[node name="StarParticles" type="CPUParticles2D" parent="BackgroundLevel" unique_id=1087243569]
+position = Vector2(320, 180)
+amount = 32
+texture = ExtResource("4_sb3cb")
+lifetime = 30.0
+preprocess = 10.0
+lifetime_randomness = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(320, 180)
+gravity = Vector2(0, 0)
+angle_max = 360.0
+scale_amount_min = 0.25
+scale_amount_max = 0.25
+
+[node name="Terrain" parent="BackgroundLevel" unique_id=654413745 instance=ExtResource("6_f6c5s")]
+position = Vector2(-196, 0)
+collidable = false
+
+[node name="Polygon2D" type="Polygon2D" parent="BackgroundLevel/Terrain" unique_id=1448345066]
+texture_repeat = 2
+position = Vector2(0, -152)
+color = Color(0.09019608, 0.02745098, 0.23921569, 1)
+antialiased = true
+polygon = PackedVector2Array(516, 472, 452, 520, 844, 520, 844, 352, 772, 360, 708, 408, 644, 392, 604, 408, 548, 464)
+
+[node name="Grandma" parent="BackgroundLevel" unique_id=153416695 instance=ExtResource("5_tbka1")]
+offset_left = 344.0
+offset_top = 293.0
+offset_right = 344.0
+offset_bottom = 293.0
+rotation = -0.2617994
+scale = Vector2(0.25, 0.25)
+manual_color = 3
+
+[node name="Grandpa" parent="BackgroundLevel" unique_id=1821078626 instance=ExtResource("5_tbka1")]
+offset_left = 603.0
+offset_top = 183.0
+offset_right = 603.0
+offset_bottom = 183.0
+scale = Vector2(-0.25, 0.25)
+manual_gender = 0
+manual_color = 0
+
+[node name="Revolver" type="TextureRect" parent="BackgroundLevel" unique_id=465769729]
+offset_left = 430.0
+offset_top = 209.00002
+offset_right = 560.0
+offset_bottom = 276.0
+rotation = -2.8797934
+scale = Vector2(0.25, 0.25)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("6_sb3cb")
+
+[node name="RocketLauncher" type="TextureRect" parent="BackgroundLevel" unique_id=163477533]
+offset_left = 364.00003
+offset_top = 228.99998
+offset_right = 484.00003
+offset_bottom = 265.0
+rotation = -3.6651917
+scale = Vector2(0.25, 0.25)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("7_f6c5s")
+
+[node name="Shotgun" type="TextureRect" parent="BackgroundLevel" unique_id=250319196]
+offset_left = 298.0
+offset_top = 263.0
+offset_right = 418.0
+offset_bottom = 299.0
+rotation = -0.5235988
+scale = Vector2(0.25, 0.25)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("8_ec5r2")
 
 [node name="Main" type="Control" parent="." unique_id=1530070372]
 layout_mode = 1
@@ -146,6 +250,11 @@ autoplay = &"main"
 
 [node name="DebugOverlay" parent="." unique_id=567403883 instance=ExtResource("3_eq11g")]
 layout_mode = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=600247681]
+stream = ExtResource("7_1blwc")
+autoplay = true
+bus = &"Music"
 
 [connection signal="pressed" from="Main/Menu/MarginContainer/VBoxContainer/QuickplayButton" to="." method="_on_quickplay_button_pressed"]
 [connection signal="pressed" from="Main/Menu/MarginContainer/VBoxContainer/TutorialButton" to="." method="_on_tutorial_button_pressed"]

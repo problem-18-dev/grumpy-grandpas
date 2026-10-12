@@ -36,6 +36,4 @@ name = "Grandmas"
 color = 1
 player_resources = Array[ExtResource("3_x8qj0")]([SubResource("Resource_x618w"), SubResource("Resource_tjx75"), SubResource("Resource_h2jl8"), SubResource("Resource_hx3hx")])
 locked_items = Array[ExtResource("1_ocpuu")]([ExtResource("2_kjmdl"), ExtResource("3_cegn1")])
-is_cpu = true
-cpu_difficulty = 1
 metadata/_custom_type_script = "uid://05fqs75xukhe"

@@ -18,7 +18,7 @@ const PRESETS := {
 	Preset.QUICK_PLAY: {
 		"teams": [TEAM_DEFAULT_BLUE_UID, TEAM_DEFAULT_RED_UID],
 		"catalogue": QUICKPLAY_CATALOGUE_UID,
-		"level": Game.Level.AFTERNOON,
+		"level": Game.Level.EVENING,
 	},
 	Preset.TUTORIAL: {
 		"teams": [TEAM_TUTORIAL_BLUE_UID, TEAM_TUTORIAL_RED_UID],

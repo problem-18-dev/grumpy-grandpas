@@ -16,6 +16,8 @@ extends PlayerState
 var _highest_falling_speed := 0.0
 var _has_fallen := false
 
+@onready var land_sound_player: AudioStreamPlayer = $LandSoundPlayer
+
 
 func enter(data := { }) -> void:
 	player.unequip_item()
@@ -59,6 +61,7 @@ func _handle_landing() -> void:
 		return
 
 	_tween_landing()
+	_sound_landing()
 
 	if not is_zero_approx(player.get_direction()):
 		finished.emit(PlayerState.WALK)
@@ -73,6 +76,10 @@ func _tween_landing() -> void:
 		player.sprite.scale.y - landing_scale
 	)
 	tween.tween_property(player.sprite, "position:y", 0, duration).from(landing_offset)
+
+
+func _sound_landing() -> void:
+	land_sound_player.play()
 
 
 func _fall_damage() -> void:

@@ -99,7 +99,7 @@ rotation = -0.005917091
 unique_name_in_owner = true
 
 [node name="Top" parent="BoundsArea" index="0" unique_id=145456361]
-position = Vector2(384, -312)
+position = Vector2(384, -552)
 rotation = 3.1415927
 
 [node name="Right" parent="BoundsArea" index="1" unique_id=292086785]

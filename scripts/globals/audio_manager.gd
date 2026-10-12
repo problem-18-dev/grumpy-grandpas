@@ -11,11 +11,11 @@ const BUS := { Bus.MASTER: "Master", Bus.SFX: "SFX", Bus.MUSIC: "Music", Bus.GUI
 
 
 func play_sfx(stream: AudioStream) -> AudioStreamPlayer:
-	return _play(stream, Bus.SFX, randf_range(0.9, 1.1))
+	return _play(stream, Bus.SFX, randf_range(0.85, 1.15))
 
 
 func play_gui(stream: AudioStream) -> AudioStreamPlayer:
-	return _play(stream, Bus.GUI, randf_range(0.85, 1.15))
+	return _play(stream, Bus.GUI, randf_range(0.9, 1.1))
 
 
 func _play(stream: AudioStream, bus: Bus, pitch_scale := 1.0) -> AudioStreamPlayer:

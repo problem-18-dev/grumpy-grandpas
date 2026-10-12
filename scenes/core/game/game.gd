@@ -262,3 +262,11 @@ func _on_inventory_closed(new_item: ItemResource = null) -> void:
 
 func _on_projectile_exited() -> void:
 	turn_manager.finish_turn()
+
+
+func _on_players_manager_player_drowned(player: Player, _is_active: bool) -> void:
+	_current_hud.set_message("%s has drowned.." % player.name, 2.0)
+
+
+func _on_players_manager_player_death_announced(player: Player) -> void:
+	_current_hud.set_message("%s's time has come." % player.name)

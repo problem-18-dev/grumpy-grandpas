@@ -2,8 +2,9 @@ class_name PlayersManager
 extends Node
 
 signal inventory_requested(locked_items: Array[ItemResource], current_item: ItemResource)
+signal player_death_announced(player: Player)
 signal player_died(player: Player)
-signal player_drowned(player: Player)
+signal player_drowned(player: Player, is_active: bool)
 signal player_item_equipped(current_item: ItemResource, player: Player)
 signal player_ammo_changed(ammo_remaining: int, current_item: ItemResource, player: Player)
 signal player_firing_finished(player: Player)
@@ -105,6 +106,7 @@ func kill_marked_players() -> void:
 		var player: Player = players_marked_for_death.pop_front()
 
 		if is_instance_valid(player):
+			player_death_announced.emit(player)
 			await _kill_player(player)
 
 
@@ -275,10 +277,11 @@ func _on_player_drowned(player: Player) -> void:
 			active_team = null
 
 	if player == active_player:
+		player_drowned.emit(player, true)
 		EventSystem.camera.revoke_follow.emit(player)
 		active_player = null
 
-	player_drowned.emit(player)
+	player_drowned.emit(player, false)
 
 
 func _on_player_inventory_requested(current_item: ItemResource) -> void:

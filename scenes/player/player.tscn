@@ -11,11 +11,13 @@
 [ext_resource type="PackedScene" uid="uid://bdmwi2dhvl8q1" path="res://scenes/components/health_component/health_component.tscn" id="7_0owmy"]
 [ext_resource type="Script" uid="uid://86e71bcy4vmw" path="res://scenes/player/player_state/player_camera.gd" id="7_8ydkj"]
 [ext_resource type="Script" uid="uid://bep13uudvc7lh" path="res://scenes/player/player_state/player_inactive.gd" id="10_gx1jg"]
+[ext_resource type="AudioStream" uid="uid://d1j8t8oxjmobs" path="res://assets/sfx/player_sounds/movement/jump_land.wav" id="11_ioxgp"]
 [ext_resource type="Script" uid="uid://c8a35l3xxakio" path="res://scenes/player/player_state/player_knockback.gd" id="11_ugbui"]
 [ext_resource type="Script" uid="uid://n6aq4lhmi1g5" path="res://scenes/player/player_state/player_dead.gd" id="12_gx1jg"]
 [ext_resource type="Script" uid="uid://b7bl74jsxu3on" path="res://scenes/player/player_state/player_drown.gd" id="13_kvlxm"]
 [ext_resource type="Script" uid="uid://bea0lrgqy0cag" path="res://scenes/player/player_state/player_grapple_hook.gd" id="13_ugbui"]
 [ext_resource type="Script" uid="uid://drtsbr2w8ifar" path="res://scenes/player/player_state/player_jetpack/player_jetpack.gd" id="14_fcs02"]
+[ext_resource type="AudioStream" uid="uid://3cmnsg6ioo2l" path="res://assets/sfx/player_sounds/movement/drown.wav" id="16_cnsyf"]
 [ext_resource type="PackedScene" uid="uid://dyfpao2c8xfpn" path="res://scenes/components/damage_indicator/damage_indicator.tscn" id="16_myrg7"]
 [ext_resource type="Script" uid="uid://bo7oittgiumdi" path="res://scenes/player/player_state/player_cpu/player_cpu_projectile_module.gd" id="17_lgqa7"]
 [ext_resource type="Script" uid="uid://dkygro7a81njo" path="res://scenes/player/player_state/player_cpu.gd" id="17_uf5tr"]
@@ -29,6 +31,16 @@ height = 46.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5gtgg"]
 radius = 12.0
 height = 46.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1xhu4"]
+random_pitch = 1.0594631
+streams_count = 1
+stream_0/stream = ExtResource("11_ioxgp")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n340e"]
+random_pitch = 1.0594631
+streams_count = 1
+stream_0/stream = ExtResource("16_cnsyf")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ioxgp"]
 random_pitch = 1.0594631
@@ -85,6 +97,10 @@ script = ExtResource("5_p47bc")
 [node name="Air" type="Node" parent="StateMachine" unique_id=332589610]
 script = ExtResource("6_75vfm")
 
+[node name="LandSoundPlayer" type="AudioStreamPlayer" parent="StateMachine/Air" unique_id=1813154928]
+stream = SubResource("AudioStreamRandomizer_1xhu4")
+bus = &"SFX"
+
 [node name="Inactive" type="Node" parent="StateMachine" unique_id=497150556]
 script = ExtResource("10_gx1jg")
 
@@ -100,6 +116,10 @@ script = ExtResource("13_kvlxm")
 [node name="DrownTimer" type="Timer" parent="StateMachine/Drown" unique_id=73706997]
 wait_time = 0.25
 one_shot = true
+
+[node name="DrownSoundPlayer" type="AudioStreamPlayer" parent="StateMachine/Drown" unique_id=1172484863]
+stream = SubResource("AudioStreamRandomizer_n340e")
+bus = &"SFX"
 
 [node name="GrappleHook" type="Node" parent="StateMachine" unique_id=455664359]
 script = ExtResource("13_ugbui")

@@ -1,14 +1,24 @@
 [gd_scene format=3 uid="uid://dniqe8bmxsu7q"]
 
 [ext_resource type="Script" uid="uid://c348r2nlvflq3" path="res://gui/screens/settings/settings.gd" id="1_25ro0"]
-[ext_resource type="PackedScene" uid="uid://bocfnvrwcsq33" path="res://gui/components/background/background.tscn" id="1_biaq7"]
 [ext_resource type="PackedScene" uid="uid://bgmr6t3g43dl2" path="res://gui/theme/buttons/primary_button.tscn" id="2_25ro0"]
+[ext_resource type="Texture2D" uid="uid://ddtimfe8p578h" path="res://scenes/level/assets/moon.png" id="2_vb408"]
+[ext_resource type="Texture2D" uid="uid://b88ernq0epa1q" path="res://scenes/level/assets/star.png" id="3_e38ih"]
 [ext_resource type="PackedScene" uid="uid://riji8vjlm8de" path="res://gui/screens/settings/sub_menus/audio_settings.tscn" id="4_tcjfr"]
 [ext_resource type="PackedScene" uid="uid://drkkxlses2ss3" path="res://scenes/debug/debug_overlay.tscn" id="6_0wdkn"]
+[ext_resource type="AudioStream" uid="uid://cmvvl4gm0udoe" path="res://assets/music/evening_bg.wav" id="6_q6ii3"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_oiv2d"]
+[sub_resource type="Gradient" id="Gradient_y7213"]
+colors = PackedColorArray(0.21176471, 0.20784314, 0.3019608, 1, 0.38431373, 0.45882353, 0.7294118, 1)
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_0wdkn"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y37hy"]
+gradient = SubResource("Gradient_y7213")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_c5c3r"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_e3hvr"]
 
 [node name="Settings" type="Control" unique_id=348063604]
 layout_mode = 3
@@ -19,9 +29,39 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_25ro0")
 
-[node name="Background" parent="." unique_id=1194628109 instance=ExtResource("1_biaq7")]
+[node name="Background" type="TextureRect" parent="." unique_id=1079522887]
+modulate = Color(0.7019608, 0.7019608, 0.7019608, 1)
 layout_mode = 1
-metadata/_edit_use_anchors_ = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource("GradientTexture2D_y37hy")
+
+[node name="BackgroundLevel" type="Node2D" parent="." unique_id=925999653]
+
+[node name="Moon" type="Sprite2D" parent="BackgroundLevel" unique_id=702945759]
+position = Vector2(582, 29)
+rotation = 3.6651917
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_vb408")
+
+[node name="StarParticles" type="CPUParticles2D" parent="BackgroundLevel" unique_id=389347311]
+position = Vector2(320, 180)
+amount = 32
+texture = ExtResource("3_e38ih")
+lifetime = 30.0
+preprocess = 10.0
+lifetime_randomness = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(320, 180)
+gravity = Vector2(0, 0)
+angle_max = 360.0
+scale_amount_min = 0.25
+scale_amount_max = 0.25
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=518933988]
 layout_mode = 1
@@ -52,7 +92,7 @@ alignment = 2
 unique_name_in_owner = true
 layout_mode = 2
 toggle_mode = true
-button_group = SubResource("ButtonGroup_oiv2d")
+button_group = SubResource("ButtonGroup_c5c3r")
 text = "Audio"
 
 [node name="BackButton" parent="HBoxContainer/MenuContainer/VBoxContainer" unique_id=1378935694 instance=ExtResource("2_25ro0")]
@@ -60,7 +100,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"SecondaryButton"
 toggle_mode = true
-button_group = SubResource("ButtonGroup_0wdkn")
+button_group = SubResource("ButtonGroup_e3hvr")
 text = "Back"
 
 [node name="ContentContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=2122218056]
@@ -93,5 +133,10 @@ layout_mode = 1
 
 [node name="MarginContainer" parent="." unique_id=1840923755 instance=ExtResource("6_0wdkn")]
 layout_mode = 0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=323676273]
+stream = ExtResource("6_q6ii3")
+autoplay = true
+bus = &"Music"
 
 [connection signal="pressed" from="HBoxContainer/MenuContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
