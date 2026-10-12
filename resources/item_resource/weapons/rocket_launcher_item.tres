@@ -8,5 +8,6 @@
 script = ExtResource("1_wglb7")
 name = "Rocket Launcher"
 icon = ExtResource("2_ie7ge")
+description = "The ol' reliable! This baby can fit so many rockets in it. Don't hesitate to overuse it."
 aimable_resource = ExtResource("1_ukjmj")
 metadata/_custom_type_script = "uid://cp1j8tubsspi2"

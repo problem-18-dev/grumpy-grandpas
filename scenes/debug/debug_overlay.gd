@@ -8,6 +8,10 @@ const BUILD_VERSION: String = "application/config/version"
 
 
 func _ready() -> void:
+	if not OS.is_debug_build():
+		queue_free()
+		return
+
 	build_label.text = "Build: %s" % ProjectSettings.get_setting(BUILD_VERSION)
 	_on_fps_timer_timeout()
 

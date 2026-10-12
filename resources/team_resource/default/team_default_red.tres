@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://ccrc8sl42duol" path="res://resources/player_resource/player_resource.gd" id="2_krw1k"]
 [ext_resource type="Script" uid="uid://05fqs75xukhe" path="res://resources/team_resource/team_resource.gd" id="3_dprou"]
 [ext_resource type="Resource" uid="uid://dg268oqi3o2lj" path="res://resources/item_resource/tools/jetpack_item.tres" id="3_jlk4y"]
+[ext_resource type="Resource" uid="uid://cff7pttnqgpo5" path="res://resources/item_resource/weapons/sniper_item.tres" id="4_jlk4y"]
 
 [sub_resource type="Resource" id="Resource_x618w"]
 script = ExtResource("2_krw1k")
@@ -29,9 +30,8 @@ metadata/_custom_type_script = "uid://ccrc8sl42duol"
 [resource]
 script = ExtResource("3_dprou")
 name = "Grandpas"
-player_health = 10
 player_resources = Array[ExtResource("2_krw1k")]([SubResource("Resource_x618w"), SubResource("Resource_s15yy"), SubResource("Resource_eupnm"), SubResource("Resource_77u24")])
-locked_items = Array[ExtResource("1_ivtx6")]([ExtResource("2_5a8lm"), ExtResource("3_jlk4y")])
+locked_items = Array[ExtResource("1_ivtx6")]([ExtResource("2_5a8lm"), ExtResource("3_jlk4y"), ExtResource("4_jlk4y")])
 is_cpu = true
 cpu_difficulty = 1
 metadata/_custom_type_script = "uid://05fqs75xukhe"

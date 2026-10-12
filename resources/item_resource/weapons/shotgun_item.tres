@@ -8,5 +8,6 @@
 script = ExtResource("1_q3odo")
 name = "Shotgun"
 icon = ExtResource("2_2fdq6")
+description = "This bad boy has 2 shots in it, make sure to make them both count."
 aimable_resource = ExtResource("1_k8af0")
 metadata/_custom_type_script = "uid://cp1j8tubsspi2"

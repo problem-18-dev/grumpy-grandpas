@@ -8,10 +8,11 @@
 [ext_resource type="Resource" uid="uid://brvicij4gfiih" path="res://resources/item_resource/weapons/grenade_launcher_item.tres" id="6_h68k8"]
 [ext_resource type="Resource" uid="uid://drlv87ogkip0u" path="res://resources/item_resource/weapons/shotgun_item.tres" id="7_opbyt"]
 [ext_resource type="Resource" uid="uid://dy5rkwn75f8ov" path="res://resources/item_resource/weapons/revolver_item.tres" id="8_uud02"]
+[ext_resource type="Resource" uid="uid://cff7pttnqgpo5" path="res://resources/item_resource/weapons/sniper_item.tres" id="9_uvfma"]
 
 [resource]
 script = ExtResource("2_uvfma")
-weapons = Array[ExtResource("3_84i5m")]([ExtResource("6_h68k8"), ExtResource("1_3u564"), ExtResource("7_opbyt"), ExtResource("8_uud02")])
+weapons = Array[ExtResource("3_84i5m")]([ExtResource("6_h68k8"), ExtResource("1_3u564"), ExtResource("7_opbyt"), ExtResource("8_uud02"), ExtResource("9_uvfma")])
 default_weapon = ExtResource("1_3u564")
 tools = Array[ExtResource("3_84i5m")]([ExtResource("4_whcsy"), ExtResource("5_eh3hb")])
 metadata/_custom_type_script = "uid://y30kphuaasrn"

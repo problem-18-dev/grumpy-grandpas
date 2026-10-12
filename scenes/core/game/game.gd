@@ -53,11 +53,14 @@ func _ready() -> void:
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if not OS.is_debug_build() or get_tree().paused or _game_ended:
+	if get_tree().paused or _game_ended:
 		return
 
 	if event.is_action_pressed(&"quit"):
 		_pause()
+
+	if not OS.is_debug_build():
+		return
 
 	if event.is_action_pressed("debug_quit"):
 		SceneLoader.load_scene(SceneLoader.Scenes.MENU)

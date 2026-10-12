@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemResource" format=3 uid="uid://cff7pttnqgpo5"]
+
+[ext_resource type="Resource" uid="uid://b2g6f3sqcl11b" path="res://resources/aimable_resource/weapons/hitscan_weapons/sniper.tres" id="1_u7bco"]
+[ext_resource type="Texture2D" uid="uid://b325pftuaxhly" path="res://scenes/aimable/weapons/hitscan_weapon/assets/sniper.png" id="2_1l1my"]
+[ext_resource type="Script" uid="uid://cp1j8tubsspi2" path="res://resources/item_resource/item_resource.gd" id="3_qoh1n"]
+
+[resource]
+script = ExtResource("3_qoh1n")
+name = "Sniper"
+icon = ExtResource("2_1l1my")
+description = "A beauty to behold. It shoots hard, but weirdly it kinda sucks upclose."
+aimable_resource = ExtResource("1_u7bco")
+metadata/_custom_type_script = "uid://cp1j8tubsspi2"

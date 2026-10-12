@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://sxkabhbydj0y" path="res://gui/hud/hud.gd" id="1_34rqw"]
 [ext_resource type="PackedScene" uid="uid://bb8fs5vr1xjp" path="res://scenes/tutorial/keycap/keycap.tscn" id="2_4w87a"]
-[ext_resource type="Texture2D" uid="uid://cgwgxskut17iw" path="res://icon.svg" id="2_rllpj"]
+[ext_resource type="Texture2D" uid="uid://cmy0363f0juwo" path="res://scenes/aimable/weapons/hitscan_weapon/assets/revolver_icon.png" id="2_rllpj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34rqw"]
 bg_color = Color(0.21176471, 0.20784314, 0.3019608, 1)

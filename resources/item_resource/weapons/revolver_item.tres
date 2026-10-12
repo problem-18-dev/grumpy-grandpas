@@ -8,5 +8,6 @@
 script = ExtResource("1_el7jw")
 name = "Revolver"
 icon = ExtResource("2_kndqj")
+description = "This one really knocks them off their socks! Best for medium range."
 aimable_resource = ExtResource("1_krd8y")
 metadata/_custom_type_script = "uid://cp1j8tubsspi2"

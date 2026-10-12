@@ -4,6 +4,7 @@
 [ext_resource type="Resource" uid="uid://dy5rkwn75f8ov" path="res://resources/item_resource/weapons/revolver_item.tres" id="2_kjmdl"]
 [ext_resource type="Resource" uid="uid://dg268oqi3o2lj" path="res://resources/item_resource/tools/jetpack_item.tres" id="3_cegn1"]
 [ext_resource type="Script" uid="uid://ccrc8sl42duol" path="res://resources/player_resource/player_resource.gd" id="3_x8qj0"]
+[ext_resource type="Resource" uid="uid://cff7pttnqgpo5" path="res://resources/item_resource/weapons/sniper_item.tres" id="4_cegn1"]
 [ext_resource type="Script" uid="uid://05fqs75xukhe" path="res://resources/team_resource/team_resource.gd" id="4_ysl21"]
 
 [sub_resource type="Resource" id="Resource_x618w"]
@@ -35,5 +36,5 @@ script = ExtResource("4_ysl21")
 name = "Grandmas"
 color = 1
 player_resources = Array[ExtResource("3_x8qj0")]([SubResource("Resource_x618w"), SubResource("Resource_tjx75"), SubResource("Resource_h2jl8"), SubResource("Resource_hx3hx")])
-locked_items = Array[ExtResource("1_ocpuu")]([ExtResource("2_kjmdl"), ExtResource("3_cegn1")])
+locked_items = Array[ExtResource("1_ocpuu")]([ExtResource("2_kjmdl"), ExtResource("3_cegn1"), ExtResource("4_cegn1")])
 metadata/_custom_type_script = "uid://05fqs75xukhe"

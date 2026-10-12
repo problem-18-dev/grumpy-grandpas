@@ -8,5 +8,6 @@
 script = ExtResource("1_1e7vt")
 name = "Grenade"
 icon = ExtResource("2_gbbn7")
+description = "Throw a grenade that bounces before it explodes, best for difficult to reach areas."
 aimable_resource = ExtResource("1_25dtg")
 metadata/_custom_type_script = "uid://cp1j8tubsspi2"

@@ -14,6 +14,7 @@ var _equipped_item: ItemResource
 @onready var items_panel: InventoryPanel = %ItemsPanel
 @onready var item_name_label: Label = %ItemNameLabel
 @onready var item_info_label: Label = %ItemInfoLabel
+@onready var item_texture: TextureRect = %ItemTexture
 
 
 func _ready() -> void:
@@ -94,12 +95,15 @@ func _on_items_panel_item_hovered(hover: bool, item: ItemResource) -> void:
 	if not hover:
 		_item_tween.kill()
 		item_name_label.text = ""
+		item_texture.texture = null
 		item_info_label.text = ""
 		return
 
 	_item_tween = create_tween().set_parallel()
 	_item_tween.tween_property(item_name_label, "modulate:a", 1.0, tween_duration).from(0.5)
+	_item_tween.tween_property(item_texture, "modulate:a", 1.0, tween_duration).from(0.5)
 	_item_tween.tween_property(item_info_label, "modulate:a", 1.0, tween_duration).from(0.5)
 
-	item_name_label.text = "%s (equipped)" % item.name if _equipped_item == item else item.name
+	item_name_label.text = "%s (eq.)" % item.name if _equipped_item == item else item.name
+	item_texture.texture = item.icon
 	item_info_label.text = item.description

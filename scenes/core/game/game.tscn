@@ -95,6 +95,7 @@ spawn_target = NodePath("../../World/EntityRoot")
 [node name="PickuppableManager" parent="Systems" unique_id=180867956 node_paths=PackedStringArray("spawn_target") instance=ExtResource("5_0c8qe")]
 unique_name_in_owner = true
 spawn_target = NodePath("../../World/EntityRoot")
+spawn_chance = 0.25
 player_guard_range = 48.0
 spawn_resources = Array[ExtResource("5_s15yy")]([ExtResource("6_eupnm"), ExtResource("7_s15yy"), ExtResource("8_eupnm")])
 
