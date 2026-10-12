@@ -27,15 +27,19 @@ func _die() -> void:
 
 	_disable_player()
 	await _play_sound()
+	_hide_player()
 	_explode()
 	_spawn_bed()
 	_cleanup()
 
 
 func _disable_player() -> void:
-	player.sprite.hide()
 	player.hurtbox.enabled = false
 	player.collision_layer = 0 # Disable all layers
+
+
+func _hide_player() -> void:
+	player.sprite.hide()
 
 
 func _play_sound() -> void:

@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://d35ssjbiwjytu" path="res://scenes/managers/camera_manager/camera_manager.tscn" id="6_l2mu6"]
 [ext_resource type="PackedScene" uid="uid://c6rdv182qtrpo" path="res://scenes/managers/busy_manager/busy_manager.tscn" id="6_t6juh"]
 [ext_resource type="PackedScene" uid="uid://bocfnvrwcsq33" path="res://gui/components/background/background.tscn" id="7_l2mu6"]
+[ext_resource type="Resource" uid="uid://bqhw1r7by1gjk" path="res://resources/pickuppable_resource/tool_crate.tres" id="7_s15yy"]
+[ext_resource type="Resource" uid="uid://cigipvuxrk2eo" path="res://resources/pickuppable_resource/weapon_crate.tres" id="8_eupnm"]
 
 [sub_resource type="Animation" id="Animation_l2mu6"]
 length = 0.001
@@ -75,7 +77,6 @@ _data = {
 [node name="Game" type="Node" unique_id=1409832964]
 process_mode = 3
 script = ExtResource("1_uf3vs")
-skip_team_intro = true
 
 [node name="Systems" type="Node" parent="." unique_id=630301451]
 process_mode = 3
@@ -93,9 +94,8 @@ spawn_target = NodePath("../../World/EntityRoot")
 [node name="PickuppableManager" parent="Systems" unique_id=180867956 node_paths=PackedStringArray("spawn_target") instance=ExtResource("5_0c8qe")]
 unique_name_in_owner = true
 spawn_target = NodePath("../../World/EntityRoot")
-spawn_chance = 1.0
 player_guard_range = 48.0
-spawn_resources = Array[ExtResource("5_s15yy")]([ExtResource("6_eupnm")])
+spawn_resources = Array[ExtResource("5_s15yy")]([ExtResource("6_eupnm"), ExtResource("7_s15yy"), ExtResource("8_eupnm")])
 
 [node name="CameraManager" parent="Systems" unique_id=22320113 instance=ExtResource("6_l2mu6")]
 unique_name_in_owner = true

@@ -10,7 +10,11 @@
 		{
 			"uuid": "28fdaf0a-1c07-487b-8aff-f42619c35efc",
 			"title": "Todo",
-			"tasks": []
+			"tasks": [
+				"ccc47165-6961-40c2-a563-eb3b75e5dc44",
+				"3d73c763-b6eb-4cdd-aa69-185e2c1a30a9",
+				"94e124cd-7053-45c9-ba16-43977a9d271c"
+			]
 		},
 		{
 			"uuid": "40497cc6-13fd-4ee0-8c8a-501f1679fe85",
@@ -213,6 +217,41 @@
 					"done": true
 				}
 			]
+		},
+		{
+			"uuid": "ccc47165-6961-40c2-a563-eb3b75e5dc44",
+			"title": "[Balance] Make proper default teams",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "cc6354e8-dbc3-4e54-b953-5dd0cc1b796b",
+			"title": "[",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "3d73c763-b6eb-4cdd-aa69-185e2c1a30a9",
+			"title": "[Bug] death looks weird",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "94e124cd-7053-45c9-ba16-43977a9d271c",
+			"title": "[Bug] Weapon not properly flipped on start",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
+		},
+		{
+			"uuid": "4d88e77f-bf88-415d-b576-b0dfdb9ae7f9",
+			"title": "New task",
+			"description": "",
+			"category": "d6502c35-261e-4a08-ba5e-1e9c184e213f",
+			"steps": []
 		}
 	],
 	"layout": {
