@@ -80,7 +80,6 @@ text = "Quit"
 
 [node name="SettingsContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer" unique_id=1037909445]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"PrimaryMarginContainer"

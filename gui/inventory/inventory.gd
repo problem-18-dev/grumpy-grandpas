@@ -19,6 +19,7 @@ var _equipped_item: ItemResource
 
 func _ready() -> void:
 	item_name_label.text = ""
+	item_texture.texture = null
 	item_info_label.text = ""
 	_spawn_weapon_buttons()
 	_spawn_tool_buttons()

@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b325pftuaxhly" path="res://scenes/aimable/weapons/hitscan_weapon/assets/sniper.png" id="4_tcrca"]
 
 [sub_resource type="Curve" id="Curve_xsotv"]
-_data = [Vector2(0, 0.25000006), 0.0, 0.0, 0, 0, Vector2(0.34814817, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.55), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.25000006), 0.0, 0.0, 0, 0, Vector2(0.59999996, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.55), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="Resource" id="Resource_t6q88"]
