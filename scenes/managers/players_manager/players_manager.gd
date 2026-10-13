@@ -10,6 +10,7 @@ signal player_ammo_changed(ammo_remaining: int, current_item: ItemResource, play
 signal player_firing_finished(player: Player)
 
 const PLAYER := preload("uid://bmag23mf230r3")
+const PLAYER_HELLO_CHANCE := 0.5
 
 @export_group("Spawn")
 @export var spawn_target: Node2D
@@ -234,6 +235,9 @@ func _show_player(player: Player, duration := 1.0) -> void:
 
 
 func _player_play_sound(player: Player, type: SfxConfig.PlayerSoundType) -> void:
+	if randf() <= PLAYER_HELLO_CHANCE:
+		return
+
 	var hello_sound := SfxConfig.get_player_sound(player.gender, type)
 	AudioManager.play_sfx(hello_sound)
 
